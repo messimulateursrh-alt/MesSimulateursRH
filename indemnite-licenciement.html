@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur Indemnité de Licenciement 2026</title>
+<meta name="description" content="Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.">
+<!-- SEO-META-START -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://messimulateursrh.fr/indemnite-licenciement.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MesSimulateursRH.fr">
+<meta property="og:title" content="Simulateur Indemnité de Licenciement 2026">
+<meta property="og:description" content="Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.">
+<meta property="og:url" content="https://messimulateursrh.fr/indemnite-licenciement.html">
+<meta property="og:image" content="https://messimulateursrh.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Simulateur Indemnité de Licenciement 2026">
+<meta name="twitter:description" content="Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.">
+<meta name="twitter:image" content="https://messimulateursrh.fr/og-image.png">
+<meta name="robots" content="index, follow">
+<!-- SEO-META-END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Cette indemnité s'ajoute-t-elle au préavis et aux congés payés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L'indemnité de licenciement est distincte de l'indemnité compensatrice de préavis (si le salarié en est dispensé) et de l'indemnité de congés payés non pris. Ce simulateur ne calcule que l'indemnité légale de licenciement — utilisez le simulateur de préavis pour le second élément."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je contester un licenciement que je juge abusif ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, un salarié peut saisir le conseil de prud'hommes s'il estime que son licenciement est dépourvu de cause réelle et sérieuse, en plus ou indépendamment de l'indemnité légale. Ce simulateur ne traite que le calcul du montant légal, pas la contestation du motif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que se passe-t-il en cas de faute grave ou lourde ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aucune indemnité légale de licenciement n'est due en cas de faute grave ou lourde, sauf disposition plus favorable de la convention collective. Le préavis n'est pas dû non plus dans ce cas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'indemnité de licenciement est-elle imposable ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'indemnité légale ou conventionnelle de licenciement est généralement exonérée d'impôt sur le revenu et de cotisations sociales dans certaines limites (proches de celles applicables à la rupture conventionnelle). Au-delà de ces seuils, elle peut être partiellement soumise à cotisations et à CSG/CRDS. Rapprochez-vous d'un expert-comptable pour un calcul précis selon votre situation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment est calculée l'ancienneté si j'ai eu un arrêt maladie ou un congé parental ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les arrêts maladie d'origine non professionnelle suspendent le contrat mais ne réduisent pas l'ancienneté prise en compte pour l'indemnité légale de licenciement. Les congés parentaux d'éducation à temps plein, en revanche, ne comptent que pour moitié dans le calcul de l'ancienneté, sauf disposition plus favorable de la convention collective."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre indemnité légale et indemnité conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'indemnité légale est le montant plancher fixé par le Code du travail, calculé par ce simulateur. L'indemnité conventionnelle, prévue par certaines conventions collectives (métallurgie, Syntec, etc.), peut être plus favorable : dans ce cas, c'est elle qui s'applique. Vérifiez toujours votre convention collective avant de vous baser uniquement sur le montant légal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quand l'indemnité de licenciement doit-elle être versée ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elle est en principe versée au moment du solde de tout compte, à la fin du contrat (après la période de préavis, effectuée ou non). Elle doit apparaître sur le dernier bulletin de paie et le reçu pour solde de tout compte remis au salarié."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur Indemnité de Licenciement 2026",
+  "description": "Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.",
+  "url": "https://messimulateursrh.fr/indemnite-licenciement.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Tout navigateur web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandmark-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1742b8"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#brandmark-g)"/><text x="50" y="69" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="white" text-anchor="middle">€</text></svg>Mes<span>Simulateurs</span>RH</a>
+    <button type="button" class="search-toggle" id="search-toggle" aria-haspopup="dialog" aria-controls="search-overlay" aria-label="Rechercher un sujet">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="main">
+      <a href="rupture-conventionnelle.html">Rupture conventionnelle</a>
+      <a href="indemnite-licenciement.html">Licenciement</a>
+      <a href="preavis.html">Préavis</a>
+      <a href="droits-chomage.html">Droits au chômage</a>
+      <a href="ressources-officielles.html">Ressources officielles</a>
+      <a href="formation.html">Formation</a>
+      <a href="actualites.html">Actualités</a>
+    </nav>
+    <div class="audience-toggle">
+      <button data-audience="salarie">Je suis salarié</button>
+      <button data-audience="employeur">Je suis employeur</button>
+    </div>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
+    <div class="search-panel-top">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+    <p class="search-empty" id="search-empty" hidden>Aucun résultat. Essayez : chômage, salaire, congés, retraite...</p>
+  </div>
+</div>
+
+<main id="main">
+  <section class="hero">
+    <h1>Simulateur d'indemnité de licenciement</h1>
+    <p>
+      <span class="for-salarie">Estimez le montant minimum que votre employeur doit vous verser en cas de licenciement.</span>
+      <span class="for-employeur">Estimez le montant minimum à provisionner en cas de licenciement.</span>
+    </p>
+    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <p class="update-date">Barème vérifié le 18 août 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+  </section>
+
+  <div class="quick-answer"><strong>En bref :</strong> L'indemnité légale de licenciement équivaut à 1/4 de mois de salaire par année d'ancienneté pendant 10 ans, puis 1/3 de mois par année au-delà, à partir de 8 mois d'ancienneté.</div>
+
+  <div class="card">
+    <div class="field">
+      <label for="salaire12L">Salaire mensuel brut moyen — 12 derniers mois</label>
+      <input type="number" id="salaire12L" min="0" step="0.01" placeholder="ex : 2800">
+    </div>
+    <div class="field">
+      <label for="salaire3L">Salaire mensuel brut moyen — 3 derniers mois (optionnel)</label>
+      <input type="number" id="salaire3L" min="0" step="0.01" placeholder="ex : 2950">
+      <div class="hint">La loi retient le montant le plus favorable entre les deux moyennes.</div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="anneesL">Ancienneté — années</label>
+        <input type="number" id="anneesL" min="0" step="1" placeholder="ex : 4">
+      </div>
+      <div class="field">
+        <label for="moisL">Ancienneté — mois</label>
+        <input type="number" id="moisL" min="0" max="11" step="1" placeholder="ex : 6">
+      </div>
+    </div>
+    <div class="field">
+      <label for="motifL">Motif du licenciement</label>
+      <select id="motifL">
+        <option value="normal">Motif personnel ou économique (hors faute grave/lourde)</option>
+        <option value="grave">Faute grave ou lourde</option>
+      </select>
+      <div class="hint">En cas de faute grave ou lourde, aucune indemnité légale de licenciement n'est due.</div>
+    </div>
+    <button class="compute" onclick="calculerLicenciement()">Calculer</button>
+
+    <div class="result" id="resultL">
+      <div class="for-salarie"><div class="amount" id="montantL">—</div>
+        <div class="detail">Indemnité légale minimale due. Votre convention collective peut prévoir un montant plus favorable — vérifiez-la.</div>
+      </div>
+      <div class="for-employeur"><div class="amount" id="montantLEmployeur">—</div>
+        <div class="detail">Indemnité légale minimale à provisionner (hors indemnité de préavis et de congés payés).</div>
+      </div>
+      <div class="breakdown" id="breakdownL"></div>
+      <div class="pdf-actions">
+        <button class="compute pdf" onclick="telechargerPDF_L()">📄 Télécharger le PDF récapitulatif</button>
+        <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
+        <p class="report-error">⚠️ <a href="mailto:messimulateursrh@gmail.com?subject=Erreur%20signal%C3%A9e%20-%20Simulateur%20d%27indemnit%C3%A9%20de%20licenciement">Signaler une erreur sur ce résultat</a></p>
+      
+      </div>
+    </div>
+    <div class="notice" id="noticeSeuilL" style="display:none;"></div>
+  </div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="content-section">
+    <h2>Comment est calculée l'indemnité légale de licenciement ?</h2>
+    <p>
+      Sauf en cas de faute grave ou lourde, tout salarié licencié après au moins 8 mois d'ancienneté ininterrompue a droit à une indemnité légale de licenciement (<a href="https://code.travail.gouv.fr/outils/indemnite-licenciement" target="_blank" rel="noopener noreferrer">Art. R1234-2 du Code du travail — simulateur officiel</a>). Elle se calcule ainsi : un quart de mois de salaire de référence par année d'ancienneté pour les 10 premières années, puis un tiers de mois par année au-delà de 10 ans.
+    </p>
+    <p>
+      Le salaire de référence retenu est le plus favorable entre la moyenne mensuelle des 12 derniers mois précédant le licenciement et le tiers des 3 derniers mois (primes annuelles ou exceptionnelles comptées au prorata). Ce barème légal est un plancher : de nombreuses conventions collectives prévoient des montants plus favorables — vérifiez la vôtre avant toute négociation.
+    </p>
+
+    <h2>Questions fréquentes</h2>
+    <details class="faq">
+      <summary>Cette indemnité s'ajoute-t-elle au préavis et aux congés payés ?</summary>
+      <p>Oui. L'indemnité de licenciement est distincte de l'indemnité compensatrice de préavis (si le salarié en est dispensé) et de l'indemnité de congés payés non pris. Ce simulateur ne calcule que l'indemnité légale de licenciement — utilisez le <a href="preavis.html">simulateur de préavis</a> pour le second élément.</p>
+    </details>
+    <details class="faq">
+      <summary>Puis-je contester un licenciement que je juge abusif ?</summary>
+      <p>Oui, un salarié peut <a href="https://www.justice.fr/" target="_blank" rel="noopener noreferrer">saisir le conseil de prud'hommes</a> s'il estime que son licenciement est dépourvu de cause réelle et sérieuse, en plus ou indépendamment de l'indemnité légale. Ce simulateur ne traite que le calcul du montant légal, pas la contestation du motif.</p>
+    </details>
+    <details class="faq">
+      <summary>Que se passe-t-il en cas de faute grave ou lourde ?</summary>
+      <p>Aucune indemnité légale de licenciement n'est due en cas de faute grave ou lourde, sauf disposition plus favorable de la convention collective. Le préavis n'est pas dû non plus dans ce cas.</p>
+    </details>
+    <details class="faq">
+      <summary>L'indemnité de licenciement est-elle imposable ?</summary>
+      <p>L'indemnité légale ou conventionnelle de licenciement est généralement exonérée d'impôt sur le revenu et de cotisations sociales dans certaines limites (proches de celles applicables à la rupture conventionnelle). Au-delà de ces seuils, elle peut être partiellement soumise à cotisations et à CSG/CRDS. Rapprochez-vous d'un expert-comptable pour un calcul précis selon votre situation.</p>
+    </details>
+    <details class="faq">
+      <summary>Comment est calculée l'ancienneté si j'ai eu un arrêt maladie ou un congé parental ?</summary>
+      <p>Les arrêts maladie d'origine non professionnelle suspendent le contrat mais ne réduisent pas l'ancienneté prise en compte pour l'indemnité légale de licenciement. Les congés parentaux d'éducation à temps plein, en revanche, ne comptent que pour moitié dans le calcul de l'ancienneté, sauf disposition plus favorable de la convention collective.</p>
+    </details>
+    <details class="faq">
+      <summary>Quelle différence entre indemnité légale et indemnité conventionnelle ?</summary>
+      <p>L'indemnité légale est le montant plancher fixé par le Code du travail, calculé par ce simulateur. L'indemnité conventionnelle, prévue par certaines conventions collectives (métallurgie, Syntec, etc.), peut être plus favorable : dans ce cas, c'est elle qui s'applique. Vérifiez toujours votre convention collective avant de vous baser uniquement sur le montant légal.</p>
+    </details>
+    <details class="faq">
+      <summary>Quand l'indemnité de licenciement doit-elle être versée ?</summary>
+      <p>Elle est en principe versée au moment du solde de tout compte, à la fin du contrat (après la période de préavis, effectuée ou non). Elle doit apparaître sur le dernier bulletin de paie et le reçu pour solde de tout compte remis au salarié.</p>
+    </details>
+
+    <div class="related-tools">
+      <h3>Autres simulateurs utiles</h3>
+      <div class="links">
+        <a href="rupture-conventionnelle.html">→ Rupture conventionnelle</a>
+        <a href="preavis.html">→ Durée de préavis</a>
+        <a href="droits-chomage.html">→ Droits au chômage (ARE)</a>
+        <a href="solde-tout-compte.html">→ Solde de tout compte</a>
+        <a href="indemnite-conges-payes.html">→ Indemnité de congés payés</a>
+        <a href="calcul-anciennete.html">→ Calcul d'ancienneté</a>
+        <a href="cout-licenciement-employeur.html">→ Coût total pour l'employeur</a>
+        <a href="identifier-convention-collective.html">→ Identifier sa convention collective</a>
+        <a href="ressources-officielles.html">→ Ressources officielles</a>
+      </div>
+    </div>
+  </section>
+  <div class="ad-slot ad-slot-bottom">Emplacement publicitaire</div>
+</main>
+
+<footer class="site">
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail, ancienneté minimale de 8 mois). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.
+    <br><br>
+    <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script src="logique-calculs.txt"></script>
+<script>
+function calculerLicenciement(){
+  var s12 = parseFloat(document.getElementById('salaire12L').value) || 0;
+  var s3 = parseFloat(document.getElementById('salaire3L').value) || 0;
+  var salaireRef = Math.max(s12, s3);
+  var annees = anneesDecimal(document.getElementById('anneesL').value, document.getElementById('moisL').value);
+  var motif = document.getElementById('motifL').value;
+
+  var resultBox = document.getElementById('resultL');
+  var noticeSeuilL = document.getElementById('noticeSeuilL');
+
+  if (salaireRef <= 0 || annees <= 0){
+    resultBox.classList.remove('show');
+    noticeSeuilL.style.display = 'none';
+    return;
+  }
+
+  if (motif === 'grave'){
+    resultBox.classList.remove('show');
+    noticeSeuilL.style.display = 'block';
+    noticeSeuilL.textContent = 'En cas de faute grave ou lourde, le Code du travail ne prévoit aucune indemnité légale de licenciement (des exceptions conventionnelles peuvent exister).';
+    return;
+  }
+
+  if (annees < (8/12)){
+    resultBox.classList.remove('show');
+    noticeSeuilL.style.display = 'block';
+    noticeSeuilL.textContent = "À moins de 8 mois d'ancienneté, aucune indemnité légale n'est due (sauf disposition plus favorable de votre convention collective).";
+    return;
+  }
+  noticeSeuilL.style.display = 'none';
+
+  var indemnite = indemniteLegale(salaireRef, annees);
+  document.getElementById('montantL').textContent = euros(indemnite);
+  document.getElementById('montantLEmployeur').textContent = euros(indemnite);
+
+  var detailTxt = 'Salaire de référence retenu : ' + euros(salaireRef) + '. Ancienneté prise en compte : ' + annees.toFixed(2) + ' an(s).';
+  if (annees > 10){
+    detailTxt += ' Détail : 10 ans × 1/4 de mois (' + euros(10*(salaireRef/4)) + '), puis ' + (annees-10).toFixed(2) + ' an(s) × 1/3 de mois (' + euros((annees-10)*(salaireRef/3)) + ').';
+  } else {
+    detailTxt += ' Détail : ' + annees.toFixed(2) + ' an(s) × 1/4 de mois de salaire.';
+  }
+  document.getElementById('breakdownL').textContent = detailTxt;
+
+  resultBox.classList.add('show');
+}
+
+function telechargerPDF_L(){
+  var s12 = parseFloat(document.getElementById('salaire12L').value) || 0;
+  var s3 = parseFloat(document.getElementById('salaire3L').value) || 0;
+  var salaireRef = Math.max(s12, s3);
+  var annees = anneesDecimal(document.getElementById('anneesL').value, document.getElementById('moisL').value);
+  var motif = document.getElementById('motifL').value;
+  if (salaireRef <= 0 || annees < (8/12) || motif === 'grave') return;
+
+  var indemnite = indemniteLegale(salaireRef, annees);
+  var lignes = [
+    { label: 'Salaire de référence retenu', value: euros(salaireRef) },
+    { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' }
+  ];
+  if (annees > 10){
+    lignes.push({ label: '10 premières années (1/4 de mois/an)', value: euros(10*(salaireRef/4)) });
+    lignes.push({ label: 'Années au-delà de 10 ans (1/3 de mois/an)', value: euros((annees-10)*(salaireRef/3)) });
+  }
+  lignes.push({ label: 'Indemnité légale de licenciement', value: euros(indemnite), type: 'total' });
+
+  genererPDFSimulation({
+    titre: "Simulation d'indemnité de licenciement",
+    sousTitre: 'Montant légal minimum dû, hors préavis et congés payés',
+    lignes: lignes,
+    disclaimer: "Simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.",
+    nomFichier: 'simulation-indemnite-licenciement.pdf'
+  });
+}
+</script>
+</body>
+</html>

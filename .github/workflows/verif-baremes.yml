@@ -1,0 +1,67 @@
+name: Vérification mensuelle des barèmes (SMIC / PASS)
+
+on:
+  schedule:
+    # Le 3 de chaque mois à 7h heure de Paris (6h UTC en hiver, 5h UTC en été -
+    # cron ne gère pas le changement d'heure, 6h UTC reste un bon compromis).
+    - cron: '0 6 3 * *'
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  verifier-baremes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du site
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Lancer la vérification
+        id: verif
+        run: |
+          set +e
+          OUTPUT=$(python3 scripts/verifier_baremes.py 2>&1)
+          EXIT_CODE=$?
+          echo "$OUTPUT"
+          echo "exit_code=$EXIT_CODE" >> "$GITHUB_OUTPUT"
+          {
+            echo "output<<VERIF_EOF"
+            echo "$OUTPUT"
+            echo "VERIF_EOF"
+          } >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Ouvrir une issue si écart détecté
+        if: steps.verif.outputs.exit_code == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `${{ steps.verif.outputs.output }}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '⚠️ Écart de barème détecté (SMIC / PASS)',
+              body: "Le contrôle mensuel automatique a détecté un écart entre les valeurs codées dans `logique-calculs.txt` et les valeurs officielles publiées par OpenFisca-France.\n\n```\n" + body + "\n```\n\nAucune modification n'a été faite automatiquement. Vérifiez la nouvelle valeur sur une source primaire (legifrance.gouv.fr, urssaf.fr/taux-baremes) avant toute mise à jour.",
+              labels: ['barème', 'à vérifier']
+            });
+
+      - name: Ouvrir une issue si la vérification a échoué (API indisponible)
+        if: steps.verif.outputs.exit_code == '3'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `${{ steps.verif.outputs.output }}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'ℹ️ Vérification des barèmes impossible ce mois-ci',
+              body: "Le contrôle mensuel n'a pas pu joindre l'API OpenFisca (instance de prototypage, sans garantie de disponibilité). Aucun écart n'a été détecté, mais aucune vérification n'a eu lieu non plus.\n\n```\n" + body + "\n```\n\nCe n'est pas urgent : à vérifier manuellement si ça se reproduit plusieurs mois de suite.",
+              labels: ['barème', 'info']
+            });

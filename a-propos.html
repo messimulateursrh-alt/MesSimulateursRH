@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À propos de MesSimulateursRH.fr — méthode et sources</title>
+<meta name="description" content="Qui édite MesSimulateursRH.fr, quelles sources officielles (Code du travail, URSSAF, France Travail) et comment le barème est vérifié.">
+<!-- SEO-META-START -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://messimulateursrh.fr/a-propos.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MesSimulateursRH.fr">
+<meta property="og:title" content="À propos de MesSimulateursRH.fr — méthode et sources">
+<meta property="og:description" content="Qui édite MesSimulateursRH.fr, quelles sources officielles (Code du travail, URSSAF, France Travail) et comment le barème est vérifié.">
+<meta property="og:url" content="https://messimulateursrh.fr/a-propos.html">
+<meta property="og:image" content="https://messimulateursrh.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="À propos de MesSimulateursRH.fr — méthode et sources">
+<meta name="twitter:description" content="Qui édite MesSimulateursRH.fr, quelles sources officielles (Code du travail, URSSAF, France Travail) et comment le barème est vérifié.">
+<meta name="twitter:image" content="https://messimulateursrh.fr/og-image.png">
+<meta name="robots" content="index, follow">
+<!-- SEO-META-END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.min.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandmark-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1742b8"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#brandmark-g)"/><text x="50" y="69" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="white" text-anchor="middle">€</text></svg>Mes<span>Simulateurs</span>RH</a>
+    <button type="button" class="search-toggle" id="search-toggle" aria-haspopup="dialog" aria-controls="search-overlay" aria-label="Rechercher un sujet">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="main">
+      <a href="rupture-conventionnelle.html">Rupture conventionnelle</a>
+      <a href="indemnite-licenciement.html">Licenciement</a>
+      <a href="preavis.html">Préavis</a>
+      <a href="droits-chomage.html">Droits au chômage</a>
+      <a href="ressources-officielles.html">Ressources officielles</a>
+      <a href="formation.html">Formation</a>
+      <a href="actualites.html">Actualités</a>
+    </nav>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
+    <div class="search-panel-top">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+    <p class="search-empty" id="search-empty" hidden>Aucun résultat. Essayez : chômage, salaire, congés, retraite...</p>
+  </div>
+</div>
+
+<main id="main">
+  <section class="hero">
+    <h1>À propos de MesSimulateursRH.fr</h1>
+    <p>
+      Qui édite ce site, comment les calculs sont construits et vérifiés, et sur quelles sources officielles ils s'appuient.
+    </p>
+  </section>
+
+  <div class="card">
+    <h2>Qui édite ce site ?</h2>
+    <p>
+      MesSimulateursRH.fr est un projet indépendant, édité à titre non professionnel. Ce n'est ni un cabinet d'avocats, ni un cabinet d'expertise comptable, ni un organisme officiel : c'est un site d'outils gratuits destiné à aider les salariés et les employeurs à obtenir rapidement un ordre de grandeur chiffré, avant d'aller plus loin si nécessaire avec un professionnel du droit ou l'administration compétente.
+    </p>
+
+    <h2>Notre méthode</h2>
+    <p>
+      Chaque simulateur applique une formule légale précise (article du Code du travail, barème officiel), documentée directement sur la page du simulateur concerné, avec le détail du calcul affiché à côté du résultat — jamais seulement un chiffre final. Les formules sont vérifiées avec des cas de test connus avant publication, et recalculées à chaque revalorisation officielle (SMIC, plafond annuel de la sécurité sociale, seuils d'exonération, barèmes de l'allocation chômage).
+    </p>
+
+    <div class="privacy-highlight">
+      <h2>Confidentialité par conception</h2>
+      <p>
+        Tous les calculs s'exécutent entièrement dans votre navigateur, PDF récapitulatif compris. Aucune donnée saisie (salaire, ancienneté, situation) n'est envoyée à un serveur, stockée ou transmise à un tiers. Aucun compte n'est nécessaire pour utiliser un simulateur, et aucune adresse email n'est demandée pour télécharger un résultat en PDF — contrairement à certains outils similaires qui exigent votre email avant de débloquer le téléchargement. Ce choix n'est pas accessoire : beaucoup de nos visiteurs préparent un départ ou négocient leur situation de façon discrète, et ne devraient pas avoir à laisser une trace pour obtenir une estimation.
+      </p>
+    </div>
+
+    <h2>Nos sources</h2>
+    <p>
+      Les montants et règles utilisés s'appuient exclusivement sur des sources officielles publiques : le Code du travail et Légifrance, le site du ministère du Travail (Code du travail numérique), l'URSSAF, France Travail et l'Unédic, l'Assurance Maladie (Ameli) pour les indemnités journalières, et les lois de financement de la Sécurité sociale (LFSS) et leurs décrets d'application relayés sur info.gouv.fr pour les dispositifs récents (par exemple le congé de naissance, en vigueur depuis le 1ᵉʳ juillet 2026). Une sélection de ces sources, avec liens directs, est disponible sur notre page <a href="ressources-officielles.html">ressources officielles</a>.
+    </p>
+
+    <h2>Mise à jour</h2>
+    <p>
+      L'ensemble du barème légal utilisé sur le site a été vérifié le <strong>18 août 2026</strong>. La date de dernière vérification est rappelée sur chaque page de simulateur. Une revue est prévue à chaque revalorisation officielle connue (généralement au 1ᵉʳ janvier et au 1ᵉʳ juillet), ainsi qu'à chaque changement réglementaire significatif.
+    </p>
+    <p>
+      En complément de cette revue manuelle, le SMIC et le plafond de la Sécurité sociale (PASS) sont recoupés automatiquement chaque mois avec les données officielles via <a href="https://openfisca.org" target="_blank" rel="noopener noreferrer">OpenFisca</a> — un projet open source de calcul de la législation sociale française. Tout écart déclenche une alerte, examinée manuellement avant toute mise à jour du site. Le détail de cette vérification, comme l'ensemble du code du site, est public sur
+      <!-- À COMPLÉTER : remplacer par l'URL réelle du dépôt une fois publié sur GitHub -->
+      <a href="https://github.com/TON-COMPTE/simulateur-rh" target="_blank" rel="noopener noreferrer">GitHub</a>.
+    </p>
+
+    <h2>Ce que ce site ne fait pas</h2>
+    <p>
+      Les simulateurs donnent une estimation indicative basée sur le barème légal minimum. Ils ne remplacent pas un conseil juridique, comptable ou social personnalisé : votre convention collective, votre contrat de travail ou votre situation individuelle peuvent modifier le résultat.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Une erreur à signaler, un lien cassé, une question ? Écrivez à <a href="mailto:messimulateursrh@gmail.com">messimulateursrh@gmail.com</a>.
+    </p>
+  </div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+  <div class="ad-slot ad-slot-bottom">Emplacement publicitaire</div>
+</main>
+
+<footer class="site">
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> ce site fournit des estimations indicatives basées sur le barème légal minimum du Code du travail et ne remplace pas un conseil juridique personnalisé.
+    <br><br>
+    <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script src="logique-calculs.txt"></script>
+</body>
+</html>

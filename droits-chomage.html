@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur Droits au Chômage (ARE) 2026</title>
+<meta name="description" content="Estimez votre éligibilité et le montant de l'allocation chômage (ARE) après un licenciement ou une rupture conventionnelle. Gratuit et local.">
+<!-- SEO-META-START -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://messimulateursrh.fr/droits-chomage.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MesSimulateursRH.fr">
+<meta property="og:title" content="Simulateur Droits au Chômage (ARE) 2026">
+<meta property="og:description" content="Estimez votre éligibilité et le montant de l'allocation chômage (ARE) après un licenciement ou une rupture conventionnelle. Gratuit et local.">
+<meta property="og:url" content="https://messimulateursrh.fr/droits-chomage.html">
+<meta property="og:image" content="https://messimulateursrh.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Simulateur Droits au Chômage (ARE) 2026">
+<meta name="twitter:description" content="Estimez votre éligibilité et le montant de l'allocation chômage (ARE) après un licenciement ou une rupture conventionnelle. Gratuit et local.">
+<meta name="twitter:image" content="https://messimulateursrh.fr/og-image.png">
+<meta name="robots" content="index, follow">
+<!-- SEO-META-END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Ai-je droit au chômage après une démission ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En principe non : une démission classique n'ouvre pas droit à l'ARE. Il existe des exceptions dites de \"démission légitime\" (déménagement pour suivre un conjoint, non-paiement de salaire, etc.) et depuis 2019 un dispositif pour les projets de reconversion professionnelle sous conditions strictes. Une rupture conventionnelle, elle, ouvre droit à l'ARE comme un licenciement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ce montant est-il garanti ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Il s'agit d'une estimation simplifiée à titre indicatif. Le calcul réel de France Travail utilise vos bulletins de salaire exacts sur toute la période de référence et applique des règles complémentaires (jours non travaillés, régularisations, dégressivité) que ce simulateur ne reproduit pas. Utilisez le simulateur officiel de France Travail pour une estimation plus précise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le délai de carence retarde-t-il le premier versement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue, calculé en divisant la fraction excédentaire par 90). Ce simulateur ne calcule pas ce délai."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, depuis une loi du 12 juin 2026 (n° 2026-470). Pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026, la durée maximale passe de 18 à 15 mois pour les moins de 55 ans, et de 22,5 à 27,5 mois à 20,5 mois pour les 55 ans et plus (avec prolongation possible après examen par France Travail au 12e mois). Cette réduction ne concerne que la rupture conventionnelle : un licenciement ou une fin de CDD n'est pas affecté. Voir le détail officiel sur le Code du travail numérique. Le simulateur ci-dessus prend en compte cette distinction si vous précisez la date d'effet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dans quel délai dois-je m'inscrire à France Travail après la fin de mon contrat ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il est recommandé de s'inscrire dès le lendemain de la fin du contrat, idéalement dans les 12 mois suivants pour ne pas risquer de perdre des droits, certains délais et différés d'indemnisation étant calculés à partir de la date de fin de contrat et non de la date d'inscription."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'allocation chômage (ARE) est-elle imposable ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, l'ARE est imposable sur le revenu et soumise à la CSG/CRDS (à un taux réduit ou nul selon vos ressources), sauf pour les allocataires aux revenus les plus modestes qui peuvent en être exonérés. France Travail transmet chaque année un montant pré-rempli à l'administration fiscale."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur Droits au Chômage (ARE) 2026",
+  "description": "Estimez votre éligibilité et le montant de l'allocation chômage (ARE) après un licenciement ou une rupture conventionnelle. Gratuit et local.",
+  "url": "https://messimulateursrh.fr/droits-chomage.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Tout navigateur web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandmark-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1742b8"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#brandmark-g)"/><text x="50" y="69" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="white" text-anchor="middle">€</text></svg>Mes<span>Simulateurs</span>RH</a>
+    <button type="button" class="search-toggle" id="search-toggle" aria-haspopup="dialog" aria-controls="search-overlay" aria-label="Rechercher un sujet">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="main">
+      <a href="rupture-conventionnelle.html">Rupture conventionnelle</a>
+      <a href="indemnite-licenciement.html">Licenciement</a>
+      <a href="preavis.html">Préavis</a>
+      <a href="droits-chomage.html">Droits au chômage</a>
+      <a href="ressources-officielles.html">Ressources officielles</a>
+      <a href="formation.html">Formation</a>
+      <a href="actualites.html">Actualités</a>
+    </nav>
+    <div class="audience-toggle">
+      <button data-audience="salarie">Je suis salarié</button>
+      <button data-audience="employeur">Je suis employeur</button>
+    </div>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
+    <div class="search-panel-top">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+    <p class="search-empty" id="search-empty" hidden>Aucun résultat. Essayez : chômage, salaire, congés, retraite...</p>
+  </div>
+</div>
+
+<main id="main">
+  <section class="hero">
+    <h1>Mes droits au chômage après une rupture de contrat</h1>
+    <p>
+      <span class="for-salarie">Après un licenciement ou une rupture conventionnelle, estimez si vous avez droit à l'allocation chômage (ARE) et son montant indicatif.</span>
+      <span class="for-employeur">Vérifiez si votre salarié pourra prétendre à l'allocation chômage selon le motif de la rupture.</span>
+    </p>
+    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <p class="update-date">Barème vérifié le 18 août 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+  </section>
+
+  <div class="quick-answer"><strong>En bref :</strong> L'ARE journalière retient le montant le plus favorable entre 40,4 % du salaire journalier de référence + 13,18 €, et 57 % du salaire journalier de référence.</div>
+
+  <div class="card">
+    <div class="field">
+      <label for="motifRupture">Motif de fin de contrat</label>
+      <select id="motifRupture" onchange="toggleDateRC()">
+        <option value="licenciement">Licenciement (hors faute grave/lourde)</option>
+        <option value="rc">Rupture conventionnelle homologuée</option>
+        <option value="findecdd">Fin de CDD / non-renouvellement</option>
+        <option value="demission">Démission</option>
+      </select>
+    </div>
+    <div class="field" id="groupeDateRC" style="display:none;">
+      <label for="dateRC">Votre rupture conventionnelle prend-elle effet à partir du 1er septembre 2026 ?</label>
+      <select id="dateRC">
+        <option value="oui">Oui, à partir du 1er septembre 2026</option>
+        <option value="non">Non, avant le 1er septembre 2026</option>
+        <option value="incertain">Je ne sais pas encore</option>
+      </select>
+      <div class="hint">Une loi du 12 juin 2026 réduit la durée d'indemnisation spécifiquement pour les ruptures conventionnelles prenant effet à cette date ou après.</div>
+    </div>
+    <div class="field">
+      <label for="affiliation">Avez-vous travaillé au moins 6 mois (130 jours ou 910 heures) au cours des 24 derniers mois (36 mois si 55 ans ou plus) ?</label>
+      <select id="affiliation">
+        <option value="oui">Oui</option>
+        <option value="non">Non</option>
+        <option value="incertain">Je ne sais pas précisément</option>
+      </select>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="ageARE">Âge</label>
+        <input type="number" id="ageARE" min="16" max="99" step="1" placeholder="ex : 42">
+      </div>
+      <div class="field">
+        <label for="salaireARE">Salaire mensuel brut moyen (période de référence)</label>
+        <input type="number" id="salaireARE" min="0" step="0.01" placeholder="ex : 2800">
+      </div>
+    </div>
+    <button class="compute" onclick="calculerDroitsChomage()">Calculer</button>
+
+    <div class="result" id="resultARE">
+      <div class="amount" id="eligibiliteARE">—</div>
+      <div class="detail" id="detailARE"></div>
+      <div class="breakdown" id="montantARE"></div>
+      <div class="breakdown" id="dureeARE"></div>
+      <div class="pdf-actions">
+        <button class="compute pdf" onclick="telechargerPDF_ARE()">📄 Télécharger le PDF récapitulatif</button>
+        <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
+        <p class="report-error">⚠️ <a href="mailto:messimulateursrh@gmail.com?subject=Erreur%20signal%C3%A9e%20-%20Mes%20droits%20au%20ch%C3%B4mage%20apr%C3%A8s%20une%20rupture%20de%20contrat">Signaler une erreur sur ce résultat</a></p>
+      
+      </div>
+    </div>
+    <div class="notice" id="noticeARE" style="display:none;"></div>
+  </div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="content-section">
+    <h2>Comment est estimée l'allocation chômage (ARE) ?</h2>
+    <p>
+      L'ARE (Allocation de Retour à l'Emploi) est versée par France Travail sous cinq conditions cumulatives : avoir perdu son emploi de façon involontaire (licenciement, rupture conventionnelle homologuée, fin de CDD — la démission classique est généralement exclue, sauf cas de démission légitime), justifier d'une durée d'affiliation d'au moins 130 jours travaillés ou 910 heures au cours des 24 derniers mois (36 mois à partir de 55 ans), être inscrit comme demandeur d'emploi, être physiquement apte et disponible pour travailler, et résider en France.
+    </p>
+    <p>
+      Le montant journalier retient le plus favorable entre deux formules : 40,4 % du salaire journalier de référence (SJR) + une partie fixe (13,18 € en 2026), ou 57 % du SJR — avec un plancher de 32,13 €/jour et un plafond de 75 % du SJR. Le SJR officiel est calculé par France Travail sur la base des jours calendaires exacts de votre période de référence ; ce simulateur l'approxime à partir de votre salaire mensuel moyen, ce qui en fait une estimation d'ordre de grandeur, pas un calcul officiel.
+    </p>
+    <p>
+      Durée maximale indicative selon l'âge à la fin du contrat, régime général (licenciement, fin de CDD) : jusqu'à 18 mois en dessous de 55 ans, jusqu'à 27 mois à partir de 55 ans sous certaines conditions. Une dégressivité de l'allocation (jusqu'à -30 % à partir du 7e mois) peut s'appliquer aux allocations journalières élevées avant 55 ans — non modélisée ici car les seuils exacts évoluent fréquemment.
+    </p>
+    <p>
+      <strong>Cas particulier des ruptures conventionnelles :</strong> une loi du 12 juin 2026 (n° 2026-470) réduit spécifiquement la durée maximale d'indemnisation pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026 : 15 mois maximum en dessous de 55 ans (contre 18 mois auparavant), et 20,5 mois à partir de 55 ans (contre 22,5 à 27 mois), avec une possibilité de prolongation vers les durées de droit commun après examen de la situation par France Travail au 12ᵉ mois d'indemnisation. Cette réduction ne s'applique pas au licenciement ni à la fin de CDD.
+    </p>
+
+    <div class="example-box">
+      <h3>Exemple concret</h3>
+      <p>Pour un salaire brut mensuel moyen de 2 500 € sur la période de référence : le salaire journalier de référence (SJR) est d'environ 82,19 € (2 500 × 12 / 365).</p>
+      <p>Formule à 40,4 % + partie fixe : 0,404 × 82,19 + 13,18 ≈ 46,38 €/jour. Formule à 57 % : 0,57 × 82,19 ≈ 46,85 €/jour. France Travail retient le montant le plus favorable, ici 46,85 €/jour.</p>
+      <p>Vérification des bornes : plancher 32,13 €/jour (dépassé) et plafond à 75 % du SJR, soit environ 61,64 € (non dépassé). L'ARE journalière estimée est donc de <strong>46,85 €</strong>, soit environ <strong>1 425 € par mois</strong> (46,85 × 30,42 jours).</p>
+    </div>
+
+    <h2>Questions fréquentes</h2>
+    <details class="faq">
+      <summary>Ai-je droit au chômage après une démission ?</summary>
+      <p>En principe non : une démission classique n'ouvre pas droit à l'ARE. Il existe des exceptions dites de "démission légitime" (déménagement pour suivre un conjoint, non-paiement de salaire, etc.) et depuis 2019 un dispositif pour les projets de reconversion professionnelle sous conditions strictes. Une rupture conventionnelle, elle, ouvre droit à l'ARE comme un licenciement.</p>
+    </details>
+    <details class="faq">
+      <summary>Ce montant est-il garanti ?</summary>
+      <p>Non. Il s'agit d'une estimation simplifiée à titre indicatif. Le calcul réel de France Travail utilise vos bulletins de salaire exacts sur toute la période de référence et applique des règles complémentaires (jours non travaillés, régularisations, dégressivité) que ce simulateur ne reproduit pas. Utilisez le <a href="https://simucalcul.pole-emploi-services.fr/" target="_blank" rel="noopener noreferrer">simulateur officiel de France Travail</a> pour une estimation plus précise.</p>
+    </details>
+    <details class="faq">
+      <summary>Le délai de carence retarde-t-il le premier versement ?</summary>
+      <p>Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue, calculé en divisant la fraction excédentaire par 90). Ce simulateur ne calcule pas ce délai.</p>
+    </details>
+    <details class="faq">
+      <summary>La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?</summary>
+      <p>Oui, depuis une loi du 12 juin 2026 (n° 2026-470). Pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026, la durée maximale passe de 18 à 15 mois pour les moins de 55 ans, et de 22,5 à 27,5 mois à 20,5 mois pour les 55 ans et plus (avec prolongation possible après examen par France Travail au 12e mois). Cette réduction ne concerne que la rupture conventionnelle : un licenciement ou une fin de CDD n'est pas affecté. Voir le <a href="https://code.travail.gouv.fr/actualite/rupture-conventionnelle-et-chomage-les-nouvelles-durees-dindemnisation-a-partir-du-1er-septembre-2026" target="_blank" rel="noopener noreferrer">détail officiel sur le Code du travail numérique</a>. Le simulateur ci-dessus prend en compte cette distinction si vous précisez la date d'effet.</p>
+    </details>
+    <details class="faq">
+      <summary>Dans quel délai dois-je m'inscrire à France Travail après la fin de mon contrat ?</summary>
+      <p>Il est recommandé de s'inscrire dès le lendemain de la fin du contrat, idéalement dans les 12 mois suivants pour ne pas risquer de perdre des droits, certains délais et différés d'indemnisation étant calculés à partir de la date de fin de contrat et non de la date d'inscription.</p>
+    </details>
+    <details class="faq">
+      <summary>L'allocation chômage (ARE) est-elle imposable ?</summary>
+      <p>Oui, l'ARE est imposable sur le revenu et soumise à la CSG/CRDS (à un taux réduit ou nul selon vos ressources), sauf pour les allocataires aux revenus les plus modestes qui peuvent en être exonérés. France Travail transmet chaque année un montant pré-rempli à l'administration fiscale.</p>
+    </details>
+
+    <div class="related-tools">
+      <h3>Autres simulateurs utiles</h3>
+      <div class="links">
+        <a href="rupture-conventionnelle.html">→ Rupture conventionnelle</a>
+        <a href="indemnite-licenciement.html">→ Indemnité de licenciement</a>
+        <a href="preavis.html">→ Durée de préavis</a>
+        <a href="reforme-rupture-conventionnelle-chomage-2026.html">→ Réforme du 1ᵉʳ septembre 2026</a>
+        <a href="ressources-officielles.html">→ Ressources officielles</a>
+      </div>
+    </div>
+  </section>
+  <div class="ad-slot ad-slot-bottom">Emplacement publicitaire</div>
+</main>
+
+<footer class="site">
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité, ni les différés d'indemnisation, ni les régularisations liées aux jours non travaillés. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
+    <br><br>
+    <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script src="logique-calculs.txt"></script>
+<script>
+function toggleDateRC(){
+  var motif = document.getElementById('motifRupture').value;
+  document.getElementById('groupeDateRC').style.display = (motif === 'rc') ? 'block' : 'none';
+}
+function calculerDroitsChomage(){
+  var motif = document.getElementById('motifRupture').value;
+  var affiliation = document.getElementById('affiliation').value;
+  var age = parseFloat(document.getElementById('ageARE').value) || 0;
+  var salaire = parseFloat(document.getElementById('salaireARE').value) || 0;
+
+  var resultBox = document.getElementById('resultARE');
+  var notice = document.getElementById('noticeARE');
+  var montantDiv = document.getElementById('montantARE');
+  var dureeDiv = document.getElementById('dureeARE');
+  montantDiv.innerHTML = '';
+  dureeDiv.innerHTML = '';
+
+  if (motif === 'demission'){
+    resultBox.classList.remove('show');
+    notice.style.display = 'block';
+    notice.textContent = "Une démission classique n'ouvre en principe pas droit à l'ARE, sauf cas de démission légitime (déménagement du conjoint, non-paiement du salaire, projet de reconversion validé, etc.). Rapprochez-vous de France Travail pour vérifier si votre situation entre dans un cas d'exception.";
+    return;
+  }
+  notice.style.display = 'none';
+
+  if (affiliation === 'non'){
+    resultBox.classList.remove('show');
+    notice.style.display = 'block';
+    notice.textContent = "Avec moins de 6 mois travaillés (130 jours ou 910 heures) sur la période de référence, l'ARE n'est en principe pas due. Les périodes travaillées peuvent parfois se cumuler sur plusieurs employeurs : vérifiez précisément votre situation sur francetravail.fr.";
+    return;
+  }
+
+  var eligibiliteText = affiliation === 'incertain'
+    ? 'Éligibilité probable, à confirmer'
+    : 'Éligible (sous réserve des conditions administratives)';
+  document.getElementById('eligibiliteARE').textContent = eligibiliteText;
+
+  var motifLabel = motif === 'rc' ? 'une rupture conventionnelle homologuée' : (motif === 'findecdd' ? 'une fin de CDD' : 'un licenciement');
+  document.getElementById('detailARE').textContent = 'Motif retenu : ' + motifLabel + ', considéré comme une perte d\'emploi involontaire ouvrant droit à l\'ARE.';
+
+  if (salaire > 0){
+    var are = estimerARE(salaire);
+    montantDiv.innerHTML = 'Allocation journalière brute estimée : <strong>' + euros(are.jour) + '</strong> (soit environ ' + euros(are.mois) + ' brut/mois). Salaire journalier de référence approximé : ' + euros(are.sjr) + '. Cette estimation ne tient pas compte de la dégressivité ni des différés d\'indemnisation.';
+  } else {
+    montantDiv.innerHTML = 'Renseignez votre salaire mensuel brut moyen pour obtenir une estimation du montant.';
+  }
+
+  var dureeTxt;
+  if (motif === 'rc'){
+    var dateRC = document.getElementById('dateRC').value;
+    if (dateRC === 'oui'){
+      dureeTxt = age >= 55
+        ? "Durée maximale indicative : 20,5 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 22,5 à 27,5 mois auparavant ; prolongation possible vers les durées de droit commun après examen par France Travail au 12e mois)."
+        : "Durée maximale indicative : 15 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 18 mois auparavant).";
+    } else if (dateRC === 'non'){
+      dureeTxt = age >= 55
+        ? "Durée maximale indicative : jusqu'à 27 mois (règles applicables aux ruptures conventionnelles prenant effet avant le 1er septembre 2026)."
+        : "Durée maximale indicative : jusqu'à 18 mois (règles applicables aux ruptures conventionnelles prenant effet avant le 1er septembre 2026).";
+    } else {
+      dureeTxt = age >= 55
+        ? "Durée maximale indicative : 20,5 mois si la rupture prend effet à partir du 1er septembre 2026, jusqu'à 27 mois si elle prend effet avant cette date."
+        : "Durée maximale indicative : 15 mois si la rupture prend effet à partir du 1er septembre 2026, jusqu'à 18 mois si elle prend effet avant cette date.";
+    }
+  } else {
+    dureeTxt = age >= 55
+      ? 'Durée maximale indicative : jusqu\'à 27 mois (règles spécifiques aux 55 ans et plus, sous conditions).'
+      : 'Durée maximale indicative : jusqu\'à 18 mois (régime général, hors dispositifs spécifiques).';
+  }
+  dureeDiv.textContent = dureeTxt;
+
+  resultBox.classList.add('show');
+}
+
+function telechargerPDF_ARE(){
+  var motif = document.getElementById('motifRupture').value;
+  var affiliation = document.getElementById('affiliation').value;
+  var age = parseFloat(document.getElementById('ageARE').value) || 0;
+  var salaire = parseFloat(document.getElementById('salaireARE').value) || 0;
+  if (motif === 'demission' || affiliation === 'non') return;
+
+  var motifLabel = motif === 'rc' ? 'Rupture conventionnelle homologuée' : (motif === 'findecdd' ? 'Fin de CDD / non-renouvellement' : 'Licenciement');
+  var eligibiliteText = affiliation === 'incertain' ? 'Probable, à confirmer' : 'Éligible (sous réserve des conditions administratives)';
+
+  var lignes = [
+    { label: 'Motif de fin de contrat', value: motifLabel },
+    { label: 'Éligibilité ARE', value: eligibiliteText },
+    { label: 'Âge', value: age > 0 ? (age + ' ans') : 'non renseigné' }
+  ];
+
+  if (salaire > 0){
+    var are = estimerARE(salaire);
+    lignes.push({ label: 'Salaire journalier de référence (approximé)', value: euros(are.sjr) });
+    lignes.push({ label: 'Allocation journalière brute estimée', value: euros(are.jour) });
+    lignes.push({ label: 'Allocation mensuelle brute estimée', value: euros(are.mois), type: 'total' });
+  }
+
+  var dureeTxt;
+  if (motif === 'rc'){
+    var dateRC = document.getElementById('dateRC').value;
+    if (dateRC === 'oui'){
+      dureeTxt = age >= 55 ? '20,5 mois (RC à partir du 1er septembre 2026)' : '15 mois (RC à partir du 1er septembre 2026)';
+    } else if (dateRC === 'non'){
+      dureeTxt = age >= 55 ? "Jusqu'à 27 mois (RC avant le 1er septembre 2026)" : "Jusqu'à 18 mois (RC avant le 1er septembre 2026)";
+    } else {
+      dureeTxt = age >= 55 ? '20,5 mois si RC à partir du 1/09/2026, jusqu\'à 27 mois si avant' : '15 mois si RC à partir du 1/09/2026, jusqu\'à 18 mois si avant';
+    }
+  } else {
+    dureeTxt = age >= 55 ? "Jusqu'à 27 mois (55 ans et plus, sous conditions)" : "Jusqu'à 18 mois (régime général)";
+  }
+  lignes.push({ label: 'Durée maximale indicative', value: dureeTxt });
+
+  genererPDFSimulation({
+    titre: 'Simulation de droits au chômage (ARE)',
+    sousTitre: 'Éligibilité, montant et durée indicative d\'indemnisation',
+    lignes: lignes,
+    disclaimer: "Estimation grossière et indicative basée sur une simplification de la formule ARE 2026 (France Travail). Ne modélise ni la dégressivité, ni les différés d'indemnisation, ni les régularisations. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail.",
+    nomFichier: 'simulation-droits-chomage.pdf'
+  });
+}
+</script>
+</body>
+</html>

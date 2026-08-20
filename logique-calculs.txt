@@ -1,0 +1,522 @@
+function setAudience(value){
+document.body.classList.remove('audience-salarie','audience-employeur');
+document.body.classList.add('audience-' + value);
+localStorage.setItem('audience', value);
+document.querySelectorAll('.audience-toggle button').forEach(function(btn){
+btn.classList.toggle('active', btn.dataset.audience === value);
+});
+}
+function initAudience(){
+var saved = localStorage.getItem('audience') || 'salarie';
+setAudience(saved);
+document.querySelectorAll('.audience-toggle button').forEach(function(btn){
+btn.addEventListener('click', function(){ setAudience(btn.dataset.audience); });
+});
+}
+document.addEventListener('DOMContentLoaded', initAudience);
+function euros(n){
+return n.toLocaleString('fr-FR', {style:'currency', currency:'EUR', maximumFractionDigits:2});
+}
+function pdfSafe(v){
+if (typeof v !== 'string') return v;
+return v.replace(/[\u202f\u00a0]/g, ' ');
+}
+const BAREME_2026 = {
+PASS_ANNUEL: 48060,
+PASS_MENSUEL: 4005,
+PLAFOND_EXO_SOCIALE_RC: 2 * 48060,   // 96 120 €
+PLAFOND_EXO_FISCALE_RC: 6 * 48060,   // 288 360 €
+SMIC_BRUT_MENSUEL: 1867,
+ARE_PARTIE_FIXE_JOUR: 13.18,
+ARE_PLANCHER_JOUR: 32.13,
+ARE_PLAFOND_PART_SJR: 0.75,
+ARE_AFFILIATION_MIN_JOURS: 130,
+ARE_AFFILIATION_MIN_HEURES: 910,
+COEF_NET_NON_CADRE: 0.78,
+COEF_NET_CADRE: 0.75,
+JOURS_OUVRABLES_MOIS: 26,
+JOURS_CONGES_MAX_AN: 30,
+CHARGES_PATRONALES_MOYENNES: 0.42,
+SJB_DIVISEUR: 91.25,
+IJ_MATERNITE_TAUX: 0.79,
+IJ_PATERNITE_TAUX: 0.938,
+CONGE_PATERNITE_JOURS_STANDARD: 25,
+CONGE_PATERNITE_JOURS_MULTIPLE: 32,
+CONGE_NAISSANCE_TAUX_MOIS1: 0.70,
+CONGE_NAISSANCE_TAUX_MOIS2: 0.60
+};
+function estimerCongesPayes(remunerationRef, salaireMensuel, joursAIndemniser){
+var dixieme = (remunerationRef / 10) * (joursAIndemniser / BAREME_2026.JOURS_CONGES_MAX_AN);
+var salaireJournalier = salaireMensuel / BAREME_2026.JOURS_OUVRABLES_MOIS;
+var maintien = salaireJournalier * joursAIndemniser;
+return {
+dixieme: dixieme,
+maintien: maintien,
+retenu: Math.max(dixieme, maintien),
+methodeRetenue: dixieme >= maintien ? 'dixième' : 'maintien de salaire'
+};
+}
+function estimerNetDepuisBrut(brutMensuel, statutCadre){
+var coef = statutCadre ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_CADRE;
+var net = brutMensuel * coef;
+var netImposable = net * 1.0169; // réintégration approximative de la CSG/CRDS non déductible (~1.7% du brut)
+return { net: net, netImposable: netImposable, coef: coef };
+}
+function estimerARE(salaireMensuelBrut){
+var sjr = (salaireMensuelBrut * 12) / 365;
+var brancheA = 0.404 * sjr + BAREME_2026.ARE_PARTIE_FIXE_JOUR;
+var brancheB = 0.57 * sjr;
+var brut = Math.max(brancheA, brancheB);
+var plafond = BAREME_2026.ARE_PLAFOND_PART_SJR * sjr;
+brut = Math.min(brut, plafond);
+brut = Math.max(brut, BAREME_2026.ARE_PLANCHER_JOUR);
+return { sjr: sjr, jour: brut, mois: brut * 30.42 };
+}
+function indemniteLegale(salaireRef, ancienneteAnnees){
+if (ancienneteAnnees <= 10){
+return ancienneteAnnees * (salaireRef / 4);
+}
+var part1 = 10 * (salaireRef / 4);
+var part2 = (ancienneteAnnees - 10) * (salaireRef / 3);
+return part1 + part2;
+}
+function anneesDecimal(annees, mois){
+return (parseInt(annees || 0, 10)) + (parseInt(mois || 0, 10)) / 12;
+}
+function ancienneteDepuisDates(dateEntreeStr, dateSortieStr){
+var dEntree = new Date(dateEntreeStr);
+var dSortie = dateSortieStr ? new Date(dateSortieStr) : new Date();
+if (isNaN(dEntree.getTime()) || isNaN(dSortie.getTime()) || dSortie < dEntree){
+return null;
+}
+var years = dSortie.getFullYear() - dEntree.getFullYear();
+var months = dSortie.getMonth() - dEntree.getMonth();
+var days = dSortie.getDate() - dEntree.getDate();
+if (days < 0){
+months -= 1;
+var moisPrecedent = new Date(dSortie.getFullYear(), dSortie.getMonth(), 0);
+days += moisPrecedent.getDate();
+}
+if (months < 0){
+years -= 1;
+months += 12;
+}
+var totalJours = Math.floor((dSortie - dEntree) / (1000 * 60 * 60 * 24));
+return {
+years: years,
+months: months,
+days: days,
+totalJours: totalJours,
+anneesDecimales: years + months / 12 + days / 365
+};
+}
+function estimerIndemniteDepartRetraite(salaireRef, anneesAnciennete, initiative){
+if (initiative === 'employeur'){
+return { montant: indemniteLegale(salaireRef, anneesAnciennete), regime: 'employeur', coefMois: null };
+}
+var coef = 0;
+if (anneesAnciennete >= 30) coef = 2;
+else if (anneesAnciennete >= 20) coef = 1.5;
+else if (anneesAnciennete >= 15) coef = 1;
+else if (anneesAnciennete >= 10) coef = 0.5;
+return { montant: coef * salaireRef, regime: 'salarie', coefMois: coef };
+}
+function estimerCoutSalarieEntreprise(brutMensuel, avantagesMensuel, primesAnnuelles){
+var charges = brutMensuel * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
+var primesMensuelles = (primesAnnuelles || 0) / 12;
+var coutMensuel = brutMensuel + charges + (avantagesMensuel || 0) + primesMensuelles;
+return {
+charges: charges,
+coutMensuel: coutMensuel,
+coutAnnuel: coutMensuel * 12
+};
+}
+function estimerIJMaternitePaternite(salaireMensuelBrut, type, dureeJours){
+var salairePlafonne = Math.min(salaireMensuelBrut, BAREME_2026.PASS_MENSUEL);
+var sjb = (salairePlafonne * 3) / BAREME_2026.SJB_DIVISEUR;
+var taux = type === 'paternite' ? BAREME_2026.IJ_PATERNITE_TAUX : BAREME_2026.IJ_MATERNITE_TAUX;
+var ijJour = sjb * taux;
+return {
+sjb: sjb,
+ijJour: ijJour,
+total: ijJour * dureeJours
+};
+}
+function estimerCongeNaissance(salaireNetMensuel, dureeMois){
+var salairePlafonne = Math.min(salaireNetMensuel, BAREME_2026.PASS_MENSUEL);
+var mois1 = salairePlafonne * BAREME_2026.CONGE_NAISSANCE_TAUX_MOIS1;
+var mois2 = dureeMois >= 2 ? salairePlafonne * BAREME_2026.CONGE_NAISSANCE_TAUX_MOIS2 : 0;
+return {
+salairePlafonne: salairePlafonne,
+mois1: mois1,
+mois2: mois2,
+total: mois1 + mois2,
+dureeMois: dureeMois
+};
+}
+var _jspdfLoadPromise = null;
+function ensureJsPDF(callback){
+if (typeof window.jspdf !== 'undefined'){ callback(); return; }
+if (!_jspdfLoadPromise){
+_jspdfLoadPromise = new Promise(function(resolve){
+var s = document.createElement('script');
+s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+s.onload = function(){ resolve(); };
+s.onerror = function(){ resolve(); }; // on résout quand même : le fallback ci-dessous gère l'échec
+document.head.appendChild(s);
+});
+}
+_jspdfLoadPromise.then(callback);
+}
+function genererPDFSimulation(opts){
+ensureJsPDF(function(){ _genererPDFSimulationImpl(opts); });
+}
+function _genererPDFSimulationImpl(opts){
+if (typeof window.jspdf === 'undefined'){
+alert("Le générateur de PDF n'a pas pu se charger (vérifiez votre connexion internet). Réessayez dans un instant.");
+return;
+}
+var jsPDF = window.jspdf.jsPDF;
+var doc = new jsPDF();
+var pageWidth = doc.internal.pageSize.getWidth();
+var pageHeight = doc.internal.pageSize.getHeight();
+var margin = 20;
+var y = 0;
+function bandeauEntete(){
+doc.setFillColor(29, 78, 216);
+doc.rect(0, 0, pageWidth, 28, 'F');
+doc.setTextColor(255,255,255);
+doc.setFontSize(15);
+doc.setFont(undefined, 'bold');
+doc.text('MesSimulateursRH.fr', margin, 17);
+doc.setFontSize(8.5);
+doc.setFont(undefined, 'normal');
+doc.text('Simulateurs gratuits de droit du travail — salariés et employeurs', margin, 23);
+}
+bandeauEntete();
+y = 42;
+opts.titre = pdfSafe(opts.titre);
+opts.sousTitre = pdfSafe(opts.sousTitre);
+opts.disclaimer = pdfSafe(opts.disclaimer);
+var lignesSafe = (opts.lignes || []).map(function(l){
+return { label: pdfSafe(l.label), value: pdfSafe(String(l.value)), type: l.type };
+});
+doc.setTextColor(28,36,48);
+doc.setFontSize(15);
+doc.setFont(undefined, 'bold');
+doc.text(opts.titre, margin, y);
+y += 7;
+if (opts.sousTitre){
+doc.setFontSize(10);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(90,100,114);
+var sousLines = doc.splitTextToSize(opts.sousTitre, pageWidth - margin*2);
+doc.text(sousLines, margin, y);
+y += sousLines.length * 5 + 3;
+}
+var dateStr = new Date().toLocaleDateString('fr-FR', {year:'numeric', month:'long', day:'numeric'});
+doc.setFontSize(8.5);
+doc.setTextColor(140,148,160);
+doc.text('Simulation générée le ' + dateStr, margin, y);
+y += 8;
+doc.setDrawColor(226,230,236);
+doc.setLineWidth(0.3);
+doc.line(margin, y, pageWidth - margin, y);
+y += 10;
+doc.setFontSize(10.5);
+lignesSafe.forEach(function(ligne){
+if (y > pageHeight - 35){
+doc.addPage();
+y = 20;
+}
+if (ligne.type === 'total'){
+y += 3;
+doc.setDrawColor(29,78,216);
+doc.setLineWidth(0.6);
+doc.line(margin, y, pageWidth - margin, y);
+y += 9;
+doc.setFontSize(13);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(29,78,216);
+doc.text(ligne.label, margin, y);
+doc.text(String(ligne.value), pageWidth - margin, y, {align: 'right'});
+y += 10;
+doc.setFontSize(10.5);
+doc.setTextColor(28,36,48);
+} else {
+doc.setFont(undefined, 'normal');
+doc.setTextColor(90,100,114);
+var labelLines = doc.splitTextToSize(ligne.label, pageWidth - margin*2 - 55);
+doc.text(labelLines, margin, y);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(28,36,48);
+doc.text(String(ligne.value), pageWidth - margin, y, {align:'right'});
+y += Math.max(7, labelLines.length * 5 + 2);
+}
+});
+y += 6;
+if (y > pageHeight - 45){ doc.addPage(); y = 20; }
+doc.setDrawColor(226,230,236);
+doc.line(margin, y, pageWidth - margin, y);
+y += 8;
+doc.setFontSize(8);
+doc.setFont(undefined, 'italic');
+doc.setTextColor(140,148,160);
+var discLines = doc.splitTextToSize(opts.disclaimer, pageWidth - margin*2);
+if (y + discLines.length * 4 > pageHeight - 20){ doc.addPage(); y = 20; }
+doc.text(discLines, margin, y);
+var totalPages = doc.internal.getNumberOfPages();
+for (var p = 1; p <= totalPages; p++){
+doc.setPage(p);
+doc.setFontSize(7.5);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(170,176,186);
+doc.text('MesSimulateursRH.fr — calcul réalisé localement dans votre navigateur, aucune donnée transmise.', margin, pageHeight - 12);
+doc.text(String(p) + ' / ' + totalPages, pageWidth - margin, pageHeight - 12, {align:'right'});
+}
+doc.save(opts.nomFichier || 'simulation-rh.pdf');
+}
+function initQuiz(containerId, questions){
+var container = document.getElementById(containerId);
+var html = '';
+questions.forEach(function(q, qi){
+html += '<div class="quiz-question" data-qi="' + qi + '">';
+html += '<p class="quiz-q-text"><strong>Question ' + (qi + 1) + '.</strong> ' + q.question + '</p>';
+html += '<div class="quiz-options">';
+q.options.forEach(function(opt, oi){
+html += '<label class="quiz-option"><input type="radio" name="quiz-' + containerId + '-q' + qi + '" value="' + oi + '"> <span>' + opt + '</span></label>';
+});
+html += '</div>';
+html += '<div class="quiz-explanation" style="display:none;"></div>';
+html += '</div>';
+});
+container.innerHTML = html;
+}
+function corrigerQuiz(containerId, questions){
+var container = document.getElementById(containerId);
+var score = 0;
+questions.forEach(function(q, qi){
+var qDiv = container.querySelector('.quiz-question[data-qi="' + qi + '"]');
+var selected = qDiv.querySelector('input[type="radio"]:checked');
+var selectedIndex = selected ? parseInt(selected.value, 10) : -1;
+var options = qDiv.querySelectorAll('.quiz-option');
+options.forEach(function(optLabel, oi){
+optLabel.classList.remove('quiz-correct', 'quiz-incorrect');
+if (oi === q.correctIndex) optLabel.classList.add('quiz-correct');
+else if (oi === selectedIndex) optLabel.classList.add('quiz-incorrect');
+});
+if (selectedIndex === q.correctIndex) score++;
+var expl = qDiv.querySelector('.quiz-explanation');
+expl.style.display = 'block';
+expl.textContent = (selectedIndex === q.correctIndex ? '✓ Bonne réponse. ' : '✗ ') + q.explication;
+});
+return { score: score, total: questions.length };
+}
+function genererCertificatPDF(opts){
+ensureJsPDF(function(){ _genererCertificatPDFImpl(opts); });
+}
+function _genererCertificatPDFImpl(opts){
+if (typeof window.jspdf === 'undefined'){
+alert("Le générateur de PDF n'a pas pu se charger (vérifiez votre connexion internet). Réessayez dans un instant.");
+return;
+}
+var jsPDF = window.jspdf.jsPDF;
+var doc = new jsPDF({ orientation: 'landscape' });
+var pageWidth = doc.internal.pageSize.getWidth();
+var pageHeight = doc.internal.pageSize.getHeight();
+doc.setDrawColor(29, 78, 216);
+doc.setLineWidth(1.2);
+doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
+doc.setLineWidth(0.4);
+doc.rect(14, 14, pageWidth - 28, pageHeight - 28);
+doc.setTextColor(29, 78, 216);
+doc.setFontSize(12);
+doc.setFont(undefined, 'bold');
+doc.text('MESSIMULATEURSRH.FR', pageWidth / 2, 30, {align: 'center'});
+doc.setTextColor(28, 36, 48);
+doc.setFontSize(26);
+doc.setFont(undefined, 'bold');
+doc.text("Attestation de participation", pageWidth / 2, 50, {align: 'center'});
+doc.setFontSize(13);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(90, 100, 114);
+doc.text('décerne cette attestation à', pageWidth / 2, 68, {align: 'center'});
+doc.setFontSize(20);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(29, 78, 216);
+doc.text(opts.nom || 'Participant(e)', pageWidth / 2, 82, {align: 'center'});
+doc.setFontSize(13);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(90, 100, 114);
+doc.text('pour avoir suivi le module', pageWidth / 2, 96, {align: 'center'});
+doc.setFontSize(16);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(28, 36, 48);
+doc.text(opts.module, pageWidth / 2, 108, {align: 'center'});
+doc.setFontSize(14);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(90, 100, 114);
+doc.text('Score obtenu au quiz de validation : ' + opts.score + ' / ' + opts.total, pageWidth / 2, 122, {align: 'center'});
+var dateStr = new Date().toLocaleDateString('fr-FR', {year:'numeric', month:'long', day:'numeric'});
+doc.setFontSize(10);
+doc.setTextColor(140, 148, 160);
+doc.text('Délivrée le ' + dateStr, pageWidth / 2, 136, {align: 'center'});
+doc.setFontSize(8);
+doc.setFont(undefined, 'italic');
+var disclaimerLines = doc.splitTextToSize(
+"Cette attestation est un outil d'auto-évaluation pédagogique délivré par MesSimulateursRH.fr. Elle ne constitue ni un diplôme, ni une certification professionnelle reconnue, ni un document opposable juridiquement.",
+pageWidth - 40
+);
+doc.text(disclaimerLines, pageWidth / 2, pageHeight - 22, {align: 'center'});
+doc.save(opts.nomFichier || 'attestation-formation-rh.pdf');
+}
+
+var SEARCH_INDEX = [
+{title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
+{title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
+{title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree"},
+{title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite"},
+{title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire"},
+{title:"Salaire net à partir du brut", url:"salaire-net-brut.html", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
+{title:"Augmentation de salaire", url:"augmentation-salaire.html", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
+{title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise.html", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur"},
+{title:"Coût total d'un licenciement", url:"cout-licenciement-employeur.html", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
+{title:"Indemnité de congés payés", url:"indemnite-conges-payes.html", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite"},
+{title:"Calendrier des jours de pont", url:"calendrier-ponts.html", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
+{title:"Passage à temps partiel", url:"passage-temps-partiel.html", cat:"Simulateur", kw:"temps partiel salaire net impact"},
+{title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge"},
+{title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent"},
+{title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
+{title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche"},
+{title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
+{title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
+{title:"Formation gratuite : les bases du droit du travail", url:"formation.html", cat:"Formation", kw:"formation quiz attestation modules cours gratuit"},
+{title:"Actualités du droit du travail", url:"actualites.html", cat:"Actualité", kw:"actualites blog reformes lois decrets droit du travail 2026"},
+{title:"Formation : Rupture conventionnelle", url:"formation-rupture-conventionnelle.html", cat:"Formation", kw:"formation rupture conventionnelle cours quiz"},
+{title:"Formation : Indemnité de licenciement", url:"formation-indemnite-licenciement.html", cat:"Formation", kw:"formation licenciement cours quiz"},
+{title:"Formation : Ancienneté et préavis", url:"formation-anciennete-preavis.html", cat:"Formation", kw:"formation anciennete preavis cours quiz"},
+{title:"Formation : Congés payés", url:"formation-conges-payes.html", cat:"Formation", kw:"formation conges payes cours quiz"},
+{title:"Formation : Droits au chômage (ARE)", url:"formation-chomage-are.html", cat:"Formation", kw:"formation chomage ARE cours quiz"},
+{title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026.html", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
+{title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission.html", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
+{title:"Glossaire du droit du travail", url:"glossaire-droit-travail.html", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique"},
+{title:"Ressources officielles", url:"ressources-officielles.html", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
+{title:"À propos", url:"a-propos.html", cat:"Page", kw:"a propos qui edite methode sources"},
+{title:"Accueil", url:"index.html", cat:"Page", kw:"accueil simulateurs droit du travail"},
+{title:"Mentions légales", url:"mentions-legales.html", cat:"Page", kw:"mentions legales editeur"},
+{title:"Politique de confidentialité", url:"politique-de-confidentialite.html", cat:"Page", kw:"confidentialite RGPD donnees"}
+];
+
+function normalizeSearchStr(s){
+return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function wordSetOf(s){
+return normalizeSearchStr(s).split(/[^a-z0-9]+/).filter(Boolean);
+}
+
+function searchPages(query){
+var q = normalizeSearchStr(query).trim();
+if (!q) return [];
+var words = q.split(/\s+/).filter(Boolean);
+var currentPath = window.location.pathname.split('/').pop() || 'index.html';
+var results = [];
+SEARCH_INDEX.forEach(function(entry){
+if (entry.url === currentPath) return;
+var hayTitle = normalizeSearchStr(entry.title);
+var hayAll = hayTitle + ' ' + normalizeSearchStr(entry.kw) + ' ' + normalizeSearchStr(entry.cat);
+var titleWords = wordSetOf(entry.title);
+var allWords = titleWords.concat(wordSetOf(entry.kw), wordSetOf(entry.cat));
+var score = 0;
+var matchAll = words.every(function(w){
+if (w.length <= 3){
+if (titleWords.indexOf(w) !== -1) { score += 10; return true; }
+if (allWords.indexOf(w) !== -1) { score += 1; return true; }
+return false;
+}
+if (hayTitle.indexOf(w) !== -1) { score += 10; return true; }
+if (hayAll.indexOf(w) !== -1) { score += 1; return true; }
+return false;
+});
+if (matchAll) results.push({entry: entry, score: score});
+});
+results.sort(function(a, b){ return b.score - a.score; });
+return results.map(function(r){ return r.entry; }).slice(0, 8);
+}
+
+function renderSearchResults(results, query){
+var list = document.getElementById('search-results');
+var empty = document.getElementById('search-empty');
+if (!list || !empty) return;
+list.innerHTML = '';
+if (!query) { empty.hidden = true; return; }
+if (results.length === 0) { empty.hidden = false; return; }
+empty.hidden = true;
+results.forEach(function(entry, i){
+var li = document.createElement('li');
+var a = document.createElement('a');
+a.href = entry.url;
+if (i === 0) a.className = 'active';
+var titleSpan = document.createElement('span');
+titleSpan.className = 'sr-title';
+titleSpan.textContent = entry.title;
+var catSpan = document.createElement('span');
+catSpan.className = 'sr-cat';
+catSpan.textContent = entry.cat;
+a.appendChild(titleSpan);
+a.appendChild(catSpan);
+li.appendChild(a);
+list.appendChild(li);
+});
+}
+
+function initSiteSearch(){
+var toggle = document.getElementById('search-toggle');
+var overlay = document.getElementById('search-overlay');
+var closeBtn = document.getElementById('search-close');
+var input = document.getElementById('search-input');
+if (!toggle || !overlay || !input) return;
+
+function isTypingElsewhere(){
+var t = document.activeElement;
+return t && ['INPUT', 'TEXTAREA', 'SELECT'].indexOf(t.tagName) !== -1 && t !== input;
+}
+
+function openSearch(){
+overlay.hidden = false;
+document.body.style.overflow = 'hidden';
+setTimeout(function(){ input.focus(); }, 10);
+}
+function closeSearch(){
+overlay.hidden = true;
+document.body.style.overflow = '';
+input.value = '';
+renderSearchResults([], '');
+}
+
+toggle.addEventListener('click', function(){
+if (overlay.hidden) { openSearch(); } else { closeSearch(); }
+});
+closeBtn.addEventListener('click', closeSearch);
+overlay.addEventListener('click', function(e){
+if (e.target === overlay) closeSearch();
+});
+document.addEventListener('keydown', function(e){
+if (e.key === 'Escape' && !overlay.hidden) closeSearch();
+if (e.key === '/' && overlay.hidden && !isTypingElsewhere()) {
+e.preventDefault();
+openSearch();
+}
+});
+input.addEventListener('input', function(){
+var q = input.value;
+renderSearchResults(searchPages(q), q);
+});
+input.addEventListener('keydown', function(e){
+if (e.key === 'Enter') {
+var first = document.querySelector('#search-results a');
+if (first) { window.location.href = first.getAttribute('href'); }
+}
+});
+}
+document.addEventListener('DOMContentLoaded', initSiteSearch);
