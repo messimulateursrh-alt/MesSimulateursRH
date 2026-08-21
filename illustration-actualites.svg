@@ -1,0 +1,26 @@
+<svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#1742b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="260" rx="20" fill="#e8efff"/>
+  <circle cx="55" cy="45" r="9" fill="#ffffff" opacity=".6"/>
+  <circle cx="425" cy="205" r="12" fill="#ffffff" opacity=".5"/>
+  <circle cx="65" cy="215" r="6" fill="#1d4ed8" opacity=".25"/>
+  <circle cx="415" cy="50" r="5" fill="#1d4ed8" opacity=".25"/>
+
+  <rect x="150" y="55" width="180" height="150" rx="14" fill="#ffffff"/>
+  <rect x="150" y="55" width="180" height="36" rx="14" fill="url(#g1)"/>
+  <rect x="150" y="73" width="180" height="18" fill="url(#g1)"/>
+  <rect x="170" y="72" width="70" height="10" rx="5" fill="#ffffff" opacity=".85"/>
+
+  <rect x="170" y="118" width="140" height="10" rx="5" fill="#e2e6ec"/>
+  <rect x="170" y="140" width="120" height="10" rx="5" fill="#e2e6ec"/>
+  <rect x="170" y="162" width="130" height="10" rx="5" fill="#e2e6ec"/>
+  <rect x="170" y="184" width="90" height="10" rx="5" fill="#e2e6ec"/>
+
+  <circle cx="330" cy="58" r="27" fill="url(#g1)"/>
+  <text x="330" y="68" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" fill="#ffffff" text-anchor="middle">!</text>
+</svg>
