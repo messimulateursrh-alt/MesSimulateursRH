@@ -184,6 +184,14 @@
       <label for="montantPropose">Montant d'indemnité déjà proposé (optionnel)</label>
       <input type="number" id="montantPropose" min="0" step="0.01" placeholder="Pour comparer au minimum légal">
     </div>
+    <div class="field">
+      <label for="retraiteRC">Pouvez-vous faire valoir vos droits à une pension de retraite à taux plein ?</label>
+      <select id="retraiteRC">
+        <option value="non" selected>Non</option>
+        <option value="oui">Oui</option>
+      </select>
+      <div class="hint">Cette condition change le régime fiscal de l'indemnité (voir détail sous le résultat) — elle n'a pas d'effet sur l'exonération sociale.</div>
+    </div>
     <button class="compute" onclick="calculerRC()">Calculer</button>
 
     <div class="result" id="resultRC">
@@ -270,7 +278,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail) et le régime social/fiscal 2026 (plafond d'exonération sociale : 2×PASS soit 96 120 €, plafond d'exonération fiscale : 6×PASS soit 288 360 €, contribution patronale spécifique à 40 %). Le régime réel comporte des cas particuliers (comparaison avec la rémunération de l'année précédente, situations proches de la retraite, etc.) non couverts ici. Vérifiez votre convention collective et rapprochez-vous d'un expert-comptable ou d'un conseil juridique avant toute signature.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail) et le régime social/fiscal 2026 (plafond d'exonération sociale : 2×PASS soit 96 120 €, plafond d'exonération fiscale : 6×PASS soit 288 360 € — nulle si le salarié peut faire valoir ses droits à une pension de retraite à taux plein, contribution patronale spécifique à 40 %). Le régime réel comporte d'autres cas particuliers (comparaison avec la rémunération de l'année précédente, etc.) non couverts ici. Vérifiez votre convention collective et rapprochez-vous d'un expert-comptable ou d'un conseil juridique avant toute signature.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -333,12 +341,16 @@ function calculerRC(){
 
   var montantFinal = montantPropose > 0 ? montantPropose : indemnite;
 
+  var peutPartirRetraite = document.getElementById('retraiteRC').value === 'oui';
   var exoSociale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
-  var exoFiscale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
+  var exoFiscale = peutPartirRetraite ? 0 : Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
+  var texteFiscal = peutPartirRetraite
+    ? 'exonérée d\'impôt sur le revenu à hauteur de <strong>0 €</strong> : lorsque le salarié peut faire valoir ses droits à une pension de retraite à taux plein, l\'indemnité de rupture conventionnelle est intégralement soumise à l\'impôt sur le revenu — contrairement à l\'indemnité de licenciement, qui reste exonérée jusqu\'à 6×PASS quel que soit l\'âge'
+    : 'exonérée d\'impôt sur le revenu à hauteur de ' + euros(exoFiscale) + ' (plafond 2026 : 6×PASS, soit 288 360 €)';
   document.getElementById('regimeFiscal').innerHTML =
     'Régime social/fiscal estimé sur ' + euros(montantFinal) + ' : exonérée de cotisations sociales à hauteur de ' + euros(exoSociale) +
-    ' (plafond 2026 : 96 120 €), et exonérée d\'impôt sur le revenu à hauteur de ' + euros(exoFiscale) +
-    ' (plafond 2026 : 288 360 €). CSG/CRDS peuvent rester dues sur une fraction. Règle simplifiée — cas particuliers non couverts.';
+    ' (plafond 2026 : 2×PASS, soit 96 120 €), et ' + texteFiscal +
+    '. CSG/CRDS peuvent rester dues sur une fraction. Règle simplifiée — cas particuliers non couverts.';
 
   var contribPatronale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_SOCIALE_RC) * 0.40;
   var coutTotal = montantFinal + contribPatronale;
@@ -358,8 +370,9 @@ function telechargerPDF_RC(){
 
   var indemnite = indemniteLegale(salaireRef, annees);
   var montantFinal = montantPropose > 0 ? montantPropose : indemnite;
+  var peutPartirRetraite = document.getElementById('retraiteRC').value === 'oui';
   var exoSociale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
-  var exoFiscale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
+  var exoFiscale = peutPartirRetraite ? 0 : Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
   var contribPatronale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_SOCIALE_RC) * 0.40;
   var coutTotal = montantFinal + contribPatronale;
 
@@ -371,8 +384,9 @@ function telechargerPDF_RC(){
   if (montantPropose > 0){
     lignes.push({ label: "Montant proposé par l'employeur", value: euros(montantPropose) });
   }
-  lignes.push({ label: 'Exonération sociale (plafond 2026 : 96 120 €)', value: euros(exoSociale) });
-  lignes.push({ label: 'Exonération fiscale (plafond 2026 : 288 360 €)', value: euros(exoFiscale) });
+  lignes.push({ label: 'Droits à la retraite à taux plein', value: peutPartirRetraite ? 'Oui — exonération fiscale nulle' : 'Non' });
+  lignes.push({ label: 'Exonération sociale (plafond 2026 : 2×PASS, 96 120 €)', value: euros(exoSociale) });
+  lignes.push({ label: 'Exonération fiscale (plafond 2026 : 6×PASS, 288 360 €)', value: euros(exoFiscale) });
   lignes.push({ label: 'Contribution patronale spécifique (40 %)', value: euros(contribPatronale) });
   lignes.push({ label: 'Coût total employeur estimé', value: euros(coutTotal), type: 'total' });
 

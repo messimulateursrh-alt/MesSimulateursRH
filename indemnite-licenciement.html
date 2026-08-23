@@ -59,7 +59,7 @@
       "name": "L'indemnité de licenciement est-elle imposable ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "L'indemnité légale ou conventionnelle de licenciement est généralement exonérée d'impôt sur le revenu et de cotisations sociales dans certaines limites (proches de celles applicables à la rupture conventionnelle). Au-delà de ces seuils, elle peut être partiellement soumise à cotisations et à CSG/CRDS. Rapprochez-vous d'un expert-comptable pour un calcul précis selon votre situation."
+        "text": "L'indemnité légale de licenciement est exonérée de cotisations sociales dans la limite de 2×PASS (96 120 € en 2026) et exonérée d'impôt sur le revenu dans la limite de 6×PASS (288 360 € en 2026), sans condition liée à l'âge de départ à la retraite — contrairement à la rupture conventionnelle, où cette exonération fiscale peut être nulle si le salarié peut faire valoir ses droits à une pension à taux plein. Au-delà de ces seuils, l'indemnité peut être partiellement soumise à cotisations et à CSG/CRDS. Rapprochez-vous d'un expert-comptable pour un calcul précis selon votre situation."
       }
     },
     {
@@ -197,6 +197,7 @@
         <div class="detail">Indemnité légale minimale à provisionner (hors indemnité de préavis et de congés payés).</div>
       </div>
       <div class="breakdown" id="breakdownL"></div>
+      <div class="breakdown" id="regimeFiscalL"></div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_L()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -234,7 +235,7 @@
     </details>
     <details class="faq">
       <summary>L'indemnité de licenciement est-elle imposable ?</summary>
-      <p>L'indemnité légale ou conventionnelle de licenciement est généralement exonérée d'impôt sur le revenu et de cotisations sociales dans certaines limites (proches de celles applicables à la rupture conventionnelle). Au-delà de ces seuils, elle peut être partiellement soumise à cotisations et à CSG/CRDS. Rapprochez-vous d'un expert-comptable pour un calcul précis selon votre situation.</p>
+      <p>L'indemnité légale de licenciement est exonérée de cotisations sociales dans la limite de 2×PASS (96 120 € en 2026) et exonérée d'impôt sur le revenu dans la limite de 6×PASS (288 360 € en 2026), sans condition liée à l'âge de départ à la retraite — contrairement à la <a href="rupture-conventionnelle.html">rupture conventionnelle</a>, où cette exonération fiscale peut être nulle si le salarié peut faire valoir ses droits à une pension à taux plein. Au-delà de ces seuils, l'indemnité peut être partiellement soumise à cotisations et à CSG/CRDS. Rapprochez-vous d'un expert-comptable pour un calcul précis selon votre situation.</p>
     </details>
     <details class="faq">
       <summary>Comment est calculée l'ancienneté si j'ai eu un arrêt maladie ou un congé parental ?</summary>
@@ -269,7 +270,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail, ancienneté minimale de 8 mois). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail, ancienneté minimale de 8 mois) et le régime social/fiscal 2026 (exonération sociale jusqu'à 2×PASS soit 96 120 €, exonération fiscale jusqu'à 6×PASS soit 288 360 €). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, ce qui peut aussi modifier le régime d'exonération applicable. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -324,6 +325,13 @@ function calculerLicenciement(){
   detailTxt += 'Référence : article R1234-2 du Code du travail.';
   document.getElementById('breakdownL').innerHTML = detailTxt;
 
+  var exoSocialeL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
+  var exoFiscaleL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
+  document.getElementById('regimeFiscalL').innerHTML =
+    'Régime social/fiscal estimé : exonérée de cotisations sociales à hauteur de ' + euros(exoSocialeL) +
+    ' (plafond 2026 : 2×PASS, soit 96 120 €), et exonérée d\'impôt sur le revenu à hauteur de ' + euros(exoFiscaleL) +
+    ' (plafond 2026 : 6×PASS, soit 288 360 €), sans condition liée à l\'âge de départ à la retraite. CSG/CRDS peuvent rester dues sur une fraction au-delà du seuil social. Règle simplifiée — cas particuliers non couverts (ex. indemnité conventionnelle supérieure au minimum légal).';
+
   resultBox.classList.add('show');
 }
 
@@ -336,6 +344,8 @@ function telechargerPDF_L(){
   if (salaireRef <= 0 || annees < (8/12) || motif === 'grave') return;
 
   var indemnite = indemniteLegale(salaireRef, annees);
+  var exoSocialeL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
+  var exoFiscaleL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
   var lignes = [
     { label: 'Salaire de référence retenu', value: euros(salaireRef) },
     { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' }
@@ -345,6 +355,8 @@ function telechargerPDF_L(){
     lignes.push({ label: 'Années au-delà de 10 ans (1/3 de mois/an)', value: euros((annees-10)*(salaireRef/3)) });
   }
   lignes.push({ label: 'Indemnité légale de licenciement', value: euros(indemnite), type: 'total' });
+  lignes.push({ label: 'Exonération sociale (plafond 2026 : 2×PASS, 96 120 €)', value: euros(exoSocialeL) });
+  lignes.push({ label: 'Exonération fiscale (plafond 2026 : 6×PASS, 288 360 €)', value: euros(exoFiscaleL) });
 
   genererPDFSimulation({
     titre: "Simulation d'indemnité de licenciement",
