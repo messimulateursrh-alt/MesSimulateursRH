@@ -179,6 +179,20 @@
       <p>Pour un salaire net mensuel moyen de 4 500 € (au-dessus du plafond de 4 005 €) : la base est limitée à 4 005 €, soit 2 803,50 € le 1ᵉʳ mois et 2 403 € le 2ᵉ mois, <strong>5 206,50 € au total</strong> — le surplus de salaire au-delà du plafond n'est pas indemnisé.</p>
     </div>
 
+    <h2>Qui peut en bénéficier ? (conditions d'éligibilité)</h2>
+    <p>
+      Le congé s'adresse aux parents d'un enfant né ou adopté à partir du 1ᵉʳ janvier 2026. Pour les salariés, trois conditions cumulatives s'appliquent à la date de début du congé :
+    </p>
+    <ul>
+      <li><strong>6 mois d'affiliation à la Sécurité sociale</strong>, à la date de début du congé.</li>
+      <li><strong>Et l'une de ces deux conditions d'activité</strong> : avoir travaillé au moins 150 heures au cours des 3 mois civils précédant le congé, ou avoir cotisé sur un salaire au moins égal à 1 015 fois le montant du SMIC horaire au cours des 6 mois précédents.</li>
+      <li><strong>Avoir pris au préalable l'intégralité</strong> du congé de maternité, de paternité et d'accueil de l'enfant, ou du congé d'adoption.</li>
+    </ul>
+    <p>
+      Les travailleurs indépendants doivent justifier des mêmes 6 mois d'affiliation et suspendre temporairement leur activité pendant toute la durée du congé ; ils perçoivent une indemnité journalière forfaitaire plutôt que proportionnelle au salaire.
+    </p>
+    <p><em>Source : <a href="https://www.ameli.fr/assure/droits-demarches/famille/maternite-paternite-adoption/conge-supplementaire-naissance" target="_blank" rel="noopener noreferrer">ameli.fr — Congé supplémentaire de naissance</a>.</em></p>
+
     <h2>Depuis quand, et jusqu'à quand pour en profiter ?</h2>
     <p>
       Le dispositif est accessible depuis le <strong>1ᵉʳ juillet 2026</strong>. Pour un enfant né ou arrivé au foyer entre le 1ᵉʳ janvier et le 30 juin 2026, le congé doit être pris entre le 1ᵉʳ juillet 2026 et le 31 mars 2027. Pour un enfant né à partir du 1ᵉʳ juillet 2026, le congé doit débuter dans les 9 mois suivant la naissance ou l'arrivée de l'enfant (délai prolongé en cas de congés de maternité, paternité ou adoption eux-mêmes allongés, par exemple pour une naissance multiple).
@@ -230,7 +244,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur une simplification des textes officiels (LFSS 2026 et décrets d'application) : indemnisation à 70 % puis 60 % du salaire net plafonné au PASS mensuel 2026, sans tenir compte des conditions d'ouverture de droits précises ni d'un éventuel maintien de salaire conventionnel. Pour un calcul officiel, consultez ameli.fr ou votre CPAM.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur une simplification des textes officiels (LFSS 2026 et décrets d'application) : indemnisation à 70 % puis 60 % du salaire net plafonné au PASS mensuel 2026. Les conditions d'éligibilité générales sont rappelées ci-dessus ; ce simulateur ne vérifie pas votre situation individuelle (temps partiel, interruptions de carrière, éventuel maintien de salaire conventionnel). Pour un calcul officiel, consultez ameli.fr ou votre CPAM.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -254,10 +268,17 @@ function calculerCongeNaissance(){
   document.getElementById('detailCongeNaissance').textContent = duree === 2
     ? 'Soit ' + euros(r.mois1) + ' le 1ᵉʳ mois puis ' + euros(r.mois2) + ' le 2ᵉ mois.'
     : 'Pour 1 mois de congé, indemnisé à 70 %.';
-  document.getElementById('breakdownCongeNaissance').innerHTML =
-    'Salaire pris en compte : ' + euros(r.salairePlafonne) +
-    (salaire > r.salairePlafonne ? ' (plafonné au PASS mensuel 2026, votre salaire réel étant plus élevé).' : '.') +
-    '<br>Versé par la Sécurité sociale (CPAM), et non par l\'employeur, sauf maintien de salaire conventionnel plus favorable.';
+  var calcTxt = 'Salaire pris en compte : ' + euros(r.salairePlafonne) +
+    (salaire > r.salairePlafonne ? ' (plafonné au PASS mensuel 2026, votre salaire réel étant plus élevé)' : '') + '<br>';
+  if (duree === 2){
+    calcTxt += 'Calcul : ' + euros(r.salairePlafonne) + ' × 70 % = <strong>' + euros(r.mois1) + '</strong> (1ᵉʳ mois) puis ' +
+      euros(r.salairePlafonne) + ' × 60 % = <strong>' + euros(r.mois2) + '</strong> (2ᵉ mois)<br>';
+  } else {
+    calcTxt += 'Calcul : ' + euros(r.salairePlafonne) + ' × 70 % = <strong>' + euros(r.mois1) + '</strong><br>';
+  }
+  calcTxt += 'Versé par la Sécurité sociale (CPAM), et non par l\'employeur, sauf maintien de salaire conventionnel plus favorable.<br>' +
+    'Réf. : LFSS 2026 et décrets d\'application.';
+  document.getElementById('breakdownCongeNaissance').innerHTML = calcTxt;
 
   resultBox.classList.add('show');
 }
@@ -284,7 +305,7 @@ function telechargerPDF_CongeNaissance(){
     titre: 'Simulation congé de naissance 2026',
     sousTitre: 'Estimation de l\'indemnisation versée par la Sécurité sociale',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur une simplification des textes officiels (LFSS 2026). Ne tient pas compte des conditions d'ouverture de droits précises ni d'un éventuel maintien de salaire conventionnel. Pour un calcul officiel, consultez ameli.fr.",
+    disclaimer: "Simulateur indicatif basé sur une simplification des textes officiels (LFSS 2026). Conditions d'éligibilité générales : 6 mois d'affiliation à la Sécurité sociale, 150h travaillées sur 3 mois (ou cotisation sur 1015x le SMIC horaire sur 6 mois), congé maternité/paternité épuisé au préalable. Ne vérifie pas votre situation individuelle (temps partiel, interruptions de carrière, éventuel maintien de salaire conventionnel). Pour un calcul officiel, consultez ameli.fr.",
     nomFichier: 'simulation-conge-naissance.pdf'
   });
 }
