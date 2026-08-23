@@ -321,7 +321,23 @@ function calculerDroitsChomage(){
 
   if (salaire > 0){
     var are = estimerARE(salaire);
-    montantDiv.innerHTML = 'Allocation journalière brute estimée : <strong>' + euros(are.jour) + '</strong> (soit environ ' + euros(are.mois) + ' brut/mois). Salaire journalier de référence approximé : ' + euros(are.sjr) + '. Cette estimation ne tient pas compte de la dégressivité ni des différés d\'indemnisation.';
+    var brancheA = 0.404 * are.sjr + BAREME_2026.ARE_PARTIE_FIXE_JOUR;
+    var brancheB = 0.57 * are.sjr;
+    var brutAvantBornes = Math.max(brancheA, brancheB);
+    var formuleRetenue = brancheB > brancheA ? 'B' : 'A';
+    var noteBorne = '';
+    if (are.jour !== brutAvantBornes){
+      noteBorne = are.jour > brutAvantBornes
+        ? ' (relevé au plancher légal de ' + euros(BAREME_2026.ARE_PLANCHER_JOUR) + '/jour)'
+        : ' (plafonné à 75 % du SJR, soit ' + euros(BAREME_2026.ARE_PLAFOND_PART_SJR * are.sjr) + '/jour)';
+    }
+    montantDiv.innerHTML =
+      'Salaire journalier de référence (SJR) approximé : ' + euros(are.sjr) + ' (' + euros(salaire) + ' × 12 / 365)<br>' +
+      'Calcul : (40,4 % × ' + euros(are.sjr) + ') + ' + euros(BAREME_2026.ARE_PARTIE_FIXE_JOUR) + ' = ' + euros(brancheA) + (formuleRetenue === 'A' ? ' <strong>← retenu</strong>' : '') + '<br>' +
+      'ou : 57 % × ' + euros(are.sjr) + ' = ' + euros(brancheB) + (formuleRetenue === 'B' ? ' <strong>← retenu</strong>' : '') + '<br>' +
+      'France Travail retient le montant le plus favorable : <strong>' + euros(are.jour) + '</strong>/jour' + noteBorne + ', soit environ <strong>' + euros(are.mois) + '</strong>/mois<br>' +
+      'Référence : règlement général d\'assurance chômage 2026 (Unédic / France Travail).<br>' +
+      'Cette estimation ne tient pas compte de la dégressivité ni des différés d\'indemnisation.';
   } else {
     montantDiv.innerHTML = 'Renseignez votre salaire mensuel brut moyen pour obtenir une estimation du montant.';
   }
