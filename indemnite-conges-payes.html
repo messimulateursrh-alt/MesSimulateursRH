@@ -253,7 +253,11 @@ function calculerConges(){
   var r = estimerCongesPayes(remuneration, salaireMensuel, jours);
   document.getElementById('montantCP').textContent = euros(r.retenu);
   document.getElementById('detailCP').textContent = 'Méthode la plus favorable retenue : ' + r.methodeRetenue + ' (obligation légale).';
-  document.getElementById('breakdownCP').textContent = 'Règle du dixième : ' + euros(r.dixieme) + ' — Maintien de salaire : ' + euros(r.maintien) + '.';
+  document.getElementById('breakdownCP').innerHTML =
+    'Règle du dixième : (' + euros(remuneration) + ' / 10) × (' + jours + ' / ' + BAREME_2026.JOURS_CONGES_MAX_AN + ') = <strong>' + euros(r.dixieme) + '</strong>' + (r.methodeRetenue === 'dixième' ? ' ← retenu' : '') + '<br>' +
+    'Maintien de salaire : (' + euros(salaireMensuel) + ' / ' + BAREME_2026.JOURS_OUVRABLES_MOIS + ') × ' + jours + ' = <strong>' + euros(r.maintien) + '</strong>' + (r.methodeRetenue === 'maintien de salaire' ? ' ← retenu' : '') + '<br>' +
+    'La loi impose de comparer les deux méthodes et de retenir la plus favorable au salarié.<br>' +
+    'Référence : article L3141-24 du Code du travail.';
   resultBox.classList.add('show');
 }
 

@@ -26,6 +26,7 @@ PASS_ANNUEL: 48060,
 PASS_MENSUEL: 4005,
 PLAFOND_EXO_SOCIALE_RC: 2 * 48060,   // 96 120 €
 PLAFOND_EXO_FISCALE_RC: 6 * 48060,   // 288 360 €
+PLAFOND_EXO_FISCALE_RETRAITE: 5 * 48060,   // 240 300 € — plafond spécifique mise à la retraite, distinct du licenciement (6×PASS)
 SMIC_BRUT_MENSUEL: 1867,
 ARE_PARTIE_FIXE_JOUR: 13.18,
 ARE_PLANCHER_JOUR: 32.13,
@@ -34,6 +35,15 @@ ARE_AFFILIATION_MIN_JOURS: 130,
 ARE_AFFILIATION_MIN_HEURES: 910,
 COEF_NET_NON_CADRE: 0.78,
 COEF_NET_CADRE: 0.75,
+TAUX_VIEILLESSE_PLAFONNEE: 0.0690,
+TAUX_VIEILLESSE_DEPLAFONNEE: 0.0040,
+TAUX_AGIRC_ARRCO_T1_SALARIE: 0.0315,
+TAUX_CEG_T1_SALARIE: 0.0086,
+TAUX_APEC_SALARIE: 0.00024,
+TAUX_CSG_DEDUCTIBLE: 0.0680,
+TAUX_CSG_NON_DEDUCTIBLE: 0.0240,
+TAUX_CRDS: 0.0050,
+ABATTEMENT_ASSIETTE_CSG_CRDS: 0.9825,
 JOURS_OUVRABLES_MOIS: 26,
 JOURS_CONGES_MAX_AN: 30,
 CHARGES_PATRONALES_MOYENNES: 0.42,
@@ -61,6 +71,32 @@ var coef = statutCadre ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_C
 var net = brutMensuel * coef;
 var netImposable = net * 1.0169; // réintégration approximative de la CSG/CRDS non déductible (~1.7% du brut)
 return { net: net, netImposable: netImposable, coef: coef };
+}
+function detailCotisationsSalariales(brutMensuel, statutCadre){
+var brutPlafonne = Math.min(brutMensuel, BAREME_2026.PASS_MENSUEL);
+var assietteCSG = brutMensuel * BAREME_2026.ABATTEMENT_ASSIETTE_CSG_CRDS;
+var vieillessePlafonnee = brutPlafonne * BAREME_2026.TAUX_VIEILLESSE_PLAFONNEE;
+var vieillesseDeplafonnee = brutMensuel * BAREME_2026.TAUX_VIEILLESSE_DEPLAFONNEE;
+var agircArrco = brutPlafonne * BAREME_2026.TAUX_AGIRC_ARRCO_T1_SALARIE;
+var ceg = brutPlafonne * BAREME_2026.TAUX_CEG_T1_SALARIE;
+var apec = statutCadre ? Math.min(brutMensuel, 4 * BAREME_2026.PASS_MENSUEL) * BAREME_2026.TAUX_APEC_SALARIE : 0;
+var csgDeductible = assietteCSG * BAREME_2026.TAUX_CSG_DEDUCTIBLE;
+var csgNonDeductible = assietteCSG * BAREME_2026.TAUX_CSG_NON_DEDUCTIBLE;
+var crds = assietteCSG * BAREME_2026.TAUX_CRDS;
+var total = vieillessePlafonnee + vieillesseDeplafonnee + agircArrco + ceg + apec + csgDeductible + csgNonDeductible + crds;
+return {
+brutPlafonne: brutPlafonne,
+vieillessePlafonnee: vieillessePlafonnee,
+vieillesseDeplafonnee: vieillesseDeplafonnee,
+agircArrco: agircArrco,
+ceg: ceg,
+apec: apec,
+csgDeductible: csgDeductible,
+csgNonDeductible: csgNonDeductible,
+crds: crds,
+total: total,
+tauxTotal: total / brutMensuel
+};
 }
 function estimerARE(salaireMensuelBrut){
 var sjr = (salaireMensuelBrut * 12) / 365;
@@ -275,6 +311,55 @@ doc.text('MesSimulateursRH.fr — calcul réalisé localement dans votre navigat
 doc.text(String(p) + ' / ' + totalPages, pageWidth - margin, pageHeight - 12, {align:'right'});
 }
 doc.save(opts.nomFichier || 'simulation-rh.pdf');
+afficherRemerciementPDF();
+}
+function afficherRemerciementPDF(){
+var bouton = document.querySelector('.compute.pdf');
+if (!bouton) return;
+var existant = document.querySelector('.pdf-merci');
+if (existant){ existant.parentNode.removeChild(existant); }
+var encart = document.createElement('div');
+encart.className = 'pdf-merci';
+var texte = document.createElement('p');
+texte.textContent = "Cette estimation vous a été utile ? Elle peut aussi être utile à quelqu'un de votre entourage.";
+var btnCopier = document.createElement('button');
+btnCopier.type = 'button';
+btnCopier.className = 'pdf-merci-copier';
+btnCopier.textContent = 'Copier le lien de cette page';
+btnCopier.onclick = function(){
+var url = window.location.href;
+var texteInitial = 'Copier le lien de cette page';
+function feedback(){
+btnCopier.textContent = 'Lien copié !';
+btnCopier.classList.add('copie');
+setTimeout(function(){
+btnCopier.textContent = texteInitial;
+btnCopier.classList.remove('copie');
+}, 2000);
+}
+if (navigator.clipboard && navigator.clipboard.writeText){
+navigator.clipboard.writeText(url).then(feedback).catch(function(){
+copierLienFallback(url);
+feedback();
+});
+} else {
+copierLienFallback(url);
+feedback();
+}
+};
+encart.appendChild(texte);
+encart.appendChild(btnCopier);
+bouton.insertAdjacentElement('afterend', encart);
+}
+function copierLienFallback(texte){
+var zoneTemp = document.createElement('textarea');
+zoneTemp.value = texte;
+zoneTemp.style.position = 'fixed';
+zoneTemp.style.opacity = '0';
+document.body.appendChild(zoneTemp);
+zoneTemp.select();
+try { document.execCommand('copy'); } catch(e){}
+document.body.removeChild(zoneTemp);
 }
 function initQuiz(containerId, questions){
 var container = document.getElementById(containerId);

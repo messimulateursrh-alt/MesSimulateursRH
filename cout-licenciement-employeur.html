@@ -288,12 +288,27 @@ function calculerCoutLicenciement(){
   var coutTotal = indemnite + montantPreavis + conges + chargesPatronales + chargesSurExcedent;
 
   document.getElementById('montantCLE').textContent = euros(coutTotal);
-  document.getElementById('breakdownCLE').innerHTML =
-    'Indemnité légale de licenciement : ' + euros(indemnite) + (indemniteExcedent > 0 ? ' (dont ' + euros(indemniteExcedent) + ' au-delà du plafond d\'exonération, soumis à charges)' : ' (exonérée de charges patronales)') + '<br>' +
-    'Indemnité compensatrice de préavis : ' + euros(montantPreavis) + '<br>' +
-    'Indemnité de congés payés non pris : ' + euros(conges) + '<br>' +
-    'Charges patronales estimées (42 % sur les éléments soumis) : ' + euros(chargesPatronales + chargesSurExcedent) + '<br>' +
-    '<strong>Total estimé : ' + euros(coutTotal) + '</strong>';
+  var detailTxtCLE = '';
+  if (indemnite > 0){
+    detailTxtCLE += 'Indemnité légale de licenciement — Salaire de référence : ' + euros(salaireRef) + ' · Ancienneté : ' + annees.toFixed(2) + ' an(s)<br>';
+    if (annees > 10){
+      var part1CLE = 10 * (salaireRef / 4);
+      var part2CLE = (annees - 10) * (salaireRef / 3);
+      detailTxtCLE += 'Calcul : (10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees - 10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ') = ' + euros(part1CLE) + ' + ' + euros(part2CLE) + ' = <strong>' + euros(indemnite) + '</strong> (Art. R1234-2 du Code du travail)<br>';
+    } else {
+      detailTxtCLE += 'Calcul : ' + euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2) + ' = <strong>' + euros(indemnite) + '</strong> (Art. R1234-2 du Code du travail)<br>';
+    }
+    detailTxtCLE += (indemniteExcedent > 0
+      ? 'Dont ' + euros(indemniteExcedent) + ' au-delà du plafond d\'exonération sociale (2×PASS, 96 120 €), soumis à charges patronales'
+      : 'Intégralement exonérée de charges patronales (sous le plafond de 2×PASS, 96 120 €)') + '<br>';
+  } else {
+    detailTxtCLE += 'Indemnité légale de licenciement : 0 € (moins de 8 mois d\'ancienneté, aucune indemnité légale due)<br>';
+  }
+  detailTxtCLE += 'Indemnité compensatrice de préavis : ' + euros(salaireRef) + ' × ' + dureePreavis + ' mois = ' + euros(montantPreavis) + '<br>';
+  detailTxtCLE += 'Indemnité de congés payés non pris : ' + euros(conges) + '<br>';
+  detailTxtCLE += 'Charges patronales (taux moyen 42 %) sur préavis + congés' + (indemniteExcedent > 0 ? ' + excédent d\'indemnité' : '') + ' : (' + euros(montantPreavis) + ' + ' + euros(conges) + (indemniteExcedent > 0 ? ' + ' + euros(indemniteExcedent) : '') + ') × 42 % = <strong>' + euros(chargesPatronales + chargesSurExcedent) + '</strong><br>';
+  detailTxtCLE += '<strong>Total estimé : ' + euros(coutTotal) + '</strong>';
+  document.getElementById('breakdownCLE').innerHTML = detailTxtCLE;
 
   resultBox.classList.add('show');
 }

@@ -48,6 +48,14 @@
     },
     {
       "@type": "Question",
+      "name": "L'indemnité de mise à la retraite a-t-elle exactement le même régime fiscal que l'indemnité de licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas tout à fait. Le plafond d'exonération de cotisations sociales est bien le même (2×PASS, 96 120 € en 2026). En revanche, le plafond d'exonération d'impôt sur le revenu est plus bas pour la mise à la retraite (5×PASS, 240 300 € en 2026) que pour le licenciement (6×PASS, 288 360 €). De plus, une contribution patronale spécifique de 40 % (LFSS 2026) s'applique sur la part exonérée de cotisations sociales pour la mise à la retraite — une charge qui n'existe pas pour l'indemnité de licenciement classique."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Puis-je refuser une mise à la retraite proposée par mon employeur ?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -203,7 +211,7 @@
       Deux régimes légaux distincts coexistent. En cas de <strong>départ volontaire</strong> du salarié (Art. L1237-9), l'indemnité est due à partir de 10 ans d'ancienneté et suit un barème par palier : un demi-mois de salaire entre 10 et 15 ans, un mois entre 15 et 20 ans, un mois et demi entre 20 et 30 ans, deux mois au-delà de 30 ans. En cas de <strong>mise à la retraite</strong> par l'employeur (salarié d'au moins 67 ans avec son accord, ou 70 ans et plus sans accord requis), l'indemnité suit le même barème que l'indemnité légale de licenciement (Art. R1234-2) : un quart de mois par année jusqu'à 10 ans, puis un tiers de mois par année au-delà.
     </p>
     <p>
-      Le régime fiscal et social diffère fortement selon le cas : l'indemnité de mise à la retraite bénéficie des mêmes exonérations que l'indemnité de licenciement, alors que l'indemnité de départ volontaire est en principe intégralement soumise à cotisations et à l'impôt sur le revenu.
+      Le régime fiscal et social diffère fortement selon le cas. L'indemnité de mise à la retraite est exonérée de cotisations sociales dans les mêmes conditions que l'indemnité de licenciement (2×PASS), mais son plafond d'exonération d'impôt sur le revenu est plus bas (5×PASS, contre 6×PASS pour le licenciement), et une contribution patronale spécifique de 40 % s'ajoute sur la part exonérée de cotisations — une charge que l'employeur ne supporte pas en cas de licenciement classique. L'indemnité de départ volontaire, elle, est en principe intégralement soumise à cotisations et à l'impôt sur le revenu, sans aucune exonération (sauf cadre PSE).
     </p>
 
     <div class="example-box">
@@ -220,6 +228,10 @@
     <details class="faq">
       <summary>L'indemnité de départ volontaire est-elle exonérée de cotisations sociales et d'impôt ?</summary>
       <p>Non, sauf cas particulier. Contrairement à l'indemnité de licenciement ou de rupture conventionnelle, l'indemnité de départ volontaire à la retraite est en principe intégralement soumise à cotisations sociales, CSG/CRDS et impôt sur le revenu, sauf si le départ s'inscrit dans le cadre d'un plan de sauvegarde de l'emploi (PSE), auquel cas le régime d'exonération de l'indemnité de licenciement s'applique.</p>
+    </details>
+    <details class="faq">
+      <summary>L'indemnité de mise à la retraite a-t-elle exactement le même régime fiscal que l'indemnité de licenciement ?</summary>
+      <p>Pas tout à fait. Le plafond d'exonération de cotisations sociales est bien le même (2×PASS, 96 120 € en 2026). En revanche, le plafond d'exonération d'impôt sur le revenu est plus bas pour la mise à la retraite (5×PASS, 240 300 € en 2026) que pour le licenciement (6×PASS, 288 360 €). De plus, une contribution patronale spécifique de 40 % (LFSS 2026) s'applique sur la part exonérée de cotisations sociales pour la mise à la retraite — une charge qui n'existe pas pour l'indemnité de licenciement classique.</p>
     </details>
     <details class="faq">
       <summary>Puis-je refuser une mise à la retraite proposée par mon employeur ?</summary>
@@ -285,9 +297,15 @@ function calculerDepartRetraite(){
       'Barème départ volontaire appliqué : ' + r.coefMois + ' mois de salaire.<br>' +
       'Régime fiscal/social : en principe intégralement soumis à cotisations sociales et impôt sur le revenu (sauf cadre PSE).';
   } else {
+    var exoSocialeDR = Math.min(r.montant, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
+    var exoFiscaleDR = Math.min(r.montant, BAREME_2026.PLAFOND_EXO_FISCALE_RETRAITE);
+    var contribPatronaleDR = exoSocialeDR * 0.40;
     document.getElementById('breakdownDR').innerHTML =
-      'Barème mise à la retraite (identique au licenciement) : 1/4 de mois par année jusqu\'à 10 ans, puis 1/3 de mois au-delà.<br>' +
-      'Régime fiscal/social : exonérations identiques à l\'indemnité de licenciement (plafond 2026 : ' + euros(BAREME_2026.PLAFOND_EXO_SOCIALE_RC) + ').';
+      'Barème mise à la retraite (même formule que le licenciement) : 1/4 de mois par année jusqu\'à 10 ans, puis 1/3 de mois au-delà.<br>' +
+      'Régime fiscal/social estimé sur ' + euros(r.montant) + ' : exonérée de cotisations sociales à hauteur de ' + euros(exoSocialeDR) +
+      ' (plafond 2026 : 2×PASS, soit ' + euros(BAREME_2026.PLAFOND_EXO_SOCIALE_RC) + '), et exonérée d\'impôt sur le revenu à hauteur de ' + euros(exoFiscaleDR) +
+      ' (plafond 2026 : 5×PASS, soit ' + euros(BAREME_2026.PLAFOND_EXO_FISCALE_RETRAITE) + ' — plafond spécifique à la mise à la retraite, plus bas que celui du licenciement).<br>' +
+      'Contribution patronale spécifique (40 %, sur la part exonérée de cotisations) : ' + euros(contribPatronaleDR) + ', à la charge de l\'employeur — cette contribution ne s\'applique pas à l\'indemnité de licenciement classique.';
   }
 
   resultBox.classList.add('show');
@@ -312,8 +330,13 @@ function telechargerPDF_DR(){
     lignes.push({ label: 'Barème appliqué', value: r.coefMois + ' mois de salaire' });
     lignes.push({ label: 'Régime fiscal/social', value: 'Intégralement soumis (sauf PSE)' });
   } else {
-    lignes.push({ label: 'Barème appliqué', value: 'Identique à l\'indemnité de licenciement' });
-    lignes.push({ label: 'Plafond d\'exonération sociale 2026', value: euros(BAREME_2026.PLAFOND_EXO_SOCIALE_RC) });
+    var exoSocialeDRpdf = Math.min(r.montant, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
+    var exoFiscaleDRpdf = Math.min(r.montant, BAREME_2026.PLAFOND_EXO_FISCALE_RETRAITE);
+    var contribPatronaleDRpdf = exoSocialeDRpdf * 0.40;
+    lignes.push({ label: 'Barème appliqué', value: 'Même formule que l\'indemnité de licenciement' });
+    lignes.push({ label: 'Exonération sociale (plafond 2026 : 2×PASS, 96 120 €)', value: euros(exoSocialeDRpdf) });
+    lignes.push({ label: 'Exonération fiscale (plafond 2026 : 5×PASS, 240 300 €)', value: euros(exoFiscaleDRpdf) });
+    lignes.push({ label: 'Contribution patronale spécifique (40 %, à la charge employeur)', value: euros(contribPatronaleDRpdf) });
   }
   lignes.push({ label: 'Indemnité de départ à la retraite estimée', value: euros(r.montant), type: 'total' });
 

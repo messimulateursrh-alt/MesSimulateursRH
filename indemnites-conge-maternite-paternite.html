@@ -242,7 +242,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur une simplification du calcul officiel de la CPAM (salaire journalier de base plafonné au PASS mensuel 2026, taux forfaitaires de 79 % en maternité et 93,8 % en paternité). Ne tient pas compte des conditions d'ouverture de droits, des planchers d'indemnisation, ni d'un éventuel maintien de salaire conventionnel. Pour un calcul officiel, consultez ameli.fr ou votre CPAM.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur une simplification du calcul officiel de la CPAM (salaire journalier de base selon l'article R331-5 du Code de la sécurité sociale, plafonné au PASS mensuel 2026, taux forfaitaires de 79 % en maternité et 93,8 % en paternité). Ne tient pas compte des conditions d'ouverture de droits, des planchers d'indemnisation, ni d'un éventuel maintien de salaire conventionnel. Pour un calcul officiel, consultez ameli.fr ou votre CPAM.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -274,11 +274,15 @@ function calculerIJConge(){
 
   document.getElementById('montantIJ').textContent = euros(r.total) + ' au total';
   document.getElementById('detailIJ').textContent = 'Soit ' + euros(r.ijJour) + ' par jour, sur ' + dureeJours + ' jours indemnisés par la CPAM.';
-  document.getElementById('breakdownIJ').innerHTML =
-    'Salaire journalier de base estimé : ' + euros(r.sjb) + '<br>' +
+  var salairePlafonneIJ = Math.min(salaire, BAREME_2026.PASS_MENSUEL);
+  var breakdownTxtIJ =
+    'Salaire mensuel pris en compte : ' + euros(salairePlafonneIJ) + (salaire > salairePlafonneIJ ? ' (plafonné au PASS mensuel 2026, votre salaire réel étant plus élevé)' : '') + '<br>' +
+    'Salaire journalier de base (SJB) : (' + euros(salairePlafonneIJ) + ' × 3) / ' + BAREME_2026.SJB_DIVISEUR + ' = <strong>' + euros(r.sjb) + '</strong> (Art. R331-5 du Code de la sécurité sociale)<br>' +
     (type === 'maternite'
-      ? 'Taux appliqué : 79 % du SJB (abattement CSG/CRDS forfaitaire de 21 %).'
-      : 'Taux appliqué : 93,8 % du SJB (CSG/CRDS ~6,2 %). Le congé de naissance de 3 jours (à la charge de l\'employeur, non CPAM) n\'est pas inclus.');
+      ? 'Indemnité journalière : ' + euros(r.sjb) + ' × 79 % = <strong>' + euros(r.ijJour) + '</strong>/jour (abattement CSG/CRDS forfaitaire de 21 %)<br>'
+      : 'Indemnité journalière : ' + euros(r.sjb) + ' × 93,8 % = <strong>' + euros(r.ijJour) + '</strong>/jour (CSG/CRDS ~6,2 %). Le congé de naissance de 3 jours (à la charge de l\'employeur, non CPAM) n\'est pas inclus.<br>') +
+    'Total sur ' + dureeJours + ' jours : ' + euros(r.ijJour) + ' × ' + dureeJours + ' = <strong>' + euros(r.total) + '</strong>';
+  document.getElementById('breakdownIJ').innerHTML = breakdownTxtIJ;
 
   resultBox.classList.add('show');
 }

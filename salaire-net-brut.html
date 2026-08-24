@@ -35,7 +35,7 @@
       "name": "Ce coefficient est-il valable pour tous les salariés ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non, c'est une moyenne de marché. Le taux réel de cotisations varie selon la convention collective applicable, la tranche de rémunération (plafond de la Sécurité sociale), la présence d'une mutuelle ou prévoyance obligatoire, et le taux de cotisation accident du travail propre à l'entreprise. Pour un chiffre exact, référez-vous à votre bulletin de paie ou à un simulateur intégrant votre convention collective."
+        "text": "Non, c'est une moyenne de marché. Le taux réel de cotisations varie selon la convention collective applicable, la tranche de rémunération (plafond de la Sécurité sociale), la présence d'une mutuelle ou prévoyance obligatoire, le taux de cotisation accident du travail propre à l'entreprise, et le régime local d'Alsace-Moselle le cas échéant. Pour un chiffre exact, référez-vous à votre bulletin de paie ou à un simulateur intégrant votre convention collective."
       }
     },
     {
@@ -48,10 +48,26 @@
     },
     {
       "@type": "Question",
+      "name": "Le calcul est-il différent en Alsace-Moselle (Bas-Rhin, Haut-Rhin, Moselle) ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, légèrement. Les salariés relevant du régime local d'assurance maladie d'Alsace-Moselle versent une cotisation salariale supplémentaire, fixée à 1,30 % du salaire brut en 2026, en plus des cotisations du régime général. En contrepartie, ce régime local offre un meilleur taux de remboursement des frais de santé. Ce coefficient supplémentaire n'est pas intégré au calcul ci-dessus, qui applique le régime général métropolitain hors Alsace-Moselle."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Le prélèvement à la source est-il inclus dans ce calcul ?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Non. Ce simulateur donne le net avant impôt (le montant soumis au prélèvement à la source). Le prélèvement effectif dépend de votre taux personnalisé, transmis par l'administration fiscale à votre employeur, qui varie selon votre situation familiale et l'ensemble de vos revenus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi mon bulletin de paie affiche-t-il 0 % pour l'assurance maladie et l'assurance chômage ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est normal, ce n'est pas une erreur. La cotisation salariale d'assurance maladie a été supprimée le 1er janvier 2018, et la cotisation salariale d'assurance chômage a été supprimée en octobre 2018 (dans le cadre de la bascule vers la CSG). Ces deux risques restent intégralement financés par des cotisations patronales et la CSG, mais n'apparaissent plus comme une retenue sur le salaire du salarié. Les cotisations salariales restantes portent essentiellement sur la retraite (de base et complémentaire AGIRC-ARRCO) et la CSG/CRDS."
       }
     }
   ]
@@ -170,6 +186,10 @@
       <div class="amount" id="montantNet">—</div>
       <div class="detail" id="detailNB"></div>
       <div class="breakdown" id="breakdownNB"></div>
+      <details class="cotisations-detail" id="detailCotisationsBox" hidden>
+        <summary>Voir le détail des cotisations salariales, poste par poste</summary>
+        <div id="detailCotisationsContent"></div>
+      </details>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_NB()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -184,7 +204,7 @@
   <section class="content-section">
     <h2>Comment est estimé le passage du brut au net ?</h2>
     <p>
-      Le salaire net correspond au brut diminué des cotisations sociales salariales (assurance maladie, retraite de base et complémentaire AGIRC-ARRCO, chômage, CSG/CRDS...). Ce simulateur applique un coefficient moyen de conversion : environ 78 % du brut pour un non-cadre, et environ 75 % pour un cadre — l'écart s'explique principalement par des cotisations de retraite complémentaire et de prévoyance plus élevées pour les cadres (AGIRC-ARRCO, APEC).
+      Le salaire net correspond au brut diminué des cotisations sociales salariales (retraite de base et complémentaire AGIRC-ARRCO, CSG/CRDS — l'assurance maladie et l'assurance chômage sont à 0 % côté salarié depuis 2018). Ce simulateur applique un coefficient moyen de conversion : environ 78 % du brut pour un non-cadre, et environ 75 % pour un cadre — l'écart s'explique principalement par des cotisations de retraite complémentaire et de prévoyance plus élevées pour les cadres (AGIRC-ARRCO, APEC). Le résultat affiche aussi un détail indicatif des cotisations poste par poste.
     </p>
     <div class="notice">À titre de repère, le <a href="glossaire-droit-travail.html#smic">SMIC</a> brut mensuel s'élève à 1 867 € en 2026 (temps plein, 35h/semaine), soit environ 1 456 € net pour un statut non-cadre.</div>
     <p>
@@ -194,15 +214,23 @@
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Ce coefficient est-il valable pour tous les salariés ?</summary>
-      <p>Non, c'est une moyenne de marché. Le taux réel de cotisations varie selon la convention collective applicable, la tranche de rémunération (plafond de la Sécurité sociale), la présence d'une mutuelle ou prévoyance obligatoire, et le taux de cotisation accident du travail propre à l'entreprise. Pour un chiffre exact, référez-vous à votre bulletin de paie ou à un simulateur intégrant votre convention collective.</p>
+      <p>Non, c'est une moyenne de marché. Le taux réel de cotisations varie selon la convention collective applicable, la tranche de rémunération (plafond de la Sécurité sociale), la présence d'une mutuelle ou prévoyance obligatoire, le taux de cotisation accident du travail propre à l'entreprise, et le régime local d'Alsace-Moselle le cas échéant. Pour un chiffre exact, référez-vous à votre bulletin de paie ou à un simulateur intégrant votre convention collective.</p>
     </details>
     <details class="faq">
       <summary>Pourquoi un cadre touche-t-il un net inférieur à brut équivalent ?</summary>
       <p>Les cadres cotisent davantage à la retraite complémentaire (tranches AGIRC-ARRCO plus élevées) et à l'APEC (Association pour l'emploi des cadres), ce qui explique un taux de cotisations salariales globalement supérieur d'environ 3 points par rapport à un non-cadre.</p>
     </details>
     <details class="faq">
+      <summary>Le calcul est-il différent en Alsace-Moselle (Bas-Rhin, Haut-Rhin, Moselle) ?</summary>
+      <p>Oui, légèrement. Les salariés relevant du régime local d'assurance maladie d'Alsace-Moselle versent une cotisation salariale supplémentaire, fixée à 1,30 % du salaire brut en 2026, en plus des cotisations du régime général. En contrepartie, ce régime local offre un meilleur taux de remboursement des frais de santé. Ce coefficient supplémentaire n'est pas intégré au calcul ci-dessus, qui applique le régime général métropolitain hors Alsace-Moselle.</p>
+    </details>
+    <details class="faq">
       <summary>Le prélèvement à la source est-il inclus dans ce calcul ?</summary>
       <p>Non. Ce simulateur donne le net avant impôt (le montant soumis au prélèvement à la source). Le prélèvement effectif dépend de votre taux personnalisé, transmis par l'administration fiscale à votre employeur, qui varie selon votre situation familiale et l'ensemble de vos revenus.</p>
+    </details>
+    <details class="faq">
+      <summary>Pourquoi mon bulletin de paie affiche-t-il 0 % pour l'assurance maladie et l'assurance chômage ?</summary>
+      <p>C'est normal, ce n'est pas une erreur. La cotisation salariale d'assurance maladie a été supprimée le 1er janvier 2018, et la cotisation salariale d'assurance chômage a été supprimée en octobre 2018 (dans le cadre de la bascule vers la CSG). Ces deux risques restent intégralement financés par des cotisations patronales et la CSG, mais n'apparaissent plus comme une retenue sur le salaire du salarié. Les cotisations salariales restantes portent essentiellement sur la retraite (de base et complémentaire AGIRC-ARRCO) et la CSG/CRDS.</p>
     </details>
 
     <div class="related-tools">
@@ -223,7 +251,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> conversion indicative basée sur des coefficients moyens 2026 (78 % non-cadre, 75 % cadre). Le montant réel dépend de votre convention collective et de votre situation exacte. Ne remplace pas un bulletin de paie ou un conseil d'expert-comptable.
+    <strong>Avertissement :</strong> conversion indicative basée sur des coefficients moyens 2026 (78 % non-cadre, 75 % cadre), régime général métropolitain hors Alsace-Moselle. Le montant réel dépend de votre convention collective et de votre situation exacte. Ne remplace pas un bulletin de paie ou un conseil d'expert-comptable.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -245,6 +273,31 @@ function calculerNetBrut(){
   document.getElementById('montantNet').textContent = euros(r.net) + ' net';
   document.getElementById('detailNB').textContent = 'Pour ' + euros(brut) + ' brut (' + (cadre ? 'cadre' : 'non-cadre') + '), coefficient appliqué : ' + (r.coef*100).toFixed(0) + '%.';
   document.getElementById('breakdownNB').textContent = 'Net imposable estimé (base du prélèvement à la source) : ' + euros(r.netImposable) + '.';
+
+  var d = detailCotisationsSalariales(brut, cadre);
+  var lignesDetail = [
+    ['Retraite de base plafonnée (' + (BAREME_2026.TAUX_VIEILLESSE_PLAFONNEE*100).toFixed(2) + ' % du brut plafonné à ' + euros(BAREME_2026.PASS_MENSUEL) + ')', d.vieillessePlafonnee],
+    ['Retraite de base déplafonnée (' + (BAREME_2026.TAUX_VIEILLESSE_DEPLAFONNEE*100).toFixed(2) + ' % du brut total)', d.vieillesseDeplafonnee],
+    ['Retraite complémentaire AGIRC-ARRCO, tranche 1 (' + (BAREME_2026.TAUX_AGIRC_ARRCO_T1_SALARIE*100).toFixed(2) + ' %)', d.agircArrco],
+    ['CEG, tranche 1 (' + (BAREME_2026.TAUX_CEG_T1_SALARIE*100).toFixed(2) + ' %)', d.ceg]
+  ];
+  if (cadre){
+    lignesDetail.push(['Cotisation APEC (' + (BAREME_2026.TAUX_APEC_SALARIE*100).toFixed(3) + ' %, cadres uniquement)', d.apec]);
+  }
+  lignesDetail.push(['CSG déductible (' + (BAREME_2026.TAUX_CSG_DEDUCTIBLE*100).toFixed(2) + ' % sur 98,25 % du brut)', d.csgDeductible]);
+  lignesDetail.push(['CSG non déductible (' + (BAREME_2026.TAUX_CSG_NON_DEDUCTIBLE*100).toFixed(2) + ' % sur 98,25 % du brut)', d.csgNonDeductible]);
+  lignesDetail.push(['CRDS (' + (BAREME_2026.TAUX_CRDS*100).toFixed(2) + ' % sur 98,25 % du brut)', d.crds]);
+
+  var html = '<ul>';
+  lignesDetail.forEach(function(l){
+    html += '<li>' + l[0] + ' : <strong>' + euros(l[1]) + '</strong></li>';
+  });
+  html += '</ul>';
+  html += '<p style="color:var(--ink-soft);font-size:.85rem">Assurance maladie et assurance chômage : <strong>0 %</strong> de cotisation salariale (supprimées depuis 2018, financées par la CSG et les cotisations patronales).</p>';
+  html += '<p style="color:var(--ink-soft);font-size:.85rem"><strong>Total cotisations salariales détaillées ci-dessus : ' + euros(d.total) + ', soit ' + (d.tauxTotal*100).toFixed(1) + ' % du brut.</strong> Ce total détaillé est un peu inférieur au coefficient global utilisé pour le résultat principal (' + (r.coef*100).toFixed(0) + ' %) : l\'écart correspond à des éléments non génériques et donc non inclus ici (tranche 2 de retraite complémentaire au-delà du plafond, prévoyance obligatoire propre à certaines conventions collectives, taux accident du travail variable selon l\'entreprise, mutuelle obligatoire...). Ce détail reste donc indicatif, pas exhaustif.</p>';
+  document.getElementById('detailCotisationsContent').innerHTML = html;
+  document.getElementById('detailCotisationsBox').hidden = false;
+
   resultBox.classList.add('show');
 }
 
@@ -254,13 +307,26 @@ function telechargerPDF_NB(){
   if (brut <= 0) return;
 
   var r = estimerNetDepuisBrut(brut, cadre);
+  var d = detailCotisationsSalariales(brut, cadre);
   var lignes = [
     { label: 'Salaire mensuel brut', value: euros(brut) },
     { label: 'Statut', value: cadre ? 'Cadre' : 'Non-cadre' },
     { label: 'Coefficient appliqué', value: (r.coef*100).toFixed(0) + ' %' },
-    { label: 'Net imposable estimé', value: euros(r.netImposable) },
-    { label: 'Salaire net estimé', value: euros(r.net), type: 'total' }
+    { label: 'Retraite de base plafonnée (' + (BAREME_2026.TAUX_VIEILLESSE_PLAFONNEE*100).toFixed(2) + ' %)', value: euros(d.vieillessePlafonnee) },
+    { label: 'Retraite de base déplafonnée (' + (BAREME_2026.TAUX_VIEILLESSE_DEPLAFONNEE*100).toFixed(2) + ' %)', value: euros(d.vieillesseDeplafonnee) },
+    { label: 'AGIRC-ARRCO tranche 1 (' + (BAREME_2026.TAUX_AGIRC_ARRCO_T1_SALARIE*100).toFixed(2) + ' %)', value: euros(d.agircArrco) },
+    { label: 'CEG tranche 1 (' + (BAREME_2026.TAUX_CEG_T1_SALARIE*100).toFixed(2) + ' %)', value: euros(d.ceg) }
   ];
+  if (cadre){
+    lignes.push({ label: 'APEC (' + (BAREME_2026.TAUX_APEC_SALARIE*100).toFixed(3) + ' %)', value: euros(d.apec) });
+  }
+  lignes.push({ label: 'CSG déductible (' + (BAREME_2026.TAUX_CSG_DEDUCTIBLE*100).toFixed(2) + ' %)', value: euros(d.csgDeductible) });
+  lignes.push({ label: 'CSG non déductible (' + (BAREME_2026.TAUX_CSG_NON_DEDUCTIBLE*100).toFixed(2) + ' %)', value: euros(d.csgNonDeductible) });
+  lignes.push({ label: 'CRDS (' + (BAREME_2026.TAUX_CRDS*100).toFixed(2) + ' %)', value: euros(d.crds) });
+  lignes.push({ label: 'Assurance maladie / chômage (supprimées depuis 2018)', value: '0 %' });
+  lignes.push({ label: 'Total cotisations détaillées (' + (d.tauxTotal*100).toFixed(1) + ' % du brut, indicatif)', value: euros(d.total) });
+  lignes.push({ label: 'Net imposable estimé', value: euros(r.netImposable) });
+  lignes.push({ label: 'Salaire net estimé', value: euros(r.net), type: 'total' });
 
   genererPDFSimulation({
     titre: 'Simulation de conversion brut / net',

@@ -77,6 +77,14 @@
         "@type": "Answer",
         "text": "Le Code du travail ne fait pas de distinction selon le statut, mais de nombreuses conventions collectives prévoient des durées de préavis plus longues pour les cadres, souvent 3 mois en cas de licenciement. Vérifiez systématiquement votre convention collective, qui prime sur le minimum légal si elle est plus favorable."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Ai-je droit à un préavis en cas de licenciement pour faute grave ou faute lourde ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. En cas de licenciement pour faute grave ou faute lourde, le préavis n'est pas exécuté : la rupture du contrat prend effet immédiatement, à la date de notification du licenciement. Le salarié perd également le droit à l'indemnité légale de licenciement, sauf disposition plus favorable de la convention collective. En revanche, l'indemnité compensatrice de congés payés reste due dans tous les cas, quel que soit le motif de la rupture."
+      }
     }
   ]
 }
@@ -181,6 +189,7 @@
       <label for="typeRupture">Type de rupture</label>
       <select id="typeRupture">
         <option value="licenciement">Licenciement (hors faute grave/lourde)</option>
+        <option value="fautegrave">Licenciement pour faute grave ou lourde</option>
         <option value="demission">Démission</option>
       </select>
     </div>
@@ -222,7 +231,7 @@
       En cas de licenciement (hors faute grave ou lourde), l'article L1234-1 du Code du travail fixe des durées minimales selon l'ancienneté : aucune durée par défaut en dessous de 6 mois (dépend de la convention collective ou des usages), 1 mois entre 6 mois et 2 ans d'ancienneté, 2 mois au-delà de 2 ans. En cas de démission, le Code du travail ne fixe aucune durée : elle dépend du contrat de travail, de la convention collective ou, à défaut, des usages de la profession et de la région.
     </p>
     <p>
-      Ces durées légales sont des minima : de nombreuses conventions collectives, notamment pour les cadres, prévoient des préavis plus longs (souvent 3 mois). Vérifiez toujours votre convention collective avant de vous fier uniquement au calcul légal.
+      Ces durées légales sont des minima : de nombreuses conventions collectives, notamment pour les cadres, prévoient des préavis plus longs (souvent 3 mois). Vérifiez toujours <a href="identifier-convention-collective.html">votre convention collective</a> avant de vous fier uniquement au calcul légal.
     </p>
 
     <h2>Questions fréquentes</h2>
@@ -250,6 +259,10 @@
       <summary>Le préavis est-il plus long pour les cadres ?</summary>
       <p>Le Code du travail ne fait pas de distinction selon le statut, mais de nombreuses conventions collectives prévoient des durées de préavis plus longues pour les cadres, souvent 3 mois en cas de licenciement. Vérifiez systématiquement votre convention collective, qui prime sur le minimum légal si elle est plus favorable.</p>
     </details>
+    <details class="faq">
+      <summary>Ai-je droit à un préavis en cas de licenciement pour faute grave ou faute lourde ?</summary>
+      <p>Non. En cas de licenciement pour faute grave ou faute lourde, le préavis n'est pas exécuté : la rupture du contrat prend effet immédiatement, à la date de notification du licenciement. Le salarié perd également le droit à l'indemnité légale de licenciement, sauf disposition plus favorable de la convention collective. En revanche, l'indemnité compensatrice de congés payés reste due dans tous les cas, quel que soit le motif de la rupture.</p>
+    </details>
 
     <div class="related-tools">
       <h3>Autres simulateurs utiles</h3>
@@ -271,7 +284,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> durée légale minimale basée sur l'article L1234-1 du Code du travail (licenciement). Pour la démission, le Code du travail ne fixe pas de durée : elle dépend de la convention collective, du contrat de travail, ou à défaut des usages de la profession et de la localité. Ces durées sont des minima : votre convention collective peut prévoir une durée plus longue. Ne remplace pas un conseil juridique personnalisé.
+    <strong>Avertissement :</strong> durée légale minimale basée sur l'article L1234-1 du Code du travail (licenciement hors faute grave/lourde). Pour la démission, le Code du travail ne fixe pas de durée : elle dépend de la convention collective, du contrat de travail, ou à défaut des usages de la profession et de la localité. En cas de faute grave ou lourde, aucun préavis n'est dû. Ces durées sont des minima : votre convention collective peut prévoir une durée plus longue. Ne remplace pas un conseil juridique personnalisé.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -302,6 +315,13 @@ function calculerPreavis(){
     return;
   }
 
+  if (type === 'fautegrave'){
+    resultBox.classList.remove('show');
+    noticeP.style.display = 'block';
+    noticeP.innerHTML = "Aucun préavis n'est dû en cas de licenciement pour faute grave ou faute lourde : la rupture du contrat prend effet immédiatement, à la date de notification du licenciement. Vous perdez également le droit à l'indemnité légale de licenciement (sauf disposition plus favorable de votre convention collective), mais vous conservez votre droit à l'indemnité compensatrice de congés payés, qui reste due quel que soit le motif de rupture. Calculez-la avec le <a href=\"indemnite-conges-payes.html\">simulateur de congés payés</a>.";
+    return;
+  }
+
   // Licenciement
   var moisPreavis = 0;
   var texte = '';
@@ -320,7 +340,7 @@ function calculerPreavis(){
   noticeP.style.display = 'none';
 
   document.getElementById('dureeP').textContent = moisPreavis + ' mois';
-  document.getElementById('detailP').textContent = 'Durée légale minimale : ' + texte + ' Ces durées sont des minima légaux (Art. L1234-1) : votre convention collective (souvent plus favorable pour les cadres) peut prévoir une durée supérieure — vérifiez-la.';
+  document.getElementById('detailP').innerHTML = 'Durée légale minimale : ' + texte + ' Ces durées sont des minima légaux (Art. L1234-1) : votre convention collective (souvent plus favorable pour les cadres) peut prévoir une durée supérieure — <a href="identifier-convention-collective.html">vérifiez laquelle s\'applique à vous</a>.';
 
   if (salaire > 0){
     var indemniteDispense = salaire * moisPreavis;
@@ -334,7 +354,7 @@ function telechargerPDF_P(){
   var type = document.getElementById('typeRupture').value;
   var annees = anneesDecimal(document.getElementById('anneesP').value, document.getElementById('moisP').value);
   var salaire = parseFloat(document.getElementById('salaireP').value) || 0;
-  if (type === 'demission' || annees < 0.5) return;
+  if (type === 'demission' || type === 'fautegrave' || annees < 0.5) return;
 
   var moisPreavis = annees < 2 ? 1 : 2;
   var lignes = [

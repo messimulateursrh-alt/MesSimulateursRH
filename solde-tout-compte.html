@@ -53,6 +53,22 @@
         "@type": "Answer",
         "text": "Oui, la signature n'est pas obligatoire. Un reçu non signé n'a pas d'effet libératoire : le salarié conserve alors le délai de prescription de droit commun (3 ans pour les salaires) pour contester les sommes versées."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Les RTT non pris sont-ils toujours payés à la fin du contrat ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, pas systématiquement. Contrairement aux congés payés, dont l'indemnisation en cas de non-prise est garantie par le Code du travail, le sort des RTT non pris dépend entièrement de votre accord d'entreprise ou de branche sur l'aménagement du temps de travail : certains accords prévoient leur paiement à la fin du contrat, d'autres les font perdre s'ils ne sont pas pris avant le départ. Vérifiez votre accord ou votre contrat de travail avant de compter sur ce montant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment est calculée l'indemnité de congés payés si je ne connais pas encore le montant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si vous laissez le champ \"Indemnité de congés payés\" vide et renseignez à la place votre rémunération brute des 12 derniers mois et le nombre de jours de congés restants, ce simulateur l'estime automatiquement en appliquant la méthode la plus favorable entre la règle du dixième et le maintien de salaire (Art. L3141-24 du Code du travail) — la même méthode que celle utilisée sur le simulateur dédié aux congés payés."
+      }
     }
   ]
 }
@@ -174,8 +190,23 @@
     </div>
     <div class="field">
       <label for="indemniteConges">Indemnité de congés payés non pris (optionnel)</label>
-      <input type="number" id="indemniteConges" min="0" step="0.01" placeholder="Montant déjà calculé ailleurs">
-      <div class="hint">Calculez ce montant avec le <a href="indemnite-conges-payes.html">simulateur de congés payés</a>.</div>
+      <input type="number" id="indemniteConges" min="0" step="0.01" placeholder="Montant déjà connu, ou laissez vide pour un calcul automatique">
+      <div class="hint">Renseignez un montant si vous le connaissez déjà (calculé avec le <a href="indemnite-conges-payes.html">simulateur de congés payés</a> par exemple), ou laissez ce champ vide et complétez les deux champs ci-dessous pour un calcul automatique.</div>
+    </div>
+    <div class="field">
+      <label for="remunerationRefSTC">Calcul auto des congés payés — rémunération brute totale des 12 derniers mois (optionnel)</label>
+      <input type="number" id="remunerationRefSTC" min="0" step="0.01" placeholder="ex : 33600">
+      <div class="hint">Utilisé uniquement si le champ "Indemnité de congés payés" ci-dessus est vide. Période de référence légale : généralement du 1er juin au 31 mai.</div>
+    </div>
+    <div class="field">
+      <label for="joursCongesSTC">Calcul auto des congés payés — jours de congés payés restants à indemniser (optionnel)</label>
+      <input type="number" id="joursCongesSTC" min="0" max="30" step="0.5" placeholder="ex : 8">
+      <div class="hint">En jours ouvrables. Le calcul utilise aussi le salaire mensuel brut renseigné en haut de page.</div>
+    </div>
+    <div class="field">
+      <label for="indemniteRTT">Indemnité de RTT non pris (optionnel)</label>
+      <input type="number" id="indemniteRTT" min="0" step="0.01" placeholder="Montant, si vous le connaissez déjà">
+      <div class="hint">⚠️ Contrairement aux congés payés, il n'existe pas de règle légale générale sur le paiement des RTT non pris : tout dépend de votre accord d'entreprise ou de branche (certains accords les font perdre si non prises avant la fin du contrat, d'autres les paient). Vérifiez votre accord avant de renseigner un montant — aucun calcul automatique n'est proposé sur ce point.</div>
     </div>
     <div class="field">
       <label for="autresElements">Autres primes ou remboursements (optionnel)</label>
@@ -200,7 +231,7 @@
   <section class="content-section">
     <h2>Que contient un solde de tout compte ?</h2>
     <p>
-      Le solde de tout compte est le document récapitulatif remis par l'employeur à la fin du contrat, listant l'ensemble des sommes versées au salarié : le dernier salaire au prorata des jours travaillés, l'indemnité de licenciement ou de rupture conventionnelle si applicable, l'indemnité compensatrice de préavis en cas de dispense, l'indemnité de congés payés non pris, ainsi que toute prime ou remboursement de frais restant dû. Ce simulateur additionne ces éléments pour vous donner une estimation globale — chaque montant peut être calculé précisément avec les autres outils du site.
+      Le solde de tout compte est le document récapitulatif remis par l'employeur à la fin du contrat, listant l'ensemble des sommes versées au salarié : le dernier salaire au prorata des jours travaillés, l'indemnité de licenciement ou de rupture conventionnelle si applicable, l'indemnité compensatrice de préavis en cas de dispense, l'indemnité de congés payés non pris, ainsi que toute prime ou remboursement de frais restant dû. Ce simulateur additionne ces éléments pour vous donner une estimation globale — chaque montant peut être calculé précisément avec les autres outils du site, et l'indemnité de congés payés peut aussi être estimée automatiquement directement ici si vous ne la connaissez pas encore.
     </p>
 
     <h2>Questions fréquentes</h2>
@@ -215,6 +246,14 @@
     <details class="faq">
       <summary>Puis-je refuser de signer le reçu pour solde de tout compte ?</summary>
       <p>Oui, la signature n'est pas obligatoire. Un reçu non signé n'a pas d'effet libératoire : le salarié conserve alors le délai de prescription de droit commun (3 ans pour les salaires) pour contester les sommes versées.</p>
+    </details>
+    <details class="faq">
+      <summary>Les RTT non pris sont-ils toujours payés à la fin du contrat ?</summary>
+      <p>Non, pas systématiquement. Contrairement aux congés payés, dont l'indemnisation en cas de non-prise est garantie par le Code du travail, le sort des RTT non pris dépend entièrement de votre accord d'entreprise ou de branche sur l'aménagement du temps de travail : certains accords prévoient leur paiement à la fin du contrat, d'autres les font perdre s'ils ne sont pas pris avant le départ. Vérifiez votre accord ou votre contrat de travail avant de compter sur ce montant.</p>
+    </details>
+    <details class="faq">
+      <summary>Comment est calculée l'indemnité de congés payés si je ne connais pas encore le montant ?</summary>
+      <p>Si vous laissez le champ "Indemnité de congés payés" vide et renseignez à la place votre rémunération brute des 12 derniers mois et le nombre de jours de congés restants, ce simulateur l'estime automatiquement en appliquant la méthode la plus favorable entre la règle du dixième et le maintien de salaire (Art. L3141-24 du Code du travail) — la même méthode que celle utilisée sur le simulateur dédié aux congés payés.</p>
     </details>
 
     <div class="related-tools">
@@ -234,7 +273,7 @@
 
 <footer class="site">
   <div class="disclaimer">
-    <strong>Avertissement :</strong> ce simulateur additionne des montants indicatifs que vous renseignez ou calculez ailleurs sur ce site ; il ne recalcule pas lui-même chaque élément en détail. Le solde de tout compte réel est établi par l'employeur et peut inclure des éléments non couverts ici (épargne salariale débloquée, avantages en nature, etc.). Ne remplace pas un conseil de paie personnalisé.
+    <strong>Avertissement :</strong> ce simulateur additionne des montants indicatifs que vous renseignez ou calculez ailleurs sur ce site ; seule l'indemnité de congés payés peut être estimée automatiquement ici (méthode la plus favorable, Art. L3141-24 du Code du travail), les autres éléments ne sont pas recalculés en détail. Le solde de tout compte réel est établi par l'employeur et peut inclure des éléments non couverts ici (épargne salariale débloquée, avantages en nature, etc.). Le paiement des RTT non pris n'est pas garanti par la loi et dépend de votre accord d'entreprise. Ne remplace pas un conseil de paie personnalisé.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -248,6 +287,9 @@ function calculerSTC(){
   var indemniteRupture = parseFloat(document.getElementById('indemniteRupture').value) || 0;
   var indemnitePreavis = parseFloat(document.getElementById('indemnitePreavis').value) || 0;
   var indemniteConges = parseFloat(document.getElementById('indemniteConges').value) || 0;
+  var remunerationRefSTC = parseFloat(document.getElementById('remunerationRefSTC').value) || 0;
+  var joursCongesSTC = parseFloat(document.getElementById('joursCongesSTC').value) || 0;
+  var indemniteRTT = parseFloat(document.getElementById('indemniteRTT').value) || 0;
   var autres = parseFloat(document.getElementById('autresElements').value) || 0;
 
   var resultBox = document.getElementById('resultSTC');
@@ -257,15 +299,27 @@ function calculerSTC(){
     return;
   }
 
+  var congesAuto = null;
+  if (indemniteConges <= 0 && remunerationRefSTC > 0 && joursCongesSTC > 0){
+    congesAuto = estimerCongesPayes(remunerationRefSTC, salaire, joursCongesSTC);
+    indemniteConges = congesAuto.retenu;
+  }
+
   var prorata = salaire * (jourFin / 30);
-  var total = prorata + indemniteRupture + indemnitePreavis + indemniteConges + autres;
+  var total = prorata + indemniteRupture + indemnitePreavis + indemniteConges + indemniteRTT + autres;
+
+  var ligneConges = 'Indemnité de congés payés : ' + euros(indemniteConges);
+  if (congesAuto){
+    ligneConges += ' <em>(calculé automatiquement, méthode ' + congesAuto.methodeRetenue + ' — la plus favorable)</em>';
+  }
 
   document.getElementById('montantSTC').textContent = euros(total) + ' brut estimé';
   document.getElementById('breakdownSTC').innerHTML =
     'Dernier salaire au prorata (' + jourFin + '/30 jours) : ' + euros(prorata) + '<br>' +
     'Indemnité de rupture : ' + euros(indemniteRupture) + '<br>' +
     'Indemnité de préavis non effectué : ' + euros(indemnitePreavis) + '<br>' +
-    'Indemnité de congés payés : ' + euros(indemniteConges) + '<br>' +
+    ligneConges + '<br>' +
+    'Indemnité de RTT non pris : ' + euros(indemniteRTT) + '<br>' +
     'Autres éléments : ' + euros(autres);
 
   resultBox.classList.add('show');
@@ -277,17 +331,27 @@ function telechargerPDF_STC(){
   var indemniteRupture = parseFloat(document.getElementById('indemniteRupture').value) || 0;
   var indemnitePreavis = parseFloat(document.getElementById('indemnitePreavis').value) || 0;
   var indemniteConges = parseFloat(document.getElementById('indemniteConges').value) || 0;
+  var remunerationRefSTC = parseFloat(document.getElementById('remunerationRefSTC').value) || 0;
+  var joursCongesSTC = parseFloat(document.getElementById('joursCongesSTC').value) || 0;
+  var indemniteRTT = parseFloat(document.getElementById('indemniteRTT').value) || 0;
   var autres = parseFloat(document.getElementById('autresElements').value) || 0;
   if (salaire <= 0 || jourFin <= 0) return;
 
+  var congesAuto = null;
+  if (indemniteConges <= 0 && remunerationRefSTC > 0 && joursCongesSTC > 0){
+    congesAuto = estimerCongesPayes(remunerationRefSTC, salaire, joursCongesSTC);
+    indemniteConges = congesAuto.retenu;
+  }
+
   var prorata = salaire * (jourFin / 30);
-  var total = prorata + indemniteRupture + indemnitePreavis + indemniteConges + autres;
+  var total = prorata + indemniteRupture + indemnitePreavis + indemniteConges + indemniteRTT + autres;
 
   var lignes = [
     { label: 'Dernier salaire au prorata (' + jourFin + '/30 jours)', value: euros(prorata) },
     { label: 'Indemnité de rupture (licenciement / RC)', value: euros(indemniteRupture) },
     { label: 'Indemnité de préavis non effectué', value: euros(indemnitePreavis) },
-    { label: 'Indemnité de congés payés', value: euros(indemniteConges) },
+    { label: congesAuto ? 'Indemnité de congés payés (calcul auto, méthode ' + congesAuto.methodeRetenue + ')' : 'Indemnité de congés payés', value: euros(indemniteConges) },
+    { label: 'Indemnité de RTT non pris', value: euros(indemniteRTT) },
     { label: 'Autres éléments (primes, notes de frais)', value: euros(autres) },
     { label: 'Total solde de tout compte estimé', value: euros(total), type: 'total' }
   ];
@@ -296,7 +360,7 @@ function telechargerPDF_STC(){
     titre: 'Simulation de solde de tout compte',
     sousTitre: 'Récapitulatif des sommes dues à la fin du contrat',
     lignes: lignes,
-    disclaimer: "Ce simulateur additionne des montants indicatifs renseignés ou calculés ailleurs sur le site ; il ne recalcule pas chaque élément en détail. Le solde de tout compte réel peut inclure des éléments non couverts ici (épargne salariale débloquée, avantages en nature, etc.). Ne remplace pas un conseil de paie personnalisé.",
+    disclaimer: "Ce simulateur additionne des montants indicatifs renseignés ou calculés ailleurs sur le site ; il ne recalcule pas chaque élément en détail. Le solde de tout compte réel peut inclure des éléments non couverts ici (épargne salariale débloquée, avantages en nature, etc.). Le paiement des RTT non pris n'est pas garanti par la loi et dépend de votre accord d'entreprise. Ne remplace pas un conseil de paie personnalisé.",
     nomFichier: 'simulation-solde-tout-compte.pdf'
   });
 }

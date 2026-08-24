@@ -48,10 +48,26 @@
     },
     {
       "@type": "Question",
+      "name": "Les indemnités journalières du congé de naissance sont-elles imposables ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Comme les indemnités journalières de maternité et de paternité dont ce congé s'inspire, elles sont imposables à l'impôt sur le revenu (revenu de remplacement, article 80 quinquies du Code général des impôts) et soumises à la CSG (6,2 %, dont 3,8 % déductible) et à la CRDS (0,5 %), prélevées directement par la CPAM avant versement. Le montant net perçu est donc légèrement inférieur au montant brut calculé par ce simulateur."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Les deux parents peuvent-ils prendre ce congé en même temps ?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Oui. C'est un droit individuel et non transférable : chaque parent dispose de son propre congé d'un ou deux mois, et les deux parents peuvent le prendre simultanément ou en alternance, selon ce qui les arrange."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "En cas de naissance multiple (jumeaux, triplés...), le délai de 9 mois pour démarrer le congé est-il le même ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, il peut être plus long. Le congé de naissance ne peut démarrer qu'après la fin du congé de maternité, de paternité ou d'accueil de l'enfant — or ces congés sont eux-mêmes allongés en cas de naissances multiples. Le délai de 9 mois (pour les naissances à partir du 1ᵉʳ juillet 2026) recule d'autant que ces congés préalables sont prolongés. En cas de doute sur votre date limite exacte, rapprochez-vous de votre CPAM."
       }
     },
     {
@@ -173,12 +189,18 @@
       </select>
       <p class="hint">Le congé peut être pris en une fois ou fractionné en 2 périodes d'un mois — cela ne change pas le montant total.</p>
     </div>
+    <div class="field">
+      <label for="dateNaissanceEnfant">Date de naissance (ou d'arrivée) de l'enfant — facultatif</label>
+      <input type="date" id="dateNaissanceEnfant">
+      <p class="hint">Permet d'afficher la date limite légale pour démarrer votre congé.</p>
+    </div>
     <button class="compute" onclick="calculerCongeNaissance()">Calculer</button>
 
     <div class="result" id="resultCongeNaissance">
       <div class="amount" id="montantCongeNaissance">—</div>
       <div class="detail" id="detailCongeNaissance"></div>
       <div class="breakdown" id="breakdownCongeNaissance"></div>
+      <div class="notice" id="delaiCongeNaissance" style="display:none"></div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_CongeNaissance()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -195,7 +217,7 @@
       Créé par la loi de financement de la Sécurité sociale (LFSS) pour 2026, le congé supplémentaire de naissance est ouvert aux parents salariés, agents publics et travailleurs indépendants d'un enfant né ou adopté à partir du 1ᵉʳ janvier 2026. C'est un droit individuel : chaque parent dispose de son propre congé d'un ou deux mois, cumulable ou non avec celui de l'autre parent, pris simultanément ou en alternance. Il doit débuter dans les 9 mois suivant la naissance, et seulement après la fin du congé de maternité, de paternité ou d'adoption.
     </p>
     <p>
-      L'indemnisation est versée par la Sécurité sociale (et non par l'employeur), sur la base du salaire net moyen des 3 derniers mois précédant le congé, plafonné au PASS mensuel (4 005 € en 2026) : <strong>70 % le premier mois</strong>, puis <strong>60 % le second mois</strong>.
+      L'indemnisation est versée par la Sécurité sociale (et non par l'employeur), sur la base du salaire net moyen des 3 derniers mois précédant le congé, plafonné au PASS mensuel (4 005 € en 2026) : <strong>70 % le premier mois</strong>, puis <strong>60 % le second mois</strong>. Ce montant reste imposable à l'impôt sur le revenu et soumis à la CSG/CRDS (voir la question dédiée dans la FAQ) : le montant réellement perçu est légèrement inférieur à celui calculé ci-dessus.
     </p>
 
     <div class="example-box">
@@ -246,8 +268,16 @@
       <p>La Sécurité sociale, sous forme d'indemnités journalières de naissance versées par la CPAM, et non l'employeur. Comme pour le congé maternité ou paternité, une convention collective peut prévoir un maintien de salaire complémentaire à la charge de l'employeur.</p>
     </details>
     <details class="faq">
+      <summary>Les indemnités journalières du congé de naissance sont-elles imposables ?</summary>
+      <p>Oui. Comme les indemnités journalières de maternité et de paternité dont ce congé s'inspire, elles sont imposables à l'impôt sur le revenu (revenu de remplacement, article 80 quinquies du Code général des impôts) et soumises à la CSG (6,2 %, dont 3,8 % déductible) et à la CRDS (0,5 %), prélevées directement par la CPAM avant versement. Le montant net perçu est donc légèrement inférieur au montant brut calculé par ce simulateur.</p>
+    </details>
+    <details class="faq">
       <summary>Les deux parents peuvent-ils prendre ce congé en même temps ?</summary>
       <p>Oui. C'est un droit individuel et non transférable : chaque parent dispose de son propre congé d'un ou deux mois, et les deux parents peuvent le prendre simultanément ou en alternance, selon ce qui les arrange.</p>
+    </details>
+    <details class="faq">
+      <summary>En cas de naissance multiple (jumeaux, triplés...), le délai de 9 mois pour démarrer le congé est-il le même ?</summary>
+      <p>Non, il peut être plus long. Le congé de naissance ne peut démarrer qu'après la fin du congé de maternité, de paternité ou d'accueil de l'enfant — or ces congés sont eux-mêmes allongés en cas de naissances multiples. Le délai de 9 mois (pour les naissances à partir du 1ᵉʳ juillet 2026) recule d'autant que ces congés préalables sont prolongés. En cas de doute sur votre date limite exacte, rapprochez-vous de votre CPAM.</p>
     </details>
     <details class="faq">
       <summary>Ce simulateur est-il valable pour les travailleurs indépendants ?</summary>
@@ -278,9 +308,35 @@
 
 <script src="logique-calculs.txt"></script>
 <script>
+function ajouterMoisCN(date, mois){
+  var d = new Date(date.getTime());
+  var jourOrigine = d.getDate();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + mois);
+  var dernierJourMoisCible = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  d.setDate(Math.min(jourOrigine, dernierJourMoisCible));
+  return d;
+}
+function formatDateFrCN(d){
+  return d.toLocaleDateString('fr-FR', {year:'numeric', month:'long', day:'numeric'});
+}
+function dateLimiteDebutCongeNaissance(naissanceStr){
+  var naissance = new Date(naissanceStr + 'T00:00:00');
+  if (isNaN(naissance.getTime())) return null;
+  var debutDispositif = new Date('2026-01-01T00:00:00');
+  var basculeDispositif = new Date('2026-07-01T00:00:00');
+  if (naissance < debutDispositif){
+    return { horsChamp: true };
+  }
+  if (naissance < basculeDispositif){
+    return { horsChamp: false, date: new Date('2027-03-31T00:00:00') };
+  }
+  return { horsChamp: false, date: ajouterMoisCN(naissance, 9) };
+}
 function calculerCongeNaissance(){
   var salaire = parseFloat(document.getElementById('salaireNetNaissance').value) || 0;
   var duree = parseInt(document.getElementById('dureeCongeNaissance').value, 10);
+  var dateNaissance = document.getElementById('dateNaissanceEnfant').value;
   var resultBox = document.getElementById('resultCongeNaissance');
 
   if (salaire <= 0){
@@ -306,12 +362,32 @@ function calculerCongeNaissance(){
     'Réf. : LFSS 2026 et décrets d\'application.';
   document.getElementById('breakdownCongeNaissance').innerHTML = calcTxt;
 
+  var noticeBox = document.getElementById('delaiCongeNaissance');
+  if (dateNaissance){
+    var infoDelai = dateLimiteDebutCongeNaissance(dateNaissance);
+    if (infoDelai && infoDelai.horsChamp){
+      noticeBox.innerHTML = "Ce congé s'applique aux enfants nés ou arrivés au foyer à partir du 1ᵉʳ janvier 2026 — la date saisie est antérieure, ce dispositif ne s'applique pas à cette naissance.";
+      noticeBox.style.display = 'block';
+    } else if (infoDelai) {
+      noticeBox.innerHTML = '<strong>Date limite légale pour démarrer ce congé : ' + formatDateFrCN(infoDelai.date) + '.</strong> ' +
+        "Vous devez par ailleurs prévenir votre employeur au moins 1 mois avant la date de début que vous choisirez (15 jours si le congé suit immédiatement un congé paternité ou d'accueil).";
+      noticeBox.style.display = 'block';
+    } else {
+      noticeBox.style.display = 'none';
+      noticeBox.innerHTML = '';
+    }
+  } else {
+    noticeBox.style.display = 'none';
+    noticeBox.innerHTML = '';
+  }
+
   resultBox.classList.add('show');
 }
 
 function telechargerPDF_CongeNaissance(){
   var salaire = parseFloat(document.getElementById('salaireNetNaissance').value) || 0;
   var duree = parseInt(document.getElementById('dureeCongeNaissance').value, 10);
+  var dateNaissance = document.getElementById('dateNaissanceEnfant').value;
   if (salaire <= 0) return;
 
   var r = estimerCongeNaissance(salaire, duree);
@@ -324,6 +400,12 @@ function telechargerPDF_CongeNaissance(){
   ];
   if (duree === 2){
     lignes.push({ label: 'Indemnisation 2ᵉ mois (60%)', value: euros(r.mois2) });
+  }
+  if (dateNaissance){
+    var infoDelaiPdf = dateLimiteDebutCongeNaissance(dateNaissance);
+    if (infoDelaiPdf && !infoDelaiPdf.horsChamp){
+      lignes.push({ label: 'Date limite légale pour démarrer le congé', value: formatDateFrCN(infoDelaiPdf.date) });
+    }
   }
   lignes.push({ label: 'Total estimé', value: euros(r.total), type: 'total' });
 
