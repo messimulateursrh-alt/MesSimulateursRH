@@ -1,12 +1,6 @@
 # Documents internes de travail — ne pas versionner ni déployer sur le site public
 Simulateur-RH_Dossier_de_synthese_v4.docx
-audit-projet.md
-analyse-concurrentielle.md
-rapport-prelancement.md
-guide-mise-en-ligne.md
-guide-google-search-console.md
-guide-backlinks-forums.md
-guide-post-lancement.md
-guide-temps-recapitulatif.md
-charte-editoriale-actualites.md
 urls-a-indexer.txt
+# Tous les fichiers .md sont des notes internes (le site est en HTML pur, aucun .md n'est publié) —
+# cette règle générique couvre automatiquement tout futur document de travail (guide, audit, rapport...)
+*.md
