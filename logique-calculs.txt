@@ -14,6 +14,23 @@ btn.addEventListener('click', function(){ setAudience(btn.dataset.audience); });
 });
 }
 document.addEventListener('DOMContentLoaded', initAudience);
+function initNavDropdown(){
+document.addEventListener('click', function(e){
+document.querySelectorAll('.nav-dropdown[open]').forEach(function(d){
+if (!d.contains(e.target)) d.removeAttribute('open');
+});
+});
+document.querySelectorAll('.nav-dropdown').forEach(function(d){
+d.addEventListener('toggle', function(){
+if (d.open) {
+document.querySelectorAll('.nav-dropdown[open]').forEach(function(other){
+if (other !== d) other.removeAttribute('open');
+});
+}
+});
+});
+}
+document.addEventListener('DOMContentLoaded', initNavDropdown);
 function euros(n){
 return n.toLocaleString('fr-FR', {style:'currency', currency:'EUR', maximumFractionDigits:2});
 }
@@ -475,6 +492,11 @@ var SEARCH_INDEX = [
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche"},
 {title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
+{title:"Rupture du contrat de travail (catégorie)", url:"simulateurs-rupture-contrat.html", cat:"Catégorie", kw:"rupture contrat travail simulateurs categorie licenciement demission"},
+{title:"Salaire et coût du travail (catégorie)", url:"simulateurs-salaire-cout-travail.html", cat:"Catégorie", kw:"salaire cout travail simulateurs categorie brut net charges"},
+{title:"Congés et temps de travail (catégorie)", url:"simulateurs-conges-temps-travail.html", cat:"Catégorie", kw:"conges temps de travail simulateurs categorie maternite naissance"},
+{title:"Ancienneté et fin de carrière (catégorie)", url:"simulateurs-anciennete-carriere.html", cat:"Catégorie", kw:"anciennete carriere retraite simulateurs categorie"},
+{title:"Aller plus loin (catégorie)", url:"aller-plus-loin.html", cat:"Catégorie", kw:"aller plus loin guides formation actualites glossaire ressources"},
 {title:"Formation gratuite : les bases du droit du travail", url:"formation.html", cat:"Formation", kw:"formation quiz attestation modules cours gratuit"},
 {title:"Actualités du droit du travail", url:"actualites.html", cat:"Actualité", kw:"actualites blog reformes lois decrets droit du travail 2026"},
 {title:"Formation : Rupture conventionnelle", url:"formation-rupture-conventionnelle.html", cat:"Formation", kw:"formation rupture conventionnelle cours quiz"},
@@ -482,6 +504,9 @@ var SEARCH_INDEX = [
 {title:"Formation : Ancienneté et préavis", url:"formation-anciennete-preavis.html", cat:"Formation", kw:"formation anciennete preavis cours quiz"},
 {title:"Formation : Congés payés", url:"formation-conges-payes.html", cat:"Formation", kw:"formation conges payes cours quiz"},
 {title:"Formation : Droits au chômage (ARE)", url:"formation-chomage-are.html", cat:"Formation", kw:"formation chomage ARE cours quiz"},
+{title:"Formation : Congé de naissance", url:"formation-conge-naissance.html", cat:"Formation", kw:"formation conge naissance cours quiz"},
+{title:"Formation : Départ et mise à la retraite", url:"formation-depart-retraite.html", cat:"Formation", kw:"formation depart retraite mise a la retraite cours quiz"},
+{title:"Formation : Passage à temps partiel", url:"formation-temps-partiel.html", cat:"Formation", kw:"formation temps partiel cours quiz"},
 {title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026.html", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
 {title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission.html", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
 {title:"Glossaire du droit du travail", url:"glossaire-droit-travail.html", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique"},

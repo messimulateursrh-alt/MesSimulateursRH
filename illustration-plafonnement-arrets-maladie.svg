@@ -1,0 +1,29 @@
+<svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#1742b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="260" rx="20" fill="#e8efff"/>
+  <circle cx="55" cy="45" r="9" fill="#ffffff" opacity=".6"/>
+  <circle cx="425" cy="205" r="12" fill="#ffffff" opacity=".5"/>
+  <circle cx="65" cy="215" r="6" fill="#1d4ed8" opacity=".25"/>
+
+  <!-- document (certificat d'arrêt de travail) -->
+  <rect x="150" y="55" width="180" height="150" rx="14" fill="#ffffff"/>
+  <rect x="150" y="55" width="180" height="36" rx="14" fill="url(#g1)"/>
+  <rect x="150" y="73" width="180" height="18" fill="url(#g1)"/>
+
+  <!-- barres representant la duree, plafonnees par une ligne -->
+  <rect x="170" y="150" width="20" height="35" rx="4" fill="#e2e6ec"/>
+  <rect x="200" y="130" width="20" height="55" rx="4" fill="#e2e6ec"/>
+  <rect x="230" y="112" width="20" height="73" rx="4" fill="#c8342a"/>
+  <rect x="260" y="112" width="20" height="73" rx="4" fill="#e2e6ec" opacity=".5"/>
+  <line x1="168" y1="112" x2="312" y2="112" stroke="#c8342a" stroke-width="3" stroke-dasharray="5 4"/>
+  <text x="240" y="104" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#c8342a" text-anchor="middle">plafond</text>
+
+  <!-- badge croix medicale -->
+  <circle cx="330" cy="58" r="27" fill="url(#g1)"/>
+  <path d="M330 46 v24 M318 58 h24" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+</svg>
