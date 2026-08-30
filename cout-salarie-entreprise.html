@@ -53,6 +53,14 @@
         "@type": "Answer",
         "text": "Parce que deux prélèvements s'additionnent de part et d'autre du salaire brut : les cotisations salariales (retirées du brut pour obtenir le net, environ 22 à 25 %) et les cotisations patronales (ajoutées au brut, environ 42 % en moyenne). Un salarié payé 2 500 € net peut ainsi représenter un coût total proche de 4 300 à 4 500 € pour l'entreprise."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Le coût est-il différent pour un cadre que pour un non-cadre ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Légèrement, oui. Ce simulateur applique un taux moyen unique de 42 %, qui ne distingue pas les deux statuts. En réalité, un cadre coûte un peu plus cher que ce taux moyen à salaire brut identique : la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1, dite \"article 7\") s'ajoute, ainsi que la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire dépassant le plafond de la Sécurité sociale. Sélectionnez \"Cadre\" dans le formulaire pour afficher cette note dans le résultat."
+      }
     }
   ]
 }
@@ -167,6 +175,13 @@
       <input type="number" id="brutMensuelCSE" min="0" step="0.01" placeholder="ex : 2800">
     </div>
     <div class="field">
+      <label for="statutCSE">Statut (optionnel, pour une note ciblée)</label>
+      <select id="statutCSE">
+        <option value="noncadre">Non-cadre</option>
+        <option value="cadre">Cadre</option>
+      </select>
+    </div>
+    <div class="field">
       <label for="avantagesCSE">Avantages en nature / mutuelle / prévoyance — part employeur mensuelle (optionnel)</label>
       <input type="number" id="avantagesCSE" min="0" step="0.01" placeholder="ex : 80">
     </div>
@@ -181,6 +196,7 @@
       <div class="amount" id="montantCSE">—</div>
       <div class="detail" id="detailCSE"></div>
       <div class="breakdown" id="breakdownCSE"></div>
+      <p class="notice" id="noticeCadreCSE" style="display:none;"></p>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_CSE()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -221,6 +237,10 @@
       <summary>Pourquoi le coût réel est-il souvent proche du double du salaire net perçu ?</summary>
       <p>Parce que deux prélèvements s'additionnent de part et d'autre du salaire brut : les cotisations salariales (retirées du brut pour obtenir le net, environ 22 à 25 %) et les cotisations patronales (ajoutées au brut, environ 42 % en moyenne). Un salarié payé 2 500 € net peut ainsi représenter un coût total proche de 4 300 à 4 500 € pour l'entreprise.</p>
     </details>
+    <details class="faq">
+      <summary>Le coût est-il différent pour un cadre que pour un non-cadre ?</summary>
+      <p>Légèrement, oui. Ce simulateur applique un taux moyen unique de 42 %, qui ne distingue pas les deux statuts. En réalité, un cadre coûte un peu plus cher que ce taux moyen à salaire brut identique : la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1, dite "article 7") s'ajoute, ainsi que la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire dépassant le plafond de la Sécurité sociale. Sélectionnez "Cadre" dans le formulaire pour afficher cette note dans le résultat.</p>
+    </details>
 
     <div class="related-tools">
       <h3>Autres simulateurs utiles</h3>
@@ -228,7 +248,9 @@
         <a href="cout-licenciement-employeur.html">→ Coût total d'un licenciement</a>
         <a href="salaire-net-brut.html">→ Salaire net à partir du brut</a>
         <a href="augmentation-salaire.html">→ Augmentation de salaire</a>
+        <a href="frais-kilometriques.html">→ Indemnités kilométriques</a>
         <a href="ressources-officielles.html">→ Ressources officielles</a>
+        <a href="salaire-apprenti.html">→ Salaire minimum apprenti</a>
       </div>
     </div>
   </section>
@@ -291,6 +313,16 @@ function calculerCoutSalarie(){
     'Avantages en nature / mutuelle : ' + euros(avantages) + '<br>' +
     'Primes annuelles proratisées au mois : ' + euros(primes/12);
 
+  var statutCSE = document.getElementById('statutCSE').value;
+  var noticeCadre = document.getElementById('noticeCadreCSE');
+  if (statutCSE === 'cadre'){
+    noticeCadre.innerHTML = "<strong>Nuance cadre non intégrée au taux moyen ci-dessus :</strong> pour un cadre, deux charges patronales spécifiques s'ajoutent généralement et font monter le coût réel légèrement au-dessus des 42 % appliqués ici — la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1 du salaire, dite \"article 7\") et la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire au-delà du plafond de la Sécurité sociale. Ce simulateur garde un taux moyen unique par simplicité ; pour un chiffrage exact par statut, un logiciel de paie reste la référence.";
+    noticeCadre.style.display = 'block';
+  } else {
+    noticeCadre.style.display = 'none';
+    noticeCadre.innerHTML = '';
+  }
+
   resultBox.classList.add('show');
 }
 
@@ -298,11 +330,13 @@ function telechargerPDF_CSE(){
   var brut = parseFloat(document.getElementById('brutMensuelCSE').value) || 0;
   var avantages = parseFloat(document.getElementById('avantagesCSE').value) || 0;
   var primes = parseFloat(document.getElementById('primesCSE').value) || 0;
+  var statutCSE = document.getElementById('statutCSE').value;
   if (brut <= 0) return;
 
   var r = estimerCoutSalarieEntreprise(brut, avantages, primes);
   var lignes = [
     { label: 'Salaire mensuel brut', value: euros(brut) },
+    { label: 'Statut', value: statutCSE === 'cadre' ? 'Cadre' : 'Non-cadre' },
     { label: 'Charges patronales estimées (42 %)', value: euros(r.charges) },
     { label: 'Avantages en nature / mutuelle', value: euros(avantages) },
     { label: 'Primes annuelles proratisées au mois', value: euros(primes/12) },
@@ -310,11 +344,16 @@ function telechargerPDF_CSE(){
     { label: 'Coût total annuel', value: euros(r.coutAnnuel), type: 'total' }
   ];
 
+  var disclaimerCSE = "Simulateur indicatif basé sur un taux moyen de charges patronales (42 %) qui ne tient pas compte des exonérations spécifiques à votre entreprise ni des coûts indirects. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
+  if (statutCSE === 'cadre'){
+    disclaimerCSE = "Simulateur indicatif basé sur un taux moyen de charges patronales (42 %), qui ne distingue pas cadre et non-cadre. Pour un cadre, la prévoyance obligatoire (1,50 % de la tranche 1, \"article 7\") et l'AGIRC-ARRCO tranche 2 font généralement monter le coût réel légèrement au-dessus de ce taux moyen. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
+  }
+
   genererPDFSimulation({
     titre: "Simulation du coût d'un salarié pour l'entreprise",
     sousTitre: 'Coût mensuel et annuel total, charges patronales incluses',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur un taux moyen de charges patronales (42 %) qui ne tient pas compte des exonérations spécifiques à votre entreprise ni des coûts indirects. Ne remplace pas un conseil d'expert-comptable ou de service paie.",
+    disclaimer: disclaimerCSE,
     nomFichier: 'simulation-cout-salarie-entreprise.pdf'
   });
 }

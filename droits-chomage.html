@@ -35,7 +35,15 @@
       "name": "Ai-je droit au chômage après une démission ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En principe non : une démission classique n'ouvre pas droit à l'ARE. Il existe des exceptions dites de \"démission légitime\" (déménagement pour suivre un conjoint, non-paiement de salaire, etc.) et depuis 2019 un dispositif pour les projets de reconversion professionnelle sous conditions strictes. Une rupture conventionnelle, elle, ouvre droit à l'ARE comme un licenciement."
+        "text": "En principe non : une démission classique n'ouvre pas droit à l'ARE. Il existe cependant une liste précise de cas de \"démission légitime\" fixée par le règlement d'assurance chômage (mariage/PACS avec déménagement, non-paiement de salaire, violences conjugales, reprise rapide d'un nouvel emploi après une perte d'emploi involontaire, etc.), ainsi qu'un dispositif distinct de \"démission-reconversion\" validé par Transitions Pro. Sélectionnez votre motif dans le simulateur ci-dessus pour savoir s'il est reconnu. Une rupture conventionnelle, elle, ouvre droit à l'ARE comme un licenciement, sans condition de motif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ma démission n'entre dans aucun cas légitime : ai-je vraiment tout perdu ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas nécessairement. Après 121 jours (4 mois) de chômage, vous pouvez demander à l'instance paritaire régionale (IPR) de France Travail un réexamen de votre dossier, à condition de remplir les autres conditions d'ouverture de droits et de justifier de recherches actives d'emploi ou de démarches de formation pendant cette période. En cas d'acceptation, le versement démarre au 122ᵉ jour, sans rétroactivité sur les 121 premiers jours. Autre option : retravailler au moins 65 jours (455 heures) après la démission rouvre aussi des droits."
       }
     },
     {
@@ -59,7 +67,7 @@
       "name": "La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, depuis une loi du 12 juin 2026 (n° 2026-470). Pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026, la durée maximale passe de 18 à 15 mois pour les moins de 55 ans, et de 22,5 à 27,5 mois à 20,5 mois pour les 55 ans et plus (avec prolongation possible après examen par France Travail au 12e mois). Cette réduction ne concerne que la rupture conventionnelle : un licenciement ou une fin de CDD n'est pas affecté. Voir le détail officiel sur le Code du travail numérique. Le simulateur ci-dessus prend en compte cette distinction si vous précisez la date d'effet."
+        "text": "Oui, depuis une loi du 11 juin 2026 (n° 2026-470). Pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026, la durée maximale passe de 18 à 15 mois pour les moins de 55 ans, et de 22,5 à 27 mois à 20,5 mois pour les 55 ans et plus (avec prolongation possible après examen par France Travail au 12e mois). Cette réduction ne concerne que la rupture conventionnelle : un licenciement ou une fin de CDD n'est pas affecté. Voir le détail officiel sur le Code du travail numérique. Le simulateur ci-dessus prend en compte cette distinction si vous précisez la date d'effet."
       }
     },
     {
@@ -188,7 +196,7 @@
   <div class="card">
     <div class="field">
       <label for="motifRupture">Motif de fin de contrat</label>
-      <select id="motifRupture" onchange="toggleDateRC()">
+      <select id="motifRupture" onchange="toggleDateRC(); toggleMotifDemission();">
         <option value="licenciement">Licenciement (hors faute grave/lourde)</option>
         <option value="rc">Rupture conventionnelle homologuée</option>
         <option value="findecdd">Fin de CDD / non-renouvellement</option>
@@ -202,7 +210,23 @@
         <option value="non">Non, avant le 1er septembre 2026</option>
         <option value="incertain">Je ne sais pas encore</option>
       </select>
-      <div class="hint">Une loi du 12 juin 2026 réduit la durée d'indemnisation spécifiquement pour les ruptures conventionnelles prenant effet à cette date ou après.</div>
+      <div class="hint">Une loi du 11 juin 2026 réduit la durée d'indemnisation spécifiquement pour les ruptures conventionnelles prenant effet à cette date ou après.</div>
+    </div>
+    <div class="field" id="groupeMotifDemission" style="display:none;">
+      <label for="motifDemission">Pourquoi démissionnez-vous ?</label>
+      <select id="motifDemission">
+        <option value="aucun" selected>Aucun de ces cas / je ne sais pas</option>
+        <option value="mariage_pacs">Mariage ou PACS entraînant un changement de résidence</option>
+        <option value="suivre_conjoint">Je suis mon conjoint qui déménage pour son travail</option>
+        <option value="violences_conjugales">Changement de résidence lié à des violences conjugales</option>
+        <option value="harcelement_violence">Violences ou harcèlement sexuel subis au travail (plainte déposée)</option>
+        <option value="non_paiement_salaire">Non-paiement de salaires dus</option>
+        <option value="reprise_emploi_rompu">J'ai repris un emploi après un licenciement/RC/fin de CDD, et je démissionne rapidement de ce nouvel emploi</option>
+        <option value="creation_entreprise">Démission pour créer/reprendre une entreprise, projet interrompu</option>
+        <option value="reconversion">Projet de reconversion validé par Transitions Pro (démission-reconversion)</option>
+        <option value="mineur">Salarié mineur suivant ses parents ou tuteur</option>
+      </select>
+      <div class="hint">France Travail reconnaît une liste précise de cas de "démission légitime" ouvrant droit à l'ARE comme un licenciement. Sélectionnez le cas qui correspond à votre situation.</div>
     </div>
     <div class="field">
       <label for="affiliation">Avez-vous travaillé au moins 6 mois (130 jours ou 910 heures) au cours des 24 derniers mois (36 mois si 55 ans ou plus) ?</label>
@@ -253,7 +277,7 @@
       Durée maximale indicative selon l'âge à la fin du contrat, régime général (licenciement, fin de CDD) : jusqu'à 18 mois en dessous de 55 ans, jusqu'à 27 mois à partir de 55 ans sous certaines conditions. Une dégressivité de l'allocation (jusqu'à -30 % à partir du 7e mois) peut s'appliquer aux allocations journalières élevées avant 55 ans — non modélisée ici car les seuils exacts évoluent fréquemment.
     </p>
     <p>
-      <strong>Cas particulier des ruptures conventionnelles :</strong> une loi du 12 juin 2026 (n° 2026-470) réduit spécifiquement la durée maximale d'indemnisation pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026 : 15 mois maximum en dessous de 55 ans (contre 18 mois auparavant), et 20,5 mois à partir de 55 ans (contre 22,5 à 27 mois), avec une possibilité de prolongation vers les durées de droit commun après examen de la situation par France Travail au 12ᵉ mois d'indemnisation. Cette réduction ne s'applique pas au licenciement ni à la fin de CDD.
+      <strong>Cas particulier des ruptures conventionnelles :</strong> une loi du 11 juin 2026 (n° 2026-470) réduit spécifiquement la durée maximale d'indemnisation pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026 : 15 mois maximum en dessous de 55 ans (contre 18 mois auparavant), et 20,5 mois à partir de 55 ans (contre 22,5 à 27 mois), avec une possibilité de prolongation vers les durées de droit commun après examen de la situation par France Travail au 12ᵉ mois d'indemnisation. Cette réduction ne s'applique pas au licenciement ni à la fin de CDD.
     </p>
 
     <div class="example-box">
@@ -266,7 +290,11 @@
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Ai-je droit au chômage après une démission ?</summary>
-      <p>En principe non : une démission classique n'ouvre pas droit à l'ARE. Il existe des exceptions dites de "démission légitime" (déménagement pour suivre un conjoint, non-paiement de salaire, etc.) et depuis 2019 un dispositif pour les projets de reconversion professionnelle sous conditions strictes. Une rupture conventionnelle, elle, ouvre droit à l'ARE comme un licenciement.</p>
+      <p>En principe non : une démission classique n'ouvre pas droit à l'ARE. Il existe cependant une liste précise de cas de "démission légitime" fixée par le règlement d'assurance chômage (mariage/PACS avec déménagement, non-paiement de salaire, violences conjugales, reprise rapide d'un nouvel emploi après une perte d'emploi involontaire, etc.), ainsi qu'un dispositif distinct de "démission-reconversion" validé par Transitions Pro. Sélectionnez votre motif dans le simulateur ci-dessus pour savoir s'il est reconnu. Une rupture conventionnelle, elle, ouvre droit à l'ARE comme un licenciement, sans condition de motif.</p>
+    </details>
+    <details class="faq">
+      <summary>Ma démission n'entre dans aucun cas légitime : ai-je vraiment tout perdu ?</summary>
+      <p>Pas nécessairement. Après 121 jours (4 mois) de chômage, vous pouvez demander à l'instance paritaire régionale (IPR) de France Travail un réexamen de votre dossier, à condition de remplir les autres conditions d'ouverture de droits et de justifier de recherches actives d'emploi ou de démarches de formation pendant cette période. En cas d'acceptation, le versement démarre au 122ᵉ jour, sans rétroactivité sur les 121 premiers jours. Autre option : retravailler au moins 65 jours (455 heures) après la démission rouvre aussi des droits.</p>
     </details>
     <details class="faq">
       <summary>Ce montant est-il garanti ?</summary>
@@ -278,7 +306,7 @@
     </details>
     <details class="faq">
       <summary>La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?</summary>
-      <p>Oui, depuis une loi du 12 juin 2026 (n° 2026-470). Pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026, la durée maximale passe de 18 à 15 mois pour les moins de 55 ans, et de 22,5 à 27,5 mois à 20,5 mois pour les 55 ans et plus (avec prolongation possible après examen par France Travail au 12e mois). Cette réduction ne concerne que la rupture conventionnelle : un licenciement ou une fin de CDD n'est pas affecté. Voir le <a href="https://code.travail.gouv.fr/actualite/rupture-conventionnelle-et-chomage-les-nouvelles-durees-dindemnisation-a-partir-du-1er-septembre-2026" target="_blank" rel="noopener noreferrer">détail officiel sur le Code du travail numérique</a>. Le simulateur ci-dessus prend en compte cette distinction si vous précisez la date d'effet.</p>
+      <p>Oui, depuis une loi du 11 juin 2026 (n° 2026-470). Pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026, la durée maximale passe de 18 à 15 mois pour les moins de 55 ans, et de 22,5 à 27 mois à 20,5 mois pour les 55 ans et plus (avec prolongation possible après examen par France Travail au 12e mois). Cette réduction ne concerne que la rupture conventionnelle : un licenciement ou une fin de CDD n'est pas affecté. Voir le <a href="https://code.travail.gouv.fr/actualite/rupture-conventionnelle-et-chomage-les-nouvelles-durees-dindemnisation-a-partir-du-1er-septembre-2026" target="_blank" rel="noopener noreferrer">détail officiel sur le Code du travail numérique</a>. Le simulateur ci-dessus prend en compte cette distinction si vous précisez la date d'effet.</p>
     </details>
     <details class="faq">
       <summary>Dans quel délai dois-je m'inscrire à France Travail après la fin de mon contrat ?</summary>
@@ -299,6 +327,11 @@
         <a href="ressources-officielles.html">→ Ressources officielles</a>
         <a href="formation-chomage-are.html">→ Module de formation : droits au chômage (ARE)</a>
         <a href="licenciement-vs-rupture-conventionnelle-vs-demission.html">→ Licenciement, rupture conventionnelle ou démission : comparatif</a>
+        <a href="licenciement-abusif-bareme-macron.html">→ Licenciement abusif : le barème Macron</a>
+        <a href="licenciement-economique.html">→ Licenciement économique</a>
+        <a href="prime-precarite-cdd.html">→ Prime de précarité CDD / intérim</a>
+        <a href="chomage-partiel.html">→ Chômage partiel (activité partielle)</a>
+        <a href="remplace-par-ia-licenciement.html">→ Remplacé par une IA et licencié : quels recours ?</a>
       </div>
     </div>
   </section>
@@ -333,7 +366,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité, ni les différés d'indemnisation, ni les régularisations liées aux jours non travaillés. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
+    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité, ni les différés d'indemnisation, ni les régularisations liées aux jours non travaillés. Les cas de démission légitime affichés reprennent les motifs prévus par le règlement général d'assurance chômage (convention du 15 novembre 2024) ; la reconnaissance effective et les justificatifs exacts dépendent de l'examen de votre dossier par France Travail. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -345,6 +378,48 @@ function toggleDateRC(){
   var motif = document.getElementById('motifRupture').value;
   document.getElementById('groupeDateRC').style.display = (motif === 'rc') ? 'block' : 'none';
 }
+function toggleMotifDemission(){
+  var motif = document.getElementById('motifRupture').value;
+  document.getElementById('groupeMotifDemission').style.display = (motif === 'demission') ? 'block' : 'none';
+}
+var MOTIFS_DEMISSION_LEGITIME = {
+  mariage_pacs: {
+    label: "Mariage ou PACS entraînant un changement de résidence",
+    note: "Reconnu si la démission intervient avant ou au maximum dans les 2 mois suivant le mariage/PACS, et que le changement de résidence vous empêche de poursuivre cet emploi. Justificatifs à prévoir : acte de mariage/PACS et preuve du changement de résidence."
+  },
+  suivre_conjoint: {
+    label: "Pour suivre un conjoint, partenaire ou concubin qui déménage pour son travail",
+    note: "Reconnu si le déménagement de votre conjoint est lié à une prise d'emploi (salariée ou non). Justificatif à prévoir : preuve de la nouvelle situation professionnelle du conjoint."
+  },
+  violences_conjugales: {
+    label: "Changement de résidence lié à des violences conjugales",
+    note: "Justificatif à prévoir : récépissé de dépôt de plainte."
+  },
+  harcelement_violence: {
+    label: "Violences ou harcèlement sexuel subis au travail",
+    note: "Concerne les actes susceptibles d'être délictueux subis à l'occasion du contrat de travail. Justificatif à prévoir : récépissé de dépôt de plainte."
+  },
+  non_paiement_salaire: {
+    label: "Non-paiement de salaires dus",
+    note: "Reconnu sur présentation d'une ordonnance de référé du conseil de prud'hommes constatant le non-paiement de périodes de travail effectuées."
+  },
+  reprise_emploi_rompu: {
+    label: "Reprise d'un emploi après une perte d'emploi involontaire, puis nouvelle démission rapide",
+    note: "Reconnu si vous avez perdu un emploi de façon involontaire (licenciement, rupture conventionnelle, fin de CDD), repris un nouvel emploi, puis démissionné de ce nouvel emploi avant d'y avoir travaillé 65 jours (455 heures)."
+  },
+  creation_entreprise: {
+    label: "Démission pour créer ou reprendre une entreprise, projet interrompu",
+    note: "Reconnu si vous avez démissionné pour créer ou reprendre une entreprise puis cessé cette activité pour un motif indépendant de votre volonté, dans un délai maximal de 3 ans. Justificatifs à prévoir : K-bis, attestation de cessation, justificatif comptable des difficultés."
+  },
+  reconversion: {
+    label: "Projet de reconversion professionnelle validé par Transitions Pro (démission-reconversion)",
+    note: "Dispositif distinct de la liste des démissions légitimes : nécessite d'être en CDI, de justifier d'au moins 1 300 jours travaillés sur les 5 dernières années, et de faire valider votre projet par une association Transitions Pro AVANT de démissionner. La demande d'ARE doit être déposée dans les 6 mois suivant l'avis favorable, et France Travail vérifie la mise en œuvre du projet dans les 6 mois suivant l'ouverture des droits."
+  },
+  mineur: {
+    label: "Salarié mineur suivant ses parents ou tuteur",
+    note: "Reconnu pour les salariés de moins de 18 ans qui déménagent avec leurs parents, ou la personne exerçant l'autorité parentale."
+  }
+};
 function calculerDroitsChomage(){
   var motif = document.getElementById('motifRupture').value;
   var affiliation = document.getElementById('affiliation').value;
@@ -358,13 +433,20 @@ function calculerDroitsChomage(){
   montantDiv.innerHTML = '';
   dureeDiv.innerHTML = '';
 
-  if (motif === 'demission'){
+  var motifDemission = motif === 'demission' ? document.getElementById('motifDemission').value : null;
+  var demissionLegitimeInfo = motifDemission ? MOTIFS_DEMISSION_LEGITIME[motifDemission] : null;
+
+  if (motif === 'demission' && !demissionLegitimeInfo){
     resultBox.classList.remove('show');
     notice.style.display = 'block';
-    notice.textContent = "Une démission classique n'ouvre en principe pas droit à l'ARE, sauf cas de démission légitime (déménagement du conjoint, non-paiement du salaire, projet de reconversion validé, etc.). Rapprochez-vous de France Travail pour vérifier si votre situation entre dans un cas d'exception.";
+    notice.innerHTML = "Une démission classique n'ouvre pas droit à l'ARE immédiatement. Mais deux voies restent possibles : après <strong>121 jours</strong> (4 mois) de chômage, vous pouvez demander un réexamen de votre dossier par l'instance paritaire régionale (IPR) de France Travail, à condition de remplir les autres conditions d'ouverture de droits et de justifier de recherches actives d'emploi ou de démarches de formation pendant cette période — en cas d'acceptation, le versement démarre au 122ᵉ jour, non rétroactif. Autre option : si vous retravaillez au moins 65 jours (455 heures) après votre démission, cela rouvre aussi des droits. Rapprochez-vous de France Travail pour engager l'une de ces démarches.";
     return;
   }
   notice.style.display = 'none';
+  if (demissionLegitimeInfo){
+    notice.style.display = 'block';
+    notice.innerHTML = '✓ Motif reconnu comme démission légitime : <strong>' + demissionLegitimeInfo.label + '</strong>. ' + demissionLegitimeInfo.note + ' Sous réserve de la vérification de votre dossier par France Travail, vous êtes éligible à l\'ARE dans les mêmes conditions qu\'un licenciement.';
+  }
 
   if (affiliation === 'non'){
     resultBox.classList.remove('show');
@@ -378,7 +460,10 @@ function calculerDroitsChomage(){
     : 'Éligible (sous réserve des conditions administratives)';
   document.getElementById('eligibiliteARE').textContent = eligibiliteText;
 
-  var motifLabel = motif === 'rc' ? 'une rupture conventionnelle homologuée' : (motif === 'findecdd' ? 'une fin de CDD' : 'un licenciement');
+  var motifLabel = motif === 'rc' ? 'une rupture conventionnelle homologuée'
+    : motif === 'findecdd' ? 'une fin de CDD'
+    : motif === 'demission' ? 'une démission légitime (' + demissionLegitimeInfo.label + ')'
+    : 'un licenciement';
   document.getElementById('detailARE').textContent = 'Motif retenu : ' + motifLabel + ', considéré comme une perte d\'emploi involontaire ouvrant droit à l\'ARE.';
 
   if (salaire > 0){
@@ -409,7 +494,7 @@ function calculerDroitsChomage(){
     var dateRC = document.getElementById('dateRC').value;
     if (dateRC === 'oui'){
       dureeTxt = age >= 55
-        ? "Durée maximale indicative : 20,5 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 22,5 à 27,5 mois auparavant ; prolongation possible vers les durées de droit commun après examen par France Travail au 12e mois)."
+        ? "Durée maximale indicative : 20,5 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 22,5 à 27 mois auparavant ; prolongation possible vers les durées de droit commun après examen par France Travail au 12e mois)."
         : "Durée maximale indicative : 15 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 18 mois auparavant).";
     } else if (dateRC === 'non'){
       dureeTxt = age >= 55
@@ -435,9 +520,14 @@ function telechargerPDF_ARE(){
   var affiliation = document.getElementById('affiliation').value;
   var age = parseFloat(document.getElementById('ageARE').value) || 0;
   var salaire = parseFloat(document.getElementById('salaireARE').value) || 0;
-  if (motif === 'demission' || affiliation === 'non') return;
+  var motifDemission = motif === 'demission' ? document.getElementById('motifDemission').value : null;
+  var demissionLegitimeInfo = motifDemission ? MOTIFS_DEMISSION_LEGITIME[motifDemission] : null;
+  if ((motif === 'demission' && !demissionLegitimeInfo) || affiliation === 'non') return;
 
-  var motifLabel = motif === 'rc' ? 'Rupture conventionnelle homologuée' : (motif === 'findecdd' ? 'Fin de CDD / non-renouvellement' : 'Licenciement');
+  var motifLabel = motif === 'rc' ? 'Rupture conventionnelle homologuée'
+    : motif === 'findecdd' ? 'Fin de CDD / non-renouvellement'
+    : motif === 'demission' ? 'Démission légitime (' + demissionLegitimeInfo.label + ')'
+    : 'Licenciement';
   var eligibiliteText = affiliation === 'incertain' ? 'Probable, à confirmer' : 'Éligible (sous réserve des conditions administratives)';
 
   var lignes = [

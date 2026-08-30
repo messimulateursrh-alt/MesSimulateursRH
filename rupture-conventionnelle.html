@@ -67,7 +67,7 @@
       "name": "La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, depuis une loi du 12 juin 2026 : pour les ruptures conventionnelles prenant effet à partir du 1er septembre 2026, la durée maximale d'indemnisation passe de 18 à 15 mois pour les moins de 55 ans (et de 22,5 à 27,5 mois à 20,5 mois pour les 55 ans et plus). Cette réduction ne s'applique pas au licenciement. Utilisez notre simulateur de droits au chômage pour estimer votre situation précise."
+        "text": "Oui, depuis une loi du 11 juin 2026 : pour les ruptures conventionnelles prenant effet à partir du 1er septembre 2026, la durée maximale d'indemnisation passe de 18 à 15 mois pour les moins de 55 ans (et de 22,5 à 27 mois à 20,5 mois pour les 55 ans et plus). Cette réduction ne s'applique pas au licenciement. Utilisez notre simulateur de droits au chômage pour estimer votre situation précise."
       }
     },
     {
@@ -84,6 +84,22 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "En principe oui, y compris pendant un arrêt maladie d'origine non professionnelle, sous réserve que le consentement du salarié soit libre et éclairé. La jurisprudence est toutefois vigilante sur d'éventuelles situations de pression ; en cas de doute, un accompagnement juridique est recommandé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le simulateur tient-il compte de ma convention collective ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Nous avons ajouté deux formules conventionnelles pour les cadres, souvent plus favorables : Syntec (1/3 de mois par année d'ancienneté dès 2 ans, sans plafond) et Bâtiment/BTP (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois, majorée de 10 % à 55 ans et plus). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Les avantages en nature (véhicule de fonction, logement) comptent-ils dans le calcul de l'indemnité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Un avantage en nature fait partie du salaire brut de référence utilisé pour calculer l'indemnité de rupture conventionnelle, au même titre que le salaire contractuel. S'il n'est pas déjà inclus dans les montants que vous avez renseignés, ajoutez sa valeur mensuelle dans le champ dédié du simulateur pour obtenir une estimation plus précise."
       }
     }
   ]
@@ -204,6 +220,11 @@
       <input type="number" id="salaire3" min="0" step="0.01" placeholder="ex : 2950">
       <div class="hint">La loi retient le montant le plus favorable entre les deux moyennes. Laissez vide si vous ne l'avez pas.</div>
     </div>
+    <div class="field">
+      <label for="avantageNatureRC">Avantage en nature — véhicule, logement... (optionnel)</label>
+      <input type="number" id="avantageNatureRC" min="0" step="0.01" placeholder="ex : 300">
+      <div class="hint">À renseigner uniquement si vos salaires ci-dessus ne l'incluent pas déjà. Un avantage en nature (véhicule de fonction, logement...) fait partie du salaire brut de référence pour le calcul de l'indemnité.</div>
+    </div>
     <div class="row2">
       <div class="field">
         <label for="anneesRc">Ancienneté — années</label>
@@ -226,6 +247,15 @@
       </select>
       <div class="hint">Cette condition change le régime fiscal de l'indemnité (voir détail sous le résultat) — elle n'a pas d'effet sur l'exonération sociale.</div>
     </div>
+    <div class="field">
+      <label for="conventionRC">Convention collective (optionnel)</label>
+      <select id="conventionRC">
+        <option value="legal" selected>Barème légal uniquement</option>
+        <option value="syntec_cadre">Syntec (bureaux d'études techniques) — statut cadre</option>
+        <option value="batiment_cadre">Bâtiment (BTP) — statut cadre</option>
+      </select>
+      <div class="hint">Le simulateur retient automatiquement le montant le plus favorable entre le barème légal et la convention sélectionnée. Deux formules conventionnelles sont disponibles pour l'instant ; <a href="identifier-convention-collective.html">identifiez votre convention</a> si elle n'est pas listée.</div>
+    </div>
     <button class="compute" onclick="calculerRC()">Calculer</button>
 
     <div class="result" id="resultRC">
@@ -239,6 +269,22 @@
       <div class="notice" id="noticeComparaison" style="display:none;"></div>
       <div class="breakdown" id="regimeFiscal"></div>
       <div class="breakdown for-employeur" id="coutEmployeur"></div>
+      <div class="breakdown">
+        <p><strong>Rupture conventionnelle, licenciement ou démission : l'essentiel en un coup d'œil</strong></p>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Critère</th><th>Démission</th><th>Licenciement</th><th>Rupture conventionnelle</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Qui décide ?</td><td>Le salarié seul</td><td>L'employeur seul</td><td>Accord mutuel des deux parties</td></tr>
+              <tr><td>Indemnité</td><td>Aucune (sauf convention collective)</td><td>Indemnité légale minimale</td><td>Indemnité au moins égale à celle du licenciement</td></tr>
+              <tr><td>Droit au chômage (ARE)</td><td>Non, sauf démission légitime</td><td>Oui, si conditions remplies</td><td>Oui, comme un licenciement</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:.85rem"><a href="licenciement-vs-rupture-conventionnelle-vs-demission.html">→ Voir le comparatif complet (préavis, procédure, délais)</a></p>
+      </div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_RC()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -282,7 +328,7 @@
     </details>
     <details class="faq">
       <summary>La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?</summary>
-      <p>Oui, depuis une <a href="https://code.travail.gouv.fr/actualite/rupture-conventionnelle-et-chomage-les-nouvelles-durees-dindemnisation-a-partir-du-1er-septembre-2026" target="_blank" rel="noopener noreferrer">loi du 12 juin 2026</a> : pour les ruptures conventionnelles prenant effet à partir du 1er septembre 2026, la durée maximale d'indemnisation passe de 18 à 15 mois pour les moins de 55 ans (et de 22,5 à 27,5 mois à 20,5 mois pour les 55 ans et plus). Cette réduction ne s'applique pas au licenciement. Utilisez notre <a href="droits-chomage.html">simulateur de droits au chômage</a> pour estimer votre situation précise.</p>
+      <p>Oui, depuis une <a href="https://code.travail.gouv.fr/actualite/rupture-conventionnelle-et-chomage-les-nouvelles-durees-dindemnisation-a-partir-du-1er-septembre-2026" target="_blank" rel="noopener noreferrer">loi du 11 juin 2026</a> : pour les ruptures conventionnelles prenant effet à partir du 1er septembre 2026, la durée maximale d'indemnisation passe de 18 à 15 mois pour les moins de 55 ans (et de 22,5 à 27 mois à 20,5 mois pour les 55 ans et plus). Cette réduction ne s'applique pas au licenciement. Utilisez notre <a href="droits-chomage.html">simulateur de droits au chômage</a> pour estimer votre situation précise.</p>
     </details>
     <details class="faq">
       <summary>Puis-je négocier le montant de l'indemnité de rupture conventionnelle ?</summary>
@@ -291,6 +337,14 @@
     <details class="faq">
       <summary>Une rupture conventionnelle est-elle possible pendant un arrêt maladie ?</summary>
       <p>En principe oui, y compris pendant un arrêt maladie d'origine non professionnelle, sous réserve que le consentement du salarié soit libre et éclairé. La jurisprudence est toutefois vigilante sur d'éventuelles situations de pression ; en cas de doute, un accompagnement juridique est recommandé.</p>
+    </details>
+    <details class="faq">
+      <summary>Le simulateur tient-il compte de ma convention collective ?</summary>
+      <p>Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Nous avons ajouté deux formules conventionnelles pour les cadres, souvent plus favorables : Syntec (1/3 de mois par année d'ancienneté dès 2 ans, sans plafond) et Bâtiment/BTP (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois, majorée de 10 % à 55 ans et plus). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle. <a href="identifier-convention-collective.html">Besoin d'identifier votre convention ?</a></p>
+    </details>
+    <details class="faq">
+      <summary>Les avantages en nature (véhicule de fonction, logement) comptent-ils dans le calcul de l'indemnité ?</summary>
+      <p>Oui. Un avantage en nature fait partie du salaire brut de référence utilisé pour calculer l'indemnité de rupture conventionnelle, au même titre que le salaire contractuel. S'il n'est pas déjà inclus dans les montants que vous avez renseignés, ajoutez sa valeur mensuelle dans le champ dédié du simulateur pour obtenir une estimation plus précise.</p>
     </details>
 
     <div class="related-tools">
@@ -303,9 +357,12 @@
         <a href="reforme-rupture-conventionnelle-chomage-2026.html">→ Réforme du 1ᵉʳ septembre 2026</a>
         <a href="calcul-anciennete.html">→ Calcul d'ancienneté</a>
         <a href="identifier-convention-collective.html">→ Trouver sa convention collective</a>
+        <a href="licenciement-vs-rupture-conventionnelle-vs-demission.html">→ Licenciement, rupture conventionnelle ou démission : comparatif</a>
         <a href="ressources-officielles.html">→ Ressources officielles</a>
         <a href="formation-rupture-conventionnelle.html">→ Module de formation : rupture conventionnelle</a>
         <a href="licenciement-vs-rupture-conventionnelle-vs-demission.html">→ Licenciement, rupture conventionnelle ou démission : comparatif</a>
+        <a href="remplace-par-ia-licenciement.html">→ Remplacé par une IA et licencié : quels recours ?</a>
+        <a href="negocier-rupture-conventionnelle.html">→ Négocier sa rupture conventionnelle</a>
       </div>
     </div>
   </section>
@@ -340,7 +397,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail) et le régime social/fiscal 2026 (plafond d'exonération sociale : 2×PASS soit 96 120 €, plafond d'exonération fiscale : 6×PASS soit 288 360 € — nulle si le salarié peut faire valoir ses droits à une pension de retraite à taux plein, contribution patronale spécifique à 40 %). Le régime réel comporte d'autres cas particuliers (comparaison avec la rémunération de l'année précédente, etc.) non couverts ici. Vérifiez votre convention collective et rapprochez-vous d'un expert-comptable ou d'un conseil juridique avant toute signature.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail) et le régime social/fiscal 2026 (plafond d'exonération sociale : 2×PASS soit 96 120 €, plafond d'exonération fiscale : 6×PASS soit 288 360 € — nulle si le salarié peut faire valoir ses droits à une pension de retraite à taux plein, contribution patronale spécifique à 40 %). Le régime réel comporte d'autres cas particuliers (comparaison avec la rémunération de l'année précédente, etc.) non couverts ici. Les formules conventionnelles proposées (Syntec cadre, Bâtiment cadre) sont fournies à titre indicatif à partir de sources secondaires et peuvent ne pas refléter un avenant récent ou une clause spécifique à votre poste — pour le Bâtiment, la majoration de 10 % applicable à 55 ans et plus n'est pas intégrée au calcul automatique (l'âge n'étant pas demandé). Vérifiez toujours votre convention collective exacte et rapprochez-vous d'un expert-comptable ou d'un conseil juridique avant toute signature.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -351,7 +408,8 @@
 function calculerRC(){
   var s12 = parseFloat(document.getElementById('salaire12').value) || 0;
   var s3 = parseFloat(document.getElementById('salaire3').value) || 0;
-  var salaireRef = Math.max(s12, s3);
+  var avantageNature = parseFloat(document.getElementById('avantageNatureRC').value) || 0;
+  var salaireRef = Math.max(s12, s3) + avantageNature;
   var annees = anneesDecimal(document.getElementById('anneesRc').value, document.getElementById('moisRc').value);
   var montantPropose = parseFloat(document.getElementById('montantPropose').value) || 0;
 
@@ -370,21 +428,58 @@ function calculerRC(){
   }
   seuil8mois.style.display = 'none';
 
-  var indemnite = indemniteLegale(salaireRef, annees);
+  var indemniteBase = indemniteLegale(salaireRef, annees);
+
+  var conventionRC = document.getElementById('conventionRC').value;
+  var indemniteConv = null;
+  var conventionLabel = '';
+  var conventionFormuleTxt = '';
+  if (conventionRC === 'syntec_cadre'){
+    indemniteConv = indemniteSyntecCadre(salaireRef, annees);
+    conventionLabel = 'la convention Syntec (statut cadre)';
+    conventionFormuleTxt = euros(salaireRef) + ' × 1/3 × ' + annees.toFixed(2);
+  } else if (conventionRC === 'batiment_cadre'){
+    indemniteConv = indemniteBatimentCadre(salaireRef, annees);
+    conventionLabel = 'la convention des cadres du bâtiment (IDCC 2420)';
+    if (annees > 10){
+      conventionFormuleTxt = '(10 × 3/10 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 6/10 × ' + euros(salaireRef) + '), plafonné à 15 mois de salaire';
+    } else {
+      conventionFormuleTxt = euros(salaireRef) + ' × 3/10 × ' + annees.toFixed(2);
+    }
+  }
+
+  var indemnite = indemniteBase;
+  var conventionRetenue = false;
+  if (indemniteConv !== null && indemniteConv > indemniteBase + 0.01){
+    indemnite = indemniteConv;
+    conventionRetenue = true;
+  }
 
   document.getElementById('montantRC').textContent = euros(indemnite);
   document.getElementById('montantRCEmployeur').textContent = euros(indemnite);
 
-  var detailTxt = 'Salaire de référence : ' + euros(salaireRef) + ' (le plus favorable entre 12 et 3 derniers mois) · Ancienneté : ' + annees.toFixed(2) + ' an(s)<br>';
-  if (annees > 10){
-    var part1 = 10*(salaireRef/4);
-    var part2 = (annees-10)*(salaireRef/3);
-    detailTxt += 'Calcul : (10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ')<br>' +
-      '= ' + euros(part1) + ' + ' + euros(part2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+  var detailTxt = 'Salaire de référence : ' + euros(salaireRef) + ' (le plus favorable entre 12 et 3 derniers mois' + (avantageNature > 0 ? ' + ' + euros(avantageNature) + ' d\'avantage en nature' : '') + ') · Ancienneté : ' + annees.toFixed(2) + ' an(s)<br>';
+  if (conventionRetenue){
+    detailTxt += 'Calcul (formule de ' + conventionLabel + ', plus favorable que la loi) : ' + conventionFormuleTxt + ' = <strong>' + euros(indemnite) + '</strong><br>' +
+      'Barème légal minimum à titre de comparaison : ' + euros(indemniteBase) + '.<br>' +
+      'Référence : ' + conventionLabel + ' — vérifiez le texte exact applicable à votre poste, ce montant est une estimation.';
+    if (conventionRC === 'batiment_cadre'){
+      detailTxt += '<br>⚠️ Si vous avez 55 ans ou plus à la fin de votre préavis, une majoration de 10 % s\'applique en plus de ce montant selon cette convention (non intégrée au calcul automatique, l\'âge n\'étant pas demandé par ce simulateur).';
+    }
   } else {
-    detailTxt += 'Calcul : ' + euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+    if (annees > 10){
+      var part1 = 10*(salaireRef/4);
+      var part2 = (annees-10)*(salaireRef/3);
+      detailTxt += 'Calcul : (10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ')<br>' +
+        '= ' + euros(part1) + ' + ' + euros(part2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+    } else {
+      detailTxt += 'Calcul : ' + euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+    }
+    if (conventionRC !== 'legal' && indemniteConv !== null){
+      detailTxt += 'La formule de ' + conventionLabel + ' (' + euros(indemniteConv) + ') n\'est pas plus favorable ici : c\'est le barème légal qui s\'applique.<br>';
+    }
+    detailTxt += 'Référence : article R1234-2 du Code du travail (indemnité légale de licenciement, plancher applicable à la rupture conventionnelle).';
   }
-  detailTxt += 'Référence : article R1234-2 du Code du travail (indemnité légale de licenciement, plancher applicable à la rupture conventionnelle).';
   document.getElementById('breakdownRC').innerHTML = detailTxt;
 
   // Comparaison au montant proposé
@@ -425,12 +520,29 @@ function calculerRC(){
 function telechargerPDF_RC(){
   var s12 = parseFloat(document.getElementById('salaire12').value) || 0;
   var s3 = parseFloat(document.getElementById('salaire3').value) || 0;
-  var salaireRef = Math.max(s12, s3);
+  var avantageNature = parseFloat(document.getElementById('avantageNatureRC').value) || 0;
+  var salaireRef = Math.max(s12, s3) + avantageNature;
   var annees = anneesDecimal(document.getElementById('anneesRc').value, document.getElementById('moisRc').value);
   var montantPropose = parseFloat(document.getElementById('montantPropose').value) || 0;
   if (salaireRef <= 0 || annees < (8/12)) return;
 
-  var indemnite = indemniteLegale(salaireRef, annees);
+  var indemniteBase = indemniteLegale(salaireRef, annees);
+  var conventionRC = document.getElementById('conventionRC').value;
+  var indemniteConv = null;
+  var conventionLabel = '';
+  if (conventionRC === 'syntec_cadre'){
+    indemniteConv = indemniteSyntecCadre(salaireRef, annees);
+    conventionLabel = 'Convention Syntec (statut cadre)';
+  } else if (conventionRC === 'batiment_cadre'){
+    indemniteConv = indemniteBatimentCadre(salaireRef, annees);
+    conventionLabel = 'Convention cadres du bâtiment (IDCC 2420)';
+  }
+  var indemnite = indemniteBase;
+  var conventionRetenue = false;
+  if (indemniteConv !== null && indemniteConv > indemniteBase + 0.01){
+    indemnite = indemniteConv;
+    conventionRetenue = true;
+  }
   var montantFinal = montantPropose > 0 ? montantPropose : indemnite;
   var peutPartirRetraite = document.getElementById('retraiteRC').value === 'oui';
   var exoSociale = Math.min(montantFinal, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
@@ -439,10 +551,21 @@ function telechargerPDF_RC(){
   var coutTotal = montantFinal + contribPatronale;
 
   var lignes = [
-    { label: 'Salaire de référence retenu', value: euros(salaireRef) },
-    { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' },
-    { label: 'Indemnité légale minimale', value: euros(indemnite) }
+    { label: 'Salaire de référence retenu', value: euros(salaireRef) }
   ];
+  if (avantageNature > 0){
+    lignes.push({ label: 'dont avantage en nature inclus', value: euros(avantageNature) });
+  }
+  lignes.push({ label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' });
+  lignes.push({ label: 'Indemnité légale minimale (barème)', value: euros(indemniteBase) });
+  if (conventionRetenue){
+    lignes.push({ label: conventionLabel + ' (retenue, plus favorable)', value: euros(indemniteConv) });
+    if (conventionRC === 'batiment_cadre'){
+      lignes.push({ label: 'Majoration 55 ans et plus (non calculée)', value: '+10 % si applicable, vérifier l\'âge en fin de préavis' });
+    }
+  } else if (conventionRC !== 'legal' && indemniteConv !== null){
+    lignes.push({ label: conventionLabel + ' (non retenue, moins favorable)', value: euros(indemniteConv) });
+  }
   if (montantPropose > 0){
     lignes.push({ label: "Montant proposé par l'employeur", value: euros(montantPropose) });
   }

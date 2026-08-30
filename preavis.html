@@ -202,6 +202,13 @@
         <option value="demission">Démission</option>
       </select>
     </div>
+    <div class="field">
+      <label for="statutP">Statut (optionnel, pour un avertissement ciblé)</label>
+      <select id="statutP">
+        <option value="noncadre">Non-cadre</option>
+        <option value="cadre">Cadre</option>
+      </select>
+    </div>
     <div class="row2">
       <div class="field">
         <label for="anneesP">Ancienneté — années</label>
@@ -375,7 +382,12 @@ function calculerPreavis(){
   noticeP.style.display = 'none';
 
   document.getElementById('dureeP').textContent = moisPreavis + ' mois';
-  document.getElementById('detailP').innerHTML = 'Durée légale minimale : ' + texte + ' Ces durées sont des minima légaux (Art. L1234-1) : votre convention collective (souvent plus favorable pour les cadres) peut prévoir une durée supérieure — <a href="identifier-convention-collective.html">vérifiez laquelle s\'applique à vous</a>.';
+  var statutP = document.getElementById('statutP').value;
+  var detailTexte = 'Durée légale minimale : ' + texte + ' Ces durées sont des minima légaux (Art. L1234-1) : votre convention collective (souvent plus favorable pour les cadres) peut prévoir une durée supérieure — <a href="identifier-convention-collective.html">vérifiez laquelle s\'applique à vous</a>.';
+  if (statutP === 'cadre'){
+    detailTexte += ' <strong>En tant que cadre, votre convention collective prévoit très souvent un préavis plus long que ce minimum légal (fréquemment 3 mois)</strong> — l\'écart avec les ' + moisPreavis + ' mois affichés ici peut représenter plusieurs semaines de salaire, alors vérifiez aussi votre contrat de travail, qui peut lui-même prévoir une durée encore différente si elle est plus favorable.';
+  }
+  document.getElementById('detailP').innerHTML = detailTexte;
 
   if (salaire > 0){
     var indemniteDispense = salaire * moisPreavis;
@@ -387,6 +399,7 @@ function calculerPreavis(){
 
 function telechargerPDF_P(){
   var type = document.getElementById('typeRupture').value;
+  var statutP = document.getElementById('statutP').value;
   var annees = anneesDecimal(document.getElementById('anneesP').value, document.getElementById('moisP').value);
   var salaire = parseFloat(document.getElementById('salaireP').value) || 0;
   if (type === 'demission' || type === 'fautegrave' || annees < 0.5) return;
@@ -394,6 +407,7 @@ function telechargerPDF_P(){
   var moisPreavis = annees < 2 ? 1 : 2;
   var lignes = [
     { label: 'Type de rupture', value: 'Licenciement (hors faute grave/lourde)' },
+    { label: 'Statut', value: statutP === 'cadre' ? 'Cadre' : 'Non-cadre' },
     { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' },
     { label: 'Durée légale de préavis', value: moisPreavis + ' mois', type: 'total' }
   ];
@@ -403,11 +417,16 @@ function telechargerPDF_P(){
     lignes.push({ label: 'Indemnité compensatrice si dispense', value: euros(indemniteDispense) });
   }
 
+  var disclaimerPDF = "Simulateur indicatif basé sur l'article L1234-1 du Code du travail (licenciement). Ces durées sont des minima légaux : votre convention collective peut prévoir une durée plus longue. Ne remplace pas un conseil juridique personnalisé.";
+  if (statutP === 'cadre'){
+    disclaimerPDF = "Simulateur indicatif basé sur l'article L1234-1 du Code du travail (licenciement). Ces durées sont des minima légaux : en tant que cadre, votre convention collective prévoit très souvent un préavis plus long (fréquemment 3 mois) — vérifiez-la, ainsi que votre contrat de travail. Ne remplace pas un conseil juridique personnalisé.";
+  }
+
   genererPDFSimulation({
     titre: 'Simulation de durée de préavis',
     sousTitre: 'Durée légale minimale et indemnité de dispense éventuelle',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur l'article L1234-1 du Code du travail (licenciement). Ces durées sont des minima légaux : votre convention collective peut prévoir une durée plus longue. Ne remplace pas un conseil juridique personnalisé.",
+    disclaimer: disclaimerPDF,
     nomFichier: 'simulation-preavis.pdf'
   });
 }

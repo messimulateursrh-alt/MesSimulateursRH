@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parts Fiscales et Quotient Familial 2026 — Simulateur Gratuit</title>
+<meta name="description" content="Calculez votre nombre de parts fiscales (quotient familial) selon votre situation familiale, et votre taux marginal d'imposition (TMI) — pas un calcul d'impôt, juste les règles du Code général des impôts.">
+<!-- SEO-META-START -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://messimulateursrh.fr/quotient-familial.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MesSimulateursRH.fr">
+<meta property="og:title" content="Parts Fiscales et Quotient Familial 2026 — Simulateur Gratuit">
+<meta property="og:description" content="Calculez votre nombre de parts fiscales (quotient familial) selon votre situation familiale, et votre taux marginal d'imposition (TMI) — pas un calcul d'impôt, juste les règles du Code général des impôts.">
+<meta property="og:url" content="https://messimulateursrh.fr/quotient-familial.html">
+<meta property="og:image" content="https://messimulateursrh.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Parts Fiscales et Quotient Familial 2026 — Simulateur Gratuit">
+<meta name="twitter:description" content="Calculez votre nombre de parts fiscales (quotient familial) selon votre situation familiale, et votre taux marginal d'imposition (TMI) — pas un calcul d'impôt, juste les règles du Code général des impôts.">
+<meta name="twitter:image" content="https://messimulateursrh.fr/og-image.png">
+<meta name="robots" content="index, follow">
+<!-- SEO-META-END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien de parts fiscales ai-je si je suis marié avec 2 enfants ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3 parts : 2 parts pour le couple + 0,5 part pour chacun des deux premiers enfants à charge."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "La garde alternée compte-t-elle comme un enfant à charge entier ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. En résidence alternée, la majoration de parts est divisée par deux entre les deux parents : 0,25 part (au lieu de 0,5) pour chacun des deux premiers enfants, 0,5 part (au lieu de 1) à partir du 3e, pour chaque parent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Plus j'ai de parts, mon impôt baisse-t-il sans limite ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non : l'avantage fiscal de chaque demi-part supplémentaire au-delà de 2 parts (couple) ou 1 part (personne seule) est plafonné (1 807 € par demi-part dans le cas général pour les revenus 2025, plafonds différents pour les parents isolés, invalides et anciens combattants). Ce simulateur ne calcule pas ce plafonnement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le nombre de parts fiscales me permet-il de calculer mon impôt sur le revenu ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Le nombre de parts sert uniquement à déterminer le taux marginal d'imposition (quotient familial). Le calcul réel de l'impôt intègre ensuite le plafonnement du quotient familial, la décote, les crédits et réductions d'impôt, et l'ensemble des revenus du foyer fiscal — des éléments que cet outil n'intègre pas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que la case T sur ma déclaration de revenus ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La case T signale que vous êtes parent isolé au sens fiscal : vous viviez seul, sans concubinage, au 1er janvier, avec au moins un enfant à charge. Elle ouvre droit à une demi-part supplémentaire pour le premier enfant en garde exclusive (0,25 part en garde alternée) — un parent isolé avec 1 enfant en garde exclusive a ainsi 2 parts, contre 1,5 pour un célibataire non isolé avec 1 enfant."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur de parts fiscales et quotient familial",
+  "description": "Calculez votre nombre de parts fiscales selon votre situation familiale, et votre taux marginal d'imposition (TMI) — pas un calcul d'impôt.",
+  "url": "https://messimulateursrh.fr/quotient-familial.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Tout navigateur web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "isAccessibleForFree": true
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://messimulateursrh.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Salaire et coût du travail",
+      "item": "https://messimulateursrh.fr/simulateurs-salaire-cout-travail.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Parts fiscales et quotient familial",
+      "item": "https://messimulateursrh.fr/quotient-familial.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandmark-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1742b8"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#brandmark-g)"/><text x="50" y="69" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="white" text-anchor="middle">€</text></svg>Mes<span>Simulateurs</span>RH</a>
+    <button type="button" class="search-toggle" id="search-toggle" aria-haspopup="dialog" aria-controls="search-overlay" aria-label="Rechercher un sujet">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="main">
+      <details class="nav-dropdown">
+        <summary>Simulateurs</summary>
+        <div class="nav-dropdown-menu">
+          <a href="simulateurs-rupture-contrat.html">Rupture du contrat de travail</a>
+          <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+          <a href="simulateurs-conges-temps-travail.html">Congés et temps de travail</a>
+          <a href="simulateurs-anciennete-carriere.html">Ancienneté et fin de carrière</a>
+          <a href="aller-plus-loin.html">Aller plus loin</a>
+        </div>
+      </details>
+      <a href="formation.html">Formation</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="ressources-officielles.html">Ressources officielles</a>
+    </nav>
+    <div class="audience-toggle-wrap">
+      <span class="audience-toggle-label">Résultats pour :</span>
+      <div class="audience-toggle">
+        <button data-audience="salarie">Je suis salarié</button>
+        <button data-audience="employeur">Je suis employeur</button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
+    <div class="search-panel-top">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+    <p class="search-empty" id="search-empty" hidden>Aucun résultat. Essayez : chômage, salaire, congés, retraite...</p>
+  </div>
+</div>
+
+<main id="main">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="index.html">Accueil</a>
+      <span class="sep" aria-hidden="true">›</span>
+      <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+      <span class="sep" aria-hidden="true">›</span>
+      <span aria-current="page">Parts fiscales et quotient familial</span>
+    </nav>
+  <section class="hero">
+    <h1>Parts fiscales et quotient familial</h1>
+    <p>
+      Calculez votre nombre de parts fiscales selon votre situation familiale, et le taux marginal d'imposition (TMI) qui en découle. <strong>Ce n'est pas un calcul d'impôt</strong> : voir plus bas pourquoi, et ce que cet outil ne remplace pas.
+    </p>
+    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <p class="update-date">Barème vérifié le 30 août 2026 (revenus 2025, déclaration 2026). <a href="a-propos.html">Notre méthode</a>.</p>
+  </section>
+
+  <div class="quick-answer"><strong>En bref :</strong> 1 part pour une personne seule, 2 parts pour un couple marié ou pacsé, + 0,5 part pour chacun des deux premiers enfants à charge, + 1 part à partir du 3ᵉ. Le quotient familial (revenu ÷ parts) indique votre taux marginal d'imposition — pas le montant de votre impôt.</div>
+
+  <div class="card">
+    <div class="field">
+      <label for="situationQF">Votre situation</label>
+      <select id="situationQF">
+        <option value="seul">Personne seule (célibataire, divorcé, veuf)</option>
+        <option value="couple">Couple marié ou pacsé (imposition commune)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="enfantsQF">Nombre d'enfants à charge</label>
+      <input type="number" id="enfantsQF" min="0" step="1" value="0">
+    </div>
+    <div class="field" id="groupeParentIsoleQF">
+      <label>
+        <input type="checkbox" id="parentIsoleQF" style="width:auto; margin-right:8px;">
+        Parent isolé (case T) — vous vivez seul, sans concubinage, avec au moins un enfant à charge
+      </label>
+    </div>
+    <div class="field">
+      <label>
+        <input type="checkbox" id="gardeAlterneeQF" style="width:auto; margin-right:8px;">
+        Enfant(s) en résidence alternée (majoration divisée par 2)
+      </label>
+    </div>
+    <div class="field">
+      <label for="invalidesQF">Vous et/ou votre conjoint titulaire d'une carte d'invalidité</label>
+      <select id="invalidesQF">
+        <option value="0">Non concerné</option>
+        <option value="1">Oui, 1 personne du foyer</option>
+        <option value="2">Oui, 2 personnes du foyer (couple)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="revenuQF">Revenu net imposable annuel du foyer (optionnel)</label>
+      <input type="number" id="revenuQF" min="0" step="100" placeholder="Ex. 42000">
+      <div class="hint">Facultatif : sans ce montant, seul le nombre de parts est calculé. Avec ce montant, le taux marginal d'imposition (TMI) est aussi indiqué.</div>
+    </div>
+    <button class="compute" onclick="calculerQuotientFamilial()">Calculer</button>
+
+    <div class="result" id="resultQF">
+      <div class="amount" id="partsQF">—</div>
+      <div class="detail" id="detailQF"></div>
+      <div class="breakdown" id="breakdownQF"></div>
+      <div class="pdf-actions">
+        <button class="compute pdf" onclick="telechargerPDF_QF()">📄 Télécharger le PDF récapitulatif</button>
+        <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
+        <p class="report-error">⚠️ <a href="mailto:messimulateursrh@gmail.com?subject=Erreur%20signal%C3%A9e%20-%20Quotient%20familial">Signaler une erreur sur ce résultat</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="content-section">
+    <h2>Pourquoi ce n'est pas un calcul d'impôt</h2>
+    <p>
+      Le calcul de l'impôt sur le revenu réel intègre bien plus que le nombre de parts : le <strong>plafonnement du quotient familial</strong> (l'avantage de chaque demi-part au-delà de 2 parts pour un couple ou 1 part pour une personne seule est limité à 1 807 € pour les revenus 2025, avec des plafonds différents pour les parents isolés, invalides et anciens combattants), la <strong>décote</strong> pour les foyers modestes, les <strong>crédits et réductions d'impôt</strong>, et l'ensemble des revenus du foyer fiscal (pas seulement un salaire). Un outil simplifié qui afficherait un montant d'impôt en euros à partir de ces seules informations donnerait une fausse précision — c'est pour cette raison que ce simulateur s'arrête au nombre de parts et au taux marginal, sans jamais estimer votre impôt final. Pour un calcul complet et personnalisé, utilisez le <a href="https://www.impots.gouv.fr/simulateurs" target="_blank" rel="noopener">simulateur officiel de la DGFiP</a>.
+    </p>
+
+    <h2>Le nombre de parts fiscales (art. 194 et 195 du CGI)</h2>
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:8px 6px;">Situation</th>
+        <th style="text-align:left; padding:8px 6px;">Parts</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">Personne seule, sans enfant</td><td style="padding:8px 6px;">1</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">Couple marié ou pacsé, sans enfant</td><td style="padding:8px 6px;">2</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">+ 1ᵉʳ et 2ᵉ enfant à charge</td><td style="padding:8px 6px;">+ 0,5 part chacun</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">+ 3ᵉ enfant à charge et suivants</td><td style="padding:8px 6px;">+ 1 part chacun</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">Enfant en résidence alternée</td><td style="padding:8px 6px;">majoration divisée par 2 (0,25 puis 0,5)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">Parent isolé (case T), 1ᵉʳ enfant en garde exclusive</td><td style="padding:8px 6px;">+ 0,5 part supplémentaire</td></tr>
+      <tr><td style="padding:8px 6px;">Titulaire d'une carte d'invalidité (vous ou conjoint)</td><td style="padding:8px 6px;">+ 0,5 part chacun</td></tr>
+    </table>
+    <p style="margin-top:10px;">
+      Exemple : un parent isolé (case T) avec 1 enfant en garde exclusive a <strong>2 parts</strong> (1 part de base + 0,5 part normale pour le 1ᵉʳ enfant + 0,5 part bonus case T) — pas 1,5 comme pour un célibataire non isolé avec 1 enfant.
+    </p>
+
+    <h2>Le barème par tranches 2026 (revenus 2025)</h2>
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:8px 6px;">Tranche de quotient familial (par part)</th>
+        <th style="text-align:left; padding:8px 6px;">Taux</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">Jusqu'à 11 600 €</td><td style="padding:8px 6px;">0 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">De 11 600 € à 29 579 €</td><td style="padding:8px 6px;">11 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">De 29 579 € à 84 577 €</td><td style="padding:8px 6px;">30 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 6px;">De 84 577 € à 181 917 €</td><td style="padding:8px 6px;">41 %</td></tr>
+      <tr><td style="padding:8px 6px;">Au-delà de 181 917 €</td><td style="padding:8px 6px;">45 %</td></tr>
+    </table>
+    <p style="margin-top:10px;">
+      Ce barème, revalorisé de 0,9 % par la loi de finances pour 2026, s'applique par tranche : seule la part du quotient familial qui dépasse un seuil est taxée au taux de ce palier, pas l'ensemble du revenu. Le taux marginal d'imposition (TMI) affiché n'est donc jamais le taux moyen réellement payé — impots.gouv.fr le rappelle lui-même sur l'avis d'imposition.
+    </p>
+
+    <h2>Questions fréquentes</h2>
+    <details class="faq">
+      <summary>Combien de parts fiscales ai-je si je suis marié avec 2 enfants ?</summary>
+      <p>3 parts : 2 parts pour le couple + 0,5 part pour chacun des deux premiers enfants à charge.</p>
+    </details>
+    <details class="faq">
+      <summary>La garde alternée compte-t-elle comme un enfant à charge entier ?</summary>
+      <p>Non. En résidence alternée, la majoration de parts est divisée par deux entre les deux parents : 0,25 part (au lieu de 0,5) pour chacun des deux premiers enfants, 0,5 part (au lieu de 1) à partir du 3ᵉ, pour chaque parent.</p>
+    </details>
+    <details class="faq">
+      <summary>Plus j'ai de parts, mon impôt baisse-t-il sans limite ?</summary>
+      <p>Non : l'avantage fiscal de chaque demi-part supplémentaire au-delà de 2 parts (couple) ou 1 part (personne seule) est plafonné (1 807 € par demi-part dans le cas général pour les revenus 2025, plafonds différents pour les parents isolés, invalides et anciens combattants). Ce simulateur ne calcule pas ce plafonnement.</p>
+    </details>
+    <details class="faq">
+      <summary>Le nombre de parts fiscales me permet-il de calculer mon impôt sur le revenu ?</summary>
+      <p>Non. Le nombre de parts sert uniquement à déterminer le taux marginal d'imposition (quotient familial). Le calcul réel de l'impôt intègre ensuite le plafonnement du quotient familial, la décote, les crédits et réductions d'impôt, et l'ensemble des revenus du foyer fiscal — des éléments que cet outil n'intègre pas.</p>
+    </details>
+    <details class="faq">
+      <summary>Qu'est-ce que la case T sur ma déclaration de revenus ?</summary>
+      <p>La case T signale que vous êtes parent isolé au sens fiscal : vous viviez seul, sans concubinage, au 1ᵉʳ janvier, avec au moins un enfant à charge. Elle ouvre droit à une demi-part supplémentaire pour le premier enfant en garde exclusive (0,25 part en garde alternée) — un parent isolé avec 1 enfant en garde exclusive a ainsi 2 parts, contre 1,5 pour un célibataire non isolé avec 1 enfant.</p>
+    </details>
+
+    <div class="related-tools">
+      <h3>Autres simulateurs utiles</h3>
+      <div class="links">
+        <a href="salaire-net-brut.html">→ Salaire net à partir du brut</a>
+        <a href="augmentation-salaire.html">→ Simulateur d'augmentation de salaire</a>
+        <a href="ressources-officielles.html">→ Ressources officielles</a>
+      </div>
+    </div>
+  </section>
+  <div class="ad-slot ad-slot-bottom">Emplacement publicitaire</div>
+</main>
+
+<footer class="site">
+  <div class="footer-sitemap">
+    <p class="footer-tagline">MesSimulateursRH.fr — simulateurs gratuits de droit du travail pour comprendre vos droits, chiffrer votre situation et préparer une décision éclairée.</p>
+    <nav class="footer-links" aria-label="Plan du site">
+      <div class="footer-col">
+        <h4>Simulateurs</h4>
+        <a href="simulateurs-rupture-contrat.html">Rupture du contrat</a>
+        <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+        <a href="simulateurs-conges-temps-travail.html">Congés et temps de travail</a>
+        <a href="simulateurs-anciennete-carriere.html">Ancienneté et carrière</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ressources</h4>
+        <a href="formation.html">Formation gratuite</a>
+        <a href="actualites.html">Actualités</a>
+        <a href="ressources-officielles.html">Ressources officielles</a>
+        <a href="glossaire-droit-travail.html">Glossaire</a>
+      </div>
+      <div class="footer-col">
+        <h4>Le site</h4>
+        <a href="index.html">Accueil</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+      </div>
+    </nav>
+  </div>
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> simulateur indicatif basé sur les articles 194 et 195 du Code général des impôts (nombre de parts) et le barème 2026 de l'impôt sur le revenu applicable aux revenus 2025 (déclaration 2026, revalorisé de 0,9 % par la loi de finances pour 2026). Ne calcule ni votre impôt sur le revenu, ni votre prélèvement à la source : n'intègre pas le plafonnement du quotient familial, la décote, ni les crédits et réductions d'impôt. Pour un calcul complet, utilisez le simulateur officiel de la DGFiP sur impots.gouv.fr. Ne remplace pas un conseil fiscal personnalisé.
+    <br><br>
+    <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script src="logique-calculs.txt"></script>
+<script>
+function toggleParentIsoleQF(){
+  var situation = document.getElementById('situationQF').value;
+  var groupe = document.getElementById('groupeParentIsoleQF');
+  if (situation === 'couple'){
+    groupe.style.display = 'none';
+    document.getElementById('parentIsoleQF').checked = false;
+  } else {
+    groupe.style.display = '';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('situationQF').addEventListener('change', toggleParentIsoleQF);
+  toggleParentIsoleQF();
+});
+
+function labelTranche(tranche){
+  if (tranche.seuilHaut === Infinity){
+    return 'au-delà de ' + tranche.seuilBas.toLocaleString('fr-FR') + ' €';
+  }
+  return 'de ' + tranche.seuilBas.toLocaleString('fr-FR') + ' € à ' + tranche.seuilHaut.toLocaleString('fr-FR') + ' €';
+}
+
+function calculerQuotientFamilial(){
+  var situation = document.getElementById('situationQF').value;
+  var nbEnfants = parseInt(document.getElementById('enfantsQF').value, 10) || 0;
+  var gardeAlternee = document.getElementById('gardeAlterneeQF').checked;
+  var parentIsole = document.getElementById('parentIsoleQF').checked;
+  var nbInvalides = parseInt(document.getElementById('invalidesQF').value, 10) || 0;
+  var revenu = parseFloat(document.getElementById('revenuQF').value);
+  var resultBox = document.getElementById('resultQF');
+
+  if (nbEnfants < 0){
+    resultBox.classList.remove('show');
+    return;
+  }
+
+  var parts = calculerPartsFiscales(situation, nbEnfants, gardeAlternee, parentIsole, nbInvalides);
+  document.getElementById('partsQF').textContent = parts.toLocaleString('fr-FR', {maximumFractionDigits: 2}) + ' part' + (parts > 1 ? 's' : '');
+
+  var detail = 'Situation : ' + (situation === 'couple' ? 'couple marié/pacsé' : 'personne seule') + ', ' + nbEnfants + ' enfant(s) à charge' + (gardeAlternee ? ' (résidence alternée)' : '') + (parentIsole ? ', parent isolé (case T)' : '') + '.';
+  var breakdown = 'Nombre de parts fiscales : <strong>' + parts.toLocaleString('fr-FR', {maximumFractionDigits: 2}) + '</strong><br>';
+
+  if (!isNaN(revenu) && revenu > 0){
+    var quotient = revenu / parts;
+    var tranche = trancheMarginale(quotient);
+    detail += ' Quotient familial : ' + euros(quotient) + ' → taux marginal d\'imposition (TMI) de ' + (tranche.taux * 100) + '%.';
+    breakdown += 'Revenu net imposable annuel du foyer : ' + euros(revenu) + '<br>' +
+      'Quotient familial (revenu ÷ parts) : ' + euros(quotient) + '<br>' +
+      'Tranche : ' + labelTranche(tranche) + '<br>' +
+      'Taux marginal d\'imposition (TMI) : <strong>' + (tranche.taux * 100) + '%</strong><br>' +
+      '<em>Rappel : le TMI ne s\'applique qu\'à la dernière tranche de revenu, ce n\'est ni le taux moyen ni le montant de votre impôt. Le plafonnement du quotient familial, la décote et les crédits/réductions d\'impôt ne sont pas pris en compte ici.</em>';
+  } else {
+    breakdown += '<em>Renseignez un revenu net imposable annuel pour afficher le taux marginal d\'imposition (TMI) correspondant.</em>';
+  }
+
+  document.getElementById('detailQF').textContent = detail;
+  document.getElementById('breakdownQF').innerHTML = breakdown;
+  resultBox.classList.add('show');
+}
+
+function telechargerPDF_QF(){
+  var situation = document.getElementById('situationQF').value;
+  var nbEnfants = parseInt(document.getElementById('enfantsQF').value, 10) || 0;
+  var gardeAlternee = document.getElementById('gardeAlterneeQF').checked;
+  var parentIsole = document.getElementById('parentIsoleQF').checked;
+  var nbInvalides = parseInt(document.getElementById('invalidesQF').value, 10) || 0;
+  var revenu = parseFloat(document.getElementById('revenuQF').value);
+
+  var parts = calculerPartsFiscales(situation, nbEnfants, gardeAlternee, parentIsole, nbInvalides);
+
+  var lignes = [
+    { label: 'Situation', value: situation === 'couple' ? 'Couple marié/pacsé' : 'Personne seule' },
+    { label: 'Enfants à charge', value: String(nbEnfants) + (gardeAlternee ? ' (résidence alternée)' : '') },
+    { label: 'Parent isolé (case T)', value: parentIsole ? 'Oui' : 'Non' },
+    { label: 'Nombre de parts fiscales', value: parts.toLocaleString('fr-FR', {maximumFractionDigits: 2}), type: 'total' }
+  ];
+
+  if (!isNaN(revenu) && revenu > 0){
+    var quotient = revenu / parts;
+    var tranche = trancheMarginale(quotient);
+    lignes.push({ label: 'Revenu net imposable annuel', value: euros(revenu) });
+    lignes.push({ label: 'Quotient familial', value: euros(quotient) });
+    lignes.push({ label: 'Taux marginal d\'imposition (TMI)', value: (tranche.taux * 100) + '%' });
+  }
+
+  genererPDFSimulation({
+    titre: 'Simulation de parts fiscales et quotient familial',
+    sousTitre: 'Barème revenus 2025 / déclaration 2026',
+    lignes: lignes,
+    disclaimer: "Simulateur indicatif basé sur les art. 194 et 195 du CGI et le barème 2026 de l'impôt sur le revenu. Ne calcule pas votre impôt (plafonnement du quotient familial, décote et crédits d'impôt non intégrés).",
+    nomFichier: 'simulation-quotient-familial.pdf'
+  });
+}
+</script>
+</body>
+</html>

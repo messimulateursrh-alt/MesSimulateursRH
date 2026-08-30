@@ -70,8 +70,146 @@ IJ_PATERNITE_TAUX: 0.938,
 CONGE_PATERNITE_JOURS_STANDARD: 25,
 CONGE_PATERNITE_JOURS_MULTIPLE: 32,
 CONGE_NAISSANCE_TAUX_MOIS1: 0.70,
-CONGE_NAISSANCE_TAUX_MOIS2: 0.60
+CONGE_NAISSANCE_TAUX_MOIS2: 0.60,
+SMIC_BRUT_HORAIRE: 12.31,
+SMIC_NET_HORAIRE: 9.74,
+PRIME_PRECARITE_TAUX_STANDARD: 0.10,
+PRIME_PRECARITE_TAUX_REDUIT: 0.06,
+ACTIVITE_PARTIELLE_TAUX: 0.60,
+ACTIVITE_PARTIELLE_PLAFOND_SMIC_MULT: 4.5,
+ACTIVITE_PARTIELLE_CSG_CRDS_TAUX: 0.067,
+ACTIVITE_PARTIELLE_ABATTEMENT_FRAIS: 0.0175,
+COEF_NET_FONCTION_PUBLIQUE: 0.80,
+COEF_NET_INDEPENDANT_SSI: 0.60,
+COEF_NET_INDEPENDANT_CIPAV: 0.63,
+PORTAGE_FRAIS_GESTION: 0.10
 };
+// Barème fiscal des indemnités kilométriques (arrêté du 27 mars 2023, JORFTEXT000047416556 — applicable depuis l'imposition
+// des revenus 2022, reconduit sans changement depuis, 4ᵉ année consécutive au titre des revenus 2025/déclaration 2026).
+// Clés : puissance fiscale (CV) -> { t1: coef tranche 0-5000km, t2c/t2k: coef+constante tranche 5001-20000km, t3: coef au-delà de 20000km }.
+var BAREME_KM_2026 = {
+'3': { t1: 0.529, t2c: 0.316, t2k: 1065, t3: 0.370 },
+'4': { t1: 0.606, t2c: 0.340, t2k: 1330, t3: 0.407 },
+'5': { t1: 0.636, t2c: 0.357, t2k: 1395, t3: 0.427 },
+'6': { t1: 0.665, t2c: 0.374, t2k: 1457, t3: 0.447 },
+'7': { t1: 0.697, t2c: 0.394, t2k: 1515, t3: 0.470 }
+};
+// Grille légale du salaire minimum de l'apprenti, en % du SMIC (art. D6222-26 du Code du travail).
+// Clés : tranche d'âge -> [1ère année, 2ème année, 3ème année].
+var GRILLE_APPRENTISSAGE = {
+'moins18': [0.27, 0.39, 0.55],
+'18-20': [0.43, 0.51, 0.67],
+'21-25': [0.53, 0.61, 0.78],
+'26plus': [1.00, 1.00, 1.00]
+};
+function calculerPrimePrecarite(remunerationBrutePercue, tauxReduit){
+// Art. L1243-8/L1243-9 du Code du travail (CDD) — même taux pour l'indemnité de fin de mission intérim (L1251-32/L1251-33).
+// 10% de la rémunération brute totale perçue pendant le contrat (hors indemnité compensatrice de congés payés),
+// ou 6% si un accord de branche étendu le prévoit ET que le salarié a un accès facilité à la formation professionnelle.
+var taux = tauxReduit ? BAREME_2026.PRIME_PRECARITE_TAUX_REDUIT : BAREME_2026.PRIME_PRECARITE_TAUX_STANDARD;
+return remunerationBrutePercue * taux;
+}
+function salaireMinimumApprenti(trancheAge, anneeContrat){
+// anneeContrat : 1, 2 ou 3. Retourne le salaire minimum brut mensuel (% du SMIC).
+var grille = GRILLE_APPRENTISSAGE[trancheAge];
+if (!grille) return null;
+var pct = grille[Math.min(Math.max(anneeContrat, 1), 3) - 1];
+return {
+pourcentage: pct,
+salaireBrut: BAREME_2026.SMIC_BRUT_MENSUEL * pct
+};
+}
+function calculerIndemniteKilometrique(puissanceCV, distanceKm, electrique){
+// Barème forfaitaire par tranche de distance annuelle, cf. BAREME_KM_2026 ci-dessus.
+var b = BAREME_KM_2026[puissanceCV];
+if (!b || distanceKm < 0) return null;
+var montant, trancheLabel;
+if (distanceKm <= 5000){
+montant = distanceKm * b.t1;
+trancheLabel = 'jusqu\'à 5 000 km (d × ' + b.t1.toFixed(3) + ')';
+} else if (distanceKm <= 20000){
+montant = (distanceKm * b.t2c) + b.t2k;
+trancheLabel = 'de 5 001 à 20 000 km ((d × ' + b.t2c.toFixed(3) + ') + ' + b.t2k + ' €)';
+} else {
+montant = distanceKm * b.t3;
+trancheLabel = 'au-delà de 20 000 km (d × ' + b.t3.toFixed(3) + ')';
+}
+var montantAvantMajoration = montant;
+if (electrique){
+montant = montant * 1.20;
+}
+return {
+montant: montant,
+montantAvantMajoration: montantAvantMajoration,
+tranche: trancheLabel
+};
+}
+var BAREME_IR_2026 = [
+// Barème de l'impôt sur le revenu applicable aux revenus 2025 (déclaration 2026), revalorisé de +0,9%.
+// Vérifié sur 2 sources indépendantes (service-public.gouv.fr F1419, legifiscal.fr) : seuils concordants.
+{seuil: 11600, taux: 0},
+{seuil: 29579, taux: 0.11},
+{seuil: 84577, taux: 0.30},
+{seuil: 181917, taux: 0.41},
+{seuil: Infinity, taux: 0.45}
+];
+function calculerPartsFiscales(situation, nbEnfants, gardeAlternee, parentIsole, nbInvalides){
+// Art. 194 et 195 du CGI. situation: 'seul' ou 'couple'. nbEnfants: entier >= 0.
+// Parent isolé (case T, art. 195-1 b) : ne s'applique qu'à situation === 'seul', bonus de 0,5 part
+// (0,25 en garde alternée) réservé au 1er enfant, en plus de la majoration normale de ce même enfant
+// (vérifié sur service-public.gouv.fr F35120 : 1 personne seule + 1 enfant en case T = 2 parts, pas 1,5).
+var parts = situation === 'couple' ? 2 : 1;
+for (var i = 1; i <= nbEnfants; i++){
+var frac = i <= 2 ? 0.5 : 1.0;
+if (gardeAlternee) frac = frac / 2;
+parts += frac;
+if (i === 1 && parentIsole && situation === 'seul'){
+parts += gardeAlternee ? 0.25 : 0.5;
+}
+}
+parts += 0.5 * (nbInvalides || 0);
+return parts;
+}
+function trancheMarginale(quotientFamilial){
+// Renvoie la tranche du barème applicable à un quotient familial donné (revenu net imposable / nombre de parts).
+for (var i = 0; i < BAREME_IR_2026.length; i++){
+if (quotientFamilial <= BAREME_IR_2026[i].seuil){
+var seuilBas = i === 0 ? 0 : BAREME_IR_2026[i-1].seuil;
+return {
+taux: BAREME_IR_2026[i].taux,
+seuilBas: seuilBas,
+seuilHaut: BAREME_IR_2026[i].seuil
+};
+}
+}
+return BAREME_IR_2026[BAREME_IR_2026.length - 1];
+}
+function calculerIndemniteActivitePartielle(tauxHoraireBrutHabituel, nbHeuresChomees){
+// Art. R5122-18 du Code du travail — 60% de la rémunération horaire brute de référence,
+// plafonnée à 4,5×SMIC brut horaire, avec plancher au SMIC net horaire.
+var remunerationRefHoraire = Math.min(tauxHoraireBrutHabituel, BAREME_2026.ACTIVITE_PARTIELLE_PLAFOND_SMIC_MULT * BAREME_2026.SMIC_BRUT_HORAIRE);
+var indemniteHoraireBrute = BAREME_2026.ACTIVITE_PARTIELLE_TAUX * remunerationRefHoraire;
+indemniteHoraireBrute = Math.max(indemniteHoraireBrute, BAREME_2026.SMIC_NET_HORAIRE);
+var indemniteBrutTotale = indemniteHoraireBrute * nbHeuresChomees;
+
+var baseCSGCRDS = indemniteBrutTotale * (1 - BAREME_2026.ACTIVITE_PARTIELLE_ABATTEMENT_FRAIS);
+var montantCSGCRDS = baseCSGCRDS * BAREME_2026.ACTIVITE_PARTIELLE_CSG_CRDS_TAUX;
+
+// Écrêtement : le net ne doit jamais descendre sous le SMIC brut horaire × heures chômées.
+var plancherPostPrelevement = BAREME_2026.SMIC_BRUT_HORAIRE * nbHeuresChomees;
+var indemniteNette = indemniteBrutTotale - montantCSGCRDS;
+if (indemniteNette < plancherPostPrelevement){
+montantCSGCRDS = Math.max(0, indemniteBrutTotale - plancherPostPrelevement);
+indemniteNette = indemniteBrutTotale - montantCSGCRDS;
+}
+
+return {
+indemniteHoraireBrute: indemniteHoraireBrute,
+indemniteBrutTotale: indemniteBrutTotale,
+csgCrds: montantCSGCRDS,
+indemniteNette: indemniteNette
+};
+}
 function estimerCongesPayes(remunerationRef, salaireMensuel, joursAIndemniser){
 var dixieme = (remunerationRef / 10) * (joursAIndemniser / BAREME_2026.JOURS_CONGES_MAX_AN);
 var salaireJournalier = salaireMensuel / BAREME_2026.JOURS_OUVRABLES_MOIS;
@@ -88,6 +226,12 @@ var coef = statutCadre ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_C
 var net = brutMensuel * coef;
 var netImposable = net * 1.0169; // réintégration approximative de la CSG/CRDS non déductible (~1.7% du brut)
 return { net: net, netImposable: netImposable, coef: coef };
+}
+function estimerBrutDepuisNet(netMensuel, statutCadre){
+var coef = statutCadre ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_CADRE;
+var brut = netMensuel / coef;
+var netImposable = netMensuel * 1.0169; // réintégration approximative de la CSG/CRDS non déductible (~1.7% du net)
+return { brut: brut, netImposable: netImposable, coef: coef };
 }
 function detailCotisationsSalariales(brutMensuel, statutCadre){
 var brutPlafonne = Math.min(brutMensuel, BAREME_2026.PASS_MENSUEL);
@@ -115,6 +259,46 @@ total: total,
 tauxTotal: total / brutMensuel
 };
 }
+// Statuts étendus (fonction publique, indépendant BNC, portage salarial) : coefficient global ou chaîne de calcul dédiée,
+// distincts de estimerNetDepuisBrut/estimerBrutDepuisNet (non-cadre/cadre) pour ne pas modifier leur signature — utilisées
+// ailleurs sur le site (passage-temps-partiel.html, augmentation-salaire.html) avec le paramètre booléen d'origine.
+// statut : 'fonction-publique' | 'independant-ssi' | 'independant-cipav' | 'portage'.
+function estimerNetStatutEtendu(montantAvantCotisations, statut){
+if (statut === 'fonction-publique'){
+var net = montantAvantCotisations * BAREME_2026.COEF_NET_FONCTION_PUBLIQUE;
+return { net: net, coef: BAREME_2026.COEF_NET_FONCTION_PUBLIQUE };
+}
+if (statut === 'independant-ssi' || statut === 'independant-cipav'){
+var coefInd = statut === 'independant-ssi' ? BAREME_2026.COEF_NET_INDEPENDANT_SSI : BAREME_2026.COEF_NET_INDEPENDANT_CIPAV;
+var netInd = montantAvantCotisations * coefInd;
+return { net: netInd, coef: coefInd };
+}
+if (statut === 'portage'){
+// CA facturé HT -> frais de gestion de la société de portage -> brut équivalent (charges patronales moyennes) -> net (coefficient cadre).
+var apresGestion = montantAvantCotisations * (1 - BAREME_2026.PORTAGE_FRAIS_GESTION);
+var brutEquivalent = apresGestion / (1 + BAREME_2026.CHARGES_PATRONALES_MOYENNES);
+var r = estimerNetDepuisBrut(brutEquivalent, true); // assimilé cadre : profil le plus fréquent en portage salarial
+return { net: r.net, coef: r.coef, apresGestion: apresGestion, brutEquivalent: brutEquivalent };
+}
+return null;
+}
+function estimerMontantAvantCotisationsDepuisNet(net, statut){
+if (statut === 'fonction-publique'){
+return { montant: net / BAREME_2026.COEF_NET_FONCTION_PUBLIQUE, coef: BAREME_2026.COEF_NET_FONCTION_PUBLIQUE };
+}
+if (statut === 'independant-ssi' || statut === 'independant-cipav'){
+var coefInd = statut === 'independant-ssi' ? BAREME_2026.COEF_NET_INDEPENDANT_SSI : BAREME_2026.COEF_NET_INDEPENDANT_CIPAV;
+return { montant: net / coefInd, coef: coefInd };
+}
+if (statut === 'portage'){
+var rInv = estimerBrutDepuisNet(net, true);
+var brutEquivalent = rInv.brut;
+var apresGestion = brutEquivalent * (1 + BAREME_2026.CHARGES_PATRONALES_MOYENNES);
+var ca = apresGestion / (1 - BAREME_2026.PORTAGE_FRAIS_GESTION);
+return { montant: ca, coef: rInv.coef, apresGestion: apresGestion, brutEquivalent: brutEquivalent };
+}
+return null;
+}
 function estimerARE(salaireMensuelBrut){
 var sjr = (salaireMensuelBrut * 12) / 365;
 var brancheA = 0.404 * sjr + BAREME_2026.ARE_PARTIE_FIXE_JOUR;
@@ -135,6 +319,28 @@ return part1 + part2;
 }
 function anneesDecimal(annees, mois){
 return (parseInt(annees || 0, 10)) + (parseInt(mois || 0, 10)) / 12;
+}
+function indemniteSyntecCadre(salaireRef, ancienneteAnnees){
+// Convention Syntec (bureaux d'études techniques, IDCC 1486) — statut cadre.
+// Formule : 1/3 de mois de salaire par année d'ancienneté dès 2 ans, sans plafond (avenant du 22 mai 2023).
+// En-dessous de 2 ans d'ancienneté, la convention n'est pas plus favorable que le barème légal.
+if (ancienneteAnnees < 2){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+return ancienneteAnnees * (salaireRef / 3);
+}
+function indemniteBatimentCadre(salaireRef, ancienneteAnnees){
+// Convention collective nationale des cadres du bâtiment du 1er juin 2004 (IDCC 2420).
+// Formule : 3/10 de mois par année jusqu'à 10 ans, puis 6/10 de mois par année au-delà de 10 ans, plafonnée à 15 mois.
+// En-dessous de 2 ans d'ancienneté, la convention n'est pas plus favorable que le barème légal.
+if (ancienneteAnnees < 2){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+var anneesJusqua10 = Math.min(ancienneteAnnees, 10);
+var anneesAuDela10 = Math.max(0, ancienneteAnnees - 10);
+var indemnite = (0.30 * anneesJusqua10 * salaireRef) + (0.60 * anneesAuDela10 * salaireRef);
+var plafond = 15 * salaireRef;
+return Math.min(indemnite, plafond);
 }
 function ancienneteDepuisDates(dateEntreeStr, dateSortieStr){
 var dEntree = new Date(dateEntreeStr);
@@ -492,6 +698,25 @@ var SEARCH_INDEX = [
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche"},
 {title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
+{title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD"},
+{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026.html", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS"},
+{title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026"},
+{title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd.html", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM"},
+{title:"Salaire minimum apprenti", url:"salaire-apprenti.html", cat:"Simulateur", kw:"salaire apprenti alternance grille smic pourcentage age annee contrat"},
+{title:"Chômage partiel (activité partielle)", url:"chomage-partiel.html", cat:"Simulateur", kw:"chomage partiel activite partielle indemnite salarie heures chomees"},
+{title:"Indemnités kilométriques", url:"frais-kilometriques.html", cat:"Simulateur", kw:"frais kilometriques indemnite bareme fiscal CV puissance distance frais reels"},
+{title:"Licenciement pour faute grave", url:"faute-grave.html", cat:"Guide", kw:"faute grave licenciement prescription 2 mois mise a pied conservatoire abandon poste"},
+{title:"Licenciement pour faute lourde", url:"faute-lourde.html", cat:"Guide", kw:"faute lourde intention de nuire conges payes licenciement"},
+{title:"Licenciement économique", url:"licenciement-economique.html", cat:"Guide", kw:"licenciement economique motif reclassement PSE plan sauvegarde emploi CSP difficultes economiques"},
+{title:"Licenciement pour inaptitude", url:"licenciement-inaptitude.html", cat:"Guide", kw:"inaptitude medicale licenciement reclassement medecin du travail accident du travail maladie professionnelle"},
+{title:"Insuffisance professionnelle", url:"insuffisance-professionnelle.html", cat:"Guide", kw:"insuffisance professionnelle licenciement insuffisance de resultats"},
+{title:"Cause réelle et sérieuse", url:"cause-reelle-et-serieuse.html", cat:"Guide", kw:"cause reelle et serieuse licenciement motif personnel motif economique prud hommes"},
+{title:"Licenciement abusif et barème Macron", url:"licenciement-abusif-bareme-macron.html", cat:"Guide", kw:"licenciement abusif bareme macron indemnite prud hommes anciennete sans cause reelle et serieuse"},
+{title:"Lettre de notification de licenciement", url:"lettre-notification-licenciement.html", cat:"Guide", kw:"lettre licenciement notification motifs delai recommande"},
+{title:"Procédure de licenciement", url:"procedure-licenciement.html", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
+{title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI"},
+{title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
+{title:"IA et travail : obligations de l'employeur", url:"ia-et-travail-obligations-employeur.html", cat:"Guide", kw:"intelligence artificielle travail CSE consultation formation adaptation surveillance algorithmique AI Act discrimination"},
 {title:"Rupture du contrat de travail (catégorie)", url:"simulateurs-rupture-contrat.html", cat:"Catégorie", kw:"rupture contrat travail simulateurs categorie licenciement demission"},
 {title:"Salaire et coût du travail (catégorie)", url:"simulateurs-salaire-cout-travail.html", cat:"Catégorie", kw:"salaire cout travail simulateurs categorie brut net charges"},
 {title:"Congés et temps de travail (catégorie)", url:"simulateurs-conges-temps-travail.html", cat:"Catégorie", kw:"conges temps de travail simulateurs categorie maternite naissance"},

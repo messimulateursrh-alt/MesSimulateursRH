@@ -37,6 +37,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://messimulateursrh.fr/prime-precarite-cdd.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/salaire-apprenti.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/chomage-partiel.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/frais-kilometriques.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://messimulateursrh.fr/indemnite-conges-payes.html</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -217,6 +241,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://messimulateursrh.fr/remplace-par-ia-licenciement.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://messimulateursrh.fr/simulateurs-rupture-contrat.html</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -242,8 +272,80 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/aller-plus-loin.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/faute-grave.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/faute-lourde.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/licenciement-economique.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/licenciement-inaptitude.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/insuffisance-professionnelle.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/cause-reelle-et-serieuse.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/licenciement-abusif-bareme-macron.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/lettre-notification-licenciement.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/procedure-licenciement.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/quotient-familial.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/negocier-rupture-conventionnelle.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/ia-et-travail-obligations-employeur.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
