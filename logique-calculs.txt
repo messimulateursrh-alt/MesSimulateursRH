@@ -717,6 +717,8 @@ var SEARCH_INDEX = [
 {title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI"},
 {title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
 {title:"IA et travail : obligations de l'employeur", url:"ia-et-travail-obligations-employeur.html", cat:"Guide", kw:"intelligence artificielle travail CSE consultation formation adaptation surveillance algorithmique AI Act discrimination"},
+{title:"IA et conventions collectives", url:"ia-et-conventions-collectives.html", cat:"Guide", kw:"intelligence artificielle convention collective accord de branche accord d'entreprise MAIF BPCE negociation collective"},
+{title:"Comment lire sa fiche de paie", url:"comment-lire-sa-fiche-de-paie.html", cat:"Guide", kw:"fiche de paie bulletin de salaire avantage en nature titre restaurant heures supplementaires CSG CRDS net imposable prelevement a la source"},
 {title:"Rupture du contrat de travail (catégorie)", url:"simulateurs-rupture-contrat.html", cat:"Catégorie", kw:"rupture contrat travail simulateurs categorie licenciement demission"},
 {title:"Salaire et coût du travail (catégorie)", url:"simulateurs-salaire-cout-travail.html", cat:"Catégorie", kw:"salaire cout travail simulateurs categorie brut net charges"},
 {title:"Congés et temps de travail (catégorie)", url:"simulateurs-conges-temps-travail.html", cat:"Catégorie", kw:"conges temps de travail simulateurs categorie maternite naissance"},

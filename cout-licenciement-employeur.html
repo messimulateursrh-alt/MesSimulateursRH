@@ -40,6 +40,14 @@
     },
     {
       "@type": "Question",
+      "name": "Le coût est-il différent pour un cadre que pour un non-cadre ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Légèrement, oui. Ce simulateur applique un taux moyen unique de 42 % sur le préavis, les congés payés et l'éventuel excédent d'indemnité, qui ne distingue pas les deux statuts. En réalité, un cadre coûte un peu plus cher que ce taux moyen à montant identique : la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1, dite \"article 7\") s'ajoute, ainsi que la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire dépassant le plafond de la Sécurité sociale. Sélectionnez \"Cadre\" dans le formulaire pour afficher cette note dans le résultat."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Le taux de charges patronales de 42 % est-il le même pour toutes les entreprises ?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -88,6 +96,12 @@
     {
       "@type": "ListItem",
       "position": 2,
+      "name": "Salaire et coût du travail",
+      "item": "https://messimulateursrh.fr/simulateurs-salaire-cout-travail.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
       "name": "Coût total d'un licenciement pour l'employeur",
       "item": "https://messimulateursrh.fr/cout-licenciement-employeur.html"
     }
@@ -147,6 +161,8 @@
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="index.html">Accueil</a>
       <span class="sep" aria-hidden="true">›</span>
+      <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+      <span class="sep" aria-hidden="true">›</span>
       <span aria-current="page">Coût total d&#x27;un licenciement pour l&#x27;employeur</span>
     </nav>
   <section class="hero">
@@ -169,6 +185,13 @@
     <div class="field">
       <label for="salaire3CLE">Salaire mensuel brut moyen — 3 derniers mois (optionnel)</label>
       <input type="number" id="salaire3CLE" min="0" step="0.01" placeholder="ex : 2950">
+    </div>
+    <div class="field">
+      <label for="statutCLE">Statut (optionnel, pour une note ciblée)</label>
+      <select id="statutCLE">
+        <option value="noncadre">Non-cadre</option>
+        <option value="cadre">Cadre</option>
+      </select>
     </div>
     <div class="row2">
       <div class="field">
@@ -195,6 +218,7 @@
     <div class="result" id="resultCLE">
       <div class="amount" id="montantCLE">—</div>
       <div class="breakdown" id="breakdownCLE"></div>
+      <p class="notice" id="noticeCadreCLE" style="display:none;"></p>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_CLE()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -227,6 +251,10 @@
     <details class="faq">
       <summary>L'indemnité légale de licenciement est-elle soumise aux charges patronales ?</summary>
       <p>Non, dans la limite du plafond d'exonération sociale (2 fois le PASS annuel en 2026, soit 96 120 €). Au-delà de ce montant, la fraction excédentaire est soumise à cotisations sociales comme un salaire classique.</p>
+    </details>
+    <details class="faq">
+      <summary>Le coût est-il différent pour un cadre que pour un non-cadre ?</summary>
+      <p>Légèrement, oui. Ce simulateur applique un taux moyen unique de 42 % sur le préavis, les congés payés et l'éventuel excédent d'indemnité, qui ne distingue pas les deux statuts. En réalité, un cadre coûte un peu plus cher que ce taux moyen à montant identique : la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1, dite "article 7") s'ajoute, ainsi que la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire dépassant le plafond de la Sécurité sociale. Sélectionnez "Cadre" dans le formulaire pour afficher cette note dans le résultat.</p>
     </details>
     <details class="faq">
       <summary>Le taux de charges patronales de 42 % est-il le même pour toutes les entreprises ?</summary>
@@ -298,9 +326,11 @@ function calculerCoutLicenciement(){
   var annees = anneesDecimal(document.getElementById('anneesCLE').value, document.getElementById('moisCLE').value);
   var dureePreavis = parseFloat(document.getElementById('dureePreavisCLE').value) || 0;
   var conges = parseFloat(document.getElementById('congesCLE').value) || 0;
+  var statutCLE = document.getElementById('statutCLE').value;
 
   var resultBox = document.getElementById('resultCLE');
   var notice = document.getElementById('noticeCLE');
+  var noticeCadre = document.getElementById('noticeCadreCLE');
 
   if (salaireRef <= 0 || annees <= 0){
     resultBox.classList.remove('show');
@@ -348,6 +378,14 @@ function calculerCoutLicenciement(){
   detailTxtCLE += '<strong>Total estimé : ' + euros(coutTotal) + '</strong>';
   document.getElementById('breakdownCLE').innerHTML = detailTxtCLE;
 
+  if (statutCLE === 'cadre'){
+    noticeCadre.innerHTML = "<strong>Nuance cadre non intégrée au taux moyen ci-dessus :</strong> pour un cadre, deux charges patronales spécifiques s'ajoutent généralement et font monter le coût réel légèrement au-dessus des 42 % appliqués ici — la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1 du salaire, dite \"article 7\") et la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire au-delà du plafond de la Sécurité sociale. Ce simulateur garde un taux moyen unique par simplicité ; pour un chiffrage exact par statut, un logiciel de paie reste la référence.";
+    noticeCadre.style.display = 'block';
+  } else {
+    noticeCadre.style.display = 'none';
+    noticeCadre.innerHTML = '';
+  }
+
   resultBox.classList.add('show');
 }
 
@@ -358,6 +396,7 @@ function telechargerPDF_CLE(){
   var annees = anneesDecimal(document.getElementById('anneesCLE').value, document.getElementById('moisCLE').value);
   var dureePreavis = parseFloat(document.getElementById('dureePreavisCLE').value) || 0;
   var conges = parseFloat(document.getElementById('congesCLE').value) || 0;
+  var statutCLE = document.getElementById('statutCLE').value;
   if (salaireRef <= 0 || annees <= 0) return;
 
   var indemnite = annees >= (8/12) ? indemniteLegale(salaireRef, annees) : 0;
@@ -370,6 +409,7 @@ function telechargerPDF_CLE(){
 
   var lignes = [
     { label: 'Salaire de référence retenu', value: euros(salaireRef) },
+    { label: 'Statut', value: statutCLE === 'cadre' ? 'Cadre' : 'Non-cadre' },
     { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' },
     { label: annees < (8/12) ? 'Indemnité légale de licenciement (aucune due, ancienneté < 8 mois)' : 'Indemnité légale de licenciement', value: euros(indemnite) },
     { label: 'Indemnité compensatrice de préavis', value: euros(montantPreavis) },
@@ -378,11 +418,16 @@ function telechargerPDF_CLE(){
     { label: 'Coût total employeur estimé', value: euros(coutTotal), type: 'total' }
   ];
 
+  var disclaimerCLE = "Simulateur indicatif basé sur le barème légal minimum et un taux moyen de charges patronales (42 %). Ne tient pas compte des exonérations spécifiques à votre entreprise, de votre convention collective, ni des coûts indirects. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
+  if (statutCLE === 'cadre'){
+    disclaimerCLE = "Simulateur indicatif basé sur le barème légal minimum et un taux moyen de charges patronales (42 %), qui ne distingue pas cadre et non-cadre. Pour un cadre, la prévoyance obligatoire (1,50 % de la tranche 1, \"article 7\") et l'AGIRC-ARRCO tranche 2 font généralement monter le coût réel légèrement au-dessus de ce taux moyen. Ne tient pas compte des exonérations spécifiques à votre entreprise ni de votre convention collective. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
+  }
+
   genererPDFSimulation({
     titre: "Simulation du coût total d'un licenciement",
     sousTitre: 'Indemnité, préavis, congés payés et charges patronales',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur le barème légal minimum et un taux moyen de charges patronales (42 %). Ne tient pas compte des exonérations spécifiques à votre entreprise, de votre convention collective, ni des coûts indirects. Ne remplace pas un conseil d'expert-comptable ou de service paie.",
+    disclaimer: disclaimerCLE,
     nomFichier: 'simulation-cout-licenciement-employeur.pdf'
   });
 }
