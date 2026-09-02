@@ -1,0 +1,49 @@
+# MesSimulateursRH.fr
+
+> 21 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...). Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
+
+## Rupture du contrat de travail
+- [Simulateur de rupture conventionnelle](https://messimulateursrh.fr/rupture-conventionnelle.html): indemnité minimale, régime social et fiscal, formules conventionnelles (Syntec, Bâtiment cadre) en plus du barème légal.
+- [Simulateur d'indemnité de licenciement](https://messimulateursrh.fr/indemnite-licenciement.html): indemnité légale de licenciement selon ancienneté et salaire de référence.
+- [Mes droits au chômage après une rupture de contrat](https://messimulateursrh.fr/droits-chomage.html): éligibilité et montant de l'allocation chômage (ARE) après licenciement, rupture conventionnelle ou démission légitime.
+- [Simulateur de durée de préavis](https://messimulateursrh.fr/preavis.html): durée légale de préavis en cas de démission ou licenciement.
+- [Simulateur de solde de tout compte](https://messimulateursrh.fr/solde-tout-compte.html): salaire, indemnité, préavis et congés payés restants au départ.
+- [Prime de précarité CDD / indemnité de fin de mission intérim](https://messimulateursrh.fr/prime-precarite-cdd.html): 10 % ou 6 % de la rémunération brute perçue, cas d'exclusion inclus.
+- [Licenciement, rupture conventionnelle ou démission : quelles différences ?](https://messimulateursrh.fr/licenciement-vs-rupture-conventionnelle-vs-demission.html): comparatif indemnité / préavis / droit au chômage.
+
+## Salaire et coût du travail
+- [Salaire brut en net 2026](https://messimulateursrh.fr/salaire-net-brut.html): conversion brut/net dans les deux sens selon le statut (non-cadre, cadre, fonction publique, indépendant, portage salarial).
+- [Coût d'un salarié pour l'entreprise](https://messimulateursrh.fr/cout-salarie-entreprise.html): coût total mensuel et annuel employeur (brut, charges patronales, avantages, primes).
+- [Coût total d'un licenciement pour l'employeur](https://messimulateursrh.fr/cout-licenciement-employeur.html): indemnité légale, préavis, congés payés, charges patronales.
+- [Simulateur d'augmentation de salaire](https://messimulateursrh.fr/augmentation-salaire.html): gain net réel d'une augmentation, en euros ou en pourcentage.
+- [Salaire minimum d'un apprenti](https://messimulateursrh.fr/salaire-apprenti.html): grille officielle selon l'âge et l'année de contrat, en pourcentage du SMIC.
+- [Indemnités kilométriques (frais réels)](https://messimulateursrh.fr/frais-kilometriques.html): barème fiscal officiel selon puissance du véhicule et distance.
+- [Parts fiscales et quotient familial](https://messimulateursrh.fr/quotient-familial.html): nombre de parts et taux marginal d'imposition (TMI) — pas un calcul d'impôt.
+
+## Congés et temps de travail
+- [Simulateur congé de naissance 2026](https://messimulateursrh.fr/conge-naissance.html): indemnisation du congé supplémentaire de naissance (jusqu'à 2 mois, 70 % puis 60 % du salaire).
+- [Indemnités congé maternité / paternité](https://messimulateursrh.fr/indemnites-conge-maternite-paternite.html): indemnités journalières CPAM pendant le congé.
+- [Simulateur d'indemnité de congés payés](https://messimulateursrh.fr/indemnite-conges-payes.html): méthode la plus favorable (dixième ou maintien de salaire).
+- [Chômage partiel (activité partielle) — indemnité salarié](https://messimulateursrh.fr/chomage-partiel.html): 60 % du taux horaire brut, plancher SMIC.
+- [Impact d'un passage à temps partiel](https://messimulateursrh.fr/passage-temps-partiel.html): effet sur le salaire net et les droits à congés payés.
+- [Calendrier des jours de pont](https://messimulateursrh.fr/calendrier-ponts.html): meilleurs jours de congés à poser en 2026-2027 autour des jours fériés.
+
+## Ancienneté et fin de carrière
+- [Calcul d'ancienneté](https://messimulateursrh.fr/calcul-anciennete.html): ancienneté exacte en années, mois et jours depuis la date d'embauche.
+- [Indemnité de départ à la retraite](https://messimulateursrh.fr/indemnite-depart-retraite.html): départ volontaire ou mise à la retraite par l'employeur.
+
+## Réformes et actualité légale 2026
+- [Rupture conventionnelle et chômage : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/reforme-rupture-conventionnelle-chomage-2026.html): loi n°2026-470 du 11 juin 2026, durée d'indemnisation chômage réduite.
+- [Congé de naissance 2026 : ce qu'il faut savoir](https://messimulateursrh.fr/conge-naissance-2026.html): dispositif en vigueur depuis juillet 2026, durée, conditions, démarches.
+- [Retraite des parents : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/retraite-parents-trimestres-2026.html): décrets n° 2026-699 et 2026-700, calcul de la pension et trimestres supplémentaires.
+- [Arrêts de travail plafonnés : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/plafonnement-arrets-maladie-2026.html): décrets n° 2026-498, 2026-499 et 2026-501, durées maximales de prescription.
+
+## Guides et ressources
+- [Identifier sa convention collective](https://messimulateursrh.fr/identifier-convention-collective.html): retrouver son code IDCC (bulletin de paie, contrat, recherche officielle).
+- [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail.html): 30 termes expliqués simplement, reliés aux simulateurs correspondants.
+- [Ressources officielles](https://messimulateursrh.fr/ressources-officielles.html): annuaire de sites officiels (Code du travail numérique, TéléRC, France Travail, URSSAF, Ameli).
+- [À propos et méthode](https://messimulateursrh.fr/a-propos.html): méthode de vérification des barèmes, fréquence de mise à jour, code source public.
+
+## Optional
+- [Formation](https://messimulateursrh.fr/formation.html): modules pédagogiques (cours + quiz) sur les principaux dispositifs.
+- [Actualités](https://messimulateursrh.fr/actualites.html): suivi des réformes et évolutions légales récentes.

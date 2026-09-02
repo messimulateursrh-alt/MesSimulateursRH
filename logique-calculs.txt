@@ -309,6 +309,28 @@ brut = Math.min(brut, plafond);
 brut = Math.max(brut, BAREME_2026.ARE_PLANCHER_JOUR);
 return { sjr: sjr, jour: brut, mois: brut * 30.42 };
 }
+function estimerCumulARE(salaireAncien, nouveauSalaire){
+var are = estimerARE(salaireAncien);
+var resteAllocation = are.mois - (0.70 * nouveauSalaire);
+var joursBruts = 0;
+var montantMensuel = 0;
+if (resteAllocation > 0 && are.jour > 0){
+joursBruts = Math.round(resteAllocation / are.jour);
+joursBruts = Math.min(Math.max(joursBruts, 0), 30);
+montantMensuel = joursBruts * are.jour;
+}
+var joursIndemnisables = joursBruts;
+var cumulTotal = nouveauSalaire + montantMensuel;
+var plafond = salaireAncien;
+var plafondDepasse = false;
+if (cumulTotal > plafond){
+plafondDepasse = true;
+montantMensuel = Math.max(plafond - nouveauSalaire, 0);
+joursIndemnisables = are.jour > 0 ? Math.round(montantMensuel / are.jour) : 0;
+cumulTotal = nouveauSalaire + montantMensuel;
+}
+return { are: are, resteAllocation: resteAllocation, joursIndemnisables: joursIndemnisables, montantMensuel: montantMensuel, cumulTotal: cumulTotal, plafond: plafond, plafondDepasse: plafondDepasse, aucunCumulPossible: resteAllocation <= 0 };
+}
 function indemniteLegale(salaireRef, ancienneteAnnees){
 if (ancienneteAnnees <= 10){
 return ancienneteAnnees * (salaireRef / 4);
@@ -368,6 +390,23 @@ days: days,
 totalJours: totalJours,
 anneesDecimales: years + months / 12 + days / 365
 };
+}
+function ancienneteDepuisDatesAjustee(dateEntreeStr, dateSortieStr, joursAbsence, moisRepris){
+// Arithmétique pure : décale virtuellement la date d'entrée selon des valeurs déjà déterminées par
+// l'utilisateur (jours d'absence non comptabilisés dans l'ancienneté, ancienneté reprise d'un contrat
+// précédent chez le même employeur). Ne détermine pas elle-même ce qui compte ni quelle convention
+// collective s'applique — c'est à l'utilisateur de fournir ces deux nombres.
+var dEntree = new Date(dateEntreeStr);
+if (isNaN(dEntree.getTime())) return null;
+if (joursAbsence){
+dEntree.setDate(dEntree.getDate() + joursAbsence);
+}
+if (moisRepris){
+dEntree.setMonth(dEntree.getMonth() - moisRepris);
+}
+var pad = function(n){ return String(n).padStart(2, '0'); };
+var dEntreeStr = dEntree.getFullYear() + '-' + pad(dEntree.getMonth() + 1) + '-' + pad(dEntree.getDate());
+return ancienneteDepuisDates(dEntreeStr, dateSortieStr);
 }
 function estimerIndemniteDepartRetraite(salaireRef, anneesAnciennete, initiative){
 if (initiative === 'employeur'){

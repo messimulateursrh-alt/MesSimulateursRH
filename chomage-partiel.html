@@ -61,6 +61,33 @@
         "@type": "Answer",
         "text": "Non, volontairement. L'allocation d'activité partielle versée par l'État à l'employeur suit des règles plus instables (dispositif classique ou APLD, secteurs protégés, mesures ponctuelles) qui nécessitent une vérification au cas par cas. Ce simulateur se limite au volet salarié, dont la formule est stable et fiable."
       }
+    },
+    {
+
+      "@type": "Question",
+      "name": "Combien touche-t-on en activité partielle avec un taux horaire de 30 € et 45 heures chômées ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour un taux horaire brut habituel de 30 € (plafonné à 4,5 SMIC, non atteint ici) et 45 heures chômées : indemnité horaire brute = 30 € × 60 % = 18 €, montant brut total de 810 €. La CSG/CRDS s'applique normalement ici (environ 53 €), pour une indemnité nette estimée d'environ 757 €."
+      }
+    },
+    {
+
+      "@type": "Question",
+      "name": "Quelle indemnité d'activité partielle pour un taux horaire proche du SMIC (12 €) et 60 heures chômées ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour un taux horaire brut habituel de 12 € (proche du SMIC) et 60 heures chômées, le calcul à 60 % (7,20 €) est inférieur au plancher du SMIC net horaire (9,74 €) : c'est ce plancher qui s'applique. Indemnité brute totale : 9,74 € × 60 h = 584,40 €. La règle d'écrêtement neutralise ici la CSG/CRDS : l'indemnité nette reste égale à 584,40 €."
+      }
+    },
+    {
+
+      "@type": "Question",
+      "name": "L'activité partielle a-t-elle un impact sur mes congés payés, mon ancienneté et ma retraite ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour les congés payés et l'ancienneté, non : les heures chômées en activité partielle sont intégralement prises en compte pour l'acquisition des congés payés, et le contrat étant suspendu sans être rompu, l'ancienneté continue de courir normalement. Pour la retraite, c'est plus nuancé : les heures indemnisées valident des trimestres (1 trimestre pour 220 heures indemnisées, dans la limite de 4 par an, sous condition de revenu annuel minimum), mais les indemnités d'activité partielle ne comptent pas dans le salaire annuel moyen qui détermine le montant de la pension — contrairement à un salaire normal. Ce simulateur ne modélise pas ce volet retraite, dont les règles précises varient et évoluent : rapprochez-vous de l'Assurance retraite pour votre situation."
+      }
     }
   ]
 }
@@ -69,6 +96,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "datePublished": "2026-08-30",
+  "dateModified": "2026-09-02",
   "name": "Simulateur d'indemnité de chômage partiel (activité partielle)",
   "description": "Calculez votre indemnité d'activité partielle (chômage partiel) : 60% du taux horaire brut, plancher SMIC, estimation nette. Gratuit, calcul instantané.",
   "url": "https://messimulateursrh.fr/chomage-partiel.html",
@@ -206,7 +235,7 @@
   <section class="content-section">
     <h2>Comment est calculée l'indemnité ?</h2>
     <p>
-      L'indemnité horaire d'activité partielle est égale à <strong>60%</strong> de votre rémunération horaire brute de référence (art. R5122-18 du Code du travail), cette rémunération étant elle-même plafonnée à <strong>4,5 fois le SMIC brut horaire</strong>. L'indemnité horaire ne peut jamais être inférieure au <strong>SMIC net horaire</strong>, quel que soit le résultat du calcul à 60%.
+      L'indemnité horaire d'activité partielle est égale à <strong>60%</strong> de votre rémunération horaire brute de référence (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000046824694" target="_blank" rel="noopener noreferrer">art. R5122-18 du Code du travail</a><span class="source-badge">✓ Source officielle</span>), cette rémunération étant elle-même plafonnée à <strong>4,5 fois le SMIC brut horaire</strong>. L'indemnité horaire ne peut jamais être inférieure au <strong>SMIC net horaire</strong>, quel que soit le résultat du calcul à 60%.
     </p>
     <p>
       Ce n'est pas un salaire mais un revenu de remplacement : l'indemnité est exonérée des cotisations sociales salariales classiques, mais reste soumise à la CSG/CRDS au régime des revenus de remplacement — 6,7% au taux normal, potentiellement réduit à 4,3% voire 0% selon votre revenu fiscal de référence (RFR), comme pour l'allocation chômage. Ce simulateur applique le taux normal de 6,7% par défaut : votre net réel peut être plus favorable.
@@ -237,6 +266,20 @@
     <details class="faq">
       <summary>Ce simulateur calcule-t-il aussi ce que l'État verse à mon employeur ?</summary>
       <p>Non, volontairement. L'allocation d'activité partielle versée par l'État à l'employeur suit des règles plus instables (dispositif classique ou APLD, secteurs protégés, mesures ponctuelles) qui nécessitent une vérification au cas par cas. Ce simulateur se limite au volet salarié, dont la formule est stable et fiable.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Combien touche-t-on en activité partielle avec un taux horaire de 30 € et 45 heures chômées ?</summary>
+      <p>Pour un taux horaire brut habituel de 30 € (plafonné à 4,5 SMIC, non atteint ici) et 45 heures chômées : indemnité horaire brute = 30 € × 60 % = 18 €, montant brut total de 810 €. La CSG/CRDS s'applique normalement ici (environ 53 €), pour une indemnité nette estimée d'environ 757 €.</p>
+    </details>
+    <details class="faq">
+      <summary>Quelle indemnité d'activité partielle pour un taux horaire proche du SMIC (12 €) et 60 heures chômées ?</summary>
+      <p>Pour un taux horaire brut habituel de 12 € (proche du SMIC) et 60 heures chômées, le calcul à 60 % (7,20 €) est inférieur au plancher du SMIC net horaire (9,74 €) : c'est ce plancher qui s'applique. Indemnité brute totale : 9,74 € × 60 h = 584,40 €. La règle d'écrêtement neutralise ici la CSG/CRDS : l'indemnité nette reste égale à 584,40 €.</p>
+    </details>
+
+    <details class="faq">
+      <summary>L'activité partielle a-t-elle un impact sur mes congés payés, mon ancienneté et ma retraite ?</summary>
+      <p>Pour les congés payés et l'ancienneté, non : les heures chômées en activité partielle sont intégralement prises en compte pour l'acquisition des congés payés, et le contrat étant suspendu sans être rompu, l'ancienneté continue de courir normalement. Pour la retraite, c'est plus nuancé : les heures indemnisées valident des trimestres (1 trimestre pour 220 heures indemnisées, dans la limite de 4 par an, sous condition de revenu annuel minimum), mais les indemnités d'activité partielle ne comptent pas dans le salaire annuel moyen qui détermine le montant de la pension — contrairement à un salaire normal. Ce simulateur ne modélise pas ce volet retraite, dont les règles précises varient et évoluent : rapprochez-vous de l'Assurance retraite pour votre situation.</p>
     </details>
 
     <div class="related-tools">

@@ -85,6 +85,41 @@
         "@type": "Answer",
         "text": "Oui, l'ARE est imposable sur le revenu et soumise à la CSG/CRDS (à un taux réduit ou nul selon vos ressources), sauf pour les allocataires aux revenus les plus modestes qui peuvent en être exonérés. France Travail transmet chaque année un montant pré-rempli à l'administration fiscale."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je cumuler l'ARE avec un nouveau salaire si je retrouve un emploi moins bien payé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, sous conditions : c'est le cumul de l'allocation d'aide au retour à l'emploi (ARE) avec une rémunération, prévu par le règlement d'assurance chômage. Le principe : votre allocation mensuelle sans activité est réduite de 70 % de votre nouveau salaire brut, le reste étant versé en jours d'ARE complémentaires. Le cumul salaire + ARE ne peut toutefois pas dépasser le salaire mensuel moyen brut qui a servi à ouvrir vos droits. Vous devez rester inscrit comme demandeur d'emploi et déclarer chaque mois votre activité. Utilisez le module ci-dessus pour une estimation."
+      }
+    },
+    {
+
+      "@type": "Question",
+      "name": "Combien vais-je toucher au chômage avec un salaire de 2 500 € brut ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Avec un salaire brut mensuel moyen de 2 500 € sur votre période de référence, l'allocation chômage (ARE) estimée est d'environ 1 425 € par mois (46,85 €/jour). Le montant exact dépend du salaire journalier de référence calculé par France Travail sur votre période précise."
+      }
+    },
+    {
+
+      "@type": "Question",
+      "name": "Quelle allocation chômage pour un salaire de 3 000 € brut mensuel ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour un salaire brut mensuel moyen de 3 000 €, l'ARE estimée est d'environ 1 710 € par mois (56,22 €/jour), avant prélèvement éventuel de la CSG/CRDS. C'est une estimation d'ordre de grandeur : le calcul officiel de France Travail se base sur les jours calendaires exacts de votre période de référence."
+      }
+    },
+    {
+
+      "@type": "Question",
+      "name": "ARE pour un salaire de 1 800 € brut : quel montant de chômage ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour un salaire brut mensuel moyen de 1 800 €, l'allocation chômage estimée est d'environ 1 128 € par mois (37,09 €/jour), proche du plancher de l'ARE (32,13 €/jour) qui garantit un minimum quel que soit le salaire antérieur, sous réserve de remplir les conditions d'éligibilité."
+      }
     }
   ]
 }
@@ -93,6 +128,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "datePublished": "2026-08-20",
+  "dateModified": "2026-09-02",
   "name": "Simulateur Droits au Chômage (ARE) 2026",
   "description": "Estimez votre éligibilité et le montant de l'allocation chômage (ARE) après un licenciement ou une rupture conventionnelle. Gratuit et local.",
   "url": "https://messimulateursrh.fr/droits-chomage.html",
@@ -271,6 +308,24 @@
     <div class="notice" id="noticeARE" style="display:none;"></div>
   </div>
 
+  <div class="card" id="cardCumulARE">
+    <h2>Je retrouve un emploi moins bien payé : combien puis-je cumuler avec l'ARE ?</h2>
+    <p class="detail">Si vous retrouvez un emploi avant d'avoir épuisé vos droits, vous pouvez continuer à toucher une partie de l'ARE en complément de votre nouveau salaire, sous conditions. Ce module réutilise le salaire de référence et l'allocation déjà calculés ci-dessus.</p>
+    <div class="field">
+      <label for="nouveauSalaireCumul">Nouveau salaire brut mensuel (poste repris)</label>
+      <input type="number" id="nouveauSalaireCumul" min="0" step="0.01" placeholder="ex : 1800">
+      <div class="hint">Renseignez d'abord votre salaire mensuel brut moyen (période de référence) dans le champ en haut de page : il sert de référence à ce calcul.</div>
+    </div>
+    <button class="compute" onclick="calculerCumulARE()">Calculer le cumul</button>
+
+    <div class="result" id="resultCumulARE">
+      <div class="amount" id="montantCumulARE">—</div>
+      <div class="detail" id="detailCumulARE"></div>
+      <div class="breakdown" id="breakdownCumulARE"></div>
+    </div>
+    <div class="notice" id="noticeCumulARE" style="display:none;"></div>
+  </div>
+
   <div class="ad-slot">Emplacement publicitaire</div>
 
   <section class="content-section">
@@ -293,6 +348,30 @@
       <p>Pour un salaire brut mensuel moyen de 2 500 € sur la période de référence : le salaire journalier de référence (SJR) est d'environ 82,19 € (2 500 × 12 / 365).</p>
       <p>Formule à 40,4 % + partie fixe : 0,404 × 82,19 + 13,18 ≈ 46,38 €/jour. Formule à 57 % : 0,57 × 82,19 ≈ 46,85 €/jour. France Travail retient le montant le plus favorable, ici 46,85 €/jour.</p>
       <p>Vérification des bornes : plancher 32,13 €/jour (dépassé) et plafond à 75 % du SJR, soit environ 61,64 € (non dépassé). L'ARE journalière estimée est donc de <strong>46,85 €</strong>, soit environ <strong>1 425 € par mois</strong> (46,85 × 30,42 jours).</p>
+    </div>
+
+    <h3>Exemples chiffrés (allocation ARE mensuelle estimée)</h3>
+    <p>
+      Le tableau ci-dessous applique la formule officielle (le montant le plus favorable entre 40,4 % du salaire journalier de référence + partie fixe, et 57 % du SJR, dans les limites du plancher et du plafond) à quelques salaires courants. C'est une estimation du montant mensuel ; la durée d'indemnisation dépend de votre âge et de votre situation (voir ci-dessus).
+    </p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:420px;">
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Salaire brut mensuel moyen</th>
+        <th style="text-align:left; padding:6px;">ARE journalière estimée</th>
+        <th style="text-align:left; padding:6px;">ARE mensuelle estimée</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1 500 €</td><td style="padding:6px;">33,10 €</td><td style="padding:6px;">1 007,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1 800 €</td><td style="padding:6px;">37,09 €</td><td style="padding:6px;">1 128,22 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 000 €</td><td style="padding:6px;">39,74 €</td><td style="padding:6px;">1 209,02 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 200 €</td><td style="padding:6px;">42,40 €</td><td style="padding:6px;">1 289,83 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 500 €</td><td style="padding:6px;">46,85 €</td><td style="padding:6px;">1 425,16 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 800 €</td><td style="padding:6px;">52,47 €</td><td style="padding:6px;">1 596,17 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 000 €</td><td style="padding:6px;">56,22 €</td><td style="padding:6px;">1 710,19 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 500 €</td><td style="padding:6px;">65,59 €</td><td style="padding:6px;">1 995,22 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">4 000 €</td><td style="padding:6px;">74,96 €</td><td style="padding:6px;">2 280,25 €</td></tr>
+      <tr><td style="padding:6px;">5 000 €</td><td style="padding:6px;">93,70 €</td><td style="padding:6px;">2 850,31 €</td></tr>
+    </table>
     </div>
 
     <h2>Questions fréquentes</h2>
@@ -323,6 +402,23 @@
     <details class="faq">
       <summary>L'allocation chômage (ARE) est-elle imposable ?</summary>
       <p>Oui, l'ARE est imposable sur le revenu et soumise à la CSG/CRDS (à un taux réduit ou nul selon vos ressources), sauf pour les allocataires aux revenus les plus modestes qui peuvent en être exonérés. France Travail transmet chaque année un montant pré-rempli à l'administration fiscale.</p>
+    </details>
+    <details class="faq">
+      <summary>Puis-je cumuler l'ARE avec un nouveau salaire si je retrouve un emploi moins bien payé ?</summary>
+      <p>Oui, sous conditions : c'est le cumul de l'allocation d'aide au retour à l'emploi (ARE) avec une rémunération, prévu par le <a href="https://www.unedic.org/la-reglementation/conventions-d-assurance-chomage/convention-du-15-novembre-2024-relative-a-l-assurance-chomage" target="_blank" rel="noopener noreferrer">règlement d'assurance chômage (Unédic)</a><span class="source-badge">✓ Source officielle</span>. Le principe : votre allocation mensuelle sans activité est réduite de 70 % de votre nouveau salaire brut, le reste étant versé en jours d'ARE complémentaires. Le cumul salaire + ARE ne peut toutefois pas dépasser le salaire mensuel moyen brut qui a servi à ouvrir vos droits. Vous devez rester inscrit comme demandeur d'emploi et déclarer chaque mois votre activité lors de l'actualisation. Ce mécanisme ne s'applique pas tel quel aux non-salariés/micro-entrepreneurs ni aux intermittents (annexes VIII et X), qui suivent des règles de cumul différentes. Utilisez le module <a href="#cardCumulARE">ci-dessus</a> pour une estimation.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Combien vais-je toucher au chômage avec un salaire de 2 500 € brut ?</summary>
+      <p>Avec un salaire brut mensuel moyen de 2 500 € sur votre période de référence, l'allocation chômage (ARE) estimée est d'environ 1 425 € par mois (46,85 €/jour). Voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour un calcul avec vos propres chiffres : le montant exact dépend du salaire journalier de référence calculé par France Travail sur votre période précise.</p>
+    </details>
+    <details class="faq">
+      <summary>Quelle allocation chômage pour un salaire de 3 000 € brut mensuel ?</summary>
+      <p>Pour un salaire brut mensuel moyen de 3 000 €, l'ARE estimée est d'environ 1 710 € par mois (56,22 €/jour), avant prélèvement éventuel de la CSG/CRDS. C'est une estimation d'ordre de grandeur : le calcul officiel de France Travail se base sur les jours calendaires exacts de votre période de référence.</p>
+    </details>
+    <details class="faq">
+      <summary>ARE pour un salaire de 1 800 € brut : quel montant de chômage ?</summary>
+      <p>Pour un salaire brut mensuel moyen de 1 800 €, l'allocation chômage estimée est d'environ 1 128 € par mois (37,09 €/jour), proche du plancher de l'ARE (32,13 €/jour) qui garantit un minimum quel que soit le salaire antérieur, sous réserve de remplir les conditions d'éligibilité.</p>
     </details>
 
     <div class="related-tools">
@@ -523,6 +619,52 @@ function calculerDroitsChomage(){
   dureeDiv.textContent = dureeTxt;
 
   resultBox.classList.add('show');
+}
+
+function calculerCumulARE(){
+  var salaireAncien = parseFloat(document.getElementById('salaireARE').value) || 0;
+  var nouveauSalaire = parseFloat(document.getElementById('nouveauSalaireCumul').value) || 0;
+
+  var resultBox2 = document.getElementById('resultCumulARE');
+  var notice2 = document.getElementById('noticeCumulARE');
+  var breakdown2 = document.getElementById('breakdownCumulARE');
+  breakdown2.innerHTML = '';
+  notice2.style.display = 'none';
+
+  if (salaireAncien <= 0){
+    resultBox2.classList.remove('show');
+    notice2.style.display = 'block';
+    notice2.textContent = "Renseignez d'abord votre salaire mensuel brut moyen (période de référence) dans le champ en haut de page : il sert de base à ce calcul.";
+    return;
+  }
+  if (nouveauSalaire <= 0){
+    resultBox2.classList.remove('show');
+    notice2.style.display = 'block';
+    notice2.textContent = "Renseignez le salaire brut mensuel du nouvel emploi repris pour estimer le cumul possible avec l'ARE.";
+    return;
+  }
+
+  var cumul = estimerCumulARE(salaireAncien, nouveauSalaire);
+
+  if (cumul.aucunCumulPossible){
+    document.getElementById('montantCumulARE').textContent = "0 € d'ARE ce mois-ci";
+    document.getElementById('detailCumulARE').textContent = "Avec ce nouveau salaire, l'allocation mensuelle sans activité (" + euros(cumul.are.mois) + ") est déjà intégralement absorbée par les 70 % de rémunération déduits : aucun jour d'ARE n'est dû ce mois-ci selon cette estimation.";
+  } else {
+    document.getElementById('montantCumulARE').textContent = euros(cumul.montantMensuel) + " d'ARE en plus ce mois-ci";
+    document.getElementById('detailCumulARE').textContent = 'Soit environ ' + cumul.joursIndemnisables + " jour(s) indemnisé(s) ce mois-ci, en plus du nouveau salaire — total perçu estimé : " + euros(cumul.cumulTotal) + '/mois brut.';
+  }
+
+  var detailTxt2 =
+    'Allocation mensuelle sans activité : ' + euros(cumul.are.mois) + ' (' + euros(cumul.are.jour) + '/jour × 30,42)<br>' +
+    'Calcul : ' + euros(cumul.are.mois) + ' − (70 % × ' + euros(nouveauSalaire) + ') = ' + euros(cumul.resteAllocation) + '<br>' +
+    'Jours indemnisables ce mois-ci (arrondi, plafonné entre 0 et 30) : ' + cumul.joursIndemnisables + ' jour(s) × ' + euros(cumul.are.jour) + '/jour = ' + euros(cumul.montantMensuel) + '<br>';
+  if (cumul.plafondDepasse){
+    detailTxt2 += "⚠️ Plafond atteint : le cumul salaire + ARE ne peut pas dépasser le salaire mensuel moyen brut retenu pour l'ouverture de vos droits (" + euros(cumul.plafond) + '). Montant d\'ARE réduit en conséquence.<br>';
+  }
+  detailTxt2 += "Référence : cumul de l'allocation d'aide au retour à l'emploi avec une rémunération (règlement d'assurance chômage, Unédic / France Travail). Cette estimation suppose une reprise d'activité salariée classique sur un mois complet ; elle ne s'applique pas telle quelle aux non-salariés/micro-entrepreneurs (plafond différent, 60 % du reliquat de droits) ni aux intermittents (annexes VIII et X). L'actualisation mensuelle réelle auprès de France Travail utilise le nombre de jours calendaires exact du mois, pas une approximation.";
+  breakdown2.innerHTML = detailTxt2;
+
+  resultBox2.classList.add('show');
 }
 
 function telechargerPDF_ARE(){

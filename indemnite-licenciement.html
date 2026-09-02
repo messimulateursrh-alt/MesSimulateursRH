@@ -85,6 +85,30 @@
         "@type": "Answer",
         "text": "Elle est en principe versée au moment du solde de tout compte, à la fin du contrat (après la période de préavis, effectuée ou non). Elle doit apparaître sur le dernier bulletin de paie et le reçu pour solde de tout compte remis au salarié."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Je gagne 3 000 \u20ac brut avec 10 ans d'anciennet\u00e9, combien vais-je toucher en indemnit\u00e9 de licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Avec le bar\u00e8me l\u00e9gal minimum, l'indemnit\u00e9 serait d'au moins 7 500 \u20ac (un quart de mois de salaire par ann\u00e9e d'anciennet\u00e9 sur 10 ans). C'est un plancher : votre convention collective peut pr\u00e9voir un montant plus favorable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "J'ai 2 ans d'anciennet\u00e9 et je gagne 2 000 \u20ac brut, ai-je droit \u00e0 une indemnit\u00e9 de licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, d\u00e8s lors que vous avez au moins 8 mois d'anciennet\u00e9 et que le licenciement n'est pas pour faute grave ou lourde, vous avez droit au moins \u00e0 l'indemnit\u00e9 l\u00e9gale : avec 2 ans d'anciennet\u00e9 et 2 000 \u20ac brut, elle s'\u00e9l\u00e8ve \u00e0 1 000 \u20ac minimum (bar\u00e8me l\u00e9gal)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Avec 15 ans d'anciennet\u00e9 et 4 000 \u20ac brut, quelle indemnit\u00e9 minimale pour un licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Au-del\u00e0 de 10 ans d'anciennet\u00e9, le calcul change de tranche : un tiers de mois de salaire par ann\u00e9e au-del\u00e0 de la 10e. Pour 4 000 \u20ac brut et 15 ans d'anciennet\u00e9, l'indemnit\u00e9 l\u00e9gale minimale est d'environ 16 667 \u20ac. C'est un minimum : elle peut \u00eatre plus \u00e9lev\u00e9e si une convention collective plus favorable s'applique."
+      }
     }
   ]
 }
@@ -93,6 +117,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "datePublished": "2026-08-20",
+  "dateModified": "2026-08-31",
   "name": "Simulateur Indemnité de Licenciement 2026",
   "description": "Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.",
   "url": "https://messimulateursrh.fr/indemnite-licenciement.html",
@@ -255,11 +281,35 @@
   <section class="content-section">
     <h2>Comment est calculée l'indemnité légale de licenciement ?</h2>
     <p>
-      Sauf en cas de faute grave ou lourde, tout salarié licencié après au moins 8 mois d'ancienneté ininterrompue a droit à une indemnité légale de licenciement (<a href="https://code.travail.gouv.fr/outils/indemnite-licenciement" target="_blank" rel="noopener noreferrer">Art. R1234-2 du Code du travail — simulateur officiel</a>). Elle se calcule ainsi : un quart de mois de salaire de référence par année d'ancienneté pour les 10 premières années, puis un tiers de mois par année au-delà de 10 ans.
+      Sauf en cas de faute grave ou lourde, tout salarié licencié après au moins 8 mois d'ancienneté ininterrompue a droit à une indemnité légale de licenciement (<a href="https://code.travail.gouv.fr/outils/indemnite-licenciement" target="_blank" rel="noopener noreferrer">Art. R1234-2 du Code du travail — simulateur officiel</a>, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644692" target="_blank" rel="noopener noreferrer">texte de l'article</a><span class="source-badge">✓ Source officielle</span>). Elle se calcule ainsi : un quart de mois de salaire de référence par année d'ancienneté pour les 10 premières années, puis un tiers de mois par année au-delà de 10 ans.
     </p>
     <p>
       Le salaire de référence retenu est le plus favorable entre la moyenne mensuelle des 12 derniers mois précédant le licenciement et le tiers des 3 derniers mois (primes annuelles ou exceptionnelles comptées au prorata). Ce barème légal est un plancher : de nombreuses conventions collectives prévoient des montants plus favorables — vérifiez la vôtre avant toute négociation.
     </p>
+
+    <h3>Exemples chiffrés (indemnité légale minimale)</h3>
+    <p>
+      Le tableau ci-dessous applique la formule légale (un quart de mois de salaire par année d'ancienneté jusqu'à 10 ans, puis un tiers de mois au-delà) à quelques situations courantes. C'est un minimum : votre convention collective peut prévoir un montant plus favorable.
+    </p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:420px;">
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Salaire brut mensuel</th>
+        <th style="text-align:left; padding:6px;">Ancienneté</th>
+        <th style="text-align:left; padding:6px;">Indemnité légale minimale</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 000 €</td><td style="padding:6px;">2 ans</td><td style="padding:6px;">1 000,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 200 €</td><td style="padding:6px;">3 ans</td><td style="padding:6px;">1 650,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">4 500 €</td><td style="padding:6px;">4 ans</td><td style="padding:6px;">4 500,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 500 €</td><td style="padding:6px;">5 ans</td><td style="padding:6px;">3 125,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 800 €</td><td style="padding:6px;">7 ans</td><td style="padding:6px;">4 900,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 200 €</td><td style="padding:6px;">8 ans</td><td style="padding:6px;">6 400,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 000 €</td><td style="padding:6px;">10 ans</td><td style="padding:6px;">7 500,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 500 €</td><td style="padding:6px;">12 ans</td><td style="padding:6px;">11 083,33 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">4 000 €</td><td style="padding:6px;">15 ans</td><td style="padding:6px;">16 666,67 €</td></tr>
+      <tr><td style="padding:6px;">2 500 €</td><td style="padding:6px;">20 ans</td><td style="padding:6px;">14 583,33 €</td></tr>
+    </table>
+    </div>
 
 
     <h2>Questions fréquentes</h2>
@@ -290,6 +340,18 @@
     <details class="faq">
       <summary>Quand l'indemnité de licenciement doit-elle être versée ?</summary>
       <p>Elle est en principe versée au moment du solde de tout compte, à la fin du contrat (après la période de préavis, effectuée ou non). Elle doit apparaître sur le dernier bulletin de paie et le reçu pour solde de tout compte remis au salarié.</p>
+    </details>
+    <details class="faq">
+      <summary>Je gagne 3 000 € brut avec 10 ans d'ancienneté, combien vais-je toucher en indemnité de licenciement ?</summary>
+      <p>Avec le barème légal minimum, l'indemnité serait d'au moins 7 500 € (un quart de mois de salaire par année d'ancienneté sur 10 ans). C'est un plancher : votre convention collective peut prévoir un montant plus favorable. Voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour un calcul avec vos propres chiffres.</p>
+    </details>
+    <details class="faq">
+      <summary>J'ai 2 ans d'ancienneté et je gagne 2 000 € brut, ai-je droit à une indemnité de licenciement ?</summary>
+      <p>Oui, dès lors que vous avez au moins 8 mois d'ancienneté et que le licenciement n'est pas pour faute grave ou lourde, vous avez droit au moins à l'indemnité légale : avec 2 ans d'ancienneté et 2 000 € brut, elle s'élève à 1 000 € minimum (barème légal).</p>
+    </details>
+    <details class="faq">
+      <summary>Avec 15 ans d'ancienneté et 4 000 € brut, quelle indemnité minimale pour un licenciement ?</summary>
+      <p>Au-delà de 10 ans d'ancienneté, le calcul change de tranche : un tiers de mois de salaire par année au-delà de la 10ᵉ. Pour 4 000 € brut et 15 ans d'ancienneté, l'indemnité légale minimale est d'environ 16 667 €. C'est un minimum : elle peut être plus élevée si une convention collective plus favorable s'applique.</p>
     </details>
 
     <div class="related-tools">

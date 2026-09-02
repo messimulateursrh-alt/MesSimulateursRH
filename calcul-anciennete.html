@@ -43,7 +43,7 @@
       "name": "Les périodes de suspension du contrat (arrêt maladie, congé parental) comptent-elles ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cela dépend du motif. Les congés payés, le congé maternité/paternité et les arrêts pour accident du travail ou maladie professionnelle sont intégralement pris en compte. Un arrêt maladie non professionnel ou un congé sans solde peuvent, selon les cas et la convention collective, être exclus du décompte : vérifiez votre convention collective en cas de doute."
+        "text": "Cela dépend du motif. Les congés payés, le congé maternité/paternité et les arrêts pour accident du travail ou maladie professionnelle sont intégralement pris en compte. Un arrêt maladie non professionnel ou un congé sans solde peuvent, selon les cas et la convention collective, être exclus du décompte : vérifiez votre convention collective en cas de doute, puis renseignez le nombre de jours à déduire dans le champ \"Jours d'absence à déduire\" ci-dessus pour l'intégrer au calcul."
       }
     },
     {
@@ -51,7 +51,7 @@
       "name": "Une période d'intérim ou de stage avant l'embauche compte-t-elle dans l'ancienneté ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En principe non, sauf disposition légale ou conventionnelle contraire. Certaines conventions collectives prévoient la reprise d'ancienneté en cas d'embauche en CDI à la suite d'un contrat de professionnalisation, d'un CDD ou d'une mission d'intérim chez le même employeur : vérifiez votre convention collective ou votre contrat."
+        "text": "En principe non, sauf disposition légale ou conventionnelle contraire. Certaines conventions collectives prévoient la reprise d'ancienneté en cas d'embauche en CDI à la suite d'un contrat de professionnalisation, d'un CDD ou d'une mission d'intérim chez le même employeur : vérifiez votre convention collective ou votre contrat, puis renseignez le nombre de mois repris dans le champ \"Ancienneté reprise à ajouter\" ci-dessus pour l'intégrer au calcul."
       }
     }
   ]
@@ -61,6 +61,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "datePublished": "2026-08-20",
+  "dateModified": "2026-09-02",
   "name": "Calcul d'Ancienneté 2026",
   "description": "Calculez votre ancienneté exacte en années, mois et jours à partir de votre date d'embauche. Gratuit, calcul instantané dans votre navigateur.",
   "url": "https://messimulateursrh.fr/calcul-anciennete.html",
@@ -179,6 +181,16 @@
       <input type="date" id="dateSortieA">
       <div class="hint">Utilisez la date de fin de contrat pour calculer l'ancienneté au moment de la rupture.</div>
     </div>
+    <div class="field">
+      <label for="joursAbsenceA">Jours d'absence à déduire (optionnel)</label>
+      <input type="number" id="joursAbsenceA" min="0" step="1" placeholder="ex : 30">
+      <div class="hint">Nombre de jours déjà déterminé par vous (arrêt maladie non pro, congé sans solde...) à exclure de l'ancienneté. Ce simulateur ne détermine pas lui-même ce qui compte : voir la FAQ ci-dessous.</div>
+    </div>
+    <div class="field">
+      <label for="moisReprisA">Ancienneté reprise à ajouter, en mois (optionnel)</label>
+      <input type="number" id="moisReprisA" min="0" step="1" placeholder="ex : 6">
+      <div class="hint">Si votre convention collective ou votre contrat prévoit une reprise d'ancienneté (CDD, intérim ou contrat de professionnalisation chez le même employeur), indiquez le nombre de mois déjà déterminé.</div>
+    </div>
     <button class="compute" onclick="calculerAnciennete()">Calculer</button>
 
     <div class="result" id="resultA">
@@ -200,7 +212,7 @@
   <section class="content-section">
     <h2>Pourquoi calculer précisément son ancienneté ?</h2>
     <p>
-      L'ancienneté sert de base à de nombreux droits du Code du travail : le montant de l'indemnité légale de licenciement ou de rupture conventionnelle (Art. R1234-2), la durée du préavis (Art. L1234-1), l'éventuel droit à des congés payés supplémentaires selon la convention collective, ou encore le seuil de 8 mois requis pour ouvrir droit à une indemnité de rupture. Une erreur de quelques mois peut changer le montant final calculé par les autres simulateurs de ce site.
+      L'ancienneté sert de base à de nombreux droits du Code du travail : le montant de l'indemnité légale de licenciement ou de rupture conventionnelle (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644692" target="_blank" rel="noopener noreferrer">Art. R1234-2</a><span class="source-badge">✓ Source officielle</span>), la durée du préavis (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901112" target="_blank" rel="noopener noreferrer">Art. L1234-1</a><span class="source-badge">✓ Source officielle</span>), l'éventuel droit à des congés payés supplémentaires selon la convention collective, ou encore le seuil de 8 mois requis pour ouvrir droit à une indemnité de rupture. Une erreur de quelques mois peut changer le montant final calculé par les autres simulateurs de ce site.
     </p>
     <p>
       Ce simulateur calcule la durée calendaire exacte entre votre date d'entrée et une date de référence (aujourd'hui, ou la date de fin de contrat que vous indiquez), en années, mois et jours pleins.
@@ -213,11 +225,11 @@
     </details>
     <details class="faq">
       <summary>Les périodes de suspension du contrat (arrêt maladie, congé parental) comptent-elles ?</summary>
-      <p>Cela dépend du motif. Les congés payés, le congé maternité/paternité et les arrêts pour accident du travail ou maladie professionnelle sont intégralement pris en compte. Un arrêt maladie non professionnel ou un congé sans solde peuvent, selon les cas et la convention collective, être exclus du décompte : vérifiez votre convention collective en cas de doute.</p>
+      <p>Cela dépend du motif. Les congés payés, le congé maternité/paternité et les arrêts pour accident du travail ou maladie professionnelle sont intégralement pris en compte. Un arrêt maladie non professionnel ou un congé sans solde peuvent, selon les cas et la convention collective, être exclus du décompte : vérifiez votre convention collective en cas de doute, puis renseignez le nombre de jours à déduire dans le champ "Jours d'absence à déduire" ci-dessus pour l'intégrer au calcul.</p>
     </details>
     <details class="faq">
       <summary>Une période d'intérim ou de stage avant l'embauche compte-t-elle dans l'ancienneté ?</summary>
-      <p>En principe non, sauf disposition légale ou conventionnelle contraire. Certaines conventions collectives prévoient la reprise d'ancienneté en cas d'embauche en CDI à la suite d'un contrat de professionnalisation, d'un CDD ou d'une mission d'intérim chez le même employeur : vérifiez votre convention collective ou votre contrat.</p>
+      <p>En principe non, sauf disposition légale ou conventionnelle contraire. Certaines conventions collectives prévoient la reprise d'ancienneté en cas d'embauche en CDI à la suite d'un contrat de professionnalisation, d'un CDD ou d'une mission d'intérim chez le même employeur : vérifiez votre convention collective ou votre contrat, puis renseignez le nombre de mois repris dans le champ "Ancienneté reprise à ajouter" ci-dessus pour l'intégrer au calcul.</p>
     </details>
 
     <div class="related-tools">
@@ -275,6 +287,8 @@
 function calculerAnciennete(){
   var dateEntree = document.getElementById('dateEntreeA').value;
   var dateSortie = document.getElementById('dateSortieA').value;
+  var joursAbsence = parseInt(document.getElementById('joursAbsenceA').value, 10) || 0;
+  var moisRepris = parseInt(document.getElementById('moisReprisA').value, 10) || 0;
   var resultBox = document.getElementById('resultA');
   var notice = document.getElementById('noticeA');
 
@@ -283,10 +297,10 @@ function calculerAnciennete(){
     return;
   }
 
-  var r = ancienneteDepuisDates(dateEntree, dateSortie || null);
+  var r = ancienneteDepuisDatesAjustee(dateEntree, dateSortie || null, joursAbsence, moisRepris);
   if (!r){
     notice.style.display = 'block';
-    notice.textContent = 'La date de référence doit être postérieure ou égale à la date d\'entrée.';
+    notice.textContent = 'La date de référence doit être postérieure ou égale à la date d\'entrée ajustée. Réduisez le nombre de jours d\'absence ou de mois repris.';
     resultBox.classList.remove('show');
     return;
   }
@@ -297,7 +311,14 @@ function calculerAnciennete(){
   txt += ' et ' + r.days + ' jour' + (r.days > 1 ? 's' : '');
 
   document.getElementById('montantA').textContent = txt;
-  document.getElementById('detailA').textContent = 'Soit ' + r.totalJours + ' jours calendaires, ou ' + r.anneesDecimales.toFixed(2) + ' année(s) en valeur décimale.';
+  var detailTxt = 'Soit ' + r.totalJours + ' jours calendaires, ou ' + r.anneesDecimales.toFixed(2) + ' année(s) en valeur décimale.';
+  if (joursAbsence || moisRepris){
+    var ajustements = [];
+    if (joursAbsence) ajustements.push('-' + joursAbsence + ' jour' + (joursAbsence > 1 ? 's' : '') + ' d\'absence');
+    if (moisRepris) ajustements.push('+' + moisRepris + ' mois d\'ancienneté reprise');
+    detailTxt += ' (ajusté : ' + ajustements.join(', ') + ')';
+  }
+  document.getElementById('detailA').textContent = detailTxt;
   document.getElementById('breakdownA').innerHTML =
     'Seuil de 8 mois (indemnité de rupture) : ' + (r.anneesDecimales >= (8/12) ? '✓ atteint' : '✗ non atteint') + '<br>' +
     'Seuil de 10 ans (indemnité de départ volontaire à la retraite) : ' + (r.anneesDecimales >= 10 ? '✓ atteint' : '✗ non atteint');
@@ -308,26 +329,30 @@ function calculerAnciennete(){
 function telechargerPDF_A(){
   var dateEntree = document.getElementById('dateEntreeA').value;
   var dateSortie = document.getElementById('dateSortieA').value;
+  var joursAbsence = parseInt(document.getElementById('joursAbsenceA').value, 10) || 0;
+  var moisRepris = parseInt(document.getElementById('moisReprisA').value, 10) || 0;
   if (!dateEntree) return;
-  var r = ancienneteDepuisDates(dateEntree, dateSortie || null);
+  var r = ancienneteDepuisDatesAjustee(dateEntree, dateSortie || null, joursAbsence, moisRepris);
   if (!r) return;
 
   var txt = r.years + ' an' + (r.years > 1 ? 's' : '') + ', ' + r.months + ' mois et ' + r.days + ' jour' + (r.days > 1 ? 's' : '');
 
   var lignes = [
     { label: "Date d'entrée", value: dateEntree },
-    { label: 'Date de référence', value: dateSortie || 'Aujourd\'hui' },
-    { label: 'Jours calendaires', value: r.totalJours + ' jours' },
-    { label: 'Seuil de 8 mois (indemnité de rupture)', value: r.anneesDecimales >= (8/12) ? 'Atteint' : 'Non atteint' },
-    { label: 'Seuil de 10 ans (départ volontaire retraite)', value: r.anneesDecimales >= 10 ? 'Atteint' : 'Non atteint' },
-    { label: 'Ancienneté', value: txt, type: 'total' }
+    { label: 'Date de référence', value: dateSortie || 'Aujourd\'hui' }
   ];
+  if (joursAbsence) lignes.push({ label: 'Jours d\'absence déduits', value: joursAbsence + ' jours' });
+  if (moisRepris) lignes.push({ label: 'Ancienneté reprise ajoutée', value: moisRepris + ' mois' });
+  lignes.push({ label: 'Jours calendaires (ajustés)', value: r.totalJours + ' jours' });
+  lignes.push({ label: 'Seuil de 8 mois (indemnité de rupture)', value: r.anneesDecimales >= (8/12) ? 'Atteint' : 'Non atteint' });
+  lignes.push({ label: 'Seuil de 10 ans (départ volontaire retraite)', value: r.anneesDecimales >= 10 ? 'Atteint' : 'Non atteint' });
+  lignes.push({ label: 'Ancienneté', value: txt, type: 'total' });
 
   genererPDFSimulation({
     titre: "Simulation de calcul d'ancienneté",
     sousTitre: 'Durée exacte entre la date d\'entrée et la date de référence',
     lignes: lignes,
-    disclaimer: "Ce simulateur calcule une durée calendaire simple entre deux dates. Il ne tient pas compte d'éventuelles périodes de suspension du contrat exclues de l'ancienneté par la loi ou votre convention collective. Vérifiez votre situation exacte auprès de votre service RH.",
+    disclaimer: "Ce simulateur calcule une durée calendaire simple entre deux dates, ajustée le cas échéant des jours d'absence et de l'ancienneté reprise que vous avez renseignés. Il ne détermine pas lui-même ce qui doit être exclu ou repris : vérifiez votre situation exacte auprès de votre service RH ou de votre convention collective.",
     nomFichier: 'simulation-anciennete.pdf'
   });
 }
