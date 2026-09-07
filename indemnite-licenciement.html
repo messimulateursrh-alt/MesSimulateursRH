@@ -88,6 +88,14 @@
     },
     {
       "@type": "Question",
+      "name": "Le licenciement entra\u00eene-t-il une contribution patronale sp\u00e9cifique, comme la rupture conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Contrairement \u00e0 la rupture conventionnelle ou \u00e0 la mise \u00e0 la retraite, o\u00f9 l'employeur doit payer une contribution patronale sp\u00e9cifique (40 % en 2026 sur la part exon\u00e9r\u00e9e), le licenciement classique n'entra\u00eene aucune contribution patronale additionnelle : seules les cotisations sociales normales s'appliquent, dans les m\u00eames limites d'exon\u00e9ration (2\u00d7PASS)."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Je gagne 3 000 \u20ac brut avec 10 ans d'anciennet\u00e9, combien vais-je toucher en indemnit\u00e9 de licenciement ?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -118,7 +126,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-08-31",
+  "dateModified": "2026-09-06",
   "name": "Simulateur Indemnité de Licenciement 2026",
   "description": "Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.",
   "url": "https://messimulateursrh.fr/indemnite-licenciement.html",
@@ -158,6 +166,7 @@
   ]
 }
 </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7534838731618880" crossorigin="anonymous"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
@@ -255,6 +264,11 @@
       </select>
       <div class="hint">En cas de faute grave ou lourde, aucune indemnité légale de licenciement n'est due.</div>
     </div>
+    <div class="field">
+      <label for="montantProposeL">Montant proposé par l'employeur ou en transaction (optionnel)</label>
+      <input type="number" id="montantProposeL" min="0" step="0.01" placeholder="Pour comparer au minimum légal">
+      <div class="hint">À renseigner pour comparer une offre de l'employeur ou un protocole transactionnel au minimum légal calculé ci-dessous.</div>
+    </div>
     <button class="compute" onclick="calculerLicenciement()">Calculer</button>
 
     <div class="result" id="resultL">
@@ -265,7 +279,9 @@
         <div class="detail">Indemnité légale minimale à provisionner (hors indemnité de préavis et de congés payés).</div>
       </div>
       <div class="breakdown" id="breakdownL"></div>
+      <div class="notice" id="noticeComparaisonL" style="display:none;"></div>
       <div class="breakdown" id="regimeFiscalL"></div>
+      <div class="breakdown for-employeur" id="coutEmployeurL"></div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_L()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -342,6 +358,10 @@
       <p>Elle est en principe versée au moment du solde de tout compte, à la fin du contrat (après la période de préavis, effectuée ou non). Elle doit apparaître sur le dernier bulletin de paie et le reçu pour solde de tout compte remis au salarié.</p>
     </details>
     <details class="faq">
+      <summary>Le licenciement entraîne-t-il une contribution patronale spécifique, comme la rupture conventionnelle ?</summary>
+      <p>Non. Contrairement à la <a href="rupture-conventionnelle.html">rupture conventionnelle</a> ou à la mise à la retraite, où l'employeur doit payer une contribution patronale spécifique (40 % en 2026 sur la part exonérée), le licenciement classique n'entraîne aucune contribution patronale additionnelle : seules les cotisations sociales normales s'appliquent, dans les mêmes limites d'exonération (2×PASS).</p>
+    </details>
+    <details class="faq">
       <summary>Je gagne 3 000 € brut avec 10 ans d'ancienneté, combien vais-je toucher en indemnité de licenciement ?</summary>
       <p>Avec le barème légal minimum, l'indemnité serait d'au moins 7 500 € (un quart de mois de salaire par année d'ancienneté sur 10 ans). C'est un plancher : votre convention collective peut prévoir un montant plus favorable. Voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour un calcul avec vos propres chiffres.</p>
     </details>
@@ -409,7 +429,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail, ancienneté minimale de 8 mois) et le régime social/fiscal 2026 (exonération sociale jusqu'à 2×PASS soit 96 120 €, exonération fiscale jusqu'à 6×PASS soit 288 360 €). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, ce qui peut aussi modifier le régime d'exonération applicable. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail, ancienneté minimale de 8 mois) et le régime social/fiscal 2026 (exonération sociale jusqu'à 2×PASS soit 96 120 €, exonération fiscale jusqu'à 6×PASS soit 288 360 €). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, ce qui peut aussi modifier le régime d'exonération applicable, de même qu'un protocole transactionnel librement négocié. Contrairement à la rupture conventionnelle, aucune contribution patronale spécifique ne s'applique ici. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -464,12 +484,29 @@ function calculerLicenciement(){
   detailTxt += 'Référence : article R1234-2 du Code du travail.';
   document.getElementById('breakdownL').innerHTML = detailTxt;
 
+  // Comparaison à un montant proposé par l'employeur ou en protocole transactionnel
+  var montantProposeL = parseFloat(document.getElementById('montantProposeL').value) || 0;
+  var noticeCompL = document.getElementById('noticeComparaisonL');
+  if (montantProposeL > 0){
+    noticeCompL.style.display = 'block';
+    if (montantProposeL < indemnite - 0.5){
+      noticeCompL.textContent = '⚠️ Le montant proposé (' + euros(montantProposeL) + ') est inférieur au minimum légal calculé (' + euros(indemnite) + '), hors préavis et congés payés. Vous êtes en droit de demander au moins ce montant.';
+    } else {
+      noticeCompL.textContent = '✓ Le montant proposé (' + euros(montantProposeL) + ') est supérieur ou égal au minimum légal (' + euros(indemnite) + ').';
+    }
+  } else {
+    noticeCompL.style.display = 'none';
+  }
+
   var exoSocialeL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
   var exoFiscaleL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
   document.getElementById('regimeFiscalL').innerHTML =
     'Régime social/fiscal estimé : exonérée de cotisations sociales à hauteur de ' + euros(exoSocialeL) +
     ' (plafond 2026 : 2×PASS, soit 96 120 €), et exonérée d\'impôt sur le revenu à hauteur de ' + euros(exoFiscaleL) +
     ' (plafond 2026 : 6×PASS, soit 288 360 €), sans condition liée à l\'âge de départ à la retraite. CSG/CRDS peuvent rester dues sur une fraction au-delà du seuil social. Règle simplifiée — cas particuliers non couverts (ex. indemnité conventionnelle supérieure au minimum légal).';
+
+  document.getElementById('coutEmployeurL').innerHTML =
+    'Coût employeur : contrairement à la <a href="rupture-conventionnelle.html">rupture conventionnelle</a> ou à la mise à la retraite, le licenciement classique n\'entraîne aucune contribution patronale spécifique — l\'indemnité reste soumise aux mêmes seuils d\'exonération sociale que ci-dessus, sans charge patronale additionnelle liée au mode de rupture. Pour le coût total employeur (préavis, congés payés, charges patronales normales), voir <a href="cout-licenciement-employeur.html">le simulateur dédié</a>.';
 
   resultBox.classList.add('show');
 }
@@ -480,6 +517,7 @@ function telechargerPDF_L(){
   var salaireRef = Math.max(s12, s3);
   var annees = anneesDecimal(document.getElementById('anneesL').value, document.getElementById('moisL').value);
   var motif = document.getElementById('motifL').value;
+  var montantProposeL = parseFloat(document.getElementById('montantProposeL').value) || 0;
   if (salaireRef <= 0 || annees < (8/12) || motif === 'grave') return;
 
   var indemnite = indemniteLegale(salaireRef, annees);
@@ -494,14 +532,18 @@ function telechargerPDF_L(){
     lignes.push({ label: 'Années au-delà de 10 ans (1/3 de mois/an)', value: euros((annees-10)*(salaireRef/3)) });
   }
   lignes.push({ label: 'Indemnité légale de licenciement', value: euros(indemnite), type: 'total' });
+  if (montantProposeL > 0){
+    lignes.push({ label: "Montant proposé par l'employeur ou en transaction", value: euros(montantProposeL) });
+  }
   lignes.push({ label: 'Exonération sociale (plafond 2026 : 2×PASS, 96 120 €)', value: euros(exoSocialeL) });
   lignes.push({ label: 'Exonération fiscale (plafond 2026 : 6×PASS, 288 360 €)', value: euros(exoFiscaleL) });
+  lignes.push({ label: 'Contribution patronale spécifique (licenciement classique)', value: "Aucune — s'applique uniquement à la rupture conventionnelle et à la mise à la retraite" });
 
   genererPDFSimulation({
     titre: "Simulation d'indemnité de licenciement",
     sousTitre: 'Montant légal minimum dû, hors préavis et congés payés',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.",
+    disclaimer: "Simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, de même qu'un protocole transactionnel librement négocié. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.",
     nomFichier: 'simulation-indemnite-licenciement.pdf'
   });
 }

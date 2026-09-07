@@ -129,7 +129,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-02",
+  "dateModified": "2026-09-07",
   "name": "Simulateur Droits au Chômage (ARE) 2026",
   "description": "Estimez votre éligibilité et le montant de l'allocation chômage (ARE) après un licenciement ou une rupture conventionnelle. Gratuit et local.",
   "url": "https://messimulateursrh.fr/droits-chomage.html",
@@ -169,6 +169,7 @@
   ]
 }
 </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7534838731618880" crossorigin="anonymous"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
@@ -281,6 +282,11 @@
         <option value="incertain">Je ne sais pas précisément</option>
       </select>
     </div>
+    <div class="field">
+      <label for="moisAffiliationARE">Temps réellement travaillé sur cette période (optionnel, en mois cumulés)</label>
+      <input type="number" id="moisAffiliationARE" min="0" step="1" placeholder="ex : 30">
+      <div class="hint">Cumul du temps de travail sur les 24 derniers mois (36 mois si 55 ans ou plus), tous employeurs confondus. Renseignez ce champ pour une estimation personnalisée de la durée d'indemnisation ; sans lui, seul le plafond légal selon votre âge et votre motif est affiché.</div>
+    </div>
     <div class="row2">
       <div class="field">
         <label for="ageARE">Âge</label>
@@ -337,7 +343,7 @@
       Le montant journalier retient le plus favorable entre deux formules : 40,4 % du salaire journalier de référence (SJR) + une partie fixe (13,18 € en 2026), ou 57 % du SJR — avec un plancher de 32,13 €/jour et un plafond de 75 % du SJR. Le SJR officiel est calculé par France Travail sur la base des jours calendaires exacts de votre période de référence ; ce simulateur l'approxime à partir de votre salaire mensuel moyen, ce qui en fait une estimation d'ordre de grandeur, pas un calcul officiel.
     </p>
     <p>
-      Durée maximale indicative selon l'âge à la fin du contrat, régime général (licenciement, fin de CDD) : jusqu'à 18 mois en dessous de 55 ans, jusqu'à 27 mois à partir de 55 ans sous certaines conditions. Une dégressivité de l'allocation (jusqu'à -30 % à partir du 7e mois) peut s'appliquer aux allocations journalières élevées avant 55 ans — non modélisée ici car les seuils exacts évoluent fréquemment.
+      Durée maximale indicative selon l'âge à la fin du contrat, régime général (licenciement, fin de CDD, démission légitime) : jusqu'à 18 mois en dessous de 55 ans, jusqu'à 22,5 mois de 55 à 56 ans, jusqu'à 27 mois à partir de 57 ans (source : France Travail / Unédic). Une dégressivité de l'allocation (jusqu'à -30 % à partir du 7e mois) peut s'appliquer aux allocations journalières élevées avant 55 ans — non modélisée ici car les seuils exacts évoluent fréquemment.
     </p>
     <p>
       <strong>Cas particulier des ruptures conventionnelles :</strong> une loi du 11 juin 2026 (n° 2026-470) réduit spécifiquement la durée maximale d'indemnisation pour les ruptures conventionnelles individuelles prenant effet à partir du 1er septembre 2026 : 15 mois maximum en dessous de 55 ans (contre 18 mois auparavant), et 20,5 mois à partir de 55 ans (contre 22,5 à 27 mois), avec une possibilité de prolongation vers les durées de droit commun après examen de la situation par France Travail au 12ᵉ mois d'indemnisation. Cette réduction ne s'applique pas au licenciement ni à la fin de CDD.
@@ -596,27 +602,36 @@ function calculerDroitsChomage(){
   }
 
   var dureeTxt;
+  var moisAffiliationARE = parseFloat(document.getElementById('moisAffiliationARE').value) || 0;
+  var dureeInfo;
   if (motif === 'rc'){
     var dateRC = document.getElementById('dateRC').value;
-    if (dateRC === 'oui'){
-      dureeTxt = age >= 55
-        ? "Durée maximale indicative : 20,5 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 22,5 à 27 mois auparavant ; prolongation possible vers les durées de droit commun après examen par France Travail au 12e mois)."
-        : "Durée maximale indicative : 15 mois (nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026, contre 18 mois auparavant).";
-    } else if (dateRC === 'non'){
-      dureeTxt = age >= 55
-        ? "Durée maximale indicative : jusqu'à 27 mois (règles applicables aux ruptures conventionnelles prenant effet avant le 1er septembre 2026)."
-        : "Durée maximale indicative : jusqu'à 18 mois (règles applicables aux ruptures conventionnelles prenant effet avant le 1er septembre 2026).";
+    if (dateRC === 'incertain'){
+      var estAvant = dureeAREEstimee('rc', 'non', age, moisAffiliationARE);
+      var estApres = dureeAREEstimee('rc', 'oui', age, moisAffiliationARE);
+      if (estAvant.mois !== null){
+        dureeTxt = 'Estimation personnalisée : environ ' + estApres.mois.toFixed(1) + ' mois si votre rupture prend effet à partir du 1er septembre 2026, contre ' + estAvant.mois.toFixed(1) + ' mois si elle prend effet avant cette date (sur la base des ' + moisAffiliationARE + ' mois d\'affiliation indiqués, plafonnés à ' + estAvant.refMois + ' mois de période de référence).';
+      } else {
+        dureeTxt = 'Durée maximale indicative : ' + estApres.plafond + ' mois si la rupture prend effet à partir du 1er septembre 2026, jusqu\'à ' + estAvant.plafond + ' mois si elle prend effet avant cette date.';
+      }
     } else {
-      dureeTxt = age >= 55
-        ? "Durée maximale indicative : 20,5 mois si la rupture prend effet à partir du 1er septembre 2026, jusqu'à 27 mois si elle prend effet avant cette date."
-        : "Durée maximale indicative : 15 mois si la rupture prend effet à partir du 1er septembre 2026, jusqu'à 18 mois si elle prend effet avant cette date.";
+      dureeInfo = dureeAREEstimee('rc', dateRC, age, moisAffiliationARE);
+      var contexteRC = dateRC === 'oui' ? 'nouvelle règle applicable aux ruptures conventionnelles à partir du 1er septembre 2026 (loi n°2026-470)' : 'règles applicables aux ruptures conventionnelles prenant effet avant le 1er septembre 2026';
+      if (dureeInfo.mois !== null){
+        dureeTxt = 'Estimation personnalisée : environ ' + dureeInfo.mois.toFixed(1) + ' mois (' + contexteRC + ', plafond ' + dureeInfo.plafond + ' mois), sur la base des ' + moisAffiliationARE + ' mois d\'affiliation indiqués (plafonnés à ' + dureeInfo.refMois + ' mois de période de référence).';
+      } else {
+        dureeTxt = 'Durée maximale indicative : ' + dureeInfo.plafond + ' mois (' + contexteRC + ').';
+      }
     }
   } else {
-    dureeTxt = age >= 55
-      ? 'Durée maximale indicative : jusqu\'à 27 mois (règles spécifiques aux 55 ans et plus, sous conditions).'
-      : 'Durée maximale indicative : jusqu\'à 18 mois (régime général, hors dispositifs spécifiques).';
+    dureeInfo = dureeAREEstimee(motif, 'non', age, moisAffiliationARE);
+    if (dureeInfo.mois !== null){
+      dureeTxt = 'Estimation personnalisée : environ ' + dureeInfo.mois.toFixed(1) + ' mois (plafond légal ' + dureeInfo.plafond + ' mois selon votre âge), sur la base des ' + moisAffiliationARE + ' mois d\'affiliation indiqués (plafonnés à ' + dureeInfo.refMois + ' mois de période de référence).';
+    } else {
+      dureeTxt = 'Durée maximale indicative : jusqu\'à ' + dureeInfo.plafond + ' mois selon votre âge (régime général).';
+    }
   }
-  dureeDiv.textContent = dureeTxt;
+  dureeDiv.innerHTML = dureeTxt + ' <span style="font-size:.85em;color:var(--ink-soft);">Estimation simplifiée (coefficient de 0,75 sur le temps d\'affiliation cumulé, plancher garanti de 6 mois) : ne reconstitue pas le détail contrat par contrat ni le plafonnement des périodes non travaillées prévu par l\'Unédic. Référence : durée d\'indemnisation, France Travail / Unédic.</span>';
 
   resultBox.classList.add('show');
 }
@@ -695,20 +710,30 @@ function telechargerPDF_ARE(){
     lignes.push({ label: 'Allocation mensuelle brute estimée', value: euros(are.mois), type: 'total' });
   }
 
+  var moisAffiliationARE = parseFloat(document.getElementById('moisAffiliationARE').value) || 0;
   var dureeTxt;
   if (motif === 'rc'){
     var dateRC = document.getElementById('dateRC').value;
-    if (dateRC === 'oui'){
-      dureeTxt = age >= 55 ? '20,5 mois (RC à partir du 1er septembre 2026)' : '15 mois (RC à partir du 1er septembre 2026)';
-    } else if (dateRC === 'non'){
-      dureeTxt = age >= 55 ? "Jusqu'à 27 mois (RC avant le 1er septembre 2026)" : "Jusqu'à 18 mois (RC avant le 1er septembre 2026)";
+    if (dateRC === 'incertain'){
+      var estAvant = dureeAREEstimee('rc', 'non', age, moisAffiliationARE);
+      var estApres = dureeAREEstimee('rc', 'oui', age, moisAffiliationARE);
+      dureeTxt = estAvant.mois !== null
+        ? ('~' + estApres.mois.toFixed(1) + ' mois si RC à partir du 1/09/2026, ~' + estAvant.mois.toFixed(1) + ' mois si avant (estimation)')
+        : (estApres.plafond + ' mois si RC à partir du 1/09/2026, jusqu\'à ' + estAvant.plafond + ' mois si avant');
     } else {
-      dureeTxt = age >= 55 ? '20,5 mois si RC à partir du 1/09/2026, jusqu\'à 27 mois si avant' : '15 mois si RC à partir du 1/09/2026, jusqu\'à 18 mois si avant';
+      var dureeInfoPDF = dureeAREEstimee('rc', dateRC, age, moisAffiliationARE);
+      var contexteRCPDF = dateRC === 'oui' ? 'RC à partir du 1er septembre 2026' : 'RC avant le 1er septembre 2026';
+      dureeTxt = dureeInfoPDF.mois !== null
+        ? ('~' + dureeInfoPDF.mois.toFixed(1) + ' mois (' + contexteRCPDF + ', estimation personnalisée, plafond ' + dureeInfoPDF.plafond + ' mois)')
+        : (dureeInfoPDF.plafond + ' mois (' + contexteRCPDF + ')');
     }
   } else {
-    dureeTxt = age >= 55 ? "Jusqu'à 27 mois (55 ans et plus, sous conditions)" : "Jusqu'à 18 mois (régime général)";
+    var dureeInfoPDF2 = dureeAREEstimee(motif, 'non', age, moisAffiliationARE);
+    dureeTxt = dureeInfoPDF2.mois !== null
+      ? ('~' + dureeInfoPDF2.mois.toFixed(1) + ' mois (estimation personnalisée, plafond légal ' + dureeInfoPDF2.plafond + ' mois selon l\'âge)')
+      : ("Jusqu'à " + dureeInfoPDF2.plafond + ' mois selon l\'âge (régime général)');
   }
-  lignes.push({ label: 'Durée maximale indicative', value: dureeTxt });
+  lignes.push({ label: 'Durée d\'indemnisation', value: dureeTxt });
 
   genererPDFSimulation({
     titre: 'Simulation de droits au chômage (ARE)',

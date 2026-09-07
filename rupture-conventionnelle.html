@@ -91,7 +91,7 @@
       "name": "Le simulateur tient-il compte de ma convention collective ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Nous avons ajouté deux formules conventionnelles pour les cadres, souvent plus favorables : Syntec (1/3 de mois par année d'ancienneté dès 2 ans, sans plafond) et Bâtiment/BTP (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois, majorée de 10 % à 55 ans et plus). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle."
+        "text": "Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Cinq formules conventionnelles sont désormais disponibles : Syntec cadre (1/3 de mois par année dès 2 ans, sans plafond), Bâtiment/BTP cadre (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois, majorée de 10 % à 55 ans et plus), transports routiers technicien/agent de maîtrise (3/10 de mois par année dès 3 ans), transports routiers ingénieur/cadre (4/10 de mois par année dès 3 ans), et Hôtels-Cafés-Restaurants (1/10 puis 1/15 de mois par année, toujours moins favorable que le légal, affichée par transparence). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle."
       }
     },
     {
@@ -134,7 +134,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-08-31",
+  "dateModified": "2026-09-06",
   "name": "Simulateur Rupture Conventionnelle 2026",
   "description": "Calculez l'indemnité minimale de rupture conventionnelle 2026, régime social et fiscal, et coût employeur estimé. Gratuit, indicatif, sans envoi de données.",
   "url": "https://messimulateursrh.fr/rupture-conventionnelle.html",
@@ -174,6 +174,7 @@
   ]
 }
 </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7534838731618880" crossorigin="anonymous"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Aller au contenu</a>
@@ -287,8 +288,11 @@
         <option value="legal" selected>Barème légal uniquement</option>
         <option value="syntec_cadre">Syntec (bureaux d'études techniques) — statut cadre</option>
         <option value="batiment_cadre">Bâtiment (BTP) — statut cadre</option>
+        <option value="transport_etam">Transports routiers (IDCC 16) — technicien/agent de maîtrise</option>
+        <option value="transport_cadre">Transports routiers (IDCC 16) — ingénieur/cadre</option>
+        <option value="hcr">Hôtels-Cafés-Restaurants (HCR, IDCC 1979) — tous statuts</option>
       </select>
-      <div class="hint">Le simulateur retient automatiquement le montant le plus favorable entre le barème légal et la convention sélectionnée. Deux formules conventionnelles sont disponibles pour l'instant ; <a href="identifier-convention-collective.html">identifiez votre convention</a> si elle n'est pas listée.</div>
+      <div class="hint">Le simulateur retient automatiquement le montant le plus favorable entre le barème légal et la convention sélectionnée (pour HCR, le barème légal reste toujours le plus favorable — affiché par transparence). Cinq formules conventionnelles sont disponibles pour l'instant ; <a href="identifier-convention-collective.html">identifiez votre convention</a> si elle n'est pas listée.</div>
     </div>
     <button class="compute" onclick="calculerRC()">Calculer</button>
 
@@ -398,7 +402,7 @@
     </details>
     <details class="faq">
       <summary>Le simulateur tient-il compte de ma convention collective ?</summary>
-      <p>Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Nous avons ajouté deux formules conventionnelles pour les cadres, souvent plus favorables : Syntec (1/3 de mois par année d'ancienneté dès 2 ans, sans plafond) et Bâtiment/BTP (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois, majorée de 10 % à 55 ans et plus). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle. <a href="identifier-convention-collective.html">Besoin d'identifier votre convention ?</a></p>
+      <p>Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Cinq formules conventionnelles sont désormais disponibles : Syntec cadre (1/3 de mois par année dès 2 ans, sans plafond), Bâtiment/BTP cadre (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois, majorée de 10 % à 55 ans et plus), transports routiers technicien/agent de maîtrise (3/10 de mois par année dès 3 ans), transports routiers ingénieur/cadre (4/10 de mois par année dès 3 ans), et Hôtels-Cafés-Restaurants (1/10 puis 1/15 de mois par année — toujours moins favorable que le légal, affichée par transparence). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle. <a href="identifier-convention-collective.html">Besoin d'identifier votre convention ?</a></p>
     </details>
     <details class="faq">
       <summary>Les avantages en nature (véhicule de fonction, logement) comptent-ils dans le calcul de l'indemnité ?</summary>
@@ -467,7 +471,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail) et le régime social/fiscal 2026 (plafond d'exonération sociale : 2×PASS soit 96 120 €, plafond d'exonération fiscale : 6×PASS soit 288 360 € — nulle si le salarié peut faire valoir ses droits à une pension de retraite à taux plein, contribution patronale spécifique à 40 %). Le régime réel comporte d'autres cas particuliers (comparaison avec la rémunération de l'année précédente, etc.) non couverts ici. Les formules conventionnelles proposées (Syntec cadre, Bâtiment cadre) sont fournies à titre indicatif à partir de sources secondaires et peuvent ne pas refléter un avenant récent ou une clause spécifique à votre poste — pour le Bâtiment, la majoration de 10 % applicable à 55 ans et plus n'est pas intégrée au calcul automatique (l'âge n'étant pas demandé). Vérifiez toujours votre convention collective exacte et rapprochez-vous d'un expert-comptable ou d'un conseil juridique avant toute signature.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail) et le régime social/fiscal 2026 (plafond d'exonération sociale : 2×PASS soit 96 120 €, plafond d'exonération fiscale : 6×PASS soit 288 360 € — nulle si le salarié peut faire valoir ses droits à une pension de retraite à taux plein, contribution patronale spécifique à 40 %). Le régime réel comporte d'autres cas particuliers (comparaison avec la rémunération de l'année précédente, etc.) non couverts ici. Les formules conventionnelles proposées (Syntec cadre, Bâtiment cadre, transports routiers ETAM/cadre, HCR) sont fournies à titre indicatif à partir de sources secondaires et peuvent ne pas refléter un avenant récent ou une clause spécifique à votre poste — pour le Bâtiment, la majoration de 10 % à 55 ans et plus n'est pas intégrée au calcul automatique, ni pour les transports routiers une éventuelle majoration liée à l'ancienneté après un certain âge ou une règle de cumul en cas de promotion interne (âge et historique de carrière non demandés). Pour l'HCR, le barème légal reste toujours plus favorable que le barème conventionnel, affiché uniquement à titre informatif. Vérifiez toujours votre convention collective exacte et rapprochez-vous d'un expert-comptable ou d'un conseil juridique avant toute signature.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -516,6 +520,22 @@ function calculerRC(){
     } else {
       conventionFormuleTxt = euros(salaireRef) + ' × 3/10 × ' + annees.toFixed(2);
     }
+  } else if (conventionRC === 'transport_etam'){
+    indemniteConv = indemniteTransportETAM(salaireRef, annees);
+    conventionLabel = 'la convention des transports routiers — technicien/agent de maîtrise (IDCC 16)';
+    conventionFormuleTxt = euros(salaireRef) + ' × 3/10 × ' + annees.toFixed(2);
+  } else if (conventionRC === 'transport_cadre'){
+    indemniteConv = indemniteTransportCadre(salaireRef, annees);
+    conventionLabel = 'la convention des transports routiers — ingénieur/cadre (IDCC 16)';
+    conventionFormuleTxt = euros(salaireRef) + ' × 4/10 × ' + annees.toFixed(2);
+  } else if (conventionRC === 'hcr'){
+    indemniteConv = indemniteHCR(salaireRef, annees);
+    conventionLabel = 'la convention Hôtels-Cafés-Restaurants (HCR, IDCC 1979)';
+    if (annees > 10){
+      conventionFormuleTxt = '(10 × 1/10 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/15 × ' + euros(salaireRef) + ')';
+    } else {
+      conventionFormuleTxt = euros(salaireRef) + ' × 1/10 × ' + annees.toFixed(2);
+    }
   }
 
   var indemnite = indemniteBase;
@@ -535,6 +555,9 @@ function calculerRC(){
       'Référence : ' + conventionLabel + ' — vérifiez le texte exact applicable à votre poste, ce montant est une estimation.';
     if (conventionRC === 'batiment_cadre'){
       detailTxt += '<br>⚠️ Si vous avez 55 ans ou plus à la fin de votre préavis, une majoration de 10 % s\'applique en plus de ce montant selon cette convention (non intégrée au calcul automatique, l\'âge n\'étant pas demandé par ce simulateur).';
+    }
+    if (conventionRC === 'transport_cadre'){
+      detailTxt += '<br>⚠️ Une indemnité complémentaire liée à l\'ancienneté après un certain âge, et une règle de cumul en cas de promotion interne depuis une catégorie inférieure, peuvent s\'appliquer selon cette convention mais ne sont pas intégrées à ce calcul (seuils non confirmés par des sources concordantes) — vérifiez le texte exact applicable.';
     }
   } else {
     if (annees > 10){
@@ -606,6 +629,15 @@ function telechargerPDF_RC(){
   } else if (conventionRC === 'batiment_cadre'){
     indemniteConv = indemniteBatimentCadre(salaireRef, annees);
     conventionLabel = 'Convention cadres du bâtiment (IDCC 2420)';
+  } else if (conventionRC === 'transport_etam'){
+    indemniteConv = indemniteTransportETAM(salaireRef, annees);
+    conventionLabel = 'Convention transports routiers — technicien/agent de maîtrise (IDCC 16)';
+  } else if (conventionRC === 'transport_cadre'){
+    indemniteConv = indemniteTransportCadre(salaireRef, annees);
+    conventionLabel = 'Convention transports routiers — ingénieur/cadre (IDCC 16)';
+  } else if (conventionRC === 'hcr'){
+    indemniteConv = indemniteHCR(salaireRef, annees);
+    conventionLabel = 'Convention Hôtels-Cafés-Restaurants (HCR, IDCC 1979)';
   }
   var indemnite = indemniteBase;
   var conventionRetenue = false;
@@ -632,6 +664,9 @@ function telechargerPDF_RC(){
     lignes.push({ label: conventionLabel + ' (retenue, plus favorable)', value: euros(indemniteConv) });
     if (conventionRC === 'batiment_cadre'){
       lignes.push({ label: 'Majoration 55 ans et plus (non calculée)', value: '+10 % si applicable, vérifier l\'âge en fin de préavis' });
+    }
+    if (conventionRC === 'transport_cadre'){
+      lignes.push({ label: 'Majoration ancienneté/âge et cumul promotion (non calculés)', value: 'Vérifier le texte exact de la convention (IDCC 16)' });
     }
   } else if (conventionRC !== 'legal' && indemniteConv !== null){
     lignes.push({ label: conventionLabel + ' (non retenue, moins favorable)', value: euros(indemniteConv) });

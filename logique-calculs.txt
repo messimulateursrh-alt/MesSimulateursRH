@@ -364,6 +364,100 @@ var indemnite = (0.30 * anneesJusqua10 * salaireRef) + (0.60 * anneesAuDela10 * 
 var plafond = 15 * salaireRef;
 return Math.min(indemnite, plafond);
 }
+function indemniteTransportETAM(salaireRef, ancienneteAnnees){
+// Convention collective nationale des transports routiers et activités auxiliaires (IDCC 16) — techniciens et agents de maîtrise (ETAM).
+// Formule (source : Légifrance art. dédié + LégiSocial, Éditions Tissot, Juritravail, Abacus-Conseil, Sidecare, concordants) :
+// 3/10 de mois de salaire par année de présence dès 3 ans d'ancienneté, taux appliqué à la totalité de l'ancienneté (pas seulement à la fraction au-delà du seuil).
+// En-dessous de 3 ans d'ancienneté, la convention n'est pas plus favorable que le barème légal.
+if (ancienneteAnnees < 3){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+return ancienneteAnnees * (salaireRef * 0.30);
+}
+function indemniteTransportCadre(salaireRef, ancienneteAnnees){
+// Convention collective nationale des transports routiers et activités auxiliaires (IDCC 16) — ingénieurs et cadres.
+// Formule (mêmes sources que ci-dessus) : 4/10 de mois de salaire par année de présence dès 3 ans d'ancienneté, taux appliqué à la totalité de l'ancienneté.
+// Ne couvre pas la règle de cumul en cas de promotion interne depuis une catégorie inférieure, ni une éventuelle majoration liée à l'âge (seuil et existence non confirmés par des sources concordantes) — non intégrées par prudence.
+// En-dessous de 3 ans d'ancienneté, la convention n'est pas plus favorable que le barème légal.
+if (ancienneteAnnees < 3){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+return ancienneteAnnees * (salaireRef * 0.40);
+}
+function indemniteHCR(salaireRef, ancienneteAnnees){
+// Convention collective nationale des hôtels, cafés, restaurants (HCR, IDCC 1979), art. 32 — tous statuts, sans distinction cadre/non-cadre (source : Légifrance, texte primaire, confirmé par 5 sources secondaires concordantes).
+// Formule : 1/10 de mois par année d'ancienneté jusqu'à 10 ans, puis 1/15 de mois par année au-delà de 10 ans.
+// Cette formule est structurellement toujours moins favorable que le barème légal (1/4 puis 1/3) — affichée par transparence, la comparaison automatique retient de toute façon le barème légal.
+if (ancienneteAnnees < 2){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+var anneesJusqua10 = Math.min(ancienneteAnnees, 10);
+var anneesAuDela10 = Math.max(0, ancienneteAnnees - 10);
+return (anneesJusqua10 * (salaireRef / 10)) + (anneesAuDela10 * (salaireRef / 15));
+}
+function preavisConventionCollective(convention, typeRupture, ancienneteAnnees){
+// Durées de préavis (hors licenciement pour faute grave/lourde, qui supprime le préavis quelle que soit la convention).
+// Sources croisées : code.travail.gouv.fr (contributions dédiées par IDCC) + LégiSocial + Dairia Avocats (IDCC 16) / Juritravail (IDCC 1979), concordants sauf mention contraire ci-dessous.
+// Retourne { mois: <équivalent en mois, pour le calcul de l'indemnité de dispense>, texte: <durée affichée> } ou null si la convention/le type ne sont pas couverts.
+if (convention === 'transport_etam'){
+// IDCC 16, techniciens et agents de maîtrise (groupes 1 à 5). Démission : 1 mois quelle que soit l'ancienneté. Licenciement : 1 mois en-dessous de 2 ans, 2 mois au-delà — comble le vide légal en-dessous de 6 mois (aucun minimum par défaut dans le Code du travail à ce stade).
+if (typeRupture === 'demission'){
+return { mois: 1, texte: '1 mois' };
+}
+return ancienneteAnnees < 2 ? { mois: 1, texte: '1 mois' } : { mois: 2, texte: '2 mois' };
+}
+if (convention === 'transport_cadre'){
+// IDCC 16, ingénieurs et cadres. 3 mois quels que soient l'ancienneté et le type de rupture (démission ou licenciement).
+return { mois: 3, texte: '3 mois' };
+}
+if (convention === 'hcr_employe'){
+// HCR (IDCC 1979), employés. Démission : 8 jours (< 6 mois), 15 jours (6 mois à 2 ans), 1 mois (2 ans et plus). Licenciement : 8 jours (< 6 mois, seuil confirmé par une seule source — LégiSocial — à traiter avec prudence), 1 mois (6 mois à 2 ans), 2 mois (2 ans et plus).
+if (typeRupture === 'demission'){
+if (ancienneteAnnees < 0.5) return { mois: 8/30, texte: '8 jours' };
+if (ancienneteAnnees < 2) return { mois: 15/30, texte: '15 jours' };
+return { mois: 1, texte: '1 mois' };
+}
+if (ancienneteAnnees < 0.5) return { mois: 8/30, texte: '8 jours', seuilNonConfirme: true };
+if (ancienneteAnnees < 2) return { mois: 1, texte: '1 mois' };
+return { mois: 2, texte: '2 mois' };
+}
+if (convention === 'hcr_maitrise'){
+// HCR (IDCC 1979), agents de maîtrise. Mêmes durées pour démission et licenciement : 15 jours (< 6 mois, seuil de licenciement confirmé par une seule source), 1 mois (6 mois à 2 ans), 2 mois (2 ans et plus).
+if (ancienneteAnnees < 0.5) return { mois: 15/30, texte: '15 jours', seuilNonConfirme: typeRupture !== 'demission' };
+if (ancienneteAnnees < 2) return { mois: 1, texte: '1 mois' };
+return { mois: 2, texte: '2 mois' };
+}
+if (convention === 'hcr_cadre'){
+// HCR (IDCC 1979), cadres. Mêmes durées pour démission et licenciement : 1 mois (< 6 mois), 3 mois (6 mois et plus).
+return ancienneteAnnees < 0.5 ? { mois: 1, texte: '1 mois' } : { mois: 3, texte: '3 mois' };
+}
+return null;
+}
+function plafondDureeARE(motif, dateRC, age){
+// Plafonds de durée d'indemnisation ARE, en mois (sources croisées : France Travail + Unédic, concordantes une fois le coefficient 0,75 réconcilié ; loi n°2026-470 du 11 juin 2026 pour le volet rupture conventionnelle).
+// Règle générale (licenciement, fin de CDD, démission légitime, rupture conventionnelle avant le 1er septembre 2026) : 18 mois en-dessous de 55 ans, 22,5 mois de 55 à 56 ans, 27 mois à partir de 57 ans.
+// Rupture conventionnelle individuelle prenant effet à partir du 1er septembre 2026 (loi n°2026-470) : 15 mois en-dessous de 55 ans, 20,5 mois à partir de 55 ans (les paliers 55-56 ans et 57 ans et plus sont fusionnés par la réforme, contrairement à la règle générale).
+if (motif === 'rc' && dateRC === 'oui'){
+return age < 55 ? 15 : 20.5;
+}
+if (age < 55) return 18;
+if (age < 57) return 22.5;
+return 27;
+}
+function dureeAREEstimee(motif, dateRC, age, moisAffiliation){
+// Estimation simplifiée de la durée d'indemnisation réelle (pas seulement le plafond) : renvoie { plafond, refMois, mois } où mois est null si l'affiliation n'est pas renseignée.
+// Méthode : compte le temps d'affiliation cumulé indiqué par l'utilisateur (plafonné à la période de référence de 24 ou 36 mois selon l'âge), applique le coefficient de 0,75 (Unédic, en vigueur depuis le 1er février 2023), puis applique le plancher garanti de 6 mois et le plafond selon l'âge/le motif.
+// Simplification assumée : ne reconstitue pas le détail contrat par contrat ni le plafonnement des périodes non travaillées à 70 % des jours travaillés (Unédic) — le nombre de mois réellement travaillés doit être fourni directement par l'utilisateur.
+var refMois = age >= 55 ? 36 : 24;
+var plafond = plafondDureeARE(motif, dateRC, age);
+if (!moisAffiliation || moisAffiliation <= 0){
+return { plafond: plafond, refMois: refMois, mois: null };
+}
+var moisCap = Math.min(moisAffiliation, refMois);
+var moisBruts = moisCap * 0.75;
+var moisFinal = Math.max(6, Math.min(moisBruts, plafond));
+return { plafond: plafond, refMois: refMois, mois: moisFinal, moisCap: moisCap };
+}
 function ancienneteDepuisDates(dateEntreeStr, dateSortieStr){
 var dEntree = new Date(dateEntreeStr);
 var dSortie = dateSortieStr ? new Date(dateSortieStr) : new Date();
@@ -721,7 +815,7 @@ doc.save(opts.nomFichier || 'attestation-formation-rh.pdf');
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
-{title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree"},
+{title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR"},
 {title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite"},
 {title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire"},
 {title:"Salaire net à partir du brut", url:"salaire-net-brut.html", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
