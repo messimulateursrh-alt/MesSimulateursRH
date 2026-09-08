@@ -77,6 +77,14 @@
         "@type": "Answer",
         "text": "La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite applicable aux pensions liquidées à partir du 1er janvier 2027 (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles). Elle durcirait le cumul plafonné pour les retraités entre l'âge légal et 67 ans, avec un mécanisme de franchise puis de réduction de la pension au-delà. Les décrets d'application n'étant pas publiés à ce jour (septembre 2026), les montants exacts ne sont pas encore fixés : ce simulateur applique les règles actuellement en vigueur et sera mis à jour dès la publication des décrets."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "La projection sur plusieurs mois tient-elle compte d'une revalorisation de ma pension ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. La projection multiplie simplement votre résultat mensuel actuel par le nombre de mois choisi, en supposant un revenu et une pension stables sur toute la période — elle ne modélise ni une revalorisation annuelle de la pension, ni une évolution de salaire, ni un changement de régime (par exemple si vous atteignez 67 ans pendant la période et basculez du cumul plafonné au cumul intégral). Refaites une simulation si votre situation change."
+      }
     }
   ]
 }
@@ -86,7 +94,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-07",
-  "dateModified": "2026-09-07",
+  "dateModified": "2026-09-08",
   "name": "Cumul Emploi-Retraite 2026",
   "description": "Cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.",
   "url": "https://messimulateursrh.fr/cumul-emploi-retraite.html",
@@ -254,6 +262,19 @@
         <option value="0.45">45%</option>
       </select>
     </div>
+    <div class="field">
+      <label for="dureeProjectionCER">Projeter ce résultat sur une durée (optionnel)</label>
+      <select id="dureeProjectionCER">
+        <option value="0" selected>Pas de projection (résultat mensuel uniquement)</option>
+        <option value="3">3 mois</option>
+        <option value="6">6 mois</option>
+        <option value="12">12 mois (1 an)</option>
+        <option value="24">24 mois (2 ans)</option>
+        <option value="36">36 mois (3 ans)</option>
+        <option value="60">60 mois (5 ans)</option>
+      </select>
+      <div class="hint">La projection suppose un revenu et une pension stables sur toute la période — au-delà de 5 ans, l'absence de revalorisation modélisée rend le chiffre trop incertain pour être affiché.</div>
+    </div>
     <button class="compute" onclick="calculerCumulRetraite()">Calculer</button>
 
     <div class="result" id="resultCER">
@@ -261,6 +282,7 @@
       <div class="detail" id="detailCER"></div>
       <div class="breakdown" id="breakdownCER"></div>
       <div class="hint" id="netEstimateCER" style="margin-top:12px;"></div>
+      <div class="hint" id="projectionCER" style="margin-top:12px;"></div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_CER()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -324,6 +346,10 @@
     <details class="faq">
       <summary>Qu'est-ce qui va changer avec la réforme du cumul emploi-retraite au 1er janvier 2027 ?</summary>
       <p>La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite applicable aux pensions liquidées à partir du 1er janvier 2027 (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles). Elle durcirait le cumul plafonné pour les retraités entre l'âge légal et 67 ans, avec un mécanisme de franchise puis de réduction de la pension au-delà. Les décrets d'application n'étant pas publiés à ce jour (septembre 2026), les montants exacts ne sont pas encore fixés : ce simulateur applique les règles actuellement en vigueur et sera mis à jour dès la publication des décrets.</p>
+    </details>
+    <details class="faq">
+      <summary>La projection sur plusieurs mois tient-elle compte d'une revalorisation de ma pension ?</summary>
+      <p>Non. La projection multiplie simplement votre résultat mensuel actuel par le nombre de mois choisi, en supposant un revenu et une pension stables sur toute la période — elle ne modélise ni une revalorisation annuelle de la pension, ni une évolution de salaire, ni un changement de régime (par exemple si vous atteignez 67 ans pendant la période et basculez du cumul plafonné au cumul intégral). Refaites une simulation si votre situation change.</p>
     </details>
 
     <div class="related-tools">
@@ -432,6 +458,25 @@ function calculerCumulRetraite(){
   }
   document.getElementById('netEstimateCER').innerHTML = netHtml;
 
+  var dureeProjection = parseFloat(document.getElementById('dureeProjectionCER').value) || 0;
+  var projectionBox = document.getElementById('projectionCER');
+  var projection = projeterCumulEmploiRetraite(r, net, dureeProjection);
+  if (projection){
+    var projHtml = 'Projection sur ' + projection.dureeMois + ' mois : <strong>' + euros(projection.totalBrutCumule) + ' brut</strong> (≈ ' + euros(projection.totalNetCumuleAvantIR) + ' net avant impôt' + (projection.totalNetCumuleApresIR !== null ? ', ≈ ' + euros(projection.totalNetCumuleApresIR) + ' net après impôt' : '') + ').<br>';
+    projHtml += 'Cette projection suppose un revenu et une pension stables sur toute la période : elle ne tient pas compte d&rsquo;une éventuelle revalorisation annuelle de la pension, d&rsquo;une évolution de salaire ou d&rsquo;un changement de statut. C&rsquo;est un simple produit du résultat mensuel actuel par le nombre de mois choisi.';
+    if (r.mode !== 'integral'){
+      projHtml += '<br>⚠️ Si vous atteignez 67 ans (âge du taux plein automatique) ou complétez votre durée de cotisation pendant cette période, vous basculeriez en cumul intégral et l&rsquo;écrêtement cesserait : cette projection ne modélise pas ce changement de régime en cours de période — refaites une simulation le moment venu.';
+    }
+    if (projection.secondePensionPlafondPotentiel !== null){
+      projHtml += '<br>Plafond théorique de droits à seconde pension sur la période : ' + euros(projection.secondePensionPlafondPotentiel) + '. Ce n&rsquo;est pas un montant versé pendant la période simulée, mais un plafond de droits qui ne seraient liquidés qu&rsquo;à une demande ultérieure de retraite.';
+    }
+    projectionBox.innerHTML = projHtml;
+    projectionBox.style.display = 'block';
+  } else {
+    projectionBox.innerHTML = '';
+    projectionBox.style.display = 'none';
+  }
+
   resultBox.classList.add('show');
 }
 
@@ -470,11 +515,25 @@ function telechargerPDF_CER(){
     lignes.push({ label: 'Estimation nette après impôt (taux marginal ' + Math.round(tmi * 100) + '%)', value: euros(net.totalNetApresIR) });
   }
 
+  var dureeProjection = parseFloat(document.getElementById('dureeProjectionCER').value) || 0;
+  var projection = projeterCumulEmploiRetraite(r, net, dureeProjection);
+  if (projection){
+    lignes.push({ label: 'Durée de projection', value: projection.dureeMois + ' mois' });
+    lignes.push({ label: 'Total brut cumulé sur la période', value: euros(projection.totalBrutCumule) });
+    lignes.push({ label: 'Total net cumulé avant impôt', value: euros(projection.totalNetCumuleAvantIR) });
+    if (projection.totalNetCumuleApresIR !== null){
+      lignes.push({ label: 'Total net cumulé après impôt', value: euros(projection.totalNetCumuleApresIR) });
+    }
+    if (projection.secondePensionPlafondPotentiel !== null){
+      lignes.push({ label: 'Plafond théorique de seconde pension sur la période (non versé pendant la période)', value: euros(projection.secondePensionPlafondPotentiel) });
+    }
+  }
+
   genererPDFSimulation({
     titre: 'Simulation de cumul emploi-retraite',
     sousTitre: r.mode === 'integral' ? 'Cumul intégral' : 'Cumul plafonné',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Estimation nette simplifiée (coefficients net/brut moyens, prélèvements sociaux sur pension selon le taux indiqué, impôt sur le revenu au taux marginal indiqué le cas échéant). Une réforme du cumul emploi-retraite est prévue au 1er janvier 2027, décrets d'application non publiés à ce jour. Rapprochez-vous de votre caisse de retraite avant toute décision.",
+    disclaimer: "Simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Estimation nette simplifiée (coefficients net/brut moyens, prélèvements sociaux sur pension selon le taux indiqué, impôt sur le revenu au taux marginal indiqué le cas échéant). La projection sur plusieurs mois, si demandée, suppose un revenu et une pension stables (aucune revalorisation ni changement de régime modélisés). Une réforme du cumul emploi-retraite est prévue au 1er janvier 2027, décrets d'application non publiés à ce jour. Rapprochez-vous de votre caisse de retraite avant toute décision.",
     nomFichier: 'simulation-cumul-emploi-retraite.pdf'
   });
 }

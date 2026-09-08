@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/rupture-conventionnelle.html</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/cumul-emploi-retraite.html</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -343,6 +343,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://messimulateursrh.fr/participation-legale.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://messimulateursrh.fr/negocier-rupture-conventionnelle.html</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -351,6 +357,18 @@
   <url>
     <loc>https://messimulateursrh.fr/contester-rupture-conventionnelle.html</loc>
     <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/qui-peut-vous-accompagner-rupture-conventionnelle.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/negocier-son-premier-salaire.html</loc>
+    <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

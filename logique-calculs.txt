@@ -45,6 +45,8 @@ PLAFOND_EXO_SOCIALE_RC: 2 * 48060,   // 96 120 €
 PLAFOND_EXO_FISCALE_RC: 6 * 48060,   // 288 360 €
 PLAFOND_EXO_FISCALE_RETRAITE: 5 * 48060,   // 240 300 € — plafond spécifique mise à la retraite, distinct du licenciement (6×PASS)
 SMIC_BRUT_MENSUEL: 1867,
+SEUIL_EXO_APPRENTI_AVANT_MARS2025: 0.79,   // % du SMIC, contrats conclus avant le 1er mars 2025 (avant décret n° 2025-290)
+SEUIL_EXO_APPRENTI_APRES_MARS2025: 0.50,   // % du SMIC, contrats conclus à partir du 1er mars 2025 (décret n° 2025-290 du 28/03/2025, LFSS 2025 art. 23)
 ARE_PARTIE_FIXE_JOUR: 13.18,
 ARE_PLANCHER_JOUR: 32.13,
 ARE_PLAFOND_PART_SJR: 0.75,
@@ -146,6 +148,26 @@ var pct = grille[Math.min(Math.max(anneeContrat, 1), 3) - 1];
 return {
 pourcentage: pct,
 salaireBrut: BAREME_2026.SMIC_BRUT_MENSUEL * pct
+};
+}
+// Net réel d'un apprenti : seule la part du brut au-dessus du seuil d'exonération (50% du SMIC depuis le
+// 1er mars 2025, 79% avant) est soumise aux cotisations salariales de droit commun et à la CSG/CRDS ;
+// la part en dessous du seuil reste intégralement exonérée. Réutilise detailCotisationsSalariales() sur la
+// seule part soumise plutôt que de réinventer une logique de cotisations distincte.
+function estimerNetApprenti(salaireBrut, contratApres1erMars2025){
+var tauxSeuil = contratApres1erMars2025 ? BAREME_2026.SEUIL_EXO_APPRENTI_APRES_MARS2025 : BAREME_2026.SEUIL_EXO_APPRENTI_AVANT_MARS2025;
+var seuil = BAREME_2026.SMIC_BRUT_MENSUEL * tauxSeuil;
+var montantExonere = Math.min(salaireBrut, seuil);
+var montantSoumis = Math.max(0, salaireBrut - seuil);
+var cotisations = detailCotisationsSalariales(montantSoumis, false);
+var net = salaireBrut - cotisations.total;
+return {
+tauxSeuil: tauxSeuil,
+seuil: seuil,
+montantExonere: montantExonere,
+montantSoumis: montantSoumis,
+cotisations: cotisations,
+net: net
 };
 }
 function calculerIndemniteKilometrique(puissanceCV, distanceKm, electrique){
@@ -424,6 +446,57 @@ var anneesJusqua10 = Math.min(ancienneteAnnees, 10);
 var anneesAuDela10 = Math.max(0, ancienneteAnnees - 10);
 return (anneesJusqua10 * (salaireRef / 10)) + (anneesAuDela10 * (salaireRef / 15));
 }
+function indemniteSyntecETAM(salaireRef, ancienneteAnnees){
+// Convention Syntec (bureaux d'études techniques, IDCC 1486), art. 4.5 — statut non-cadre (ETAM), texte consolidé Légifrance vérifié directement.
+// Formule (depuis le 1er mai 2023, avenants n°46 du 16/07/2021 et n°2 du 27/10/2022, étendus par arrêté du 5 avril 2023) :
+// 1/4 de mois de salaire par année d'ancienneté jusqu'à 10 ans, puis 1/3 de mois par année au-delà — c'est-à-dire structurellement
+// la même formule que le barème légal (Art. R1234-2), sans plafond. Incluse ici par transparence : la convention ne procure aucun
+// avantage supplémentaire pour ce statut, contrairement au statut cadre (voir indemniteSyntecCadre).
+if (ancienneteAnnees <= 10){
+return ancienneteAnnees * (salaireRef / 4);
+}
+var part1 = 10 * (salaireRef / 4);
+var part2 = (ancienneteAnnees - 10) * (salaireRef / 3);
+return part1 + part2;
+}
+function indemniteBatimentETAM(salaireRef, ancienneteAnnees){
+// Convention collective nationale des employés, techniciens et agents de maîtrise du bâtiment du 12 juillet 2006 (IDCC 2609).
+// Formule (source : LégiSocial, Fiche-paie.net, Lexiconvention, Abacus-Conseil, FFB, concordantes) :
+// 2,5/10 de mois par année d'ancienneté jusqu'à 15 ans, puis 3,5/10 de mois par année au-delà de 15 ans, plafonnée à 10 mois de salaire.
+// Majoration de 10 % à 55 ans et plus non intégrée au calcul (âge non demandé par ce simulateur) — signalée en avertissement textuel.
+// En-dessous de 2 ans d'ancienneté, la convention n'est pas plus favorable que le barème légal.
+if (ancienneteAnnees < 2){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+var anneesJusqua15 = Math.min(ancienneteAnnees, 15);
+var anneesAuDela15 = Math.max(0, ancienneteAnnees - 15);
+var indemnite = (0.25 * anneesJusqua15 * salaireRef) + (0.35 * anneesAuDela15 * salaireRef);
+var plafond = 10 * salaireRef;
+return Math.min(indemnite, plafond);
+}
+function indemniteBatimentOuvrier(salaireRef, ancienneteAnnees){
+// Conventions collectives nationales des ouvriers du bâtiment du 8 octobre 1990, IDCC 1596 (jusqu'à 10 salariés) et IDCC 1597
+// (plus de 10 salariés), art. 10.3 — même formule pour les deux. Source : LégiSocial (1596 et 1597), Éditions Tissot, FFB,
+// Mon Indemnité, concordantes.
+// Formule : 1/10 de mois par année d'ancienneté de 2 à 5 ans ; à partir de 5 ans, 3/20 de mois par année, appliqué à la totalité
+// de l'ancienneté (bascule de taux rétroactive, pas un cumul de tranches) ; majoration de 1/20 de mois par année supplémentaire
+// au-delà de 15 ans. Majoration de 10 % à 55 ans et plus non intégrée (âge non demandé) — signalée en avertissement textuel.
+// Cette formule est presque toujours moins favorable que le barème légal (0,15/an contre 0,25/an pour les 10 premières années) —
+// incluse par transparence, la comparaison automatique retient de toute façon le plus favorable des deux.
+// En-dessous de 2 ans d'ancienneté, la convention n'est pas plus favorable que le barème légal.
+if (ancienneteAnnees < 2){
+return indemniteLegale(salaireRef, ancienneteAnnees);
+}
+var base;
+if (ancienneteAnnees < 5){
+base = ancienneteAnnees * (salaireRef * 0.10);
+} else {
+base = ancienneteAnnees * (salaireRef * 0.15);
+}
+var anneesAuDela15 = Math.max(0, ancienneteAnnees - 15);
+var majorationAncienne = anneesAuDela15 * (salaireRef * 0.05);
+return base + majorationAncienne;
+}
 function preavisConventionCollective(convention, typeRupture, ancienneteAnnees){
 // Durées de préavis (hors licenciement pour faute grave/lourde, qui supprime le préavis quelle que soit la convention).
 // Sources croisées : code.travail.gouv.fr (contributions dédiées par IDCC) + LégiSocial + Dairia Avocats (IDCC 16) / Juritravail (IDCC 1979), concordants sauf mention contraire ci-dessous.
@@ -590,6 +663,26 @@ totalNetApresIR: totalNetApresIR
 };
 }
 
+function projeterCumulEmploiRetraite(r, net, dureeMois){
+// Projection multi-mois du cumul emploi-retraite, à durée choisie par l'utilisateur (0 = pas de projection).
+// Simple produit du résultat mensuel actuel par le nombre de mois : à revenu et pension stables, rien ne varie
+// mécaniquement dans le temps (contrairement à l'ARE, qui s'épuise). Cette hypothèse de stabilité est explicite,
+// affichée en avertissement sur la page — pas de revalorisation annuelle ni de changement de statut modélisés.
+if (!dureeMois || dureeMois <= 0){
+return null;
+}
+var secondePensionPlafondPotentiel = null;
+if (r.mode === 'integral'){
+secondePensionPlafondPotentiel = (BAREME_2026.SECONDE_PENSION_CUMUL_INTEGRAL_PLAFOND_AN / 12) * dureeMois;
+}
+return {
+dureeMois: dureeMois,
+totalBrutCumule: r.totalApres * dureeMois,
+totalNetCumuleAvantIR: net.totalNetAvantIR * dureeMois,
+totalNetCumuleApresIR: net.tmi > 0 ? net.totalNetApresIR * dureeMois : null,
+secondePensionPlafondPotentiel: secondePensionPlafondPotentiel
+};
+}
 function estimerCoutSalarieEntreprise(brutMensuel, avantagesMensuel, primesAnnuelles){
 var charges = brutMensuel * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
 var primesMensuelles = (primesAnnuelles || 0) / 12;
@@ -999,6 +1092,48 @@ doc.text(disclaimerLines, pageWidth / 2, pageHeight - 22, {align: 'center'});
 doc.save(opts.nomFichier || 'attestation-formation-rh.pdf');
 }
 
+function estimerPartParticipation(montantGlobal, cle, salaireBrutAnnuel, masseSalarialeTotale, effectifTotal, moisPresence){
+// Réserve spéciale de participation (RSP) — répartition individuelle, PAS le calcul du montant global
+// (celui-ci dépend de données de bilan — bénéfice net, capitaux propres, valeur ajoutée — non disponibles
+// pour un salarié individuel, cf. contenu explicatif de la page).
+// Sources croisées (art. L3324-5 et D3324-10 du Code du travail, via LégiFiscal/Previssima/Éres Group/culture-rh.com,
+// concordantes) : plafond de salaire pris en compte pour la répartition proportionnelle = 3×PASS (post loi PACTE 2019,
+// remplace l'ancien plafond de 4×PASS antérieur à 2019) ; plafond individuel de versement = 75 % du PASS.
+var quotitePresence = Math.min(Math.max((moisPresence || 12) / 12, 0), 1);
+var plafondSalairePriseEnCompte = 3 * BAREME_2026.PASS_ANNUEL;
+var plafondIndividuel = 0.75 * BAREME_2026.PASS_ANNUEL;
+var salairePlafonne = salaireBrutAnnuel > 0 ? Math.min(salaireBrutAnnuel, plafondSalairePriseEnCompte) : 0;
+var partUniforme = (effectifTotal > 0) ? (montantGlobal / effectifTotal) * quotitePresence : null;
+var partSalaire = (masseSalarialeTotale > 0 && salaireBrutAnnuel > 0) ? montantGlobal * (salairePlafonne * quotitePresence) / masseSalarialeTotale : null;
+var part = null;
+if (cle === 'uniforme'){
+part = partUniforme;
+} else if (cle === 'salaire'){
+part = partSalaire;
+} else if (cle === 'mixte' && partUniforme !== null && partSalaire !== null){
+part = 0.5 * partUniforme + 0.5 * partSalaire;
+}
+var donneesInsuffisantes = (part === null);
+var partAvantPlafond = part;
+var ecretee = false;
+if (part !== null && part > plafondIndividuel){
+part = plafondIndividuel;
+ecretee = true;
+}
+return {
+part: part,
+partAvantPlafond: partAvantPlafond,
+ecretee: ecretee,
+plafondIndividuel: plafondIndividuel,
+plafondSalairePriseEnCompte: plafondSalairePriseEnCompte,
+salairePlafonne: salairePlafonne,
+quotitePresence: quotitePresence,
+partUniforme: partUniforme,
+partSalaire: partSalaire,
+donneesInsuffisantes: donneesInsuffisantes
+};
+}
+
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
@@ -1039,8 +1174,11 @@ var SEARCH_INDEX = [
 {title:"Lettre de notification de licenciement", url:"lettre-notification-licenciement.html", cat:"Guide", kw:"lettre licenciement notification motifs delai recommande"},
 {title:"Procédure de licenciement", url:"procedure-licenciement.html", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
 {title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI"},
+{title:"Participation (RSP)", url:"participation-legale.html", cat:"Simulateur", kw:"participation RSP epargne salariale reserve speciale repartition PEE"},
 {title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
 {title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle.html", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},
+{title:"Qui peut vous accompagner en rupture conventionnelle", url:"qui-peut-vous-accompagner-rupture-conventionnelle.html", cat:"Guide", kw:"conseiller du salarie syndicat representant du personnel assistance entretien rupture conventionnelle licenciement gratuit"},
+{title:"Négocier son premier salaire", url:"negocier-son-premier-salaire.html", cat:"Guide", kw:"negocier premier salaire embauche entretien alternance jeune diplome avantages salariaux"},
 {title:"IA et travail : obligations de l'employeur", url:"ia-et-travail-obligations-employeur.html", cat:"Guide", kw:"intelligence artificielle travail CSE consultation formation adaptation surveillance algorithmique AI Act discrimination"},
 {title:"IA et conventions collectives", url:"ia-et-conventions-collectives.html", cat:"Guide", kw:"intelligence artificielle convention collective accord de branche accord d'entreprise MAIF BPCE negociation collective"},
 {title:"Comment lire sa fiche de paie", url:"comment-lire-sa-fiche-de-paie.html", cat:"Guide", kw:"fiche de paie bulletin de salaire avantage en nature titre restaurant heures supplementaires CSG CRDS net imposable prelevement a la source"},
