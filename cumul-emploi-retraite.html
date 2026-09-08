@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cumul Emploi-Retraite 2026 — Simulateur Plafond et Écrêtement</title>
+<meta name="description" content="Cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.">
+<!-- SEO-META-START -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://messimulateursrh.fr/cumul-emploi-retraite.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MesSimulateursRH.fr">
+<meta property="og:title" content="Cumul Emploi-Retraite 2026 — Simulateur Plafond et Écrêtement">
+<meta property="og:description" content="Cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.">
+<meta property="og:url" content="https://messimulateursrh.fr/cumul-emploi-retraite.html">
+<meta property="og:image" content="https://messimulateursrh.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cumul Emploi-Retraite 2026 — Simulateur Plafond et Écrêtement">
+<meta name="twitter:description" content="Cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.">
+<meta name="twitter:image" content="https://messimulateursrh.fr/og-image.png">
+<meta name="robots" content="index, follow">
+<!-- SEO-META-END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le cumul emploi-retraite intégral ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le cumul intégral permet de cumuler sans aucune limite une pension de retraite et un revenu d'activité. Il suppose trois conditions cumulatives : avoir atteint l'âge légal de départ à la retraite, être au taux plein (par la durée de cotisation ou automatiquement à 67 ans) et avoir liquidé l'intégralité de vos pensions de base et complémentaires, tous régimes confondus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que le cumul plafonné et l'écrêtement de la pension ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si vous ne remplissez pas les conditions du cumul intégral (retraite anticipée, carrière incomplète), le cumul est plafonné : la somme de votre pension et de votre revenu d'activité ne doit pas dépasser le plus favorable entre 160% du SMIC et votre dernier salaire d'activité. Au-delà, votre pension est réduite (écrêtée) à hauteur du dépassement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment est calculé le plafond du cumul plafonné en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le plafond retenu est le plus élevé entre 160% du SMIC brut mensuel (soit environ 2 987 € en 2026) et votre dernier salaire mensuel brut d'activité (moyenne des 3 derniers mois, primes comprises, selon votre caisse de retraite)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le cumul emploi-retraite permet-il d'acquérir de nouveaux droits à la retraite ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cela dépend du mode de cumul. En cumul plafonné, les cotisations versées sur l'activité reprise ne génèrent aucun nouveau droit (ni trimestre, ni point) dans le régime de base. En cumul intégral en revanche, un dispositif de seconde pension existe depuis la réforme des retraites de 2023 : il plafonne les droits ainsi acquis à 5% du plafond annuel de la Sécurité sociale, soit environ 2 403 € brut par an en 2026. Ce mécanisme est distinct de la réforme du cumul emploi-retraite prévue au 1er janvier 2027, qui ne le crée pas mais pourrait le faire évoluer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je reprendre une activité chez mon ancien employeur juste après ma retraite ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un délai de 6 mois doit en principe être respecté avant de reprendre une activité chez le même employeur après la liquidation de la retraite (Art. L161-22 du Code de la sécurité sociale), quel que soit le mode de cumul retenu. Ce délai ne s'applique pas si vous reprenez une activité chez un autre employeur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qui va changer avec la réforme du cumul emploi-retraite au 1er janvier 2027 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite applicable aux pensions liquidées à partir du 1er janvier 2027 (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles). Elle durcirait le cumul plafonné pour les retraités entre l'âge légal et 67 ans, avec un mécanisme de franchise puis de réduction de la pension au-delà. Les décrets d'application n'étant pas publiés à ce jour (septembre 2026), les montants exacts ne sont pas encore fixés : ce simulateur applique les règles actuellement en vigueur et sera mis à jour dès la publication des décrets."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "datePublished": "2026-09-07",
+  "dateModified": "2026-09-07",
+  "name": "Cumul Emploi-Retraite 2026",
+  "description": "Cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.",
+  "url": "https://messimulateursrh.fr/cumul-emploi-retraite.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Tout navigateur web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "isAccessibleForFree": true
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://messimulateursrh.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ancienneté et fin de carrière",
+      "item": "https://messimulateursrh.fr/simulateurs-anciennete-carriere.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cumul emploi-retraite",
+      "item": "https://messimulateursrh.fr/cumul-emploi-retraite.html"
+    }
+  ]
+}
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7534838731618880" crossorigin="anonymous"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandmark-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1742b8"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#brandmark-g)"/><text x="50" y="69" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="white" text-anchor="middle">€</text></svg>Mes<span>Simulateurs</span>RH</a>
+    <button type="button" class="search-toggle" id="search-toggle" aria-haspopup="dialog" aria-controls="search-overlay" aria-label="Rechercher un sujet">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="main">
+      <details class="nav-dropdown">
+        <summary>Simulateurs</summary>
+        <div class="nav-dropdown-menu">
+          <a href="simulateurs-rupture-contrat.html">Rupture du contrat de travail</a>
+          <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+          <a href="simulateurs-conges-temps-travail.html">Congés et temps de travail</a>
+          <a href="simulateurs-anciennete-carriere.html">Ancienneté et fin de carrière</a>
+          <a href="aller-plus-loin.html">Aller plus loin</a>
+        </div>
+      </details>
+      <a href="formation.html">Formation</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="ressources-officielles.html">Ressources officielles</a>
+    </nav>
+    <div class="audience-toggle-wrap">
+      <span class="audience-toggle-label">Résultats pour :</span>
+      <div class="audience-toggle">
+        <button data-audience="salarie">Je suis salarié</button>
+        <button data-audience="employeur">Je suis employeur</button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
+    <div class="search-panel-top">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+    <p class="search-empty" id="search-empty" hidden>Aucun résultat. Essayez : chômage, salaire, congés, retraite...</p>
+  </div>
+</div>
+
+<main id="main">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="index.html">Accueil</a>
+      <span class="sep" aria-hidden="true">›</span>
+      <a href="simulateurs-anciennete-carriere.html">Ancienneté et fin de carrière</a>
+      <span class="sep" aria-hidden="true">›</span>
+      <span aria-current="page">Cumul emploi-retraite</span>
+    </nav>
+  <section class="hero">
+    <h1>Cumul emploi-retraite</h1>
+    <p>
+      Vérifiez si vous relevez du cumul intégral (sans limite) ou du cumul plafonné, et estimez l'écrêtement éventuel de votre pension si vous reprenez une activité rémunérée.
+    </p>
+    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <p class="update-date">Barème vérifié le 7 septembre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+  </section>
+
+  <div class="quick-answer"><strong>En bref :</strong> avec le taux plein et la liquidation de toutes vos pensions, le cumul est intégral et sans limite de revenus. Sinon, la somme pension + salaire est plafonnée (160% du SMIC ou dernier salaire), l'excédent étant déduit de la pension.</div>
+
+  <div class="card">
+    <div class="field">
+      <label for="pensionCER">Pension mensuelle brute totale (base + complémentaires déjà liquidées)</label>
+      <input type="number" id="pensionCER" min="0" step="0.01" placeholder="ex : 1500">
+    </div>
+    <div class="field">
+      <label for="salaireCER">Salaire mensuel brut de la nouvelle activité envisagée</label>
+      <input type="number" id="salaireCER" min="0" step="0.01" placeholder="ex : 1800">
+    </div>
+    <div class="field">
+      <label for="dernierSalaireCER">Dernier salaire mensuel brut d'activité avant la retraite (optionnel)</label>
+      <input type="number" id="dernierSalaireCER" min="0" step="0.01" placeholder="ex : 2600">
+      <div class="hint">Utilisé uniquement si plus favorable que 160% du SMIC pour déterminer le plafond du cumul plafonné.</div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="tauxPleinCER">Avez-vous le taux plein ?</label>
+        <select id="tauxPleinCER">
+          <option value="non">Non</option>
+          <option value="oui">Oui (durée de cotisation atteinte, ou 67 ans)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="liquidationCER">Avez-vous liquidé toutes vos pensions ?</label>
+        <select id="liquidationCER">
+          <option value="non">Non (une caisse au moins non liquidée)</option>
+          <option value="oui">Oui (base + complémentaires, tous régimes)</option>
+        </select>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="statutActiviteCER">Statut de la nouvelle activité</label>
+        <select id="statutActiviteCER">
+          <option value="non-cadre">Non-cadre</option>
+          <option value="cadre">Cadre</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="tauxPrelevementPensionCER">Taux de prélèvements sociaux sur votre pension</label>
+        <select id="tauxPrelevementPensionCER">
+          <option value="exonere">Exonéré (0%)</option>
+          <option value="reduit">Taux réduit (4,3%)</option>
+          <option value="median" selected>Taux médian (7,4%)</option>
+          <option value="normal">Taux normal (9,1%)</option>
+        </select>
+        <div class="hint">Indiqué sur votre relevé de pension, selon votre revenu fiscal de référence.</div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="tmiCER">Votre tranche marginale d'imposition (optionnel, pour une estimation après impôt)</label>
+      <select id="tmiCER">
+        <option value="0">Non renseigné</option>
+        <option value="0.11">11%</option>
+        <option value="0.30">30%</option>
+        <option value="0.41">41%</option>
+        <option value="0.45">45%</option>
+      </select>
+    </div>
+    <button class="compute" onclick="calculerCumulRetraite()">Calculer</button>
+
+    <div class="result" id="resultCER">
+      <div class="amount" id="montantCER">—</div>
+      <div class="detail" id="detailCER"></div>
+      <div class="breakdown" id="breakdownCER"></div>
+      <div class="hint" id="netEstimateCER" style="margin-top:12px;"></div>
+      <div class="pdf-actions">
+        <button class="compute pdf" onclick="telechargerPDF_CER()">📄 Télécharger le PDF récapitulatif</button>
+        <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
+        <p class="report-error">⚠️ <a href="mailto:messimulateursrh@gmail.com?subject=Erreur%20signal%C3%A9e%20-%20Cumul%20emploi-retraite">Signaler une erreur sur ce résultat</a></p>
+      
+      </div>
+    </div>
+    <div class="notice" id="noticeCER" style="display:none;"></div>
+  </div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="content-section">
+    <h2>Cumul intégral ou cumul plafonné : les règles 2026</h2>
+    <p>
+      Reprendre une activité rémunérée tout en percevant une pension de retraite est possible, mais selon deux régimes distincts. Le <strong>cumul intégral</strong> s'applique sans aucune limite de revenus dès lors que trois conditions sont réunies : avoir atteint l'âge légal de départ à la retraite, être au taux plein (durée de cotisation suffisante, ou automatiquement à 67 ans quelle que soit la durée cotisée) et avoir liquidé l'ensemble de vos pensions de base et complémentaires, tous régimes confondus (salarié, indépendant, fonction publique...).
+    </p>
+    <p>
+      À défaut de remplir ces trois conditions — typiquement en cas de retraite anticipée ou de carrière incomplète — le <strong>cumul est plafonné</strong> : la somme de votre pension et de votre revenu d'activité ne doit pas dépasser le plus favorable entre 160% du SMIC brut mensuel (environ 2 987 € en 2026, sur la base du SMIC en vigueur) et votre dernier salaire mensuel brut d'activité. Si ce plafond est dépassé, votre pension est réduite (écrêtée) à hauteur du dépassement, versement après versement.
+    </p>
+    <div class="hint" style="margin-top:12px;">
+      Simplification assumée : lorsque votre pension provient de plusieurs caisses (régime de base et régime complémentaire), chacune applique en pratique sa propre règle d'écrêtement sur sa propre part — le mécanisme réel peut donc différer légèrement d'une simple soustraction globale. Ce simulateur donne une estimation du dépassement et de la réduction totale, pas une répartition caisse par caisse.
+    </div>
+
+    <div class="example-box">
+      <h3>⚠️ Ce qui change au 1er janvier 2027</h3>
+      <p>
+        La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite qui s'appliquerait aux <strong>pensions liquidées à partir du 1er janvier 2027</strong> (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles, dans une logique de non-rétroactivité). Le cumul plafonné serait durci pour les retraités entre l'âge légal et 67 ans, avec une franchise annuelle puis une réduction de la pension au-delà. Le cumul deviendrait libre à partir de 67 ans, avec en plus la possibilité d'ouvrir de nouveaux droits à une seconde pension.
+      </p>
+      <p>
+        À la date du 7 septembre 2026, les décrets d'application ne sont pas publiés et les montants précis (seuil de franchise, taux de réduction) restent donc indicatifs selon les sources consultées. Ce simulateur applique les règles actuellement en vigueur (celles qui continueront de s'appliquer aux pensions déjà liquidées) et sera mis à jour dès la publication des décrets définitifs.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <h3>Exemple concret</h3>
+      <p>Un retraité perçoit 1 800 € de pension mensuelle brute et n'a pas le taux plein. Il reprend une activité à 2 500 € brut/mois ; son dernier salaire avant la retraite était de 2 500 €. Le plafond retenu est le plus élevé entre 160% du SMIC (≈ 2 987 €) et le dernier salaire (2 500 €), soit <strong>2 987 €</strong>. Le total pension + salaire (4 300 €) dépasse ce plafond de 1 313 €, montant déduit de la pension : elle passe donc à <strong>487 € par mois</strong> tant que l'activité se poursuit à ce niveau de rémunération.</p>
+    </div>
+
+    <h2>Questions fréquentes</h2>
+    <details class="faq">
+      <summary>Qu'est-ce que le cumul emploi-retraite intégral ?</summary>
+      <p>Le cumul intégral permet de cumuler sans aucune limite une pension de retraite et un revenu d'activité. Il suppose trois conditions cumulatives : avoir atteint l'âge légal de départ à la retraite, être au taux plein (par la durée de cotisation ou automatiquement à 67 ans) et avoir liquidé l'intégralité de vos pensions de base et complémentaires, tous régimes confondus.</p>
+    </details>
+    <details class="faq">
+      <summary>Qu'est-ce que le cumul plafonné et l'écrêtement de la pension ?</summary>
+      <p>Si vous ne remplissez pas les conditions du cumul intégral (retraite anticipée, carrière incomplète), le cumul est plafonné : la somme de votre pension et de votre revenu d'activité ne doit pas dépasser le plus favorable entre 160% du SMIC et votre dernier salaire d'activité. Au-delà, votre pension est réduite (écrêtée) à hauteur du dépassement.</p>
+    </details>
+    <details class="faq">
+      <summary>Comment est calculé le plafond du cumul plafonné en 2026 ?</summary>
+      <p>Le plafond retenu est le plus élevé entre 160% du SMIC brut mensuel (soit environ 2 987 € en 2026) et votre dernier salaire mensuel brut d'activité (moyenne des 3 derniers mois, primes comprises, selon votre caisse de retraite).</p>
+    </details>
+    <details class="faq">
+      <summary>Le cumul emploi-retraite permet-il d'acquérir de nouveaux droits à la retraite ?</summary>
+      <p>Cela dépend du mode de cumul. En cumul plafonné, les cotisations versées sur l'activité reprise ne génèrent aucun nouveau droit (ni trimestre, ni point) dans le régime de base. En cumul intégral en revanche, un dispositif de <strong>seconde pension</strong> existe depuis la réforme des retraites de 2023 : il plafonne les droits ainsi acquis à 5% du plafond annuel de la Sécurité sociale, soit environ 2 403 € brut par an en 2026. Ce mécanisme est distinct de la réforme du cumul emploi-retraite prévue au 1er janvier 2027, qui ne le crée pas mais pourrait le faire évoluer.</p>
+    </details>
+    <details class="faq">
+      <summary>Puis-je reprendre une activité chez mon ancien employeur juste après ma retraite ?</summary>
+      <p>Un délai de 6 mois doit en principe être respecté avant de reprendre une activité chez le même employeur après la liquidation de la retraite (Art. L161-22 du Code de la sécurité sociale), quel que soit le mode de cumul retenu. Ce délai ne s'applique pas si vous reprenez une activité chez un autre employeur.</p>
+    </details>
+    <details class="faq">
+      <summary>Qu'est-ce qui va changer avec la réforme du cumul emploi-retraite au 1er janvier 2027 ?</summary>
+      <p>La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite applicable aux pensions liquidées à partir du 1er janvier 2027 (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles). Elle durcirait le cumul plafonné pour les retraités entre l'âge légal et 67 ans, avec un mécanisme de franchise puis de réduction de la pension au-delà. Les décrets d'application n'étant pas publiés à ce jour (septembre 2026), les montants exacts ne sont pas encore fixés : ce simulateur applique les règles actuellement en vigueur et sera mis à jour dès la publication des décrets.</p>
+    </details>
+
+    <div class="related-tools">
+      <h3>Autres simulateurs utiles</h3>
+      <div class="links">
+        <a href="indemnite-depart-retraite.html">→ Indemnité de départ à la retraite</a>
+        <a href="calcul-anciennete.html">→ Calcul d'ancienneté</a>
+        <a href="salaire-net-brut.html">→ Salaire net à partir du brut</a>
+        <a href="ressources-officielles.html">→ Ressources officielles</a>
+        <a href="retraite-parents-trimestres-2026.html">→ Actualité : retraite des parents, ce qui change en 2026</a>
+      </div>
+    </div>
+  </section>
+  <div class="ad-slot ad-slot-bottom">Emplacement publicitaire</div>
+</main>
+
+<footer class="site">
+  <div class="footer-sitemap">
+    <p class="footer-tagline">MesSimulateursRH.fr — simulateurs gratuits de droit du travail pour comprendre vos droits, chiffrer votre situation et préparer une décision éclairée.</p>
+    <nav class="footer-links" aria-label="Plan du site">
+      <div class="footer-col">
+        <h4>Simulateurs</h4>
+        <a href="simulateurs-rupture-contrat.html">Rupture du contrat</a>
+        <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+        <a href="simulateurs-conges-temps-travail.html">Congés et temps de travail</a>
+        <a href="simulateurs-anciennete-carriere.html">Ancienneté et carrière</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ressources</h4>
+        <a href="formation.html">Formation gratuite</a>
+        <a href="actualites.html">Actualités</a>
+        <a href="ressources-officielles.html">Ressources officielles</a>
+        <a href="glossaire-droit-travail.html">Glossaire</a>
+      </div>
+      <div class="footer-col">
+        <h4>Le site</h4>
+        <a href="index.html">Accueil</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+      </div>
+    </nav>
+  </div>
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Les règles peuvent varier selon votre régime de retraite (fonction publique, professions libérales, indépendants) et une réforme du cumul emploi-retraite est prévue au 1er janvier 2027 dont les décrets d'application ne sont pas encore publiés. Rapprochez-vous de votre caisse de retraite (Assurance retraite, Agirc-Arrco) avant toute décision.
+    <br><br>
+    <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script src="logique-calculs.txt"></script>
+<script>
+var TAUX_PRELEVEMENT_PENSION_MAP_CER = {
+  exonere: 'CSG_CRDS_PENSION_EXONERE',
+  reduit: 'CSG_CRDS_PENSION_REDUIT',
+  median: 'CSG_CRDS_PENSION_MEDIAN',
+  normal: 'CSG_CRDS_PENSION_NORMAL'
+};
+
+function calculerCumulRetraite(){
+  var pension = parseFloat(document.getElementById('pensionCER').value) || 0;
+  var salaire = parseFloat(document.getElementById('salaireCER').value) || 0;
+  var dernierSalaire = parseFloat(document.getElementById('dernierSalaireCER').value) || 0;
+  var tauxPlein = document.getElementById('tauxPleinCER').value === 'oui';
+  var liquidation = document.getElementById('liquidationCER').value === 'oui';
+  var statutActivite = document.getElementById('statutActiviteCER').value;
+  var tauxPrelevementCle = document.getElementById('tauxPrelevementPensionCER').value;
+  var tmi = parseFloat(document.getElementById('tmiCER').value) || 0;
+  var tauxPrelevement = BAREME_2026[TAUX_PRELEVEMENT_PENSION_MAP_CER[tauxPrelevementCle]];
+
+  var resultBox = document.getElementById('resultCER');
+  var notice = document.getElementById('noticeCER');
+
+  if (pension <= 0 || salaire <= 0){
+    resultBox.classList.remove('show');
+    return;
+  }
+  notice.style.display = 'none';
+
+  var r = estimerCumulEmploiRetraite(pension, salaire, dernierSalaire, tauxPlein, liquidation);
+  var pensionRetenuePourNet = r.mode === 'integral' ? pension : r.pensionApres;
+  var net = estimerNetCumulEmploiRetraite(pensionRetenuePourNet, salaire, statutActivite, tauxPrelevement, tmi);
+
+  if (r.mode === 'integral'){
+    document.getElementById('montantCER').textContent = euros(r.totalApres) + ' / mois';
+    document.getElementById('detailCER').textContent = 'Cumul intégral : aucune limite de revenus.';
+    document.getElementById('breakdownCER').innerHTML =
+      'Conditions du cumul intégral réunies (taux plein + liquidation totale des pensions) : votre pension (' + euros(pension) + ') et votre salaire (' + euros(salaire) + ') se cumulent sans écrêtement.<br>' +
+      'Rappel : depuis la réforme de 2023, cette activité ne génère en principe pas de nouveaux droits dans le régime de base, à l&rsquo;exception d&rsquo;un dispositif de seconde pension plafonné à ' + euros(BAREME_2026.SECONDE_PENSION_CUMUL_INTEGRAL_PLAFOND_AN) + ' brut par an en 2026 (5% du plafond annuel de la Sécurité sociale).';
+  } else {
+    document.getElementById('montantCER').textContent = euros(r.pensionApres) + ' de pension / mois';
+    document.getElementById('detailCER').textContent = 'Cumul plafonné — plafond retenu : ' + euros(r.plafond) + ' (plus élevé entre 160% du SMIC, ' + euros(r.plafondSmic) + ', et le dernier salaire déclaré).';
+    if (r.depassement > 0){
+      document.getElementById('breakdownCER').innerHTML =
+        'Total pension + salaire avant écrêtement : ' + euros(r.totalAvant) + ', soit un dépassement de ' + euros(r.depassement) + ' par rapport au plafond.<br>' +
+        'Pension réduite (écrêtée) à ' + euros(r.pensionApres) + ' / mois. Total perçu (pension écrêtée + salaire) : ' + euros(r.totalApres) + ' / mois.';
+    } else {
+      document.getElementById('breakdownCER').innerHTML =
+        'Total pension + salaire (' + euros(r.totalAvant) + ') reste sous le plafond de ' + euros(r.plafond) + ' : aucun écrêtement, votre pension est versée intégralement.';
+    }
+  }
+
+  var netHtml = 'Estimation nette avant impôt sur le revenu : <strong>' + euros(net.totalNetAvantIR) + ' / mois</strong> (salaire net ≈ ' + euros(net.netSalaire) + ' + pension nette ≈ ' + euros(net.netPension) + ' après prélèvements sociaux).';
+  if (tmi > 0){
+    netHtml += '<br>Estimation nette après impôt sur le revenu (taux marginal ' + Math.round(tmi * 100) + '%) : environ ' + euros(net.totalNetApresIR) + ' / mois. Estimation simplifiée qui suppose ce taux marginal appliqué à l&rsquo;ensemble du foyer fiscal ; votre imposition réelle dépend de vos autres revenus et de votre quotient familial.';
+  }
+  document.getElementById('netEstimateCER').innerHTML = netHtml;
+
+  resultBox.classList.add('show');
+}
+
+function telechargerPDF_CER(){
+  var pension = parseFloat(document.getElementById('pensionCER').value) || 0;
+  var salaire = parseFloat(document.getElementById('salaireCER').value) || 0;
+  var dernierSalaire = parseFloat(document.getElementById('dernierSalaireCER').value) || 0;
+  var tauxPlein = document.getElementById('tauxPleinCER').value === 'oui';
+  var liquidation = document.getElementById('liquidationCER').value === 'oui';
+  var statutActivite = document.getElementById('statutActiviteCER').value;
+  var tauxPrelevementCle = document.getElementById('tauxPrelevementPensionCER').value;
+  var tmi = parseFloat(document.getElementById('tmiCER').value) || 0;
+  var tauxPrelevement = BAREME_2026[TAUX_PRELEVEMENT_PENSION_MAP_CER[tauxPrelevementCle]];
+  if (pension <= 0 || salaire <= 0) return;
+
+  var r = estimerCumulEmploiRetraite(pension, salaire, dernierSalaire, tauxPlein, liquidation);
+  var pensionRetenuePourNet = r.mode === 'integral' ? pension : r.pensionApres;
+  var net = estimerNetCumulEmploiRetraite(pensionRetenuePourNet, salaire, statutActivite, tauxPrelevement, tmi);
+  var lignes = [
+    { label: 'Pension mensuelle brute déclarée', value: euros(pension) },
+    { label: 'Salaire mensuel brut envisagé', value: euros(salaire) },
+    { label: 'Taux plein', value: tauxPlein ? 'Oui' : 'Non' },
+    { label: 'Liquidation totale des pensions', value: liquidation ? 'Oui' : 'Non' }
+  ];
+  if (r.mode === 'integral'){
+    lignes.push({ label: 'Régime applicable', value: 'Cumul intégral (sans limite)' });
+    lignes.push({ label: 'Total pension + salaire (brut)', value: euros(r.totalApres), type: 'total' });
+  } else {
+    lignes.push({ label: 'Régime applicable', value: 'Cumul plafonné' });
+    lignes.push({ label: 'Plafond retenu', value: euros(r.plafond) });
+    lignes.push({ label: 'Dépassement', value: euros(r.depassement) });
+    lignes.push({ label: 'Pension après écrêtement (brut)', value: euros(r.pensionApres), type: 'total' });
+  }
+  lignes.push({ label: 'Estimation nette avant impôt sur le revenu', value: euros(net.totalNetAvantIR), type: 'total' });
+  if (tmi > 0){
+    lignes.push({ label: 'Estimation nette après impôt (taux marginal ' + Math.round(tmi * 100) + '%)', value: euros(net.totalNetApresIR) });
+  }
+
+  genererPDFSimulation({
+    titre: 'Simulation de cumul emploi-retraite',
+    sousTitre: r.mode === 'integral' ? 'Cumul intégral' : 'Cumul plafonné',
+    lignes: lignes,
+    disclaimer: "Simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Estimation nette simplifiée (coefficients net/brut moyens, prélèvements sociaux sur pension selon le taux indiqué, impôt sur le revenu au taux marginal indiqué le cas échéant). Une réforme du cumul emploi-retraite est prévue au 1er janvier 2027, décrets d'application non publiés à ce jour. Rapprochez-vous de votre caisse de retraite avant toute décision.",
+    nomFichier: 'simulation-cumul-emploi-retraite.pdf'
+  });
+}
+</script>
+</body>
+</html>

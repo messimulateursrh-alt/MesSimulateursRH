@@ -82,8 +82,37 @@ ACTIVITE_PARTIELLE_ABATTEMENT_FRAIS: 0.0175,
 COEF_NET_FONCTION_PUBLIQUE: 0.80,
 COEF_NET_INDEPENDANT_SSI: 0.60,
 COEF_NET_INDEPENDANT_CIPAV: 0.63,
-PORTAGE_FRAIS_GESTION: 0.10
+PORTAGE_FRAIS_GESTION: 0.10,
+CUMUL_EMPLOI_RETRAITE_PLAFOND_SMIC_MULT: 1.60,
+IJ_MALADIE_TAUX: 0.50,
+IJ_MALADIE_PLAFOND_SMIC_MULT: 1.40,
+IJ_MALADIE_MAX_JOUR: 42.97,
+IJ_MALADIE_CSG_CRDS_TAUX: 0.067,
+CARENCE_MALADIE_PRIVE_JOURS: 3,
+CARENCE_MALADIE_PUBLIC_JOURS: 1,
+MAINTIEN_CARENCE_EMPLOYEUR_JOURS: 7,
+MAINTIEN_TAUX_PALIER1: 0.90,
+MAINTIEN_TAUX_PALIER2: 0.6666,
+MAINTIEN_ANCIENNETE_MIN_ANS: 1,
+JOURS_FERIES_SEMAINE_2026: 9,
+JOURS_FERIES_SEMAINE_2027: 7,
+FORFAIT_JOURS_LEGAL_MAX: 218,
+CONGES_PAYES_JOURS_OUVRES: 25,
+CSG_CRDS_PENSION_EXONERE: 0,
+CSG_CRDS_PENSION_REDUIT: 0.043,
+CSG_CRDS_PENSION_MEDIAN: 0.074,
+CSG_CRDS_PENSION_NORMAL: 0.091,
+SECONDE_PENSION_CUMUL_INTEGRAL_PLAFOND_AN: 2403
 };
+var MAINTIEN_PALIERS_ANCIENNETE = [
+  { min: 1, max: 5, jours: 30 },
+  { min: 6, max: 10, jours: 40 },
+  { min: 11, max: 15, jours: 50 },
+  { min: 16, max: 20, jours: 60 },
+  { min: 21, max: 25, jours: 70 },
+  { min: 26, max: 30, jours: 80 },
+  { min: 31, max: 999, jours: 90 }
+];
 // Barème fiscal des indemnités kilométriques (arrêté du 27 mars 2023, JORFTEXT000047416556 — applicable depuis l'imposition
 // des revenus 2022, reconduit sans changement depuis, 4ᵉ année consécutive au titre des revenus 2025/déclaration 2026).
 // Clés : puissance fiscale (CV) -> { t1: coef tranche 0-5000km, t2c/t2k: coef+constante tranche 5001-20000km, t3: coef au-delà de 20000km }.
@@ -513,6 +542,54 @@ else if (anneesAnciennete >= 15) coef = 1;
 else if (anneesAnciennete >= 10) coef = 0.5;
 return { montant: coef * salaireRef, regime: 'salarie', coefMois: coef };
 }
+function estimerCumulEmploiRetraite(pensionMensuelle, salaireMensuel, dernierSalaireMensuel, tauxPlein, liquidationTotale){
+var cumulIntegral = !!tauxPlein && !!liquidationTotale;
+var plafondSmic = BAREME_2026.SMIC_BRUT_MENSUEL * BAREME_2026.CUMUL_EMPLOI_RETRAITE_PLAFOND_SMIC_MULT;
+var plafond = Math.max(plafondSmic, dernierSalaireMensuel || 0);
+var totalAvant = pensionMensuelle + salaireMensuel;
+
+if (cumulIntegral){
+return {
+mode: 'integral',
+plafond: null,
+plafondSmic: plafondSmic,
+totalAvant: totalAvant,
+depassement: 0,
+pensionApres: pensionMensuelle,
+totalApres: totalAvant
+};
+}
+
+var depassement = Math.max(0, totalAvant - plafond);
+var pensionApres = Math.max(0, pensionMensuelle - depassement);
+var totalApres = pensionApres + salaireMensuel;
+
+return {
+mode: depassement > 0 ? 'plafonne_ecrete' : 'plafonne_sous_plafond',
+plafond: plafond,
+plafondSmic: plafondSmic,
+totalAvant: totalAvant,
+depassement: depassement,
+pensionApres: pensionApres,
+totalApres: totalApres
+};
+}
+function estimerNetCumulEmploiRetraite(pensionApresEcretement, salaireBrutNouvelleActivite, statutNouvelleActivite, tauxPrelevementPension, tmi){
+var coefNet = statutNouvelleActivite === 'cadre' ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_CADRE;
+var netSalaire = salaireBrutNouvelleActivite * coefNet;
+var netPension = pensionApresEcretement * (1 - tauxPrelevementPension);
+var totalNetAvantIR = netSalaire + netPension;
+var totalNetApresIR = tmi > 0 ? totalNetAvantIR * (1 - tmi) : totalNetAvantIR;
+return {
+coefNet: coefNet,
+netSalaire: netSalaire,
+netPension: netPension,
+totalNetAvantIR: totalNetAvantIR,
+tmi: tmi,
+totalNetApresIR: totalNetApresIR
+};
+}
+
 function estimerCoutSalarieEntreprise(brutMensuel, avantagesMensuel, primesAnnuelles){
 var charges = brutMensuel * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
 var primesMensuelles = (primesAnnuelles || 0) / 12;
@@ -546,6 +623,116 @@ total: mois1 + mois2,
 dureeMois: dureeMois
 };
 }
+function trouverPalierMaintien(anciennete){
+for (var i = 0; i < MAINTIEN_PALIERS_ANCIENNETE.length; i++){
+var p = MAINTIEN_PALIERS_ANCIENNETE[i];
+if (anciennete >= p.min && anciennete <= p.max) return p;
+}
+return null;
+}
+
+function estimerIndemniteArretMaladie(salaireMensuelBrut, statut, ancienneteAnnees, dureeJours){
+if (statut === 'public'){
+var carenceJours = BAREME_2026.CARENCE_MALADIE_PUBLIC_JOURS;
+var joursPayesPlein = Math.max(0, dureeJours - carenceJours);
+var salaireJournalier = salaireMensuelBrut / 30;
+var perteCarence = salaireJournalier * Math.min(dureeJours, carenceJours);
+return {
+statut: statut,
+carenceJours: carenceJours,
+salaireJournalier: salaireJournalier,
+perteCarence: perteCarence,
+joursPayesPlein: joursPayesPlein,
+totalPercu: salaireJournalier * joursPayesPlein
+};
+}
+
+// Régime général salarié privé
+var salairePlafonne = Math.min(salaireMensuelBrut, BAREME_2026.IJ_MALADIE_PLAFOND_SMIC_MULT * BAREME_2026.SMIC_BRUT_MENSUEL);
+var sjb = (salairePlafonne * 3) / BAREME_2026.SJB_DIVISEUR;
+var ijBrutJourTheorique = sjb * BAREME_2026.IJ_MALADIE_TAUX;
+var ijBrutJour = Math.min(ijBrutJourTheorique, BAREME_2026.IJ_MALADIE_MAX_JOUR);
+var ijNetJour = ijBrutJour * (1 - BAREME_2026.IJ_MALADIE_CSG_CRDS_TAUX);
+
+var carenceSecu = BAREME_2026.CARENCE_MALADIE_PRIVE_JOURS;
+var joursIndemnisesSecu = Math.max(0, dureeJours - carenceSecu);
+var totalIJBrut = ijBrutJour * joursIndemnisesSecu;
+var totalIJNet = ijNetJour * joursIndemnisesSecu;
+
+var eligibleMaintien = ancienneteAnnees >= BAREME_2026.MAINTIEN_ANCIENNETE_MIN_ANS;
+var palier = eligibleMaintien ? trouverPalierMaintien(Math.floor(ancienneteAnnees)) : null;
+var carenceEmployeur = BAREME_2026.MAINTIEN_CARENCE_EMPLOYEUR_JOURS;
+var salaireBrutJour = salaireMensuelBrut / 30;
+var totalComplementEmployeur = 0;
+var joursA90Effectifs = 0, joursA66Effectifs = 0;
+
+if (palier){
+var joursApresCarenceEmployeur = Math.max(0, dureeJours - carenceEmployeur);
+joursA90Effectifs = Math.min(joursApresCarenceEmployeur, palier.jours);
+joursA66Effectifs = Math.min(Math.max(0, joursApresCarenceEmployeur - palier.jours), palier.jours);
+var complement90PerJour = Math.max(0, salaireBrutJour * BAREME_2026.MAINTIEN_TAUX_PALIER1 - ijBrutJour);
+var complement66PerJour = Math.max(0, salaireBrutJour * BAREME_2026.MAINTIEN_TAUX_PALIER2 - ijBrutJour);
+totalComplementEmployeur = complement90PerJour * joursA90Effectifs + complement66PerJour * joursA66Effectifs;
+}
+
+return {
+statut: 'prive',
+salairePlafonne: salairePlafonne,
+sjb: sjb,
+ijBrutJour: ijBrutJour,
+ijNetJour: ijNetJour,
+carenceSecu: carenceSecu,
+joursIndemnisesSecu: joursIndemnisesSecu,
+totalIJBrut: totalIJBrut,
+totalIJNet: totalIJNet,
+eligibleMaintien: eligibleMaintien,
+palier: palier,
+carenceEmployeur: carenceEmployeur,
+joursA90Effectifs: joursA90Effectifs,
+joursA66Effectifs: joursA66Effectifs,
+totalComplementEmployeur: totalComplementEmployeur,
+totalPercuBrut: totalIJBrut + totalComplementEmployeur,
+totalPercuNet: totalIJNet + totalComplementEmployeur
+};
+}
+
+function estimerJoursRTT(mode, params){
+var joursCalendaires = 365;
+var weekEnds = 104;
+var joursFeries = BAREME_2026.JOURS_FERIES_SEMAINE_2026;
+var congesPayes = BAREME_2026.CONGES_PAYES_JOURS_OUVRES;
+var joursTravaillablesHorsForfait = joursCalendaires - weekEnds - joursFeries - congesPayes;
+
+if (mode === 'forfait'){
+var forfaitAnnuel = params.forfaitAnnuel || BAREME_2026.FORFAIT_JOURS_LEGAL_MAX;
+var joursRTT = joursTravaillablesHorsForfait - forfaitAnnuel;
+return {
+mode: mode,
+joursCalendaires: joursCalendaires,
+weekEnds: weekEnds,
+joursFeries: joursFeries,
+congesPayes: congesPayes,
+forfaitAnnuel: forfaitAnnuel,
+joursRTT: Math.max(0, Math.round(joursRTT * 10) / 10)
+};
+}
+
+// mode horaire : durée collective hebdomadaire > 35h, réparti sur 5 jours
+var dureeHebdo = params.dureeHebdo || 35;
+var dureeQuotidienne = dureeHebdo / 5;
+var semainesTravaillees = joursTravaillablesHorsForfait / 5;
+var heuresRTTAn = Math.max(0, (dureeHebdo - 35) * semainesTravaillees);
+var joursRTTHoraire = dureeQuotidienne > 0 ? heuresRTTAn / dureeQuotidienne : 0;
+return {
+mode: mode,
+dureeHebdo: dureeHebdo,
+dureeQuotidienne: dureeQuotidienne,
+semainesTravaillees: Math.round(semainesTravaillees * 10) / 10,
+heuresRTTAn: Math.round(heuresRTTAn * 10) / 10,
+joursRTT: Math.round(joursRTTHoraire * 10) / 10
+};
+}
+
 var _jspdfLoadPromise = null;
 function ensureJsPDF(callback){
 if (typeof window.jspdf !== 'undefined'){ callback(); return; }
@@ -830,9 +1017,13 @@ var SEARCH_INDEX = [
 {title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche"},
 {title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
+{title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic"},
+{title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail"},
+{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
 {title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD"},
 {title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026.html", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS"},
+{title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026.html", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026"},
 {title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026"},
 {title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd.html", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM"},
 {title:"Salaire minimum apprenti", url:"salaire-apprenti.html", cat:"Simulateur", kw:"salaire apprenti alternance grille smic pourcentage age annee contrat"},
@@ -849,6 +1040,7 @@ var SEARCH_INDEX = [
 {title:"Procédure de licenciement", url:"procedure-licenciement.html", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
 {title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI"},
 {title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
+{title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle.html", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},
 {title:"IA et travail : obligations de l'employeur", url:"ia-et-travail-obligations-employeur.html", cat:"Guide", kw:"intelligence artificielle travail CSE consultation formation adaptation surveillance algorithmique AI Act discrimination"},
 {title:"IA et conventions collectives", url:"ia-et-conventions-collectives.html", cat:"Guide", kw:"intelligence artificielle convention collective accord de branche accord d'entreprise MAIF BPCE negociation collective"},
 {title:"Comment lire sa fiche de paie", url:"comment-lire-sa-fiche-de-paie.html", cat:"Guide", kw:"fiche de paie bulletin de salaire avantage en nature titre restaurant heures supplementaires CSG CRDS net imposable prelevement a la source"},
