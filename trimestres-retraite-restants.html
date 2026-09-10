@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trimestres de Retraite Restants 2026 — Simulateur</title>
+<meta name="description" content="Calculez le nombre de trimestres qu'il vous reste à valider pour le taux plein, et votre âge légal de départ, selon votre génération. Barème après la suspension de la réforme des retraites (1er septembre 2026). Gratuit, calcul local.">
+<!-- SEO-META-START -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://messimulateursrh.fr/trimestres-retraite-restants.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MesSimulateursRH.fr">
+<meta property="og:title" content="Trimestres de Retraite Restants 2026 — Simulateur">
+<meta property="og:description" content="Calculez le nombre de trimestres qu'il vous reste à valider pour le taux plein, et votre âge légal de départ, selon votre génération. Barème après la suspension de la réforme des retraites (1er septembre 2026). Gratuit, calcul local.">
+<meta property="og:url" content="https://messimulateursrh.fr/trimestres-retraite-restants.html">
+<meta property="og:image" content="https://messimulateursrh.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trimestres de Retraite Restants 2026 — Simulateur">
+<meta name="twitter:description" content="Calculez le nombre de trimestres qu'il vous reste à valider pour le taux plein, et votre âge légal de départ, selon votre génération. Barème après la suspension de la réforme des retraites (1er septembre 2026). Gratuit, calcul local.">
+<meta name="twitter:image" content="https://messimulateursrh.fr/og-image.png">
+<meta name="robots" content="index, follow">
+<!-- SEO-META-END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Où trouver mon nombre de trimestres déjà validés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sur votre relevé de carrière, consultable gratuitement sur info-retraite.fr (compte unique tous régimes) ou sur le site de l'Assurance retraite. Ce simulateur ne peut pas deviner ce nombre à votre place : il dépend de votre historique complet de cotisation (emplois, chômage indemnisé, maladie, enfants...)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre l'âge légal et l'âge du taux plein automatique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'âge légal est l'âge minimum auquel vous pouvez demander votre retraite. Si vous n'avez pas tous vos trimestres à cet âge, votre pension subit une décote (réduction). L'âge du taux plein automatique (67 ans pour les générations nées à partir de 1955) est l'âge à partir duquel la décote disparaît automatiquement, même sans avoir tous vos trimestres."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le barème utilisé est-il définitif ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. La loi de financement de la Sécurité sociale (LFSS) pour 2026 a suspendu, pour les départs à compter du 1ᵉʳ septembre 2026, la progression de l'âge légal et de la durée d'assurance prévue par la réforme de 2023 pour les générations nées entre 1964 et 1968. Cette suspension est présentée comme temporaire et provisoire, dans l'attente d'une décision politique ultérieure : le barème pourrait donc encore changer, en particulier pour les générations les plus jeunes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ce simulateur calcule-t-il le montant de ma pension ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Il calcule uniquement une durée : le nombre de trimestres qu'il vous reste à valider et votre âge légal de départ. Le montant de la pension dépend d'un calcul bien plus complexe (salaire annuel moyen sur vos 25 meilleures années, taux de liquidation, points de retraite complémentaire...), hors de portée d'un simulateur fiable sans votre relevé de carrière complet. Pour une estimation de montant, utilisez le simulateur officiel sur info-retraite.fr."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Je suis né(e) avant 1961, quel est mon âge légal ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "62 ans, et 167 trimestres requis pour le taux plein. Ces générations ne sont pas concernées par la réforme de 2023 ni par sa suspension de 2026."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "datePublished": "2026-09-09",
+  "dateModified": "2026-09-09",
+  "name": "Trimestres de Retraite Restants 2026",
+  "description": "Calculez le nombre de trimestres qu'il vous reste à valider pour le taux plein, et votre âge légal de départ, selon votre génération, après la suspension de la réforme des retraites du 1er septembre 2026.",
+  "url": "https://messimulateursrh.fr/trimestres-retraite-restants.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Tout navigateur web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "isAccessibleForFree": true
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://messimulateursrh.fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ancienneté et fin de carrière",
+      "item": "https://messimulateursrh.fr/simulateurs-anciennete-carriere.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Trimestres de retraite restants",
+      "item": "https://messimulateursrh.fr/trimestres-retraite-restants.html"
+    }
+  ]
+}
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7534838731618880" crossorigin="anonymous"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><svg class="brand-mark" viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandmark-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#1742b8"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#brandmark-g)"/><text x="50" y="69" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="white" text-anchor="middle">€</text></svg>Mes<span>Simulateurs</span>RH</a>
+    <button type="button" class="search-toggle" id="search-toggle" aria-haspopup="dialog" aria-controls="search-overlay" aria-label="Rechercher un sujet">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav class="main">
+      <details class="nav-dropdown">
+        <summary>Simulateurs</summary>
+        <div class="nav-dropdown-menu">
+          <a href="simulateurs-rupture-contrat.html">Rupture du contrat de travail</a>
+          <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+          <a href="simulateurs-conges-temps-travail.html">Congés et temps de travail</a>
+          <a href="simulateurs-anciennete-carriere.html">Ancienneté et fin de carrière</a>
+          <a href="aller-plus-loin.html">Aller plus loin</a>
+        </div>
+      </details>
+      <a href="formation.html">Formation</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="ressources-officielles.html">Ressources officielles</a>
+    </nav>
+    <div class="audience-toggle-wrap">
+      <div class="audience-toggle">
+        <button data-audience="salarie">Je suis salarié</button>
+        <button data-audience="employeur">Je suis employeur</button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
+    <div class="search-panel-top">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+    <p class="search-empty" id="search-empty" hidden>Aucun résultat. Essayez : chômage, salaire, congés, retraite...</p>
+  </div>
+</div>
+
+<main id="main">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="index.html">Accueil</a>
+      <span class="sep" aria-hidden="true">›</span>
+      <a href="simulateurs-anciennete-carriere.html">Ancienneté et fin de carrière</a>
+      <span class="sep" aria-hidden="true">›</span>
+      <span aria-current="page">Trimestres de retraite restants</span>
+    </nav>
+  <section class="hero">
+    <h1>Trimestres de retraite restants</h1>
+    <p>
+      <span class="for-salarie">Calculez combien de trimestres il vous reste à valider pour le taux plein, et l'âge légal minimum auquel vous pourrez partir, selon votre génération.</span>
+      <span class="for-employeur">Estimez l'horizon de départ à la retraite d'un salarié proche de la fin de carrière, pour anticiper un remplacement ou une transition.</span>
+    </p>
+    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <p class="update-date">Barème vérifié le 9 septembre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+  </section>
+
+  <div class="quick-answer"><strong>En bref :</strong> Le nombre de trimestres requis pour le taux plein (entre 167 et 172 selon votre génération) et l'âge légal minimum (entre 62 et 64 ans) dépendent de votre année de naissance, selon le barème en vigueur depuis la suspension partielle de la réforme des retraites au 1ᵉʳ septembre 2026.</div>
+
+  <div class="notice" style="margin:0 0 20px;">⚠️ <strong>Barème provisoire.</strong> La suspension de la réforme votée fin 2025 est présentée comme temporaire, dans l'attente d'une décision politique ultérieure. Les chiffres ci-dessous peuvent encore évoluer, notamment pour les générations nées après 1968. Pour une estimation officielle et à jour, consultez toujours <a href="https://www.info-retraite.fr" target="_blank" rel="noopener noreferrer">info-retraite.fr</a>.</div>
+
+  <div class="card">
+    <div class="field">
+      <label for="dateNaissanceTR">Date de naissance</label>
+      <input type="date" id="dateNaissanceTR">
+    </div>
+    <div class="field">
+      <label for="trimestresValidesTR">Nombre de trimestres déjà validés</label>
+      <input type="number" id="trimestresValidesTR" min="0" max="220" step="1" placeholder="ex : 130">
+      <div class="hint">Consultez ce nombre sur votre relevé de carrière, gratuit sur <a href="https://www.info-retraite.fr" target="_blank" rel="noopener noreferrer">info-retraite.fr</a>. Ce simulateur ne peut pas le calculer à votre place.</div>
+    </div>
+    <button class="compute" onclick="calculerTrimestresRetraite()">Calculer</button>
+
+    <div class="result" id="resultTR">
+      <div class="amount" id="montantTR">—</div>
+      <div class="detail" id="detailTR"></div>
+      <div class="breakdown" id="breakdownTR"></div>
+      <p class="notice" id="noticeTR" style="display:none;"></p>
+      <div class="pdf-actions">
+        <button class="compute pdf" onclick="telechargerPDF_TR()">📄 Télécharger le PDF récapitulatif</button>
+        <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
+        <p class="report-error">⚠️ <a href="mailto:messimulateursrh@gmail.com?subject=Erreur%20signal%C3%A9e%20-%20Trimestres%20de%20retraite%20restants">Signaler une erreur sur ce résultat</a></p>
+      </div>
+    </div>
+    <div class="notice" id="noticeErreurTR" style="display:none;"></div>
+  </div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="content-section">
+    <h2>Comment est calculé le nombre de trimestres restants ?</h2>
+    <p>
+      Deux notions gouvernent le départ à la retraite : l'<strong>âge légal</strong>, âge minimum auquel vous pouvez demander votre retraite, et la <strong>durée d'assurance</strong> (nombre de trimestres), qui détermine si vous partez à taux plein ou avec une décote. Les deux dépendent de votre année (et parfois du trimestre) de naissance.
+    </p>
+    <p>
+      La loi de financement de la Sécurité sociale pour 2026 a suspendu, pour les départs à effet du 1ᵉʳ septembre 2026, la progression prévue par la réforme de 2023 pour les générations nées entre 1964 et 1968 : l'âge légal recule de 3 mois de moins que prévu, et la durée d'assurance requise est réduite d'un à deux trimestres selon les cas. Cette mesure est présentée comme temporaire et provisoire.
+    </p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:420px;">
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Génération</th>
+        <th style="text-align:left; padding:6px;">Âge légal</th>
+        <th style="text-align:left; padding:6px;">Trimestres requis</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1960 et avant</td><td style="padding:6px;">62 ans</td><td style="padding:6px;">167</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1961 (jan.–août)</td><td style="padding:6px;">62 ans</td><td style="padding:6px;">168</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1961 (sept.–déc.)</td><td style="padding:6px;">62 ans et 3 mois</td><td style="padding:6px;">169</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1962</td><td style="padding:6px;">62 ans et 6 mois</td><td style="padding:6px;">169</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1963</td><td style="padding:6px;">62 ans et 9 mois</td><td style="padding:6px;">170</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1964</td><td style="padding:6px;">62 ans et 9 mois</td><td style="padding:6px;">170</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1965 (jan.–mars)</td><td style="padding:6px;">62 ans et 9 mois</td><td style="padding:6px;">170</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1965 (avr.–déc.)</td><td style="padding:6px;">63 ans</td><td style="padding:6px;">171</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1966</td><td style="padding:6px;">63 ans et 3 mois</td><td style="padding:6px;">172</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1967</td><td style="padding:6px;">63 ans et 6 mois</td><td style="padding:6px;">172</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1968</td><td style="padding:6px;">63 ans et 9 mois</td><td style="padding:6px;">172</td></tr>
+      <tr><td style="padding:6px;">1969 et après</td><td style="padding:6px;">64 ans</td><td style="padding:6px;">172</td></tr>
+    </table>
+    </div>
+    <div class="notice">Quel que soit votre nombre de trimestres, la décote disparaît automatiquement à <strong>67 ans</strong> (générations nées à partir de 1955) : à cet âge, vous partez à taux plein même sans avoir tous vos trimestres. Cet âge de 67 ans n'est pas concerné par la suspension de la réforme.</div>
+
+    <div class="example-box">
+      <h3>Exemple concret</h3>
+      <p>Une personne née en juillet 1966, ayant validé 140 trimestres à ce jour :</p>
+      <p>Génération 1966 → âge légal 63 ans et 3 mois, 172 trimestres requis pour le taux plein. Trimestres restants : 172 − 140 = <strong>32 trimestres</strong>, soit 8 années pleines de cotisation si elle travaille sans interruption.</p>
+    </div>
+
+    <h2>Questions fréquentes</h2>
+    <details class="faq">
+      <summary>Où trouver mon nombre de trimestres déjà validés ?</summary>
+      <p>Sur votre relevé de carrière, consultable gratuitement sur <a href="https://www.info-retraite.fr" target="_blank" rel="noopener noreferrer">info-retraite.fr</a> (compte unique tous régimes) ou sur le site de l'Assurance retraite. Ce simulateur ne peut pas deviner ce nombre à votre place : il dépend de votre historique complet de cotisation (emplois, chômage indemnisé, maladie, enfants...).</p>
+    </details>
+    <details class="faq">
+      <summary>Quelle est la différence entre l'âge légal et l'âge du taux plein automatique ?</summary>
+      <p>L'âge légal est l'âge minimum auquel vous pouvez demander votre retraite. Si vous n'avez pas tous vos trimestres à cet âge, votre pension subit une décote (réduction). L'âge du taux plein automatique (67 ans pour les générations nées à partir de 1955) est l'âge à partir duquel la décote disparaît automatiquement, même sans avoir tous vos trimestres.</p>
+    </details>
+    <details class="faq">
+      <summary>Le barème utilisé est-il définitif ?</summary>
+      <p>Non. La loi de financement de la Sécurité sociale (LFSS) pour 2026 a suspendu, pour les départs à compter du 1ᵉʳ septembre 2026, la progression de l'âge légal et de la durée d'assurance prévue par la réforme de 2023 pour les générations nées entre 1964 et 1968. Cette suspension est présentée comme temporaire et provisoire, dans l'attente d'une décision politique ultérieure : le barème pourrait donc encore changer, en particulier pour les générations les plus jeunes.</p>
+    </details>
+    <details class="faq">
+      <summary>Ce simulateur calcule-t-il le montant de ma pension ?</summary>
+      <p>Non. Il calcule uniquement une durée : le nombre de trimestres qu'il vous reste à valider et votre âge légal de départ. Le montant de la pension dépend d'un calcul bien plus complexe (salaire annuel moyen sur vos 25 meilleures années, taux de liquidation, points de retraite complémentaire...), hors de portée d'un simulateur fiable sans votre relevé de carrière complet. Pour une estimation de montant, utilisez le simulateur officiel sur info-retraite.fr.</p>
+    </details>
+    <details class="faq">
+      <summary>Je suis né(e) avant 1961, quel est mon âge légal ?</summary>
+      <p>62 ans, et 167 trimestres requis pour le taux plein. Ces générations ne sont pas concernées par la réforme de 2023 ni par sa suspension de 2026.</p>
+    </details>
+
+    <div class="related-tools">
+      <h3>Autres simulateurs utiles</h3>
+      <div class="links">
+        <a href="indemnite-depart-retraite.html">→ Indemnité de départ à la retraite</a>
+        <a href="cumul-emploi-retraite.html">→ Cumul emploi-retraite</a>
+        <a href="calcul-anciennete.html">→ Calcul d'ancienneté</a>
+        <a href="retraite-parents-trimestres-2026.html">→ Trimestres retraite des parents (LFSS 2026)</a>
+        <a href="portabilite-mutuelle.html">→ Portabilité de la mutuelle et de la prévoyance</a>
+        <a href="ressources-officielles.html">→ Ressources officielles</a>
+      </div>
+    </div>
+  </section>
+  <div class="ad-slot ad-slot-bottom">Emplacement publicitaire</div>
+</main>
+
+<footer class="site">
+  <div class="footer-sitemap">
+    <p class="footer-tagline">MesSimulateursRH.fr — simulateurs gratuits de droit du travail pour comprendre vos droits, chiffrer votre situation et préparer une décision éclairée.</p>
+    <nav class="footer-links" aria-label="Plan du site">
+      <div class="footer-col">
+        <h4>Simulateurs</h4>
+        <a href="simulateurs-rupture-contrat.html">Rupture du contrat</a>
+        <a href="simulateurs-salaire-cout-travail.html">Salaire et coût du travail</a>
+        <a href="simulateurs-conges-temps-travail.html">Congés et temps de travail</a>
+        <a href="simulateurs-anciennete-carriere.html">Ancienneté et carrière</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ressources</h4>
+        <a href="formation.html">Formation gratuite</a>
+        <a href="actualites.html">Actualités</a>
+        <a href="ressources-officielles.html">Ressources officielles</a>
+        <a href="glossaire-droit-travail.html">Glossaire</a>
+      </div>
+      <div class="footer-col">
+        <h4>Le site</h4>
+        <a href="index.html">Accueil</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+      </div>
+    </nav>
+  </div>
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal général en vigueur depuis la suspension partielle de la réforme des retraites du 1ᵉʳ septembre 2026, présentée comme temporaire et susceptible d'évoluer. Il ne calcule ni le montant de votre pension, ni les cas particuliers (carrière longue, catégorie active de la fonction publique, régimes spéciaux, invalidité). Pour une estimation officielle et à jour de vos droits, consultez votre relevé de carrière et le simulateur sur info-retraite.fr.
+    <br><br>
+    <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script src="logique-calculs.txt"></script>
+<script>
+function calculerTrimestresRetraite(){
+  var dateNaissance = document.getElementById('dateNaissanceTR').value;
+  var trimestresValides = parseInt(document.getElementById('trimestresValidesTR').value, 10) || 0;
+  var resultBox = document.getElementById('resultTR');
+  var noticeErreur = document.getElementById('noticeErreurTR');
+  var notice = document.getElementById('noticeTR');
+
+  if (!dateNaissance){
+    resultBox.classList.remove('show');
+    return;
+  }
+
+  var r = estimerTrimestresRetraiteRestants(dateNaissance, trimestresValides);
+  if (!r){
+    noticeErreur.style.display = 'block';
+    noticeErreur.textContent = 'Date de naissance invalide.';
+    resultBox.classList.remove('show');
+    return;
+  }
+  noticeErreur.style.display = 'none';
+
+  var ageTxt = r.ageLegalAns + ' an' + (r.ageLegalAns > 1 ? 's' : '') + (r.ageLegalMoisSupp > 0 ? ' et ' + r.ageLegalMoisSupp + ' mois' : '');
+
+  if (r.tauxPleinAtteint){
+    document.getElementById('montantTR').textContent = '0 trimestre restant';
+    document.getElementById('detailTR').textContent = 'Vous avez déjà validé le nombre de trimestres requis pour le taux plein.';
+  } else {
+    document.getElementById('montantTR').textContent = r.trimestresRestants + ' trimestre' + (r.trimestresRestants > 1 ? 's' : '') + ' restant' + (r.trimestresRestants > 1 ? 's' : '');
+    document.getElementById('detailTR').textContent = 'À valider pour atteindre le taux plein, à raison de 4 trimestres par année de cotisation au maximum.';
+  }
+
+  document.getElementById('breakdownTR').innerHTML =
+    'Âge légal minimum de départ : ' + ageTxt + '<br>' +
+    'Trimestres requis pour le taux plein : ' + r.trimestresRequis + '<br>' +
+    'Trimestres déjà validés (renseignés) : ' + r.trimestresDejaValides + '<br>' +
+    'Âge du taux plein automatique (sans condition de trimestres) : ' + r.ageTauxPleinAutomatique + ' ans';
+
+  notice.innerHTML = 'Barème provisoire, susceptible d\'évoluer (voir l\'avertissement en haut de page). Ce calcul ne remplace pas votre relevé de carrière officiel sur <a href="https://www.info-retraite.fr" target="_blank" rel="noopener noreferrer">info-retraite.fr</a>.';
+  notice.style.display = 'block';
+
+  resultBox.classList.add('show');
+}
+
+function telechargerPDF_TR(){
+  var dateNaissance = document.getElementById('dateNaissanceTR').value;
+  var trimestresValides = parseInt(document.getElementById('trimestresValidesTR').value, 10) || 0;
+  if (!dateNaissance) return;
+
+  var r = estimerTrimestresRetraiteRestants(dateNaissance, trimestresValides);
+  if (!r) return;
+
+  var ageTxt = r.ageLegalAns + ' an' + (r.ageLegalAns > 1 ? 's' : '') + (r.ageLegalMoisSupp > 0 ? ' et ' + r.ageLegalMoisSupp + ' mois' : '');
+
+  var lignes = [
+    { label: 'Date de naissance', value: dateNaissance },
+    { label: 'Âge légal minimum de départ', value: ageTxt },
+    { label: 'Trimestres requis pour le taux plein', value: String(r.trimestresRequis) },
+    { label: 'Trimestres déjà validés (renseignés)', value: String(r.trimestresDejaValides) },
+    { label: 'Âge du taux plein automatique', value: r.ageTauxPleinAutomatique + ' ans' },
+    { label: 'Trimestres restants', value: r.tauxPleinAtteint ? '0 (taux plein déjà atteint)' : String(r.trimestresRestants), type: 'total' }
+  ];
+
+  genererPDFSimulation({
+    titre: 'Simulation de trimestres de retraite restants',
+    sousTitre: "Nombre de trimestres à valider pour le taux plein et âge légal de départ",
+    lignes: lignes,
+    disclaimer: "Simulateur indicatif basé sur le barème légal général en vigueur depuis la suspension partielle de la réforme des retraites du 1er septembre 2026, présentée comme temporaire et susceptible d'évoluer. Il ne calcule pas le montant de la pension et ne couvre pas les cas particuliers (carrière longue, catégorie active de la fonction publique, régimes spéciaux, invalidité). Pour une estimation officielle et à jour, consultez votre relevé de carrière sur info-retraite.fr.",
+    nomFichier: 'simulation-trimestres-retraite-restants.pdf'
+  });
+}
+</script>
+</body>
+</html>

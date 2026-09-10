@@ -66,6 +66,14 @@ ABATTEMENT_ASSIETTE_CSG_CRDS: 0.9825,
 JOURS_OUVRABLES_MOIS: 26,
 JOURS_CONGES_MAX_AN: 30,
 CHARGES_PATRONALES_MOYENNES: 0.42,
+VEHICULE_AN_ACHAT5ANS_SANS_CARBURANT: 0.15,
+VEHICULE_AN_ACHAT5ANS_AVEC_CARBURANT: 0.20,
+VEHICULE_AN_ACHAT5ANSPLUS_SANS_CARBURANT: 0.10,
+VEHICULE_AN_ACHAT5ANSPLUS_AVEC_CARBURANT: 0.15,
+VEHICULE_AN_LOCATION_SANS_CARBURANT: 0.50,
+VEHICULE_AN_LOCATION_AVEC_CARBURANT: 0.67,
+VEHICULE_ELECTRIQUE_ABATTEMENT_TAUX: 0.70,
+VEHICULE_ELECTRIQUE_ABATTEMENT_PLAFOND_AN: 4641.60,
 SJB_DIVISEUR: 91.25,
 IJ_MATERNITE_TAUX: 0.79,
 IJ_PATERNITE_TAUX: 0.938,
@@ -133,6 +141,15 @@ var GRILLE_APPRENTISSAGE = {
 '21-25': [0.53, 0.61, 0.78],
 '26plus': [1.00, 1.00, 1.00]
 };
+// Grille légale du salaire minimum en contrat de professionnalisation, en % du SMIC (art. D6325-14 et D6325-15
+// du Code du travail). Contrairement à l'apprentissage, la grille dépend de l'âge ET du niveau de qualification
+// déjà obtenu (pas de l'année du contrat) ; à 26 ans et plus, le minimum est 100% du SMIC (ou 85% du minimum
+// conventionnel de branche si plus favorable — non calculable ici faute de connaître ce minimum, signalé en FAQ).
+var GRILLE_PROFESSIONNALISATION = {
+'moins21': { sansBacPro: 0.55, avecBacPro: 0.65 },
+'21-25': { sansBacPro: 0.70, avecBacPro: 0.80 },
+'26plus': { sansBacPro: 1.00, avecBacPro: 1.00 }
+};
 function calculerPrimePrecarite(remunerationBrutePercue, tauxReduit){
 // Art. L1243-8/L1243-9 du Code du travail (CDD) — même taux pour l'indemnité de fin de mission intérim (L1251-32/L1251-33).
 // 10% de la rémunération brute totale perçue pendant le contrat (hors indemnité compensatrice de congés payés),
@@ -166,6 +183,28 @@ tauxSeuil: tauxSeuil,
 seuil: seuil,
 montantExonere: montantExonere,
 montantSoumis: montantSoumis,
+cotisations: cotisations,
+net: net
+};
+}
+function salaireMinimumContratPro(trancheAge, avecBacPro){
+// trancheAge : 'moins21' | '21-25' | '26plus'. Retourne le salaire minimum brut mensuel (% du SMIC).
+var grille = GRILLE_PROFESSIONNALISATION[trancheAge];
+if (!grille) return null;
+var pct = avecBacPro ? grille.avecBacPro : grille.sansBacPro;
+return {
+pourcentage: pct,
+salaireBrut: BAREME_2026.SMIC_BRUT_MENSUEL * pct
+};
+}
+// Net réel en contrat de professionnalisation : contrairement à l'apprentissage, il n'existe pas de seuil
+// d'exonération de cotisations salariales spécifique — le brut est intégralement soumis aux cotisations
+// salariales et à la CSG/CRDS de droit commun, comme pour un salarié classique (non-cadre). Réutilise
+// directement detailCotisationsSalariales() sur la totalité du brut.
+function estimerNetContratPro(salaireBrut){
+var cotisations = detailCotisationsSalariales(salaireBrut, false);
+var net = salaireBrut - cotisations.total;
+return {
 cotisations: cotisations,
 net: net
 };
@@ -683,14 +722,110 @@ totalNetCumuleApresIR: net.tmi > 0 ? net.totalNetApresIR * dureeMois : null,
 secondePensionPlafondPotentiel: secondePensionPlafondPotentiel
 };
 }
-function estimerCoutSalarieEntreprise(brutMensuel, avantagesMensuel, primesAnnuelles){
+function estimerAvantageNatureVehicule(mode, valeurReference, avecCarburant, electrique){
+var taux;
+if (mode === 'achat5ansmoins'){
+taux = avecCarburant ? BAREME_2026.VEHICULE_AN_ACHAT5ANS_AVEC_CARBURANT : BAREME_2026.VEHICULE_AN_ACHAT5ANS_SANS_CARBURANT;
+} else if (mode === 'achat5ansplus'){
+taux = avecCarburant ? BAREME_2026.VEHICULE_AN_ACHAT5ANSPLUS_AVEC_CARBURANT : BAREME_2026.VEHICULE_AN_ACHAT5ANSPLUS_SANS_CARBURANT;
+} else {
+taux = avecCarburant ? BAREME_2026.VEHICULE_AN_LOCATION_AVEC_CARBURANT : BAREME_2026.VEHICULE_AN_LOCATION_SANS_CARBURANT;
+}
+var avantageAnnuelBrut = (valeurReference || 0) * taux;
+var abattementApplique = 0;
+if (electrique){
+abattementApplique = Math.min(avantageAnnuelBrut * BAREME_2026.VEHICULE_ELECTRIQUE_ABATTEMENT_TAUX, BAREME_2026.VEHICULE_ELECTRIQUE_ABATTEMENT_PLAFOND_AN);
+}
+var avantageAnnuelNet = Math.max(0, avantageAnnuelBrut - abattementApplique);
+return {
+tauxApplique: taux,
+avantageAnnuelBrut: avantageAnnuelBrut,
+abattementApplique: abattementApplique,
+avantageAnnuel: avantageAnnuelNet,
+avantageMensuel: avantageAnnuelNet / 12
+};
+}
+function estimerCoutSalarieEntreprise(brutMensuel, avantagesMensuel, primesAnnuelles, vehiculeMensuel){
 var charges = brutMensuel * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
 var primesMensuelles = (primesAnnuelles || 0) / 12;
-var coutMensuel = brutMensuel + charges + (avantagesMensuel || 0) + primesMensuelles;
+var vehicule = vehiculeMensuel || 0;
+var coutMensuel = brutMensuel + charges + (avantagesMensuel || 0) + primesMensuelles + vehicule;
 return {
 charges: charges,
+vehicule: vehicule,
 coutMensuel: coutMensuel,
 coutAnnuel: coutMensuel * 12
+};
+}
+var MOTIFS_PORTABILITE_EXCLUS = ['faute_lourde', 'demission_non_legitime'];
+function estimerPortabiliteMutuelle(dateEntreeStr, dateSortieStr, motifRupture){
+var r = ancienneteDepuisDates(dateEntreeStr, dateSortieStr);
+if (!r) return null;
+var moisComplets = r.years * 12 + r.months;
+var dureeContratMoisArrondie = moisComplets + (r.days > 0 ? 1 : 0);
+var ancienneteMinimaleAtteinte = moisComplets >= 1;
+var motifEligible = MOTIFS_PORTABILITE_EXCLUS.indexOf(motifRupture) === -1;
+var eligible = ancienneteMinimaleAtteinte && motifEligible;
+var dureePortabiliteMois = eligible ? Math.min(dureeContratMoisArrondie, 12) : 0;
+return {
+dureeContratMois: dureeContratMoisArrondie,
+eligible: eligible,
+ancienneteMinimaleAtteinte: ancienneteMinimaleAtteinte,
+motifEligible: motifEligible,
+dureePortabiliteMois: dureePortabiliteMois
+};
+}
+// Barème âge légal / trimestres requis par génération, régime général, après la suspension partielle
+// de la réforme des retraites de 2023 votée fin 2025 (LFSS 2026, loi n°2025-1403 du 30 décembre 2025),
+// effective pour les départs à compter du 1er septembre 2026. Mesure présentée comme temporaire et
+// provisoire (jusqu'à une décision ultérieure), pas une règle définitive. Sources croisées (2) : altis-conseil.fr
+// et retraite.com, convergentes sur ce tableau. Ne couvre que le régime général salarié (pas la fonction
+// publique catégorie active, dont le barème diffère).
+var BAREME_RETRAITE_AGE_LEGAL = [
+{ anneeMax: 1960, ageAns: 62, ageMoisSupp: 0, trimestresRequis: 167 },
+{ annee: 1961, moisMax: 8, ageAns: 62, ageMoisSupp: 0, trimestresRequis: 168 },
+{ annee: 1961, moisMin: 9, ageAns: 62, ageMoisSupp: 3, trimestresRequis: 169 },
+{ annee: 1962, ageAns: 62, ageMoisSupp: 6, trimestresRequis: 169 },
+{ annee: 1963, ageAns: 62, ageMoisSupp: 9, trimestresRequis: 170 },
+{ annee: 1964, ageAns: 62, ageMoisSupp: 9, trimestresRequis: 170 },
+{ annee: 1965, moisMax: 3, ageAns: 62, ageMoisSupp: 9, trimestresRequis: 170 },
+{ annee: 1965, moisMin: 4, ageAns: 63, ageMoisSupp: 0, trimestresRequis: 171 },
+{ annee: 1966, ageAns: 63, ageMoisSupp: 3, trimestresRequis: 172 },
+{ annee: 1967, ageAns: 63, ageMoisSupp: 6, trimestresRequis: 172 },
+{ annee: 1968, ageAns: 63, ageMoisSupp: 9, trimestresRequis: 172 },
+{ anneeMin: 1969, ageAns: 64, ageMoisSupp: 0, trimestresRequis: 172 }
+];
+var RETRAITE_AGE_TAUX_PLEIN_AUTOMATIQUE = 67;
+function baremeRetraitePourNaissance(anneeNaissance, moisNaissance){
+for (var i = 0; i < BAREME_RETRAITE_AGE_LEGAL.length; i++){
+var row = BAREME_RETRAITE_AGE_LEGAL[i];
+if (row.anneeMax !== undefined && row.annee === undefined && anneeNaissance <= row.anneeMax) return row;
+if (row.anneeMin !== undefined && row.annee === undefined && anneeNaissance >= row.anneeMin) return row;
+if (row.annee !== undefined && row.annee === anneeNaissance){
+if (row.moisMax !== undefined && moisNaissance <= row.moisMax) return row;
+if (row.moisMin !== undefined && moisNaissance >= row.moisMin) return row;
+if (row.moisMax === undefined && row.moisMin === undefined) return row;
+}
+}
+return null;
+}
+function estimerTrimestresRetraiteRestants(dateNaissanceStr, trimestresDejaValides){
+var d = new Date(dateNaissanceStr);
+if (isNaN(d.getTime())) return null;
+var annee = d.getFullYear();
+var mois = d.getMonth() + 1;
+var bareme = baremeRetraitePourNaissance(annee, mois);
+if (!bareme) return null;
+var dejaValides = trimestresDejaValides || 0;
+var trimestresRestants = Math.max(0, bareme.trimestresRequis - dejaValides);
+return {
+ageLegalAns: bareme.ageAns,
+ageLegalMoisSupp: bareme.ageMoisSupp,
+trimestresRequis: bareme.trimestresRequis,
+trimestresDejaValides: dejaValides,
+trimestresRestants: trimestresRestants,
+tauxPleinAtteint: trimestresRestants <= 0,
+ageTauxPleinAutomatique: RETRAITE_AGE_TAUX_PLEIN_AUTOMATIQUE
 };
 }
 function estimerIJMaternitePaternite(salaireMensuelBrut, type, dureeJours){
@@ -1153,6 +1288,8 @@ var SEARCH_INDEX = [
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche"},
 {title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
 {title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic"},
+{title:"Trimestres de retraite restants", url:"trimestres-retraite-restants.html", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
+{title:"Je veux quitter mon emploi (guide interactif)", url:"comment-quitter-son-emploi.html", cat:"Simulateur", kw:"quitter emploi demission licenciement rupture conventionnelle guide interactif que faire"},
 {title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail"},
 {title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
@@ -1162,6 +1299,7 @@ var SEARCH_INDEX = [
 {title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026"},
 {title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd.html", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM"},
 {title:"Salaire minimum apprenti", url:"salaire-apprenti.html", cat:"Simulateur", kw:"salaire apprenti alternance grille smic pourcentage age annee contrat"},
+{title:"Salaire minimum contrat de professionnalisation", url:"salaire-contrat-professionnalisation.html", cat:"Simulateur", kw:"salaire contrat professionnalisation alternance grille pourcentage age bac pro"},
 {title:"Chômage partiel (activité partielle)", url:"chomage-partiel.html", cat:"Simulateur", kw:"chomage partiel activite partielle indemnite salarie heures chomees"},
 {title:"Indemnités kilométriques", url:"frais-kilometriques.html", cat:"Simulateur", kw:"frais kilometriques indemnite bareme fiscal CV puissance distance frais reels"},
 {title:"Licenciement pour faute grave", url:"faute-grave.html", cat:"Guide", kw:"faute grave licenciement prescription 2 mois mise a pied conservatoire abandon poste"},
@@ -1200,6 +1338,7 @@ var SEARCH_INDEX = [
 {title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026.html", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
 {title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission.html", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
 {title:"Glossaire du droit du travail", url:"glossaire-droit-travail.html", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique"},
+{title:"Portabilité de la mutuelle", url:"portabilite-mutuelle.html", cat:"Simulateur", kw:"portabilite mutuelle prevoyance maintien gratuit L911-8 duree 12 mois rupture"},
 {title:"Ressources officielles", url:"ressources-officielles.html", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
 {title:"À propos", url:"a-propos.html", cat:"Page", kw:"a propos qui edite methode sources"},
 {title:"Accueil", url:"index.html", cat:"Page", kw:"accueil simulateurs droit du travail"},

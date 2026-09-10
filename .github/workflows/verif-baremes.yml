@@ -9,7 +9,7 @@ on:
 
 permissions:
   issues: write
-  contents: read
+  contents: write
 
 jobs:
   verifier-baremes:
@@ -65,3 +65,37 @@ jobs:
               body: "Le contrôle mensuel n'a pas pu joindre l'API OpenFisca (instance de prototypage, sans garantie de disponibilité). Aucun écart n'a été détecté, mais aucune vérification n'a eu lieu non plus.\n\n```\n" + body + "\n```\n\nCe n'est pas urgent : à vérifier manuellement si ça se reproduit plusieurs mois de suite.",
               labels: ['barème', 'info']
             });
+
+      - name: Mettre à jour la date de vérification affichée (si aucun écart)
+        if: steps.verif.outputs.exit_code == '0'
+        run: |
+          python3 - <<'EOF'
+          import re, datetime
+          mois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]
+          today = datetime.date.today()
+          date_fr = f"{today.day} {mois[today.month-1]} {today.year}"
+          with open('a-propos.html', 'r', encoding='utf-8') as f:
+              html = f.read()
+          new_html = re.sub(
+              r'vérifié le <strong>[^<]*</strong>(?: \([^)]*\))?',
+              f'vérifié le <strong>{date_fr}</strong>',
+              html,
+              count=1
+          )
+          with open('a-propos.html', 'w', encoding='utf-8') as f:
+              f.write(new_html)
+          EOF
+
+      - name: Committer la date mise à jour si elle a changé
+        if: steps.verif.outputs.exit_code == '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- a-propos.html; then
+            git add a-propos.html
+            git commit -m "Mise à jour automatique de la date de vérification du barème (contrôle mensuel sans écart)"
+            git push
+          else
+            echo "Aucun changement (date déjà à jour ou correspondance non trouvée)."
+          fi
+
