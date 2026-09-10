@@ -1283,7 +1283,7 @@ var SEARCH_INDEX = [
 {title:"Calendrier des jours de pont", url:"calendrier-ponts.html", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
 {title:"Passage à temps partiel", url:"passage-temps-partiel.html", cat:"Simulateur", kw:"temps partiel salaire net impact"},
 {title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge"},
-{title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent"},
+{title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
 {title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche"},
 {title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
