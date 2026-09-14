@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parts Fiscales et Quotient Familial 2026 — Simulateur</title>
-<meta name="description" content="Calculez votre nombre de parts fiscales (quotient familial) selon votre situation familiale, et votre taux marginal d'imposition (TMI). Pas un calcul d'impôt.">
+<meta name="description" content="Calculez votre nombre de parts fiscales (quotient familial) et votre taux marginal d'imposition, et comparez votre impôt avant et après un mariage ou un PACS. Gratuit, sans compte.">
 <!-- SEO-META-START -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%231742b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-family='Arial, sans-serif' font-size='58' font-weight='800' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
 <link rel="canonical" href="https://messimulateursrh.fr/quotient-familial.html">
@@ -87,6 +87,22 @@
             "@type": "Answer",
             "text": "Une personne seule, parent isolé (case T) avec 2 enfants à charge en garde exclusive a 2,5 parts fiscales : 1 part de base, 0,5 part pour chacun des 2 enfants, plus 0,5 part supplémentaire réservée au 1er enfant au titre du statut de parent isolé."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Le mariage ou le PACS fait-il baisser les impôts ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pas toujours. Il n'existe aucune réduction d'impôt propre au mariage ou au PACS : le seul effet fiscal est l'imposition commune, qui réunit les deux revenus dans un foyer unique à 2 parts. Le gain est réel quand les deux revenus sont très différents (le revenu élevé est en partie absorbé par la part du conjoint), nul quand ils sont proches, et l'imposition commune peut même être défavorable dans certains cas, notamment en cas de perte d'une demi-part de parent isolé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de parts fiscales pour un couple marié ou pacsé avec 2 enfants ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un couple marié ou pacsé avec 2 enfants à charge a 3 parts fiscales : 2 parts pour le couple, puis 0,5 part pour chacun des deux premiers enfants. À partir du 3e enfant, la majoration passe à 1 part entière. L'avantage en impôt procuré par ces demi-parts supplémentaires est plafonné à 1 807 € par demi-part pour les revenus 2025."
+      }
     }
   ]
 }
@@ -96,7 +112,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-09-02",
+  "dateModified": "2026-09-14",
   "name": "Simulateur de parts fiscales et quotient familial",
   "description": "Calculez votre nombre de parts fiscales selon votre situation familiale, et votre taux marginal d'imposition (TMI) — pas un calcul d'impôt.",
   "url": "https://messimulateursrh.fr/quotient-familial.html",
@@ -199,7 +215,7 @@
       Calculez votre nombre de parts fiscales selon votre situation familiale, et le taux marginal d'imposition (TMI) qui en découle. <strong>Ce n'est pas un calcul d'impôt</strong> : voir plus bas pourquoi, et ce que cet outil ne remplace pas.
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Barème vérifié le 30 août 2026 (revenus 2025, déclaration 2026). <a href="a-propos.html">Notre méthode</a>.</p>
+    <p class="update-date">Barème vérifié le 14 septembre 2026 (revenus 2025, déclaration 2026). <a href="a-propos.html">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> 1 part pour une personne seule, 2 parts pour un couple marié ou pacsé, + 0,5 part pour chacun des deux premiers enfants à charge, + 1 part à partir du 3ᵉ. Le quotient familial (revenu ÷ parts) indique votre taux marginal d'imposition — pas le montant de votre impôt.</div>
@@ -257,10 +273,61 @@
 
   <div class="ad-slot">Emplacement publicitaire</div>
 
+  <section class="content-section" id="comparateur-mariage-pacs">
+    <h2>Mariage ou PACS : combien ça change sur vos impôts ?</h2>
+    <p>
+      Se marier ou se pacser ne donne droit à <strong>aucune réduction d'impôt spécifique</strong> : le seul mécanisme est
+      l'imposition commune, qui réunit les deux revenus dans un foyer fiscal unique à 2 parts. L'écart peut être important
+      quand les deux revenus sont très différents, et <strong>nul quand ils sont proches</strong>. Ce comparateur vous donne
+      l'ordre de grandeur de cet écart, avant et après.
+    </p>
+    <div class="card">
+      <div class="row2">
+        <div class="field">
+          <label for="revenu1MP">Revenu net imposable annuel — personne 1</label>
+          <input type="number" id="revenu1MP" min="0" step="100" placeholder="Ex. 38000">
+        </div>
+        <div class="field">
+          <label for="revenu2MP">Revenu net imposable annuel — personne 2</label>
+          <input type="number" id="revenu2MP" min="0" step="100" placeholder="Ex. 22000">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="enfantsMP">Nombre d'enfants à charge</label>
+          <input type="number" id="enfantsMP" min="0" step="1" value="0">
+        </div>
+        <div class="field" id="groupeRattachementMP" style="display:none;">
+          <label for="rattachementMP">Sans mariage ni PACS, enfants rattachés à</label>
+          <select id="rattachementMP">
+            <option value="1">La personne 1</option>
+            <option value="2">La personne 2</option>
+          </select>
+          <div class="hint">Un enfant ne peut être compté que dans un seul foyer fiscal.</div>
+        </div>
+      </div>
+      <button class="compute" onclick="comparerMariagePacsUI()">Comparer</button>
+
+      <div class="result" id="resultMP">
+        <div class="amount" id="ecartMP">—</div>
+        <div class="detail" id="detailMP"></div>
+        <div class="breakdown" id="breakdownMP"></div>
+        <p class="report-error">⚠️ <a href="mailto:messimulateursrh@gmail.com?subject=Erreur%20signal%C3%A9e%20-%20Comparateur%20mariage%20PACS">Signaler une erreur sur ce résultat</a></p>
+      </div>
+      <div class="hint" style="margin-top:12px;">
+        Hypothèse retenue : les deux personnes <strong>vivent déjà ensemble</strong> dans les deux scénarios. La demi-part
+        de parent isolé (case T) suppose de vivre seul : elle ne s'applique donc ni avant ni après, ce qui rend la
+        comparaison honnête. Estimation hors réductions et crédits d'impôt, hors pensions alimentaires et hors revenus
+        exceptionnels — pour un calcul complet, utilisez le
+        <a href="https://www.impots.gouv.fr/simulateurs" target="_blank" rel="noopener">simulateur officiel de la DGFiP</a>.
+      </div>
+    </div>
+  </section>
+
   <section class="content-section">
     <h2>Pourquoi ce n'est pas un calcul d'impôt</h2>
     <p>
-      Le calcul de l'impôt sur le revenu réel intègre bien plus que le nombre de parts : le <strong>plafonnement du quotient familial</strong> (l'avantage de chaque demi-part au-delà de 2 parts pour un couple ou 1 part pour une personne seule est limité à 1 807 € pour les revenus 2025, avec des plafonds différents pour les parents isolés, invalides et anciens combattants), la <strong>décote</strong> pour les foyers modestes, les <strong>crédits et réductions d'impôt</strong>, et l'ensemble des revenus du foyer fiscal (pas seulement un salaire). Un outil simplifié qui afficherait un montant d'impôt en euros à partir de ces seules informations donnerait une fausse précision — c'est pour cette raison que ce simulateur s'arrête au nombre de parts et au taux marginal, sans jamais estimer votre impôt final. Pour un calcul complet et personnalisé, utilisez le <a href="https://www.impots.gouv.fr/simulateurs" target="_blank" rel="noopener">simulateur officiel de la DGFiP</a>.
+      Le calcul de l'impôt sur le revenu réel intègre bien plus que le nombre de parts : le <strong>plafonnement du quotient familial</strong> (l'avantage de chaque demi-part au-delà de 2 parts pour un couple ou 1 part pour une personne seule est limité à 1 807 € pour les revenus 2025, avec des plafonds différents pour les parents isolés, invalides et anciens combattants), la <strong>décote</strong> pour les foyers modestes, les <strong>crédits et réductions d'impôt</strong>, et l'ensemble des revenus du foyer fiscal (pas seulement un salaire). Un outil simplifié qui afficherait un montant d'impôt en euros à partir de ces seules informations donnerait une fausse précision — c'est pour cette raison que ce simulateur s'arrête au nombre de parts et au taux marginal, sans jamais estimer votre impôt final. Le <a href="#comparateur-mariage-pacs">comparateur mariage/PACS</a> ci-dessus suit la même logique : il applique bien le barème, le plafonnement du quotient familial et la décote, mais il ne prétend pas donner votre impôt — il chiffre l'<em>écart</em> entre deux situations, à réductions et crédits d'impôt inchangés, ce qui est précisément ce que ces éléments ne modifient pas dans la plupart des cas. Pour un calcul complet et personnalisé, utilisez le <a href="https://www.impots.gouv.fr/simulateurs" target="_blank" rel="noopener">simulateur officiel de la DGFiP</a>.
     </p>
 
     <h2>Le nombre de parts fiscales (art. 194 et 195 du CGI)</h2>
@@ -329,6 +396,14 @@
     <details class="faq">
       <summary>Combien de parts pour une personne seule avec 2 enfants en tant que parent isolé ?</summary>
       <p>Une personne seule, parent isolé (case T) avec 2 enfants à charge en garde exclusive a 2,5 parts fiscales : 1 part de base, 0,5 part pour chacun des 2 enfants, plus 0,5 part supplémentaire réservée au 1er enfant au titre du statut de parent isolé.</p>
+    </details>
+    <details class="faq">
+      <summary>Le mariage ou le PACS fait-il baisser les impôts ?</summary>
+      <p>Pas toujours. Il n'existe aucune réduction d'impôt propre au mariage ou au PACS : le seul effet fiscal est l'imposition commune, qui réunit les deux revenus dans un foyer unique à 2 parts. Le gain est réel quand les deux revenus sont très différents (le revenu élevé est en partie absorbé par la part du conjoint), nul quand ils sont proches, et l'imposition commune peut même être défavorable dans certains cas, notamment en cas de perte d'une demi-part de parent isolé.</p>
+    </details>
+    <details class="faq">
+      <summary>Combien de parts fiscales pour un couple marié ou pacsé avec 2 enfants ?</summary>
+      <p>Un couple marié ou pacsé avec 2 enfants à charge a 3 parts fiscales : 2 parts pour le couple, puis 0,5 part pour chacun des deux premiers enfants. À partir du 3e enfant, la majoration passe à 1 part entière. L'avantage en impôt procuré par ces demi-parts supplémentaires est plafonné à 1 807 € par demi-part pour les revenus 2025.</p>
     </details>
 
     <div class="related-tools">
@@ -437,6 +512,71 @@ function calculerQuotientFamilial(){
   document.getElementById('detailQF').textContent = detail;
   document.getElementById('breakdownQF').innerHTML = breakdown;
   resultBox.classList.add('show');
+}
+
+function toggleRattachementMP(){
+  var n = parseInt(document.getElementById('enfantsMP').value, 10) || 0;
+  document.getElementById('groupeRattachementMP').style.display = n > 0 ? '' : 'none';
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var champEnfantsMP = document.getElementById('enfantsMP');
+  if (champEnfantsMP){
+    champEnfantsMP.addEventListener('input', toggleRattachementMP);
+    toggleRattachementMP();
+  }
+});
+
+function partsFr(p){
+  return p.toLocaleString('fr-FR', {maximumFractionDigits: 2}) + ' part' + (p > 1 ? 's' : '');
+}
+
+function comparerMariagePacsUI(){
+  var r1 = parseFloat(document.getElementById('revenu1MP').value) || 0;
+  var r2 = parseFloat(document.getElementById('revenu2MP').value) || 0;
+  var n = parseInt(document.getElementById('enfantsMP').value, 10) || 0;
+  var chez = parseInt(document.getElementById('rattachementMP').value, 10) || 1;
+  var box = document.getElementById('resultMP');
+
+  if (r1 <= 0 && r2 <= 0){
+    box.classList.remove('show');
+    return;
+  }
+
+  var c = comparerMariagePacs(r1, r2, n, chez);
+  var ecart = Math.round(c.ecart);
+  var titre, phrase;
+
+  if (ecart > 0){
+    titre = euros(ecart) + ' d\'impôt en moins par an';
+    phrase = 'Se marier ou se pacser ferait baisser l\'impôt total du couple d\'environ <strong>' + euros(ecart) + '</strong> par an, parce que les deux revenus sont suffisamment différents pour que la mise en commun profite au plus élevé des deux.';
+  } else if (ecart < 0){
+    titre = euros(Math.abs(ecart)) + ' d\'impôt en plus par an';
+    phrase = 'Dans cette configuration, l\'imposition commune serait <strong>défavorable</strong> d\'environ ' + euros(Math.abs(ecart)) + ' par an. C\'est possible : le plafonnement du quotient familial et les seuils de décote ne s\'apprécient pas de la même façon selon le nombre de foyers.';
+  } else {
+    titre = 'Aucun changement';
+    phrase = 'À ce niveau de revenus, le mariage ou le PACS ne change rien à l\'impôt total. C\'est la règle générale quand les deux revenus sont proches : l\'imposition commune n\'apporte un gain que si les revenus sont dissymétriques.';
+  }
+
+  document.getElementById('ecartMP').textContent = titre;
+  document.getElementById('detailMP').innerHTML = phrase;
+
+  var lignes = 'Sans mariage ni PACS (deux foyers fiscaux) :<br>' +
+    '&nbsp;&nbsp;• Personne 1 — ' + euros(r1) + ', ' + partsFr(c.separe1.parts) + ' → environ <strong>' + euros(Math.round(c.separe1.impot)) + '</strong><br>' +
+    '&nbsp;&nbsp;• Personne 2 — ' + euros(r2) + ', ' + partsFr(c.separe2.parts) + ' → environ <strong>' + euros(Math.round(c.separe2.impot)) + '</strong><br>' +
+    '&nbsp;&nbsp;• Total : <strong>' + euros(Math.round(c.totalSepare)) + '</strong><br><br>' +
+    'Mariés ou pacsés (un seul foyer) :<br>' +
+    '&nbsp;&nbsp;• Revenus cumulés ' + euros(r1 + r2) + ', ' + partsFr(c.partsCommun) + ' → environ <strong>' + euros(Math.round(c.commun.impot)) + '</strong>';
+
+  if (c.commun.plafonne || c.separe1.plafonne || c.separe2.plafonne){
+    lignes += '<br><br>Le plafonnement du quotient familial (1 807 € par demi-part supplémentaire pour les revenus 2025) s\'applique dans au moins un des deux scénarios : l\'avantage lié aux enfants est limité à ce plafond.';
+  }
+  if (c.commun.decote > 0 || c.separe1.decote > 0 || c.separe2.decote > 0){
+    lignes += '<br><br>La décote (897 € pour une personne seule, 1 483 € pour un couple, diminuée de 45,25 % de l\'impôt) réduit l\'impôt dans au moins un des deux scénarios.';
+  }
+  lignes += '<br><br>Barème 2026 sur les revenus 2025. Estimation hors réductions et crédits d\'impôt.';
+
+  document.getElementById('breakdownMP').innerHTML = lignes;
+  box.classList.add('show');
 }
 
 function telechargerPDF_QF(){

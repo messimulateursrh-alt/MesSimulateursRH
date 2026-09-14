@@ -274,6 +274,84 @@ seuilHaut: BAREME_IR_2026[i].seuil
 }
 return BAREME_IR_2026[BAREME_IR_2026.length - 1];
 }
+// --- Comparateur mariage/PACS, ajouté le 14/09/2026 ---
+// Paramètres fiscaux 2026 (revenus 2025), vérifiés sur Légifrance (art. 197 CGI dans sa version issue de la loi
+// n°2026-103 du 19 février 2026) et le BOFiP (BOI-IR-LIQ-20-20-20 et BOI-IR-LIQ-20-20-30, publiés le 07/04/2026).
+var PLAFOND_DEMI_PART_QF_2026 = 1807;   // plafond de droit commun, par demi-part supplémentaire
+var DECOTE_FORFAIT_SEUL_2026 = 897;     // décote, montant forfaitaire personne seule
+var DECOTE_FORFAIT_COUPLE_2026 = 1483;  // décote, montant forfaitaire couple soumis à imposition commune
+var DECOTE_TAUX_2026 = 0.4525;          // taux appliqué à l'impôt brut dans la formule de décote
+function impotBaremeParts(revenuImposable, parts){
+// Impôt brut issu du seul barème progressif : on applique le barème au quotient (revenu / parts), puis on remultiplie.
+if (!revenuImposable || revenuImposable <= 0 || !parts || parts <= 0) return 0;
+var quotient = revenuImposable / parts;
+var impotParPart = 0;
+var seuilBas = 0;
+for (var i = 0; i < BAREME_IR_2026.length; i++){
+var seuilHaut = BAREME_IR_2026[i].seuil;
+if (quotient > seuilBas){
+impotParPart += (Math.min(quotient, seuilHaut) - seuilBas) * BAREME_IR_2026[i].taux;
+}
+seuilBas = seuilHaut;
+}
+return impotParPart * parts;
+}
+function impotSurRevenuEstime(revenuImposable, parts, situation){
+// Enchaînement officiel : barème → plafonnement de l'avantage des demi-parts supplémentaires → décote.
+// Le plafonnement ne porte JAMAIS sur le quotient conjugal : les 2 parts d'un couple marié ou pacsé ne sont pas
+// plafonnées (BOI-IR-LIQ-20-20-20). Seules les demi-parts supplémentaires (enfants, etc.) le sont.
+// Périmètre volontairement limité : ni réductions/crédits d'impôt, ni contribution exceptionnelle sur les hauts
+// revenus, ni pension alimentaire, ni système du quotient sur revenus exceptionnels.
+var partsBase = situation === 'couple' ? 2 : 1;
+var impotBrut = impotBaremeParts(revenuImposable, parts);
+var impotSansDemiParts = impotBaremeParts(revenuImposable, partsBase);
+var demiPartsSupp = Math.max(0, (parts - partsBase) * 2);
+var avantage = impotSansDemiParts - impotBrut;
+var plafond = demiPartsSupp * PLAFOND_DEMI_PART_QF_2026;
+var plafonne = false;
+var impot = impotBrut;
+if (demiPartsSupp > 0 && avantage > plafond){
+impot = impotSansDemiParts - plafond;
+plafonne = true;
+}
+var forfaitDecote = situation === 'couple' ? DECOTE_FORFAIT_COUPLE_2026 : DECOTE_FORFAIT_SEUL_2026;
+var decote = Math.max(0, forfaitDecote - DECOTE_TAUX_2026 * impot);
+decote = Math.min(decote, impot);
+return {
+impot: Math.max(0, impot - decote),
+impotAvantDecote: impot,
+decote: decote,
+avantageQF: avantage,
+plafondQF: plafond,
+plafonne: plafonne,
+parts: parts
+};
+}
+function comparerMariagePacs(revenu1, revenu2, nbEnfants, enfantsChez){
+// Compare l'impôt de deux personnes vivant ensemble SANS être mariées ni pacsées (deux foyers fiscaux distincts)
+// à celui du même couple marié ou pacsé (un seul foyer, imposition commune).
+// Hypothèse explicitement posée et affichée à l'utilisateur : les deux personnes vivent ensemble dans les deux cas,
+// donc la demi-part de parent isolé (case T, art. 195-1 b du CGI) ne s'applique ni avant ni après — elle suppose
+// de vivre seul. C'est ce qui rend la comparaison honnête : on ne compare pas un célibataire isolé à un couple.
+// enfantsChez : 1 ou 2 — parent au foyer duquel les enfants sont rattachés tant que le couple n'est pas marié/pacsé
+// (les enfants ne peuvent être comptés que dans un seul foyer fiscal).
+var n = Math.max(0, nbEnfants || 0);
+var parts1 = calculerPartsFiscales('seul', enfantsChez === 1 ? n : 0, false, false, 0);
+var parts2 = calculerPartsFiscales('seul', enfantsChez === 2 ? n : 0, false, false, 0);
+var r1 = impotSurRevenuEstime(revenu1, parts1, 'seul');
+var r2 = impotSurRevenuEstime(revenu2, parts2, 'seul');
+var partsCommun = calculerPartsFiscales('couple', n, false, false, 0);
+var commun = impotSurRevenuEstime((revenu1 || 0) + (revenu2 || 0), partsCommun, 'couple');
+var totalSepare = r1.impot + r2.impot;
+return {
+separe1: r1,
+separe2: r2,
+totalSepare: totalSepare,
+commun: commun,
+partsCommun: partsCommun,
+ecart: totalSepare - commun.impot
+};
+}
 function calculerIndemniteActivitePartielle(tauxHoraireBrutHabituel, nbHeuresChomees){
 // Art. R5122-18 du Code du travail — 60% de la rémunération horaire brute de référence,
 // plafonnée à 4,5×SMIC brut horaire, avec plancher au SMIC net horaire.
@@ -571,6 +649,79 @@ return { mois: 2, texte: '2 mois' };
 if (convention === 'hcr_cadre'){
 // HCR (IDCC 1979), cadres. Mêmes durées pour démission et licenciement : 1 mois (< 6 mois), 3 mois (6 mois et plus).
 return ancienneteAnnees < 0.5 ? { mois: 1, texte: '1 mois' } : { mois: 3, texte: '3 mois' };
+}
+// --- Syntec (IDCC 1486), ajouté le 14/09/2026 ---
+// Article 4.2 de la CCN du 15 décembre 1987, dans sa rédaction issue de l'avenant n°46 du 16 juillet 2021 :
+// depuis cet avenant, ETAM et IC relèvent d'un article commun, et le texte vise expressément « en cas de licenciement
+// ou de démission » — les durées sont donc réciproques et identiques pour les deux types de rupture (ce n'est pas une
+// déduction de notre part). Texte obtenu en verbatim sur Légifrance (conteneur KALICONT000005635173, art. 4.2),
+// recoupé sur code.travail.gouv.fr, syntec.fr (fédération), LégiSocial et PayFit — aucune divergence de valeurs.
+if (convention === 'syntec_etam'){
+// ETAM : moins de 2 ans → 1 mois ; 2 ans et plus → 2 mois.
+// Réserve de lecture signalée à l'utilisateur : le texte oppose littéralement « moins de 2 ans » à « plus de 2 ans »,
+// laissant le cas des 2 ans pile hors des deux branches. Toutes les sources secondaires consultées lisent
+// « 2 ans et plus → 2 mois » (lecture aussi cohérente avec le minimum légal de l'art. L1234-1) : c'est celle retenue ici.
+if (ancienneteAnnees < 2){
+return { mois: 1, texte: '1 mois', avertissement: 'Les ETAM classés aux coefficients hiérarchiques 400, 450 et 500 relèvent de 2 mois de préavis quelle que soit leur ancienneté : vérifiez votre coefficient sur votre bulletin de paie.' };
+}
+// L'avertissement sur la lettre du texte n'est affiché qu'au voisinage immédiat de 2 ans, seul cas où la lecture retenue change quelque chose.
+if (ancienneteAnnees < 2.1){
+return { mois: 2, texte: '2 mois', avertissement: 'Le texte conventionnel vise « plus de 2 ans » sans trancher explicitement le cas d\'une ancienneté de 2 ans pile ; la lecture retenue ici (2 ans et plus → 2 mois) est celle de l\'ensemble des sources consultées.' };
+}
+return { mois: 2, texte: '2 mois' };
+}
+if (convention === 'syntec_ic'){
+// Ingénieurs et cadres : 3 mois, sans modulation d'ancienneté, en démission comme en licenciement.
+return { mois: 3, texte: '3 mois' };
+}
+// --- Bâtiment (BTP), ajouté le 14/09/2026 ---
+// Point de méthode : Légifrance a renvoyé une erreur 403 sur l'intégralité des articles conventionnels du bâtiment
+// (art. 7.1 cadres, 8.1 ETAM, 10.11 ouvriers). Les durées ci-dessous reposent donc sur des sources secondaires croisées,
+// dont code.travail.gouv.fr (source publique officielle) chaque fois qu'elle expose la donnée, plus LégiSocial,
+// Juritravail, Hellowork et convention.fr. Écartée volontairement : la fiche FFB, dont les durées (8 jours en démission
+// ouvrier) contredisent toutes les autres sources, y compris code.travail.gouv.fr.
+if (convention === 'batiment_cadre'){
+// Cadres du bâtiment (IDCC 2420, CCN du 1er juin 2004, art. 7.1) : mêmes durées en démission et en licenciement.
+var avertCadreBat = 'La convention des cadres du bâtiment (IDCC 2420) est signalée comme non étendue par code.travail.gouv.fr : elle ne s\'applique de plein droit qu\'aux entreprises adhérentes d\'une organisation signataire. Vérifiez la convention mentionnée sur votre bulletin de paie.';
+return ancienneteAnnees < 2
+? { mois: 2, texte: '2 mois', avertissement: avertCadreBat }
+: { mois: 3, texte: '3 mois', avertissement: avertCadreBat };
+}
+if (convention === 'batiment_etam'){
+// ETAM du bâtiment (IDCC 2609, art. 8.1). Démission : 1 mois (< 2 ans), 2 mois (2 ans et plus) — durées confirmées par
+// code.travail.gouv.fr. Licenciement : mêmes durées, plus une tranche de 3 mois réservée aux salariés réunissant
+// CUMULATIVEMENT 15 ans d'ancienneté et 55 ans révolus. Cette tranche n'est pas calculée automatiquement (le simulateur
+// ne demande pas l'âge) mais signalée en avertissement dès que l'ancienneté atteint 15 ans, sur le même principe que la
+// majoration d'âge de la convention Bâtiment cadre sur le simulateur de rupture conventionnelle.
+// Point vérifié et volontairement non appliqué : une source (convention.fr) étend les 3 mois à la démission, mais
+// code.travail.gouv.fr ne retient que deux tranches en démission — c'est cette lecture officielle qui est suivie ici.
+if (ancienneteAnnees < 2){
+return { mois: 1, texte: '1 mois' };
+}
+if (typeRupture !== 'demission' && ancienneteAnnees >= 15){
+return { mois: 2, texte: '2 mois', avertissement: 'À partir de 15 ans d\'ancienneté ET 55 ans révolus (les deux conditions doivent être réunies), la convention porte le préavis de licenciement à 3 mois. Le simulateur ne demandant pas votre âge, cette majoration n\'est pas appliquée automatiquement : si vous avez 55 ans ou plus, retenez 3 mois.' };
+}
+return { mois: 2, texte: '2 mois' };
+}
+if (convention === 'batiment_ouvrier'){
+// Ouvriers du bâtiment, art. 10.11 — IDCC 1596 (jusqu'à 10 salariés) et IDCC 1597 (plus de 10 salariés).
+// Vérifié sur les fiches code.travail.gouv.fr des DEUX IDCC : les durées de préavis y sont identiques, la taille de
+// l'entreprise ne les modifie pas (elle modifie d'autres droits, pas celui-ci) — d'où une seule option dans le sélecteur.
+// Particularité la plus contre-intuitive, et la plus utile à afficher : le préavis de DÉMISSION plafonne à 2 semaines
+// quelle que soit l'ancienneté au-delà de 3 mois, là où le préavis de licenciement continue de croître.
+if (ancienneteAnnees < 0.25){
+return { mois: 2/30, texte: '2 jours' };
+}
+if (typeRupture === 'demission'){
+return { mois: 14/30, texte: '2 semaines', avertissement: 'En démission, le préavis des ouvriers du bâtiment reste de 2 semaines quelle que soit l\'ancienneté au-delà de 3 mois : il n\'augmente pas avec les années, contrairement au préavis de licenciement.' };
+}
+if (ancienneteAnnees < 0.5){
+return { mois: 14/30, texte: '2 semaines' };
+}
+if (ancienneteAnnees < 2){
+return { mois: 1, texte: '1 mois' };
+}
+return { mois: 2, texte: '2 mois' };
 }
 return null;
 }
@@ -1272,7 +1423,7 @@ donneesInsuffisantes: donneesInsuffisantes
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
-{title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR"},
+{title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
 {title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite"},
 {title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire"},
 {title:"Salaire net à partir du brut", url:"salaire-net-brut.html", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
@@ -1311,7 +1462,7 @@ var SEARCH_INDEX = [
 {title:"Licenciement abusif et barème Macron", url:"licenciement-abusif-bareme-macron.html", cat:"Guide", kw:"licenciement abusif bareme macron indemnite prud hommes anciennete sans cause reelle et serieuse"},
 {title:"Lettre de notification de licenciement", url:"lettre-notification-licenciement.html", cat:"Guide", kw:"lettre licenciement notification motifs delai recommande"},
 {title:"Procédure de licenciement", url:"procedure-licenciement.html", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
-{title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI"},
+{title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI mariage pacs comparatif celibataire imposition commune decote plafonnement"},
 {title:"Participation (RSP)", url:"participation-legale.html", cat:"Simulateur", kw:"participation RSP epargne salariale reserve speciale repartition PEE"},
 {title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
 {title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle.html", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},

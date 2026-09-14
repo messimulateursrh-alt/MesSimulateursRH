@@ -112,6 +112,22 @@
             "@type": "Answer",
             "text": "En dessous de 6 mois d'ancienneté, le Code du travail ne fixe aucune durée de préavis par défaut en cas de licenciement : tout dépend de votre convention collective ou, à défaut, des usages de la profession et de la région."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la durée de préavis prévue par la convention Syntec ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depuis l'avenant du 16 juillet 2021, la convention Syntec (IDCC 1486) fixe les mêmes durées en démission et en licenciement : 1 mois pour un ETAM ayant moins de 2 ans d'ancienneté, 2 mois à partir de 2 ans, et 3 mois pour un ingénieur ou cadre quelle que soit son ancienneté. Les ETAM classés aux coefficients 400, 450 et 500 relèvent de 2 mois dès l'embauche. Ces durées sont réciproques : elles s'imposent au salarié qui démissionne comme à l'employeur qui licencie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le préavis de démission d'un ouvrier du bâtiment ?",
+      "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour les ouvriers du bâtiment (IDCC 1596 et 1597, qui prévoient les mêmes durées quelle que soit la taille de l'entreprise), le préavis de démission est de 2 jours jusqu'à 3 mois d'ancienneté, puis de 2 semaines au-delà — et il n'augmente plus ensuite, même après plusieurs années. C'est une différence importante avec le préavis de licenciement, qui passe lui à 1 mois entre 6 mois et 2 ans d'ancienneté, puis à 2 mois au-delà de 2 ans."
+      }
     }
   ]
 }
@@ -121,7 +137,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-07",
+  "dateModified": "2026-09-14",
   "name": "Simulateur Durée de Préavis 2026",
   "description": "Calculez la durée de préavis selon le motif : licenciement, démission ou faute grave, avec nuance cadre/non-cadre. Gratuit, résultat immédiat.",
   "url": "https://messimulateursrh.fr/preavis.html",
@@ -225,7 +241,7 @@
       <span class="for-employeur">Combien de temps votre salarié doit-il rester, ou combien coûte une dispense de préavis ?</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Barème vérifié le 7 septembre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+    <p class="update-date">Barème vérifié le 14 septembre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> Le préavis légal de licenciement est de 1 mois entre 6 mois et 2 ans d'ancienneté, et de 2 mois au-delà de 2 ans (Art. L1234-1).</div>
@@ -255,8 +271,13 @@
         <option value="hcr_employe">Hôtels-Cafés-Restaurants (HCR, IDCC 1979) — employés</option>
         <option value="hcr_maitrise">Hôtels-Cafés-Restaurants (HCR, IDCC 1979) — agents de maîtrise</option>
         <option value="hcr_cadre">Hôtels-Cafés-Restaurants (HCR, IDCC 1979) — cadres</option>
+        <option value="syntec_etam">Syntec / bureaux d'études (IDCC 1486) — ETAM</option>
+        <option value="syntec_ic">Syntec / bureaux d'études (IDCC 1486) — ingénieur/cadre</option>
+        <option value="batiment_cadre">Bâtiment (IDCC 2420) — cadre</option>
+        <option value="batiment_etam">Bâtiment (IDCC 2609) — ETAM</option>
+        <option value="batiment_ouvrier">Bâtiment (IDCC 1596/1597) — ouvrier</option>
       </select>
-      <div class="hint">Le simulateur retient la durée de la convention sélectionnée dès qu'elle comble une absence de minimum légal (ex. moins de 6 mois d'ancienneté) ou qu'elle dépasse le minimum légal. Deux conventions disponibles pour l'instant ; <a href="identifier-convention-collective.html">identifiez la vôtre</a> si elle n'est pas listée.</div>
+      <div class="hint">Le simulateur retient la durée de la convention sélectionnée dès qu'elle comble une absence de minimum légal (ex. moins de 6 mois d'ancienneté) ou qu'elle dépasse le minimum légal. Quatre conventions disponibles pour l'instant (transports routiers, hôtellerie-restauration, Syntec, bâtiment) ; <a href="identifier-convention-collective.html">identifiez la vôtre</a> si elle n'est pas listée. Pour le bâtiment, des conventions régionales (ouvriers de la région parisienne, ETAM d'Île-de-France) peuvent prévoir des durées différentes.</div>
     </div>
     <div class="row2">
       <div class="field">
@@ -364,6 +385,14 @@
       <summary>Ai-je un préavis à faire si je suis licencié avec 4 mois d'ancienneté ?</summary>
       <p>En dessous de 6 mois d'ancienneté, le Code du travail ne fixe aucune durée de préavis par défaut en cas de licenciement : tout dépend de votre convention collective ou, à défaut, des usages de la profession et de la région. Vérifiez votre convention collective pour connaître la règle applicable à votre situation.</p>
     </details>
+    <details class="faq">
+      <summary>Quelle est la durée de préavis prévue par la convention Syntec ?</summary>
+      <p>Depuis l'avenant du 16 juillet 2021, la convention Syntec (IDCC 1486) fixe les mêmes durées en démission et en licenciement : 1 mois pour un ETAM ayant moins de 2 ans d'ancienneté, 2 mois à partir de 2 ans, et 3 mois pour un ingénieur ou cadre quelle que soit son ancienneté. Les ETAM classés aux coefficients 400, 450 et 500 relèvent de 2 mois dès l'embauche. Ces durées sont réciproques : elles s'imposent au salarié qui démissionne comme à l'employeur qui licencie.</p>
+    </details>
+    <details class="faq">
+      <summary>Quel est le préavis de démission d'un ouvrier du bâtiment ?</summary>
+      <p>Pour les ouvriers du bâtiment (IDCC 1596 et 1597, qui prévoient les mêmes durées quelle que soit la taille de l'entreprise), le préavis de démission est de 2 jours jusqu'à 3 mois d'ancienneté, puis de 2 semaines au-delà — et il n'augmente plus ensuite, même après plusieurs années. C'est une différence importante avec le préavis de licenciement, qui passe lui à 1 mois entre 6 mois et 2 ans d'ancienneté, puis à 2 mois au-delà de 2 ans.</p>
+    </details>
 
     <div class="related-tools">
       <h3>Autres simulateurs utiles</h3>
@@ -424,7 +453,12 @@ var CONVENTION_PREAVIS_LABELS = {
   transport_cadre: 'la convention des transports routiers — ingénieur/cadre (IDCC 16)',
   hcr_employe: 'la convention Hôtels-Cafés-Restaurants — employés (HCR, IDCC 1979)',
   hcr_maitrise: 'la convention Hôtels-Cafés-Restaurants — agents de maîtrise (HCR, IDCC 1979)',
-  hcr_cadre: 'la convention Hôtels-Cafés-Restaurants — cadres (HCR, IDCC 1979)'
+  hcr_cadre: 'la convention Hôtels-Cafés-Restaurants — cadres (HCR, IDCC 1979)',
+  syntec_etam: 'la convention Syntec — ETAM (IDCC 1486)',
+  syntec_ic: 'la convention Syntec — ingénieurs et cadres (IDCC 1486)',
+  batiment_cadre: 'la convention des cadres du bâtiment (IDCC 2420)',
+  batiment_etam: 'la convention des ETAM du bâtiment (IDCC 2609)',
+  batiment_ouvrier: 'la convention des ouvriers du bâtiment (IDCC 1596/1597)'
 };
 function calculerPreavis(){
   var type = document.getElementById('typeRupture').value;
@@ -457,7 +491,11 @@ function calculerPreavis(){
     if (conv){
       noticeP.style.display = 'none';
       document.getElementById('dureeP').textContent = conv.texte;
-      document.getElementById('detailP').innerHTML = 'Durée de préavis selon ' + conventionLabel + ' : <strong>' + conv.texte + '</strong>. Le Code du travail ne fixe aucune durée légale par défaut pour une démission ; en l\'absence de convention plus favorable, c\'est votre contrat de travail ou les usages de la profession qui s\'appliquent.';
+      var detailD = 'Durée de préavis selon ' + conventionLabel + ' : <strong>' + conv.texte + '</strong>. Le Code du travail ne fixe aucune durée légale par défaut pour une démission ; en l\'absence de convention plus favorable, c\'est votre contrat de travail ou les usages de la profession qui s\'appliquent.';
+      if (conv.avertissement){
+        detailD += ' <br><br>⚠️ ' + conv.avertissement;
+      }
+      document.getElementById('detailP').innerHTML = detailD;
       if (salaire > 0){
         var indemniteDispenseD = salaire * conv.mois;
         indemniteP.innerHTML = 'Si l\'employeur dispense le salarié d\'effectuer son préavis, une indemnité compensatrice équivalente est due : environ <strong>' + euros(indemniteDispenseD) + '</strong> brut (' + conv.texte + ' de salaire).';
@@ -496,6 +534,9 @@ function calculerPreavis(){
     if (conv.seuilNonConfirme){
       detailTexte += ' ⚠️ Ce seuil (moins de 6 mois d\'ancienneté) n\'est confirmé que par une seule source pour cette convention — vérifiez le texte exact applicable à votre poste.';
     }
+    if (conv.avertissement){
+      detailTexte += ' <br><br>⚠️ ' + conv.avertissement;
+    }
     document.getElementById('detailP').innerHTML = detailTexte;
   } else if (legalIndisponible){
     resultBox.classList.remove('show');
@@ -512,6 +553,9 @@ function calculerPreavis(){
     }
     if (conv){
       detailTexte += ' La durée de ' + conventionLabel + ' (' + conv.texte + ') n\'est pas plus favorable ici : c\'est le minimum légal qui s\'applique.';
+      if (conv.avertissement){
+        detailTexte += ' <br><br>⚠️ ' + conv.avertissement;
+      }
     }
     document.getElementById('detailP').innerHTML = detailTexte;
   }

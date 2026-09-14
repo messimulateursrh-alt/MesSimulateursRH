@@ -1,6 +1,55 @@
-# Documents internes de travail — ne pas versionner ni déployer sur le site public
-Simulateur-RH_Dossier_de_synthese_v4.docx
-urls-a-indexer.txt
-# Tous les fichiers .md sont des notes internes (le site est en HTML pur, aucun .md n'est publié) —
-# cette règle générique couvre automatiquement tout futur document de travail (guide, audit, rapport...)
+# ============================================================
+# .gitignore — MesSimulateursRH.fr
+# ATTENTION : Netlify publie la racine du dépôt (publish = ".").
+# Tout fichier versionné est donc servi publiquement sur le site.
+# ============================================================
+
+# --- Fichiers système macOS / Windows / éditeurs ---
+.DS_Store
+**/.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- Notes et documents internes de travail ---
+# Le site est en HTML pur : aucun .md n'est publié.
+# Règle générique, couvre tout futur guide / audit / rapport.
 *.md
+
+# Documents bureautiques de travail (synthèses, exports, brouillons)
+*.docx
+*.doc
+*.odt
+*.xlsx
+*.xls
+*.ods
+*.pptx
+
+# Fichiers de travail nommément exclus
+urls-a-indexer.txt
+
+# Dossier de mise au rebut : ne doit jamais être publié
+_to_delete/
+
+# --- Secrets et configuration locale ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials*.json
+secrets*.json
+
+# --- Divers ---
+*.log
+*.bak
+*.tmp
+*.zip
+*.tar.gz
+node_modules/

@@ -61,3 +61,10 @@ body.audience-employeur .trust-row .privacy-badge:nth-child(1){order:3}
 body.audience-employeur .trust-row .privacy-badge:nth-child(2){order:4}
 body.audience-employeur .trust-row .privacy-badge:nth-child(4){order:5}
 .source-badge{display:inline-flex;align-items:center;gap:2px;font-size:.72rem;font-weight:700;color:var(--ok);background:var(--ok-bg);padding:1px 7px;border-radius:6px;margin-left:5px;white-space:nowrap;vertical-align:middle}
+/* Encart chiffres clés (statistiques officielles sourcées), ajouté le 14/09/2026 */
+.key-figures{background:var(--brand-soft);border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:8px;padding:14px 16px;margin:18px 0}
+.key-figures h3{margin:0 0 8px;font-size:.95rem;color:var(--brand)}
+.key-figures ul{margin:0 0 8px;padding-left:20px}
+.key-figures li{font-size:.92rem;color:var(--ink);margin-bottom:5px}
+.key-figures li:last-child{margin-bottom:0}
+.key-figures .kf-source{margin:8px 0 0;font-size:.8rem;color:var(--ink-soft)}
