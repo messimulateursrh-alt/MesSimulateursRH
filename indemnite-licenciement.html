@@ -134,7 +134,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-07",
+  "dateModified": "2026-09-15",
   "name": "Simulateur Indemnité de Licenciement 2026",
   "description": "Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.",
   "url": "https://messimulateursrh.fr/indemnite-licenciement.html",
@@ -215,7 +215,7 @@
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
     <div class="search-panel-top">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <input type="search" id="search-input" class="search-input" aria-label="Rechercher sur le site" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
       <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
     </div>
     <ul class="search-results" id="search-results"></ul>
@@ -303,7 +303,7 @@
   <section class="content-section">
     <h2>Comment est calculée l'indemnité légale de licenciement ?</h2>
     <p>
-      Sauf en cas de faute grave ou lourde, tout salarié licencié après au moins 8 mois d'ancienneté ininterrompue a droit à une indemnité légale de licenciement (<a href="https://code.travail.gouv.fr/outils/indemnite-licenciement" target="_blank" rel="noopener noreferrer">Art. R1234-2 du Code du travail — simulateur officiel</a>, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644692" target="_blank" rel="noopener noreferrer">texte de l'article</a><span class="source-badge">✓ Source officielle</span>). Elle se calcule ainsi : un quart de mois de salaire de référence par année d'ancienneté pour les 10 premières années, puis un tiers de mois par année au-delà de 10 ans.
+      Sauf en cas de <a href="faute-grave.html">faute grave</a> ou <a href="faute-lourde.html">faute lourde</a>, tout salarié licencié après au moins 8 mois d'ancienneté ininterrompue a droit à une indemnité légale de licenciement (<a href="https://code.travail.gouv.fr/outils/indemnite-licenciement" target="_blank" rel="noopener noreferrer">Art. R1234-2 du Code du travail — simulateur officiel</a>, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644692" target="_blank" rel="noopener noreferrer">texte de l'article</a><span class="source-badge">✓ Source officielle</span>). Elle se calcule ainsi : un quart de mois de salaire de référence par année d'ancienneté pour les 10 premières années, puis un tiers de mois par année au-delà de 10 ans.
     </p>
     <p>
       Le salaire de référence retenu est le plus favorable entre la moyenne mensuelle des 12 derniers mois précédant le licenciement et le tiers des 3 derniers mois (primes annuelles ou exceptionnelles comptées au prorata). Ce barème légal est un plancher : de nombreuses conventions collectives prévoient des montants plus favorables — vérifiez la vôtre avant toute négociation.
@@ -387,6 +387,7 @@
     <div class="related-tools">
       <h3>Autres simulateurs utiles</h3>
       <div class="links">
+        <a href="lettre-notification-licenciement.html">→ La lettre de notification de licenciement</a>
         <a href="rupture-conventionnelle.html">→ Rupture conventionnelle</a>
         <a href="preavis.html">→ Durée de préavis</a>
         <a href="droits-chomage.html">→ Droits au chômage (ARE)</a>

@@ -61,6 +61,14 @@
         "@type": "Answer",
         "text": "Cela dépend de votre choix. Si vous placez les sommes sur un plan d'épargne salariale (PEE, PERCO/PERE-CO) dans la limite du plafond de versement (36 045 € en 2026), elles sont exonérées d'impôt sur le revenu — mais bloquées en principe 5 ans (sauf cas de déblocage anticipé prévus par la loi : mariage, naissance d'un 3ᵉ enfant, achat de la résidence principale, etc.). Si vous demandez le versement immédiat, la participation est soumise à l'impôt sur le revenu. Dans tous les cas, la CSG/CRDS (9,7 %) reste due."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Et l'intéressement, c'est la même chose ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Contrairement à la participation, l'intéressement n'a pas de formule légale imposée : chaque accord d'entreprise définit librement sa propre formule de calcul (objectifs de résultat, de performance...). Il n'est donc pas possible de le simuler de façon générique — vérifiez directement l'accord d'intéressement de votre entreprise."
+      }
     }
   ]
 }
@@ -70,7 +78,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-08",
-  "dateModified": "2026-09-08",
+  "dateModified": "2026-09-15",
   "name": "Simulateur de participation (RSP) 2026",
   "description": "Estimez votre part individuelle de la participation (RSP) selon la clé de répartition de votre entreprise. Gratuit, calcul local, sans email.",
   "url": "https://messimulateursrh.fr/participation-legale.html",
@@ -151,7 +159,7 @@
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="Recherche sur le site">
     <div class="search-panel-top">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="search" id="search-input" class="search-input" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
+      <input type="search" id="search-input" class="search-input" aria-label="Rechercher sur le site" placeholder="Rechercher : ARE, rupture conventionnelle, préavis..." autocomplete="off">
       <button type="button" class="search-close" id="search-close" aria-label="Fermer la recherche">&times;</button>
     </div>
     <ul class="search-results" id="search-results"></ul>
@@ -170,7 +178,8 @@
   <section class="hero">
     <h1>Simulateur de participation (RSP)</h1>
     <p>
-      Estimez votre part individuelle de la participation aux résultats (réserve spéciale de participation, RSP), à partir du montant global déjà communiqué par votre entreprise et de la clé de répartition applicable.
+      <span class="for-salarie">Estimez votre part individuelle de la participation aux résultats (réserve spéciale de participation, RSP), à partir du montant global déjà communiqué par votre entreprise et de la clé de répartition applicable.</span>
+      <span class="for-employeur">Estimez la part individuelle de chaque salarié dans la réserve spéciale de participation (RSP), selon la clé de répartition retenue dans votre accord.</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
     <p class="update-date">Contenu vérifié le 8 septembre 2026. Sources : Code du travail (art. L3324-1 et suivants, D3324-10), economie.gouv.fr. <a href="a-propos.html">Notre méthode</a>.</p>
