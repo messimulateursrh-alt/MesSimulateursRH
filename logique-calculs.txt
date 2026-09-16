@@ -29,6 +29,24 @@ if (other !== d) other.removeAttribute('open');
 }
 });
 });
+var hoverMq = window.matchMedia('(hover:hover) and (pointer:fine) and (min-width:900px)');
+document.querySelectorAll('.nav-dropdown').forEach(function(d){
+var closeTimer = null;
+d.addEventListener('mouseenter', function(){
+if (!hoverMq.matches) return;
+clearTimeout(closeTimer);
+d.setAttribute('open', '');
+});
+d.addEventListener('mouseleave', function(){
+if (!hoverMq.matches) return;
+clearTimeout(closeTimer);
+closeTimer = setTimeout(function(){ d.removeAttribute('open'); }, 150);
+});
+var s = d.querySelector('summary');
+if (s) s.addEventListener('click', function(e){
+if (hoverMq.matches && e.detail > 0 && d.open) e.preventDefault();
+});
+});
 }
 document.addEventListener('DOMContentLoaded', initNavDropdown);
 function euros(n){

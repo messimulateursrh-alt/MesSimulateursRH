@@ -29,6 +29,7 @@ h1,h2,h3,.brand{font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI
 .nav-dropdown summary{margin-left:14px;padding:6px 0}
 .nav-dropdown-menu{position:absolute;top:100%;left:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 10px 30px rgba(20,30,60,.14);padding:8px;margin-top:8px;min-width:250px;gap:0;z-index:30}
 .nav-dropdown-menu a{padding:9px 10px;border-radius:8px}
+.nav-dropdown-menu::before{content:'';position:absolute;left:0;right:0;top:-10px;height:10px}
 }
 .content-section[aria-labelledby="h-rupture"] .tool-icon,body.cat-rupture .tool-icon{color:var(--cat-rupture)}
 .content-section[aria-labelledby="h-salaire"] .tool-icon,body.cat-salaire .tool-icon{color:var(--cat-salaire)}
