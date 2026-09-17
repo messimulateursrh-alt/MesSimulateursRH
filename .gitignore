@@ -37,6 +37,9 @@ urls-a-indexer.txt
 # Dossier de mise au rebut : ne doit jamais être publié
 _to_delete/
 
+# Historique archivé des documents de travail (quel que soit le type de fichier)
+archives/
+
 # --- Secrets et configuration locale ---
 .env
 .env.*
