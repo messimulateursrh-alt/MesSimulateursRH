@@ -1438,6 +1438,35 @@ donneesInsuffisantes: donneesInsuffisantes
 };
 }
 
+// Délais pour saisir le conseil de prud'hommes (saisir-les-prudhommes.html).
+// Sources : L1471-1, L1237-14, L3245-1, L1234-20, L1134-5 du Code du travail ; art. 2224 et 2226 du Code civil ; service-public.gouv.fr F2360.
+var DELAIS_PRUDHOMMES = {
+rupture:{mois:12, depart:"de la notification de la rupture (date de première présentation de la lettre de licenciement, par exemple)", article:"article L1471-1 du Code du travail"},
+rc:{mois:12, depart:"de la date d'homologation de la rupture conventionnelle", article:"article L1237-14 du Code du travail"},
+execution:{mois:24, depart:"du jour où vous avez connu (ou auriez dû connaître) les faits", article:"article L1471-1 du Code du travail"},
+salaires:{mois:36, depart:"du jour où vous avez connu (ou auriez dû connaître) les faits, en pratique la date à laquelle la somme aurait dû être payée", article:"article L3245-1 du Code du travail"},
+stc:{mois:6, depart:"de la signature du reçu pour solde de tout compte", article:"article L1234-20 du Code du travail"},
+discrimination:{mois:60, depart:"de la révélation de la discrimination", article:"article L1134-5 du Code du travail"},
+harcelement:{mois:60, depart:"de la date du dernier fait de harcèlement", article:"article 2224 du Code civil"},
+corporel:{mois:120, depart:"de la date de consolidation du dommage", article:"article 2226 du Code civil"}
+};
+function ajouterMoisDate(date, mois){
+var y = date.getFullYear(), m = date.getMonth() + mois, d = date.getDate();
+var dernierJour = new Date(y, m + 1, 0).getDate();
+return new Date(y, m, Math.min(d, dernierJour));
+}
+function delaiPrudhommes(type, dateDepartISO, aujourdhui){
+var regle = DELAIS_PRUDHOMMES[type];
+if (!regle || !/^\d{4}-\d{2}-\d{2}$/.test(dateDepartISO || '')) return null;
+var parts = dateDepartISO.split('-');
+var depart = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+if (isNaN(depart.getTime())) return null;
+var ref = aujourdhui ? new Date(aujourdhui.getFullYear(), aujourdhui.getMonth(), aujourdhui.getDate()) : new Date(new Date().setHours(0,0,0,0));
+var limite = ajouterMoisDate(depart, regle.mois);
+var joursRestants = Math.round((limite - ref) / 86400000);
+return {mois:regle.mois, depart:depart, limite:limite, joursRestants:joursRestants, futur:depart > ref, regle:regle};
+}
+
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
@@ -1487,6 +1516,7 @@ var SEARCH_INDEX = [
 {title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI mariage pacs comparatif celibataire imposition commune decote plafonnement"},
 {title:"Participation (RSP)", url:"participation-legale.html", cat:"Simulateur", kw:"participation RSP epargne salariale reserve speciale repartition PEE"},
 {title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
+{title:"Saisir les prud'hommes : délais et démarches", url:"saisir-les-prudhommes.html", cat:"Guide", kw:"saisir prud hommes conseil de prudhommes delai prescription combien de temps pour agir requete bordereau 1er octobre 2026 decret 2026-683 timbre fiscal 50 euros conciliation contester licenciement salaires impayes"},
 {title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle.html", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},
 {title:"Qui peut vous accompagner en rupture conventionnelle", url:"qui-peut-vous-accompagner-rupture-conventionnelle.html", cat:"Guide", kw:"conseiller du salarie syndicat representant du personnel assistance entretien rupture conventionnelle licenciement gratuit"},
 {title:"Négocier son premier salaire", url:"negocier-son-premier-salaire.html", cat:"Guide", kw:"negocier premier salaire embauche entretien alternance jeune diplome avantages salariaux"},

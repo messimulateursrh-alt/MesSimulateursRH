@@ -1,49 +1,105 @@
 # MesSimulateursRH.fr
 
-> 21 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...). Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
+> 29 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, des articles sur les réformes 2026 et une formation gratuite. Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
 
 ## Rupture du contrat de travail
+- [Rupture du contrat de travail](https://messimulateursrh.fr/simulateurs-rupture-contrat.html): 8 simulateurs gratuits pour la rupture du contrat : rupture conventionnelle, licenciement, préavis, chômage, portabilité mutuelle, guide interactif.
 - [Simulateur de rupture conventionnelle](https://messimulateursrh.fr/rupture-conventionnelle.html): indemnité minimale, régime social et fiscal, formules conventionnelles (Syntec, Bâtiment cadre) en plus du barème légal.
 - [Simulateur d'indemnité de licenciement](https://messimulateursrh.fr/indemnite-licenciement.html): indemnité légale de licenciement selon ancienneté et salaire de référence.
 - [Mes droits au chômage après une rupture de contrat](https://messimulateursrh.fr/droits-chomage.html): éligibilité et montant de l'allocation chômage (ARE) après licenciement, rupture conventionnelle ou démission légitime.
 - [Simulateur de durée de préavis](https://messimulateursrh.fr/preavis.html): durée légale de préavis en cas de démission ou licenciement.
 - [Simulateur de solde de tout compte](https://messimulateursrh.fr/solde-tout-compte.html): salaire, indemnité, préavis et congés payés restants au départ.
 - [Prime de précarité CDD / indemnité de fin de mission intérim](https://messimulateursrh.fr/prime-precarite-cdd.html): 10 % ou 6 % de la rémunération brute perçue, cas d'exclusion inclus.
+- [Portabilité de la mutuelle](https://messimulateursrh.fr/portabilite-mutuelle.html): calculez la durée de maintien gratuit de votre mutuelle après un licenciement, une rupture conventionnelle ou une fin de CDD (12 mois max). Gratuit, calcul local.
+- [Guide interactif : je veux quitter mon emploi](https://messimulateursrh.fr/comment-quitter-son-emploi.html): démission, licenciement ou rupture conventionnelle ? Répondez à 2 questions, ce guide interactif gratuit vous oriente vers la bonne solution.
 - [Licenciement, rupture conventionnelle ou démission : quelles différences ?](https://messimulateursrh.fr/licenciement-vs-rupture-conventionnelle-vs-demission.html): comparatif indemnité / préavis / droit au chômage.
 
 ## Salaire et coût du travail
+- [Salaire et coût du travail](https://messimulateursrh.fr/simulateurs-salaire-cout-travail.html): 9 simulateurs gratuits sur le salaire et le coût du travail : net/brut, coût employeur, licenciement, apprenti, professionnalisation, kilométriques, participation.
 - [Salaire brut en net 2026](https://messimulateursrh.fr/salaire-net-brut.html): conversion brut/net dans les deux sens selon le statut (non-cadre, cadre, fonction publique, indépendant, portage salarial).
 - [Coût d'un salarié pour l'entreprise](https://messimulateursrh.fr/cout-salarie-entreprise.html): coût total mensuel et annuel employeur (brut, charges patronales, avantages, primes).
 - [Coût total d'un licenciement pour l'employeur](https://messimulateursrh.fr/cout-licenciement-employeur.html): indemnité légale, préavis, congés payés, charges patronales.
 - [Simulateur d'augmentation de salaire](https://messimulateursrh.fr/augmentation-salaire.html): gain net réel d'une augmentation, en euros ou en pourcentage.
 - [Salaire minimum d'un apprenti](https://messimulateursrh.fr/salaire-apprenti.html): grille officielle selon l'âge et l'année de contrat, en pourcentage du SMIC.
+- [Salaire minimum contrat de professionnalisation](https://messimulateursrh.fr/salaire-contrat-professionnalisation.html): calculez le salaire brut ET net minimum en contrat de professionnalisation selon l'âge et le niveau de qualification. Gratuit, grille officielle 2026.
+- [Participation (RSP)](https://messimulateursrh.fr/participation-legale.html): estimez votre part individuelle de la participation (RSP) selon la clé de répartition de votre entreprise. Gratuit, calcul local, sans email.
 - [Indemnités kilométriques (frais réels)](https://messimulateursrh.fr/frais-kilometriques.html): barème fiscal officiel selon puissance du véhicule et distance.
 - [Parts fiscales et quotient familial](https://messimulateursrh.fr/quotient-familial.html): nombre de parts et taux marginal d'imposition (TMI) — pas un calcul d'impôt.
 
 ## Congés et temps de travail
+- [Congés et temps de travail](https://messimulateursrh.fr/simulateurs-conges-temps-travail.html): 8 simulateurs gratuits sur les congés et le temps de travail : congés payés, jours de pont, temps partiel, congé maternité/paternité, chômage partiel.
+- [Simulateur d'indemnité de congés payés](https://messimulateursrh.fr/indemnite-conges-payes.html): méthode la plus favorable (dixième ou maintien de salaire).
 - [Simulateur congé de naissance 2026](https://messimulateursrh.fr/conge-naissance.html): indemnisation du congé supplémentaire de naissance (jusqu'à 2 mois, 70 % puis 60 % du salaire).
 - [Indemnités congé maternité / paternité](https://messimulateursrh.fr/indemnites-conge-maternite-paternite.html): indemnités journalières CPAM pendant le congé.
-- [Simulateur d'indemnité de congés payés](https://messimulateursrh.fr/indemnite-conges-payes.html): méthode la plus favorable (dixième ou maintien de salaire).
+- [Indemnités d'arrêt maladie](https://messimulateursrh.fr/indemnite-arret-maladie.html): calculez vos indemnités journalières de la Sécurité sociale et le maintien de salaire employeur en arrêt maladie 2026. Gratuit, calcul local.
+- [Calcul RTT](https://messimulateursrh.fr/calcul-rtt.html): calculez votre nombre de jours de RTT en 2026, au forfait jours (218 jours) ou à l'horaire hebdomadaire (35h à 39h). Gratuit, calcul local.
 - [Chômage partiel (activité partielle) — indemnité salarié](https://messimulateursrh.fr/chomage-partiel.html): 60 % du taux horaire brut, plancher SMIC.
 - [Impact d'un passage à temps partiel](https://messimulateursrh.fr/passage-temps-partiel.html): effet sur le salaire net et les droits à congés payés.
 - [Calendrier des jours de pont](https://messimulateursrh.fr/calendrier-ponts.html): meilleurs jours de congés à poser en 2026-2027 autour des jours fériés.
 
 ## Ancienneté et fin de carrière
+- [Ancienneté et fin de carrière](https://messimulateursrh.fr/simulateurs-anciennete-carriere.html): 4 simulateurs gratuits sur l'ancienneté et la fin de carrière : calcul d'ancienneté, trimestres restants, cumul emploi-retraite, indemnité de départ à la retraite.
 - [Calcul d'ancienneté](https://messimulateursrh.fr/calcul-anciennete.html): ancienneté exacte en années, mois et jours depuis la date d'embauche.
 - [Indemnité de départ à la retraite](https://messimulateursrh.fr/indemnite-depart-retraite.html): départ volontaire ou mise à la retraite par l'employeur.
+- [Trimestres de retraite restants](https://messimulateursrh.fr/trimestres-retraite-restants.html): calculez les trimestres qu'il vous reste à valider pour le taux plein et votre âge légal de départ, selon votre génération et le barème 2026. Gratuit, calcul local.
+- [Cumul emploi-retraite](https://messimulateursrh.fr/cumul-emploi-retraite.html): cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.
+
+## Guides : licenciement et contentieux
+- [Saisir les prud'hommes : délais et démarches](https://messimulateursrh.fr/saisir-les-prudhommes.html): délais pour saisir les prud'hommes (12 mois, 2 ans, 3 ans, 5 ans), calcul de votre date limite, coût, démarches et réforme du 1er octobre 2026.
+- [Procédure de licenciement : étapes et délais](https://messimulateursrh.fr/procedure-licenciement.html): les étapes de la procédure de licenciement : convocation, entretien préalable, notification, préavis, calcul de l'indemnité légale, documents de fin de contrat.
+- [La lettre de notification de licenciement](https://messimulateursrh.fr/lettre-notification-licenciement.html): lettre de licenciement : forme obligatoire (LRAR), contenu selon le motif, délais entre l'entretien préalable et l'envoi, précision des motifs sous 15 jours.
+- [Qu'est-ce qu'une cause réelle et sérieuse ?](https://messimulateursrh.fr/cause-reelle-et-serieuse.html): cause réelle et sérieuse : définition légale, les deux critères cumulatifs, motif personnel vs économique, rôle du conseil de prud'hommes.
+- [Licenciement abusif : le barème Macron](https://messimulateursrh.fr/licenciement-abusif-bareme-macron.html): barème Macron 2026 : indemnités minimales et maximales par année d'ancienneté (art. L1235-3), cas de nullité exclus, entreprises de moins de 11 salariés.
+- [Licenciement pour faute grave](https://messimulateursrh.fr/faute-grave.html): faute grave au travail : définition, différence avec la faute simple, indemnités perdues et conservées, prescription de 2 mois, abandon de poste (2023).
+- [Licenciement pour faute lourde](https://messimulateursrh.fr/faute-lourde.html): faute lourde : définition, critère de l'intention de nuire (2015), congés payés dus depuis 2016, différence avec la faute grave, rareté de la qualification.
+- [Licenciement économique](https://messimulateursrh.fr/licenciement-economique.html): licenciement économique : les 4 motifs légaux, difficultés économiques, obligation de reclassement, PSE, indemnités et contrat de sécurisation professionnelle.
+- [Licenciement pour inaptitude médicale](https://messimulateursrh.fr/licenciement-inaptitude.html): licenciement pour inaptitude : rôle du médecin du travail, obligation de reclassement, différence pro/non pro, indemnités doublées en cas d'accident du travail.
+- [Licenciement pour insuffisance professionnelle](https://messimulateursrh.fr/insuffisance-professionnelle.html): insuffisance professionnelle : définition, critères jurisprudentiels, différence avec l'insuffisance de résultats, indemnités dues malgré le licenciement.
+
+## Guides : rupture conventionnelle
+- [Négocier sa rupture conventionnelle](https://messimulateursrh.fr/negocier-rupture-conventionnelle.html): comment négocier une indemnité supra-légale de rupture conventionnelle et mobiliser le CPF ou le Projet de Transition Professionnelle pour une reconversion.
+- [Qui peut vous accompagner en rupture conventionnelle](https://messimulateursrh.fr/qui-peut-vous-accompagner-rupture-conventionnelle.html): conseiller du salarié, représentant du personnel, syndicat, avocat : qui peut vous assister lors d'un entretien de rupture conventionnelle, gratuitement ou non.
+- [Contester une rupture conventionnelle](https://messimulateursrh.fr/contester-rupture-conventionnelle.html): délai de 12 mois pour contester une rupture conventionnelle, vice du consentement, procédure devant les prud'hommes et conséquences si elle est annulée.
+
+## Guides : congés payés
+- [Congés payés non pris : report, perte ou paiement ?](https://messimulateursrh.fr/conges-payes-non-pris.html): congés payés non pris : perdus, reportés ou payés ? Report de 15 mois après un arrêt maladie, obligation d'information de l'employeur, paiement à la rupture.
+- [Arrêt maladie et congés payés](https://messimulateursrh.fr/arret-maladie-et-conges-payes.html): congés payés en arrêt maladie : 2 jours par mois (24 max), 2,5 jours en accident du travail, report de 15 mois, et report si vous tombez malade en vacances.
+- [Fractionnement des congés payés](https://messimulateursrh.fr/fractionnement-conges-payes.html): jours de fractionnement : 1 ou 2 jours de congés en plus si une partie du congé principal est prise hors 1er mai-31 octobre. Calcul, renonciation, délais.
+- [Jours fériés : payés, chômés ou travaillés ?](https://messimulateursrh.fr/jours-feries-travail.html): les 11 jours fériés : payés, chômés ou travaillés ? 1er mai payé double, 3 mois d'ancienneté, férié tombant un week-end, journée de solidarité, Alsace-Moselle.
+
+## Guides : salaire, IA et conventions collectives
+- [Comment lire sa fiche de paie](https://messimulateursrh.fr/comment-lire-sa-fiche-de-paie.html): avantages en nature, titre-restaurant, heures supplémentaires, CSG/CRDS : les lignes qui expliquent l'écart entre salaire brut et net réellement versé.
+- [Négocier son premier salaire](https://messimulateursrh.fr/negocier-son-premier-salaire.html): comment négocier son premier salaire à l'embauche : quand en parler, comment se situer, quoi négocier si le fixe est bloqué. Conseils factuels, sans capture d'email.
+- [Identifier sa convention collective](https://messimulateursrh.fr/identifier-convention-collective.html): retrouver son code IDCC (bulletin de paie, contrat, recherche officielle).
+- [IA et travail : obligations de l'employeur](https://messimulateursrh.fr/ia-et-travail-obligations-employeur.html): IA au travail : consultation du CSE avant déploiement, formation des salariés, calendrier AI Act 2026-2027, jurisprudence française récente.
+- [IA et conventions collectives](https://messimulateursrh.fr/ia-et-conventions-collectives.html): aucune convention de branche ne négocie encore l'IA en France : accords d'entreprise (MAIF, BPCE), texte européen métallurgie, négociation fonction publique.
+- [Remplacé par une IA et licencié : quels recours ?](https://messimulateursrh.fr/remplace-par-ia-licenciement.html): votre employeur invoque l'IA pour justifier votre licenciement ? Cause réelle et sérieuse, formation, reclassement, RGPD et AI Act : vos droits expliqués.
 
 ## Réformes et actualité légale 2026
+- [Actualités](https://messimulateursrh.fr/actualites.html): suivi des réformes et évolutions légales récentes.
 - [Rupture conventionnelle et chômage : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/reforme-rupture-conventionnelle-chomage-2026.html): loi n°2026-470 du 11 juin 2026, durée d'indemnisation chômage réduite.
 - [Congé de naissance 2026 : ce qu'il faut savoir](https://messimulateursrh.fr/conge-naissance-2026.html): dispositif en vigueur depuis juillet 2026, durée, conditions, démarches.
 - [Retraite des parents : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/retraite-parents-trimestres-2026.html): décrets n° 2026-699 et 2026-700, calcul de la pension et trimestres supplémentaires.
 - [Arrêts de travail plafonnés : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/plafonnement-arrets-maladie-2026.html): décrets n° 2026-498, 2026-499 et 2026-501, durées maximales de prescription.
+- [Transparence salariale : ce qui va changer pour les salariés](https://messimulateursrh.fr/transparence-salariale-directive-2026.html): projet de loi présenté le 9 septembre 2026 : fourchette de salaire à l'embauche, écarts à justifier. Ce qui est sûr, ce qui reste incertain.
 
-## Guides et ressources
-- [Identifier sa convention collective](https://messimulateursrh.fr/identifier-convention-collective.html): retrouver son code IDCC (bulletin de paie, contrat, recherche officielle).
-- [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail.html): 30 termes expliqués simplement, reliés aux simulateurs correspondants.
+## Formation gratuite
+- [Formation](https://messimulateursrh.fr/formation.html): modules pédagogiques (cours + quiz) sur les principaux dispositifs.
+- [Indemnité de licenciement](https://messimulateursrh.fr/formation-indemnite-licenciement.html): apprenez à calculer l'indemnité légale de licenciement, avec un quiz de validation gratuit et une attestation de participation à télécharger.
+- [Rupture conventionnelle](https://messimulateursrh.fr/formation-rupture-conventionnelle.html): apprenez le fonctionnement de la rupture conventionnelle (procédure, délais, indemnité, réforme 2026), avec quiz de validation et attestation à télécharger.
+- [Ancienneté et préavis](https://messimulateursrh.fr/formation-anciennete-preavis.html): apprenez les règles d'ancienneté et de préavis en droit du travail, avec un quiz de validation gratuit et une attestation de participation à télécharger.
+- [Droits au chômage (ARE)](https://messimulateursrh.fr/formation-chomage-are.html): apprenez les conditions d'éligibilité et le calcul de l'allocation chômage (ARE), avec un quiz de validation et une attestation de participation à télécharger.
+- [Congés payés](https://messimulateursrh.fr/formation-conges-payes.html): apprenez le calcul de l'indemnité de congés payés (règle du dixième, maintien de salaire), avec quiz de validation et attestation à télécharger.
+- [Congé de naissance](https://messimulateursrh.fr/formation-conge-naissance.html): apprenez le fonctionnement du congé de naissance 2026 (indemnisation, délais, conditions), avec quiz de validation et attestation à télécharger.
+- [Passage à temps partiel](https://messimulateursrh.fr/formation-temps-partiel.html): apprenez l'impact réel d'un passage à temps partiel (salaire, congés payés, retraite), avec quiz de validation et attestation à télécharger.
+- [Départ et mise à la retraite](https://messimulateursrh.fr/formation-depart-retraite.html): apprenez la différence entre départ volontaire et mise à la retraite (barèmes, fiscalité), avec quiz de validation et attestation à télécharger.
+
+## Ressources et site
+- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 29 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Calcul instantané, aucune donnée envoyée.
+- [Aller plus loin](https://messimulateursrh.fr/aller-plus-loin.html): au-delà des simulateurs : convention collective, formation gratuite, actualités du droit du travail, glossaire, comparatif et ressources officielles.
+- [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail.html): 37 termes expliqués simplement, reliés aux simulateurs correspondants.
 - [Ressources officielles](https://messimulateursrh.fr/ressources-officielles.html): annuaire de sites officiels (Code du travail numérique, TéléRC, France Travail, URSSAF, Ameli).
 - [À propos et méthode](https://messimulateursrh.fr/a-propos.html): méthode de vérification des barèmes, fréquence de mise à jour, code source public.
-
-## Optional
-- [Formation](https://messimulateursrh.fr/formation.html): modules pédagogiques (cours + quiz) sur les principaux dispositifs.
-- [Actualités](https://messimulateursrh.fr/actualites.html): suivi des réformes et évolutions légales récentes.
+- [Contacter MesSimulateursRH.fr](https://messimulateursrh.fr/contact.html): contacter MesSimulateursRH.fr : signaler une erreur de calcul, suggérer un simulateur, poser une question sur une page ou proposer un partenariat. Réponse sous quelques jours.
+- [Mentions légales](https://messimulateursrh.fr/mentions-legales.html): mentions légales de MesSimulateursRH.fr : identité de l'éditeur, hébergement du site, propriété intellectuelle et limites de responsabilité du contenu proposé.
+- [Politique de confidentialité](https://messimulateursrh.fr/politique-de-confidentialite.html): politique de confidentialité de MesSimulateursRH.fr : calculs 100% dans votre navigateur, aucune donnée envoyée à un serveur, aucun cookie à ce jour.
