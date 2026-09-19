@@ -88,7 +88,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-07",
+  "dateModified": "2026-09-19",
   "name": "Indemnité de Départ à la Retraite 2026",
   "description": "Calculez votre indemnité légale de départ à la retraite 2026 : départ volontaire du salarié ou mise à la retraite par l'employeur. Gratuit, calcul local.",
   "url": "https://messimulateursrh.fr/indemnite-depart-retraite.html",
@@ -223,6 +223,10 @@
         <label for="moisDR">Ancienneté — mois</label>
         <input type="number" id="moisDR" min="0" max="11" step="1" placeholder="ex : 0">
       </div>
+    </div>
+    <div class="field aide-anciennete">
+      <div class="hint">Ancienneté exacte inconnue ? <a href="calcul-anciennete.html">Calculez-la à partir de vos dates</a> (années, mois et jours), puis revenez ici sans rien ressaisir.</div>
+      <div class="notice" id="noticePreAnciennete" style="display:none;" role="status"></div>
     </div>
     <button class="compute" onclick="calculerDepartRetraite()">Calculer</button>
 
@@ -423,6 +427,9 @@ function telechargerPDF_DR(){
     nomFichier: 'simulation-depart-retraite.pdf'
   });
 }
+
+// Ancienneté transmise par calcul-anciennete.html (fragment d'URL, rien n'est envoyé ni stocké)
+preRemplirAnciennete('anneesDR', 'moisDR', 'noticePreAnciennete');
 </script>
 </body>
 </html>

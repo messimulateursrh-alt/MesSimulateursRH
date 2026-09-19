@@ -1,14 +1,15 @@
 # MesSimulateursRH.fr
 
-> 29 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, des articles sur les réformes 2026 et une formation gratuite. Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
+> 30 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, des articles sur les réformes 2026 et une formation gratuite. Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
 
 ## Rupture du contrat de travail
-- [Rupture du contrat de travail](https://messimulateursrh.fr/simulateurs-rupture-contrat.html): 8 simulateurs gratuits pour la rupture du contrat : rupture conventionnelle, licenciement, préavis, chômage, portabilité mutuelle, guide interactif.
-- [Simulateur de rupture conventionnelle](https://messimulateursrh.fr/rupture-conventionnelle.html): indemnité minimale, régime social et fiscal, formules conventionnelles (Syntec, Bâtiment cadre) en plus du barème légal.
+- [Rupture du contrat de travail](https://messimulateursrh.fr/simulateurs-rupture-contrat.html): 9 simulateurs gratuits pour la rupture du contrat : rupture conventionnelle (privé et fonction publique), licenciement, préavis, chômage, portabilité mutuelle.
+- [Simulateur de rupture conventionnelle](https://messimulateursrh.fr/rupture-conventionnelle.html): indemnité minimale (due quelle que soit l'ancienneté, au prorata des mois de présence en dessous d'un an), régime social et fiscal, formules conventionnelles (Syntec, Bâtiment cadre) en plus du barème légal.
 - [Simulateur d'indemnité de licenciement](https://messimulateursrh.fr/indemnite-licenciement.html): indemnité légale de licenciement selon ancienneté et salaire de référence.
 - [Mes droits au chômage après une rupture de contrat](https://messimulateursrh.fr/droits-chomage.html): éligibilité et montant de l'allocation chômage (ARE) après licenciement, rupture conventionnelle ou démission légitime.
 - [Simulateur de durée de préavis](https://messimulateursrh.fr/preavis.html): durée légale de préavis en cas de démission ou licenciement.
 - [Simulateur de solde de tout compte](https://messimulateursrh.fr/solde-tout-compte.html): salaire, indemnité, préavis et congés payés restants au départ.
+- [Rupture conventionnelle dans la fonction publique : simulateur d'ISRC](https://messimulateursrh.fr/rupture-conventionnelle-fonction-publique.html): plancher et plafond de l'indemnité spécifique de rupture conventionnelle d'un agent public, barème du décret n° 2026-746 en vigueur depuis le 8 août 2026, comparaison avec l'ancien barème.
 - [Prime de précarité CDD / indemnité de fin de mission intérim](https://messimulateursrh.fr/prime-precarite-cdd.html): 10 % ou 6 % de la rémunération brute perçue, cas d'exclusion inclus.
 - [Portabilité de la mutuelle](https://messimulateursrh.fr/portabilite-mutuelle.html): calculez la durée de maintien gratuit de votre mutuelle après un licenciement, une rupture conventionnelle ou une fin de CDD (12 mois max). Gratuit, calcul local.
 - [Guide interactif : je veux quitter mon emploi](https://messimulateursrh.fr/comment-quitter-son-emploi.html): démission, licenciement ou rupture conventionnelle ? Répondez à 2 questions, ce guide interactif gratuit vous oriente vers la bonne solution.
@@ -39,12 +40,13 @@
 
 ## Ancienneté et fin de carrière
 - [Ancienneté et fin de carrière](https://messimulateursrh.fr/simulateurs-anciennete-carriere.html): 4 simulateurs gratuits sur l'ancienneté et la fin de carrière : calcul d'ancienneté, trimestres restants, cumul emploi-retraite, indemnité de départ à la retraite.
-- [Calcul d'ancienneté](https://messimulateursrh.fr/calcul-anciennete.html): ancienneté exacte en années, mois et jours depuis la date d'embauche.
+- [Calcul d'ancienneté](https://messimulateursrh.fr/calcul-anciennete.html): ancienneté exacte en années, mois et jours depuis la date d'embauche, seuils légaux atteints (6 mois, 8 mois, 2 ans, 10, 15, 20 et 30 ans) avec la date du prochain seuil, périodes qui comptent ou non (temps partiel, congé parental, CDD, apprentissage, intérim, stage).
 - [Indemnité de départ à la retraite](https://messimulateursrh.fr/indemnite-depart-retraite.html): départ volontaire ou mise à la retraite par l'employeur.
 - [Trimestres de retraite restants](https://messimulateursrh.fr/trimestres-retraite-restants.html): calculez les trimestres qu'il vous reste à valider pour le taux plein et votre âge légal de départ, selon votre génération et le barème 2026. Gratuit, calcul local.
 - [Cumul emploi-retraite](https://messimulateursrh.fr/cumul-emploi-retraite.html): cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.
 
 ## Guides : licenciement et contentieux
+- [Démissionner et toucher le chômage : les cas possibles](https://messimulateursrh.fr/demissionner-et-toucher-le-chomage.html): 17 cas de démission légitime, démission pour reconversion, réexamen après 121 jours, abandon de poste et alternatives.
 - [Saisir les prud'hommes : délais et démarches](https://messimulateursrh.fr/saisir-les-prudhommes.html): délais pour saisir les prud'hommes (12 mois, 2 ans, 3 ans, 5 ans), calcul de votre date limite, coût, démarches et réforme du 1er octobre 2026.
 - [Procédure de licenciement : étapes et délais](https://messimulateursrh.fr/procedure-licenciement.html): les étapes de la procédure de licenciement : convocation, entretien préalable, notification, préavis, calcul de l'indemnité légale, documents de fin de contrat.
 - [La lettre de notification de licenciement](https://messimulateursrh.fr/lettre-notification-licenciement.html): lettre de licenciement : forme obligatoire (LRAR), contenu selon le motif, délais entre l'entretien préalable et l'envoi, précision des motifs sous 15 jours.
@@ -95,7 +97,7 @@
 - [Départ et mise à la retraite](https://messimulateursrh.fr/formation-depart-retraite.html): apprenez la différence entre départ volontaire et mise à la retraite (barèmes, fiscalité), avec quiz de validation et attestation à télécharger.
 
 ## Ressources et site
-- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 29 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Calcul instantané, aucune donnée envoyée.
+- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 30 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Calcul instantané, aucune donnée envoyée.
 - [Aller plus loin](https://messimulateursrh.fr/aller-plus-loin.html): au-delà des simulateurs : convention collective, formation gratuite, actualités du droit du travail, glossaire, comparatif et ressources officielles.
 - [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail.html): 37 termes expliqués simplement, reliés aux simulateurs correspondants.
 - [Ressources officielles](https://messimulateursrh.fr/ressources-officielles.html): annuaire de sites officiels (Code du travail numérique, TéléRC, France Travail, URSSAF, Ameli).

@@ -134,7 +134,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-15",
+  "dateModified": "2026-09-19",
   "name": "Simulateur Indemnité de Licenciement 2026",
   "description": "Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.",
   "url": "https://messimulateursrh.fr/indemnite-licenciement.html",
@@ -263,6 +263,10 @@
         <input type="number" id="moisL" min="0" max="11" step="1" placeholder="ex : 6">
       </div>
     </div>
+    <div class="field aide-anciennete">
+      <div class="hint">Ancienneté exacte inconnue ? <a href="calcul-anciennete.html">Calculez-la à partir de vos dates</a> (années, mois et jours), puis revenez ici sans rien ressaisir.</div>
+      <div class="notice" id="noticePreAnciennete" style="display:none;" role="status"></div>
+    </div>
     <div class="field">
       <label for="motifL">Motif du licenciement</label>
       <select id="motifL">
@@ -289,6 +293,12 @@
       <div class="notice" id="noticeComparaisonL" style="display:none;"></div>
       <div class="breakdown" id="regimeFiscalL"></div>
       <div class="breakdown for-employeur" id="coutEmployeurL"></div>
+      <div class="breakdown for-salarie" id="pontARE_L">
+        <p><strong>Et après la rupture : vos droits au chômage</strong></p>
+        <p>Reprenez le salaire saisi ci-dessus — et, le cas échéant, la part du montant proposé qui dépasse le minimum légal — pour estimer votre allocation chômage (ARE) et le différé spécifique avant le premier versement, sans rien ressaisir.</p>
+        <p><a class="bridge-link" id="lienPontARE_L" href="droits-chomage.html#pre=1&amp;motif=licenciement">Estimer mes droits au chômage avec ce salaire →</a></p>
+        <p class="pdf-privacy-note">Les valeurs sont transmises dans l'adresse de la page, à l'intérieur de votre navigateur : rien n'est envoyé ni enregistré.</p>
+      </div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_L()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -508,6 +518,10 @@ function calculerLicenciement(){
   document.getElementById('coutEmployeurL').innerHTML =
     'Coût employeur : contrairement à la <a href="rupture-conventionnelle.html">rupture conventionnelle</a> ou à la mise à la retraite, le licenciement classique n\'entraîne aucune contribution patronale spécifique — l\'indemnité reste soumise aux mêmes seuils d\'exonération sociale que ci-dessus, sans charge patronale additionnelle liée au mode de rupture. Pour le coût total employeur (préavis, congés payés, charges patronales normales), voir <a href="cout-licenciement-employeur.html">le simulateur dédié</a>.';
 
+  var salairePontL = (s12 > 0 ? s12 : s3);
+  document.getElementById('lienPontARE_L').href = 'droits-chomage.html#pre=1&motif=licenciement&salaire=' + encodeURIComponent(salairePontL.toFixed(2)) +
+    (montantProposeL - indemnite > 0.5 ? '&supra=' + encodeURIComponent((montantProposeL - indemnite).toFixed(2)) : '');
+
   resultBox.classList.add('show');
 }
 
@@ -547,6 +561,9 @@ function telechargerPDF_L(){
     nomFichier: 'simulation-indemnite-licenciement.pdf'
   });
 }
+
+// Ancienneté transmise par calcul-anciennete.html (fragment d'URL, rien n'est envoyé ni stocké)
+preRemplirAnciennete('anneesL', 'moisL', 'noticePreAnciennete');
 </script>
 </body>
 </html>

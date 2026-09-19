@@ -59,7 +59,7 @@
       "name": "Le délai de carence retarde-t-il le premier versement ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue, calculé en divisant la fraction excédentaire par 90). Ce simulateur ne calcule pas ce délai."
+        "text": "Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue : la fraction excédentaire est divisée par 111,8 en 2026, dans la limite de 150 jours calendaires, ou 75 jours en cas de licenciement économique). Ce simulateur estime le différé spécifique si vous renseignez ce montant ; il ne calcule ni le différé congés payés ni le délai d'attente."
       }
     },
     {
@@ -91,7 +91,7 @@
       "name": "Puis-je cumuler l'ARE avec un nouveau salaire si je retrouve un emploi moins bien payé ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, sous conditions : c'est le cumul de l'allocation d'aide au retour à l'emploi (ARE) avec une rémunération, prévu par le règlement d'assurance chômage. Le principe : votre allocation mensuelle sans activité est réduite de 70 % de votre nouveau salaire brut, le reste étant versé en jours d'ARE complémentaires. Le cumul salaire + ARE ne peut toutefois pas dépasser le salaire mensuel moyen brut qui a servi à ouvrir vos droits. Vous devez rester inscrit comme demandeur d'emploi et déclarer chaque mois votre activité. Utilisez le module ci-dessus pour une estimation."
+        "text": "Oui, sous conditions : c'est le cumul de l'allocation d'aide au retour à l'emploi (ARE) avec une rémunération, prévu par le règlement d'assurance chômage (Unédic). Le principe : votre allocation mensuelle sans activité est réduite de 70 % de votre nouveau salaire brut, le reste étant versé en jours d'ARE complémentaires. Le cumul salaire + ARE ne peut toutefois pas dépasser le salaire mensuel moyen brut qui a servi à ouvrir vos droits. Vous devez rester inscrit comme demandeur d'emploi et déclarer chaque mois votre activité lors de l'actualisation. Ce mécanisme ne s'applique pas tel quel aux non-salariés/micro-entrepreneurs ni aux intermittents (annexes VIII et X), qui suivent des règles de cumul différentes. Utilisez le module ci-dessus pour une estimation."
       }
     },
     {
@@ -99,7 +99,7 @@
       "name": "Combien vais-je toucher au chômage avec un salaire de 2 500 € brut ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Avec un salaire brut mensuel moyen de 2 500 € sur votre période de référence, l'allocation chômage (ARE) estimée est d'environ 1 425 € par mois (46,85 €/jour). Le montant exact dépend du salaire journalier de référence calculé par France Travail sur votre période précise."
+        "text": "Avec un salaire brut mensuel moyen de 2 500 € sur votre période de référence, l'allocation chômage (ARE) estimée est d'environ 1 425 € par mois (46,85 €/jour). Voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour un calcul avec vos propres chiffres : le montant exact dépend du salaire journalier de référence calculé par France Travail sur votre période précise."
       }
     },
     {
@@ -125,6 +125,14 @@
         "@type": "Answer",
         "text": "Vous ne les perdez pas. Deux options existent : conserver l'ARE en versement mensuel, cumulable avec vos revenus d'indépendant selon des règles de plafonnement, ou opter pour l'ARCE, qui convertit une partie de vos droits restants en capital versé en deux fois. Le choix dépend du statut retenu et des revenus attendus la première année ; l'ACRE peut en plus alléger les cotisations de démarrage, sous conditions. Le sujet est traité en détail sur mesindependants.fr : ARE ou ARCE quand on crée son entreprise."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment calculer le différé spécifique après une rupture conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On divise par 111,8 (valeur 2026) la part de l'indemnité de rupture qui dépasse le minimum légal, et on retient le nombre entier obtenu : 5 000 € au-dessus du minimum légal donnent 44 jours calendaires de différé, 10 000 € donnent 89 jours. Le différé spécifique est plafonné à 150 jours (75 jours en cas de licenciement économique). S'y ajoutent le différé congés payés (30 jours maximum) et le délai d'attente de 7 jours."
+      }
     }
   ]
 }
@@ -134,7 +142,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-17",
+  "dateModified": "2026-09-19",
   "name": "Simulateur Droits au Chômage (ARE) 2026",
   "description": "Estimez l'allocation chômage (ARE) après un licenciement, une rupture conventionnelle ou une démission légitime : éligibilité, montant. Gratuit et local.",
   "url": "https://messimulateursrh.fr/droits-chomage.html",
@@ -243,10 +251,11 @@
 
   <div class="quick-answer"><strong>En bref :</strong> L'ARE journalière retient le montant le plus favorable entre 40,4 % du salaire journalier de référence + 13,18 €, et 57 % du salaire journalier de référence.</div>
 
-  <div class="card">
+  <div class="card" id="carteSimulateurARE">
+    <div class="notice" id="noticePreRemplissage" style="display:none;" role="status"></div>
     <div class="field">
       <label for="motifRupture">Motif de fin de contrat</label>
-      <select id="motifRupture" onchange="toggleDateRC(); toggleMotifDemission();">
+      <select id="motifRupture" onchange="toggleDateRC(); toggleMotifDemission(); toggleDiffereARE();">
         <option value="licenciement">Licenciement (hors faute grave/lourde)</option>
         <option value="rc">Rupture conventionnelle homologuée</option>
         <option value="findecdd">Fin de CDD / non-renouvellement</option>
@@ -301,6 +310,20 @@
         <input type="number" id="salaireARE" min="0" step="0.01" placeholder="ex : 2800">
       </div>
     </div>
+    <div id="groupeDiffereARE">
+      <div class="field">
+        <label for="supraLegalARE">Part de votre indemnité de rupture au-dessus du minimum légal (optionnel)</label>
+        <input type="number" id="supraLegalARE" min="0" step="0.01" placeholder="ex : 5000">
+        <div class="hint">Indemnité de rupture reçue moins l'indemnité légale de licenciement. La part prévue par votre convention collective au-delà du minimum légal compte aussi. Sert à estimer le différé spécifique qui retarde le premier versement ; laissez vide si vous ne recevez que le minimum légal.</div>
+      </div>
+      <div class="field" id="groupeMotifEcoARE">
+        <label for="motifEcoARE">S'agit-il d'un licenciement pour motif économique ?</label>
+        <select id="motifEcoARE">
+          <option value="non">Non</option>
+          <option value="oui">Oui (différé spécifique plafonné à 75 jours)</option>
+        </select>
+      </div>
+    </div>
     <button class="compute" onclick="calculerDroitsChomage()">Calculer</button>
 
     <div class="result" id="resultARE">
@@ -308,6 +331,7 @@
       <div class="detail" id="detailARE"></div>
       <div class="breakdown" id="montantARE"></div>
       <div class="breakdown" id="dureeARE"></div>
+      <div class="breakdown" id="differeARE" style="display:none;"></div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_ARE()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -358,7 +382,7 @@
       <li><strong>Le réexamen après 121 jours</strong> : si votre motif n'est pas reconnu, l'instance paritaire régionale de France Travail peut réexaminer votre dossier après 4 mois de chômage, si vous justifiez de recherches actives d'emploi. Retravailler au moins 65 jours (455 heures) après la démission rouvre aussi des droits.</li>
     </ul>
     <p>
-      Si votre employeur est d'accord pour que vous partiez, une <a href="rupture-conventionnelle.html">rupture conventionnelle</a> ouvre droit à l'ARE sans condition de motif. Pour comparer les options avant de vous décider, suivez le <a href="comment-quitter-son-emploi.html">guide « je veux quitter mon emploi »</a>.
+      Si votre employeur est d'accord pour que vous partiez, une <a href="rupture-conventionnelle.html">rupture conventionnelle</a> ouvre droit à l'ARE sans condition de motif. Pour comparer les options avant de vous décider, suivez le <a href="comment-quitter-son-emploi.html">guide « je veux quitter mon emploi »</a>. La liste complète des cas de démission légitime, avec les conditions de chacun, est détaillée dans le guide <a href="demissionner-et-toucher-le-chomage.html">démissionner et toucher le chômage</a>.
     </p>
   </section>
 
@@ -411,6 +435,31 @@
     </table>
     </div>
 
+    <h2 id="differe-specifique">Différé spécifique : combien de jours avant le premier versement ?</h2>
+    <p>
+      L'allocation n'est pas versée dès le lendemain de la fin du contrat. Si vous avez reçu une indemnité de rupture supérieure au minimum prévu par la loi — cas fréquent après une <a href="rupture-conventionnelle.html">rupture conventionnelle</a> négociée ou une transaction —, France Travail applique un <strong>différé spécifique</strong> : la part de l'indemnité qui dépasse le minimum légal est divisée par <strong>111,8</strong> (valeur 2026, revalorisée chaque année avec le plafond de la sécurité sociale), et le nombre entier obtenu donne un nombre de jours calendaires de décalage. Ce différé est plafonné à <strong>150 jours</strong>, et à <strong>75 jours</strong> en cas de rupture pour motif économique (<a href="https://www.unedic.org/la-reglementation/fiches-thematiques/differe-dindemnisation-specifique-en-cas-dindemnites-supra-legales" target="_blank" rel="noopener noreferrer">fiche Unédic, mise à jour le 27 août 2026</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.francetravail.fr/faq/candidat/mes-allocations---mes-aides/lallocation-chomage-lessentiel-a/date-debut-indemnisation-france.html" target="_blank" rel="noopener noreferrer">France Travail</a><span class="source-badge">✓ Source officielle</span>).
+    </p>
+    <p>
+      Seule compte la part « supra-légale » : l'<a href="indemnite-licenciement.html">indemnité légale de licenciement</a> elle-même ne déclenche aucun différé. En revanche, ce qu'une convention collective ou une négociation ajoute au-delà du minimum légal entre dans le calcul. Les indemnités fixées par un juge en sont exclues, selon l'Unédic. Le différé ne réduit pas la durée de vos droits : il en décale le point de départ.
+    </p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:420px;">
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Part de l'indemnité au-dessus du minimum légal</th>
+        <th style="text-align:left; padding:6px;">Calcul (÷ 111,8)</th>
+        <th style="text-align:left; padding:6px;">Différé spécifique</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1 372 €</td><td style="padding:6px;">12,27</td><td style="padding:6px;">12 jours</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 000 €</td><td style="padding:6px;">26,83</td><td style="padding:6px;">26 jours</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">5 000 €</td><td style="padding:6px;">44,72</td><td style="padding:6px;">44 jours</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">10 000 €</td><td style="padding:6px;">89,44</td><td style="padding:6px;">89 jours (75 jours si motif économique)</td></tr>
+      <tr><td style="padding:6px;">20 000 €</td><td style="padding:6px;">178,89</td><td style="padding:6px;">150 jours (plafond)</td></tr>
+    </table>
+    </div>
+    <p>
+      Le plafond de 150 jours est atteint à partir de 16 770 € au-dessus du minimum légal (8 385 € pour le plafond de 75 jours). Deux autres décalages s'ajoutent, que ce simulateur ne calcule pas : le <strong>différé congés payés</strong> (indemnité compensatrice de congés payés divisée par votre salaire journalier de référence, 30 jours maximum) et le <strong>délai d'attente de 7 jours</strong>, qui ne court qu'une fois inscrit à France Travail et n'est pas appliqué une seconde fois s'il l'a déjà été dans les 12 mois précédents. En cas de licenciement économique avec adhésion au contrat de sécurisation professionnelle (CSP), l'allocation de sécurisation professionnelle est versée sans différé ni délai d'attente, indiquent France Travail et l'Unédic.
+    </p>
+
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Ai-je droit au chômage après une démission ?</summary>
@@ -426,7 +475,7 @@
     </details>
     <details class="faq">
       <summary>Le délai de carence retarde-t-il le premier versement ?</summary>
-      <p>Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue, calculé en divisant la fraction excédentaire par 90). Ce simulateur ne calcule pas ce délai.</p>
+      <p>Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue : la fraction excédentaire est divisée par 111,8 en 2026, dans la limite de 150 jours calendaires, ou 75 jours en cas de licenciement économique). Ce simulateur estime le différé spécifique si vous renseignez ce montant ; il ne calcule ni le différé congés payés ni le délai d'attente.</p>
     </details>
     <details class="faq">
       <summary>La rupture conventionnelle réduit-elle ma durée d'indemnisation chômage ?</summary>
@@ -460,6 +509,11 @@
     <details class="faq">
       <summary>Je crée mon entreprise après mon licenciement ou ma rupture conventionnelle : que deviennent mes droits ARE ?</summary>
       <p>Vous ne les perdez pas. Deux options existent : conserver l'ARE en versement mensuel, cumulable avec vos revenus d'indépendant selon des règles de plafonnement, ou opter pour l'ARCE, qui convertit une partie de vos droits restants en capital versé en deux fois. Le choix dépend du statut retenu et des revenus attendus la première année ; l'ACRE peut en plus alléger les cotisations de démarrage, sous conditions. Le sujet est traité en détail sur <a href="https://www.mesindependants.fr/are-arce-independant.html" target="_blank" rel="noopener noreferrer">mesindependants.fr : ARE ou ARCE quand on crée son entreprise</a>.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Comment calculer le différé spécifique après une rupture conventionnelle ?</summary>
+      <p>On divise par 111,8 (valeur 2026) la part de l'indemnité de rupture qui dépasse le minimum légal, et on retient le nombre entier obtenu : 5 000 € au-dessus du minimum légal donnent 44 jours calendaires de différé, 10 000 € donnent 89 jours. Le différé spécifique est plafonné à 150 jours (75 jours en cas de licenciement économique). S'y ajoutent le différé congés payés (30 jours maximum) et le délai d'attente de 7 jours.</p>
     </details>
 
     <div class="related-tools">
@@ -509,7 +563,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité, ni les différés d'indemnisation, ni les régularisations liées aux jours non travaillés. Les cas de démission légitime affichés reprennent les motifs prévus par le règlement général d'assurance chômage (convention du 15 novembre 2024) ; la reconnaissance effective et les justificatifs exacts dépendent de l'examen de votre dossier par France Travail. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
+    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité, ni le différé congés payés, ni le délai d'attente de 7 jours, ni les régularisations liées aux jours non travaillés ; le différé spécifique est estimé à partir du seul montant supra-légal que vous saisissez (France Travail retient l'ensemble des sommes liées à la rupture). Les cas de démission légitime affichés reprennent les motifs prévus par le règlement général d'assurance chômage (convention du 15 novembre 2024) ; la reconnaissance effective et les justificatifs exacts dépendent de l'examen de votre dossier par France Travail. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
     <br><br>
     <a href="a-propos.html">À propos</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
   </div>
@@ -521,6 +575,22 @@ function toggleDateRC(){
   var motif = document.getElementById('motifRupture').value;
   document.getElementById('groupeDateRC').style.display = (motif === 'rc') ? 'block' : 'none';
 }
+function toggleDiffereARE(){
+  var motif = document.getElementById('motifRupture').value;
+  document.getElementById('groupeDiffereARE').style.display = (motif === 'rc' || motif === 'licenciement') ? 'block' : 'none';
+  document.getElementById('groupeMotifEcoARE').style.display = (motif === 'licenciement') ? 'block' : 'none';
+}
+function lireDiffereARE(){
+  var motif = document.getElementById('motifRupture').value;
+  if (motif !== 'rc' && motif !== 'licenciement') return null;
+  var supra = parseFloat(document.getElementById('supraLegalARE').value) || 0;
+  if (supra <= 0) return null;
+  var eco = motif === 'licenciement' && document.getElementById('motifEcoARE').value === 'oui';
+  var d = differeSpecifiqueARE(supra, eco);
+  d.eco = eco;
+  return d;
+}
+function texteJours(n){ return n + (n > 1 ? ' jours' : ' jour'); }
 function toggleMotifDemission(){
   var motif = document.getElementById('motifRupture').value;
   document.getElementById('groupeMotifDemission').style.display = (motif === 'demission') ? 'block' : 'none';
@@ -627,7 +697,7 @@ function calculerDroitsChomage(){
       'ou : 57 % × ' + euros(are.sjr) + ' = ' + euros(brancheB) + (formuleRetenue === 'B' ? ' <strong>← retenu</strong>' : '') + '<br>' +
       'France Travail retient le montant le plus favorable : <strong>' + euros(are.jour) + '</strong>/jour' + noteBorne + ', soit environ <strong>' + euros(are.mois) + '</strong>/mois<br>' +
       'Référence : règlement général d\'assurance chômage 2026 (Unédic / France Travail).<br>' +
-      'Cette estimation ne tient pas compte de la dégressivité ni des différés d\'indemnisation.';
+      'Cette estimation ne tient pas compte de la dégressivité. Le différé spécifique est estimé plus bas si vous renseignez la part supra-légale de votre indemnité.';
   } else {
     montantDiv.innerHTML = 'Renseignez votre salaire mensuel brut moyen pour obtenir une estimation du montant.';
   }
@@ -663,6 +733,23 @@ function calculerDroitsChomage(){
     }
   }
   dureeDiv.innerHTML = dureeTxt + ' <span style="font-size:.85em;color:var(--ink-soft);">Estimation simplifiée (coefficient de 0,75 sur le temps d\'affiliation cumulé, plancher garanti de 6 mois) : ne reconstitue pas le détail contrat par contrat ni le plafonnement des périodes non travaillées prévu par l\'Unédic. Référence : durée d\'indemnisation, France Travail / Unédic.</span>';
+
+  var differeDiv = document.getElementById('differeARE');
+  var differe = lireDiffereARE();
+  if (differe){
+    differeDiv.innerHTML =
+      '<strong>Différé spécifique estimé : ' + texteJours(differe.jours) + ' calendaires</strong> avant le début de l\'indemnisation.<br>' +
+      'Calcul : ' + euros(differe.montant) + ' ÷ ' + String(differe.diviseur).replace('.', ',') + ' = ' + texteJours(differe.joursBruts) + ' (nombre entier)' +
+      (differe.plafonne ? ', ramené au plafond de ' + differe.plafond + ' jours' + (differe.eco ? ' applicable au licenciement économique' : '') : '') + '.<br>' +
+      'S\'y ajoutent, non calculés ici : le différé congés payés (indemnité compensatrice de congés payés ÷ salaire journalier de référence, ' + DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS + ' jours maximum) et le délai d\'attente de ' + DIFFERE_ARE_2026.DELAI_ATTENTE_JOURS + ' jours. ' +
+      'Le différé ne réduit pas la durée de vos droits : il décale leur point de départ.<br>' +
+      'Référence : règlement d\'assurance chômage, art. 21 ; diviseur 2026 fixé par la circulaire Unédic n° 2026-01.' +
+      (differe.eco ? '<br>Si vous adhérez au contrat de sécurisation professionnelle (CSP), l\'Unédic indique que ces délais ne s\'appliquent pas.' : '');
+    differeDiv.style.display = 'block';
+  } else {
+    differeDiv.innerHTML = '';
+    differeDiv.style.display = 'none';
+  }
 
   resultBox.classList.add('show');
 }
@@ -765,15 +852,58 @@ function telechargerPDF_ARE(){
       : ("Jusqu'à " + dureeInfoPDF2.plafond + ' mois selon l\'âge (régime général)');
   }
   lignes.push({ label: 'Durée d\'indemnisation', value: dureeTxt });
+  var differePDF = lireDiffereARE();
+  if (differePDF){
+    lignes.push({ label: 'Différé spécifique estimé (' + euros(differePDF.montant) + ' ÷ ' + String(differePDF.diviseur).replace('.', ',') + (differePDF.plafonne ? ', plafonné' : '') + ')', value: texteJours(differePDF.jours) + ' calendaires' });
+  }
 
   genererPDFSimulation({
     titre: 'Simulation de droits au chômage (ARE)',
     sousTitre: 'Éligibilité, montant et durée indicative d\'indemnisation',
     lignes: lignes,
-    disclaimer: "Estimation grossière et indicative basée sur une simplification de la formule ARE 2026 (France Travail). Ne modélise ni la dégressivité, ni les différés d'indemnisation, ni les régularisations. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail.",
+    disclaimer: "Estimation grossière et indicative basée sur une simplification de la formule ARE 2026 (France Travail). Ne modélise ni la dégressivité, ni le différé congés payés, ni le délai d'attente de 7 jours, ni les régularisations ; le différé spécifique est une estimation à partir du montant supra-légal saisi. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail.",
     nomFichier: 'simulation-droits-chomage.pdf'
   });
 }
+
+// Pré-remplissage depuis un autre simulateur : valeurs lues dans le fragment d'URL (#pre=1&motif=…&salaire=…).
+// Le fragment n'est jamais transmis au serveur ; il est retiré de l'adresse aussitôt lu. Rien n'est stocké.
+function preRemplirDepuisURL(){
+  var hash = window.location.hash || '';
+  if (hash.indexOf('#pre=1') !== 0) return;
+  var params;
+  try { params = new URLSearchParams(hash.slice(1)); } catch(e){ return; }
+  var motifsAutorises = { rc: 'votre simulation de rupture conventionnelle', licenciement: 'votre simulation d\'indemnité de licenciement' };
+  var motif = params.get('motif');
+  if (!Object.prototype.hasOwnProperty.call(motifsAutorises, motif)) return;
+  var salaire = parseFloat(params.get('salaire'));
+  var salaireValide = isFinite(salaire) && salaire > 0 && salaire < 1000000;
+  document.getElementById('motifRupture').value = motif;
+  toggleDateRC();
+  toggleMotifDemission();
+  if (salaireValide){
+    document.getElementById('salaireARE').value = (Math.round(salaire * 100) / 100).toString();
+  }
+  toggleDiffereARE();
+  var supra = parseFloat(params.get('supra'));
+  var supraValide = isFinite(supra) && supra > 0 && supra < 10000000;
+  if (supraValide){
+    document.getElementById('supraLegalARE').value = (Math.round(supra * 100) / 100).toString();
+  }
+  var notice = document.getElementById('noticePreRemplissage');
+  notice.textContent = 'Valeurs reprises de ' + motifsAutorises[motif] + ' : motif de fin de contrat' +
+    (salaireValide ? ', salaire mensuel brut (' + euros(salaire) + ')' : '') +
+    (supraValide ? ', part de l\'indemnité au-dessus du minimum légal (' + euros(supra) + ')' : '') +
+    '. Indiquez votre âge, vérifiez le salaire (France Travail retient les salaires de votre période de référence, qui peuvent différer du salaire de référence de l\'indemnité), puis cliquez sur « Calculer ». Rien n\'a été envoyé ni enregistré.';
+  notice.style.display = 'block';
+  if (window.history && window.history.replaceState){
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+  var carte = document.getElementById('carteSimulateurARE');
+  if (carte && carte.scrollIntoView){ carte.scrollIntoView({ block: 'start' }); }
+}
+toggleDiffereARE();
+preRemplirDepuisURL();
 </script>
 </body>
 </html>

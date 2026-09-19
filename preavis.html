@@ -137,7 +137,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-14",
+  "dateModified": "2026-09-19",
   "name": "Simulateur Durée de Préavis 2026",
   "description": "Calculez la durée de préavis selon le motif : licenciement, démission ou faute grave, avec nuance cadre/non-cadre. Gratuit, résultat immédiat.",
   "url": "https://messimulateursrh.fr/preavis.html",
@@ -288,6 +288,10 @@
         <label for="moisP">Ancienneté — mois</label>
         <input type="number" id="moisP" min="0" max="11" step="1" placeholder="ex : 2">
       </div>
+    </div>
+    <div class="field aide-anciennete">
+      <div class="hint">Ancienneté exacte inconnue ? <a href="calcul-anciennete.html">Calculez-la à partir de vos dates</a> (années, mois et jours), puis revenez ici sans rien ressaisir.</div>
+      <div class="notice" id="noticePreAnciennete" style="display:none;" role="status"></div>
     </div>
     <div class="field">
       <label for="salaireP">Salaire mensuel brut (optionnel, pour estimer l'indemnité de dispense)</label>
@@ -644,6 +648,9 @@ function telechargerPDF_P(){
     nomFichier: 'simulation-preavis.pdf'
   });
 }
+
+// Ancienneté transmise par calcul-anciennete.html (fragment d'URL, rien n'est envoyé ni stocké)
+preRemplirAnciennete('anneesP', 'moisP', 'noticePreAnciennete');
 </script>
 </body>
 </html>
