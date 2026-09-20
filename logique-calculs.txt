@@ -54,7 +54,7 @@ return n.toLocaleString('fr-FR', {style:'currency', currency:'EUR', maximumFract
 }
 function pdfSafe(v){
 if (typeof v !== 'string') return v;
-return v.replace(/[\u202f\u00a0]/g, ' ');
+return v.replace(/[\u202f\u00a0\u2009]/g, ' ').replace(/\u2192|\u21D2/g, '->').replace(/\u2190|\u21D0/g, '<-').replace(/\u2265/g, '>=').replace(/\u2264/g, '<=').replace(/\u2212|\u2011/g, '-').replace(/\u2248/g, '~').replace(/[^\x20-\x7E\xA0-\xFF\u20AC\u201A\u0192\u201E\u2026\u2020\u2021\u02C6\u2030\u0160\u2039\u0152\u017D\u2018\u2019\u201C\u201D\u2022\u2013\u2014\u02DC\u2122\u0161\u203A\u0153\u017E\u0178\n]/g, '').replace(/ {2,}/g, ' ').trim();
 }
 const BAREME_2026 = {
 PASS_ANNUEL: 48060,
@@ -112,6 +112,7 @@ COEF_NET_INDEPENDANT_SSI: 0.60,
 COEF_NET_INDEPENDANT_CIPAV: 0.63,
 PORTAGE_FRAIS_GESTION: 0.10,
 CUMUL_EMPLOI_RETRAITE_PLAFOND_SMIC_MULT: 1.60,
+SMIC_BRUT_HORAIRE_1ER_JANVIER: 12.02,   // Smic horaire au 01/01/2026 (circulaire Cnav 2025-33) — sert au plafond du cumul emploi-retraite, figé sur le Smic au 1er janvier (circulaire Cnav 2017-29, base 1 820 h/an), même après la revalorisation du 01/06/2026
 IJ_MALADIE_TAUX: 0.50,
 IJ_MALADIE_PLAFOND_SMIC_MULT: 1.40,
 IJ_MALADIE_MAX_JOUR: 42.97,
@@ -940,7 +941,8 @@ return { montant: coef * salaireRef, regime: 'salarie', coefMois: coef };
 }
 function estimerCumulEmploiRetraite(pensionMensuelle, salaireMensuel, dernierSalaireMensuel, tauxPlein, liquidationTotale){
 var cumulIntegral = !!tauxPlein && !!liquidationTotale;
-var plafondSmic = BAREME_2026.SMIC_BRUT_MENSUEL * BAREME_2026.CUMUL_EMPLOI_RETRAITE_PLAFOND_SMIC_MULT;
+// Plafond = 1,6 × Smic horaire en vigueur au 1er janvier de l'année × 1 820 h ÷ 12 (circulaire Cnav 2017-29 ; service-public F13243 : 2 916,85 € en 2026), et non le Smic en vigueur en cours d'année.
+var plafondSmic = Math.round(BAREME_2026.CUMUL_EMPLOI_RETRAITE_PLAFOND_SMIC_MULT * BAREME_2026.SMIC_BRUT_HORAIRE_1ER_JANVIER * 1820 / 12 * 100) / 100;
 var plafond = Math.max(plafondSmic, dernierSalaireMensuel || 0);
 var totalAvant = pensionMensuelle + salaireMensuel;
 
@@ -1272,7 +1274,9 @@ var doc = new jsPDF();
 var pageWidth = doc.internal.pageSize.getWidth();
 var pageHeight = doc.internal.pageSize.getHeight();
 var margin = 20;
+var largeur = pageWidth - margin*2;
 var y = 0;
+var BLEU = [29,78,216], TEXTE = [28,36,48], GRIS = [90,100,114], GRIS_CLAIR = [140,148,160], TRAIT = [226,230,236];
 function bandeauEntete(){
 doc.setFillColor(29, 78, 216);
 doc.rect(0, 0, pageWidth, 28, 'F');
@@ -1284,6 +1288,37 @@ doc.setFontSize(8.5);
 doc.setFont(undefined, 'normal');
 doc.text('Simulateurs gratuits de droit du travail — salariés et employeurs', margin, 23);
 }
+function saut(h){
+if (y + h > pageHeight - 22){ doc.addPage(); y = 20; }
+}
+function titreSection(txt){
+saut(24);
+y += 4;
+doc.setFontSize(9);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(BLEU[0],BLEU[1],BLEU[2]);
+doc.text(txt.toUpperCase(), margin, y);
+y += 2;
+doc.setDrawColor(BLEU[0],BLEU[1],BLEU[2]);
+doc.setLineWidth(0.4);
+doc.line(margin, y, margin + 18, y);
+y += 6;
+}
+function paragraphe(txt, taille, couleur, style){
+doc.setFontSize(taille);
+doc.setFont(undefined, style || 'normal');
+doc.setTextColor(couleur[0],couleur[1],couleur[2]);
+var interligne = taille * 0.5;
+var morceaux = String(txt).split('\n');
+for (var m = 0; m < morceaux.length; m++){
+var lignesTxt = doc.splitTextToSize(morceaux[m], largeur);
+for (var k = 0; k < lignesTxt.length; k++){
+saut(interligne);
+doc.text(lignesTxt[k], margin, y);
+y += interligne;
+}
+}
+}
 bandeauEntete();
 y = 42;
 opts.titre = pdfSafe(opts.titre);
@@ -1292,7 +1327,20 @@ opts.disclaimer = pdfSafe(opts.disclaimer);
 var lignesSafe = (opts.lignes || []).map(function(l){
 return { label: pdfSafe(l.label), value: pdfSafe(String(l.value)), type: l.type };
 });
-doc.setTextColor(28,36,48);
+var explication = opts.explication ? [].concat(opts.explication) : pdfCollecterExplication();
+var sources = opts.sources ? opts.sources : pdfCollecterSources();
+var verifieLe = opts.verifieLe || pdfDateVerification();
+var urlPage = pdfUrlCanonique();
+try {
+doc.setProperties({
+title: opts.titre + ' — MesSimulateursRH.fr',
+subject: opts.sousTitre || opts.titre,
+author: 'MesSimulateursRH.fr',
+keywords: 'simulation, droit du travail, ' + opts.titre,
+creator: 'messimulateursrh.fr'
+});
+} catch(e){}
+doc.setTextColor(TEXTE[0],TEXTE[1],TEXTE[2]);
 doc.setFontSize(15);
 doc.setFont(undefined, 'bold');
 doc.text(opts.titre, margin, y);
@@ -1300,17 +1348,18 @@ y += 7;
 if (opts.sousTitre){
 doc.setFontSize(10);
 doc.setFont(undefined, 'normal');
-doc.setTextColor(90,100,114);
-var sousLines = doc.splitTextToSize(opts.sousTitre, pageWidth - margin*2);
+doc.setTextColor(GRIS[0],GRIS[1],GRIS[2]);
+var sousLines = doc.splitTextToSize(opts.sousTitre, largeur);
 doc.text(sousLines, margin, y);
 y += sousLines.length * 5 + 3;
 }
-var dateStr = new Date().toLocaleDateString('fr-FR', {year:'numeric', month:'long', day:'numeric'});
+var maintenant = new Date();
+var dateStr = maintenant.toLocaleDateString('fr-FR', {year:'numeric', month:'long', day:'numeric'});
 doc.setFontSize(8.5);
-doc.setTextColor(140,148,160);
-doc.text('Simulation générée le ' + dateStr, margin, y);
+doc.setTextColor(GRIS_CLAIR[0],GRIS_CLAIR[1],GRIS_CLAIR[2]);
+doc.text('Simulation générée le ' + dateStr + (verifieLe ? ' — barème vérifié le ' + pdfSafe(verifieLe) : ''), margin, y);
 y += 8;
-doc.setDrawColor(226,230,236);
+doc.setDrawColor(TRAIT[0],TRAIT[1],TRAIT[2]);
 doc.setLineWidth(0.3);
 doc.line(margin, y, pageWidth - margin, y);
 y += 10;
@@ -1322,51 +1371,174 @@ y = 20;
 }
 if (ligne.type === 'total'){
 y += 3;
-doc.setDrawColor(29,78,216);
+doc.setDrawColor(BLEU[0],BLEU[1],BLEU[2]);
 doc.setLineWidth(0.6);
 doc.line(margin, y, pageWidth - margin, y);
 y += 9;
 doc.setFontSize(13);
 doc.setFont(undefined, 'bold');
-doc.setTextColor(29,78,216);
+doc.setTextColor(BLEU[0],BLEU[1],BLEU[2]);
 doc.text(ligne.label, margin, y);
-doc.text(String(ligne.value), pageWidth - margin, y, {align: 'right'});
+var totalTxt = String(ligne.value);
+if (doc.getTextWidth(ligne.label) + doc.getTextWidth(totalTxt) + 6 <= largeur){
+doc.text(totalTxt, pageWidth - margin, y, {align: 'right'});
 y += 10;
+} else {
+y += 7;
+var totLines = doc.splitTextToSize(totalTxt, largeur - 10);
+for (var tl = 0; tl < totLines.length; tl++){
+saut(6);
+doc.text(totLines[tl], pageWidth - margin, y, {align: 'right'});
+y += 6;
+}
+y += 4;
+}
 doc.setFontSize(10.5);
-doc.setTextColor(28,36,48);
+doc.setTextColor(TEXTE[0],TEXTE[1],TEXTE[2]);
 } else {
 doc.setFont(undefined, 'normal');
-doc.setTextColor(90,100,114);
-var labelLines = doc.splitTextToSize(ligne.label, pageWidth - margin*2 - 55);
+doc.setTextColor(GRIS[0],GRIS[1],GRIS[2]);
+var labelLines = doc.splitTextToSize(ligne.label, largeur - 55);
 doc.text(labelLines, margin, y);
 doc.setFont(undefined, 'bold');
-doc.setTextColor(28,36,48);
-doc.text(String(ligne.value), pageWidth - margin, y, {align:'right'});
+doc.setTextColor(TEXTE[0],TEXTE[1],TEXTE[2]);
+var valeurTxt = String(ligne.value);
+if (doc.getTextWidth(valeurTxt) <= 52){
+doc.text(valeurTxt, pageWidth - margin, y, {align:'right'});
 y += Math.max(7, labelLines.length * 5 + 2);
+} else {
+y += labelLines.length * 5;
+var valLines = doc.splitTextToSize(valeurTxt, largeur - 10);
+for (var vl = 0; vl < valLines.length; vl++){
+saut(5);
+doc.text(valLines[vl], pageWidth - margin, y, {align:'right'});
+y += 5;
+}
+y += 2;
+}
 }
 });
+y += 4;
+if (explication.length){
+titreSection('Comment ce résultat a été calculé');
+for (var e = 0; e < explication.length; e++){
+paragraphe(pdfSafe(explication[e]), 9, TEXTE);
+y += 3;
+}
+}
+if (sources.length){
+titreSection('Base légale et sources officielles');
+for (var s = 0; s < sources.length; s++){
+var src = sources[s];
+var libelle = pdfSafe(src.label || src.url);
+saut(9);
+doc.setFontSize(9);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(BLEU[0],BLEU[1],BLEU[2]);
+var libLines = doc.splitTextToSize('• ' + libelle, largeur);
+if (src.url){ doc.textWithLink(libLines[0], margin, y, {url: src.url}); } else { doc.text(libLines[0], margin, y); }
+y += 4.5;
+for (var ll = 1; ll < libLines.length; ll++){ doc.text(libLines[ll], margin, y); y += 4.5; }
+if (src.url){
+doc.setFontSize(7.5);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(GRIS_CLAIR[0],GRIS_CLAIR[1],GRIS_CLAIR[2]);
+var urlLines = doc.splitTextToSize(src.url, largeur - 4);
+doc.text(urlLines, margin + 4, y);
+y += urlLines.length * 3.6 + 2;
+}
+}
+}
+if (urlPage){
+titreSection('Refaire cette simulation');
+saut(10);
+doc.setFontSize(9);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(TEXTE[0],TEXTE[1],TEXTE[2]);
+doc.text('Simulateur gratuit, sans compte ni e-mail, calcul réalisé dans votre navigateur :', margin, y);
+y += 5;
+doc.setTextColor(BLEU[0],BLEU[1],BLEU[2]);
+doc.textWithLink(urlPage, margin, y, {url: urlPage});
 y += 6;
-if (y > pageHeight - 45){ doc.addPage(); y = 20; }
-doc.setDrawColor(226,230,236);
+}
+y += 4;
+saut(12);
+doc.setDrawColor(TRAIT[0],TRAIT[1],TRAIT[2]);
+doc.setLineWidth(0.3);
 doc.line(margin, y, pageWidth - margin, y);
-y += 8;
-doc.setFontSize(8);
-doc.setFont(undefined, 'italic');
-doc.setTextColor(140,148,160);
-var discLines = doc.splitTextToSize(opts.disclaimer, pageWidth - margin*2);
-if (y + discLines.length * 4 > pageHeight - 20){ doc.addPage(); y = 20; }
-doc.text(discLines, margin, y);
+y += 7;
+paragraphe(opts.disclaimer || '', 8, GRIS_CLAIR, 'italic');
 var totalPages = doc.internal.getNumberOfPages();
 for (var p = 1; p <= totalPages; p++){
 doc.setPage(p);
 doc.setFontSize(7.5);
 doc.setFont(undefined, 'normal');
 doc.setTextColor(170,176,186);
-doc.text('MesSimulateursRH.fr — calcul réalisé localement dans votre navigateur, aucune donnée transmise.', margin, pageHeight - 12);
+doc.text('MesSimulateursRH.fr — gratuit, sans compte — calcul réalisé localement dans votre navigateur, aucune donnée transmise.', margin, pageHeight - 12);
 doc.text(String(p) + ' / ' + totalPages, pageWidth - margin, pageHeight - 12, {align:'right'});
 }
-doc.save(opts.nomFichier || 'simulation-rh.pdf');
+doc.save(pdfNomDate(opts.nomFichier || 'simulation-rh.pdf', maintenant));
 afficherRemerciementPDF();
+}
+function pdfNomDate(nom, d){
+var mm = String(d.getMonth() + 1); if (mm.length < 2) mm = '0' + mm;
+var jj = String(d.getDate()); if (jj.length < 2) jj = '0' + jj;
+return String(nom).replace(/\.pdf$/i, '') + '-' + d.getFullYear() + '-' + mm + '-' + jj + '.pdf';
+}
+function pdfCollecterExplication(){
+var out = [];
+var blocs = document.querySelectorAll('.result .breakdown');
+for (var i = 0; i < blocs.length; i++){
+var b = blocs[i];
+if (b.offsetParent === null) continue;
+if (b.querySelector('table, a.bridge-link, h2, h3, h4')) continue;
+var texte = b.innerText || b.textContent || '';
+var exclus = b.querySelectorAll('a.bridge-link, button, .pdf-actions, .pdf-privacy-note, .pdf-merci');
+for (var j = 0; j < exclus.length; j++){
+var t = exclus[j].innerText || exclus[j].textContent || '';
+if (t) texte = texte.replace(t, '');
+}
+texte = texte.replace(/[ \t  ]+/g, ' ').replace(/\s*\n\s*/g, '\n').trim();
+if (texte.length >= 15) out.push(texte);
+}
+return out;
+}
+function pdfCollecterSources(){
+var out = [], vus = {};
+var badges = document.querySelectorAll('.source-badge');
+for (var i = 0; i < badges.length; i++){
+var a = badges[i].previousElementSibling;
+if (!a || a.tagName !== 'A') continue;
+var href = a.getAttribute('href') || '';
+if (!/^https?:\/\//.test(href) || vus[href]) continue;
+vus[href] = true;
+var label = (a.textContent || '').replace(/\s+/g, ' ').trim();
+if (label.indexOf(' ') === -1 && label.indexOf('.') !== -1 && a.parentNode){
+var contexte = a.parentNode.querySelector('strong');
+if (contexte && contexte.textContent.trim()){ label = contexte.textContent.replace(/\s*:\s*$/, '').trim() + ' — ' + label; }
+}
+label = label.replace(/^(l'|la |le |les |du |de la |des |une |un )/i, '');
+label = label.charAt(0).toUpperCase() + label.slice(1);
+out.push({ label: label, url: href, rang: pdfRangSource(href), ordre: out.length });
+}
+out.sort(function(a, b){ return a.rang - b.rang || a.ordre - b.ordre; });
+return out.slice(0, 8);
+}
+function pdfRangSource(url){
+if (/legifrance\.gouv\.fr/.test(url)) return 0;
+if (/code\.travail\.gouv\.fr/.test(url)) return 1;
+if (/service-public\.(gouv\.)?fr/.test(url)) return 2;
+if (/unedic\.org|francetravail\.fr|urssaf\.fr|ameli\.fr|\.gouv\.fr/.test(url)) return 3;
+return 4;
+}
+function pdfDateVerification(){
+var m = (document.body.textContent || '').match(/[Bb]arème vérifié le ([0-9]{1,2}(?:er)?\s+[a-zéû]+\s+[0-9]{4})/);
+return m ? m[1].replace(/\s+/g, ' ') : '';
+}
+function pdfUrlCanonique(){
+var lien = document.querySelector('link[rel="canonical"]');
+if (lien && lien.getAttribute('href')) return lien.getAttribute('href');
+return window.location.origin + window.location.pathname;
 }
 function afficherRemerciementPDF(){
 var bouton = document.querySelector('.compute.pdf');
