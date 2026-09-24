@@ -1,6 +1,6 @@
 # MesSimulateursRH.fr
 
-> 30 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, des articles sur les réformes 2026 et une formation gratuite. Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
+> 31 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, des articles sur les réformes 2026 et une formation gratuite. Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
 
 ## Rupture du contrat de travail
 - [Rupture du contrat de travail](https://messimulateursrh.fr/simulateurs-rupture-contrat.html): 9 simulateurs gratuits pour la rupture du contrat : rupture conventionnelle (privé et fonction publique), licenciement, préavis, chômage, portabilité mutuelle.
@@ -16,8 +16,9 @@
 - [Licenciement, rupture conventionnelle ou démission : quelles différences ?](https://messimulateursrh.fr/licenciement-vs-rupture-conventionnelle-vs-demission.html): comparatif indemnité / préavis / droit au chômage.
 
 ## Salaire et coût du travail
-- [Salaire et coût du travail](https://messimulateursrh.fr/simulateurs-salaire-cout-travail.html): 9 simulateurs gratuits sur le salaire et le coût du travail : net/brut, coût employeur, licenciement, apprenti, professionnalisation, kilométriques, participation.
+- [Salaire et coût du travail](https://messimulateursrh.fr/simulateurs-salaire-cout-travail.html): 10 simulateurs gratuits sur le salaire et le coût du travail : net/brut, heures supplémentaires, coût employeur, licenciement, apprenti, professionnalisation, kilométriques, participation.
 - [Salaire brut en net 2026](https://messimulateursrh.fr/salaire-net-brut.html): conversion brut/net dans les deux sens selon le statut (non-cadre, cadre, fonction publique, indépendant, portage salarial).
+- [Heures supplémentaires 2026](https://messimulateursrh.fr/heures-supplementaires.html): brut majoré (25 % / 50 % ou taux conventionnel), net après réduction de cotisations de 11,31 %, exonération d'impôt (7 500 €/an), contingent de 220 h et heures complémentaires du temps partiel ; coût employeur avec déduction forfaitaire.
 - [Coût d'un salarié pour l'entreprise](https://messimulateursrh.fr/cout-salarie-entreprise.html): coût total mensuel et annuel employeur (brut, charges patronales, avantages, primes).
 - [Coût total d'un licenciement pour l'employeur](https://messimulateursrh.fr/cout-licenciement-employeur.html): indemnité légale, préavis, congés payés, charges patronales.
 - [Simulateur d'augmentation de salaire](https://messimulateursrh.fr/augmentation-salaire.html): gain net réel d'une augmentation, en euros ou en pourcentage.
@@ -97,7 +98,7 @@
 - [Départ et mise à la retraite](https://messimulateursrh.fr/formation-depart-retraite.html): apprenez la différence entre départ volontaire et mise à la retraite (barèmes, fiscalité), avec quiz de validation et attestation à télécharger.
 
 ## Ressources et site
-- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 30 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Calcul instantané, aucune donnée envoyée.
+- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 31 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Calcul instantané, aucune donnée envoyée.
 - [Aller plus loin](https://messimulateursrh.fr/aller-plus-loin.html): au-delà des simulateurs : convention collective, formation gratuite, actualités du droit du travail, glossaire, comparatif et ressources officielles.
 - [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail.html): 37 termes expliqués simplement, reliés aux simulateurs correspondants.
 - [Ressources officielles](https://messimulateursrh.fr/ressources-officielles.html): annuaire de sites officiels (Code du travail numérique, TéléRC, France Travail, URSSAF, Ameli).

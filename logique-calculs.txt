@@ -1795,6 +1795,82 @@ var joursBruts = Math.floor(montant / DIFFERE_ARE_2026.DIVISEUR + 1e-9);
 var jours = Math.min(joursBruts, plafond);
 return {montant:montant, diviseur:DIFFERE_ARE_2026.DIVISEUR, joursBruts:joursBruts, jours:jours, plafond:plafond, plafonne:joursBruts > plafond, montantAuPlafond:plafond * DIFFERE_ARE_2026.DIVISEUR};
 }
+// Heures supplémentaires et heures complémentaires (ajouté le 24/09/2026) — art. L3121-33, L3121-36, L3121-38, D3121-24 et L3123-29 du Code du travail ;
+// art. L241-17 et L241-18 du Code de la sécurité sociale ; art. 81 quater du CGI. Fonctions dédiées à heures-supplementaires.html, sans modifier les fonctions partagées.
+var HEURES_SUP_2026 = {
+DUREE_LEGALE_HEBDO: 35,
+MAJORATION_LEGALE_1: 0.25,           // 8 premières heures supplémentaires de la semaine (36e à 43e heure), à défaut d'accord
+MAJORATION_LEGALE_2: 0.50,           // à partir de la 44e heure, à défaut d'accord
+SEUIL_HEURES_MAJORATION_1: 8,
+MAJORATION_CONVENTIONNELLE_MIN: 0.10, // plancher d'un taux fixé par accord (L3121-33)
+CONTINGENT_LEGAL_ANNUEL: 220,        // heures par salarié et par an, à défaut d'accord (D3121-24)
+COR_TAUX_20_SALARIES_AU_PLUS: 0.50,  // contrepartie obligatoire en repos au-delà du contingent, entreprise de 20 salariés au plus (L3121-38)
+COR_TAUX_PLUS_DE_20_SALARIES: 1.00,
+REDUCTION_SALARIALE_TAUX_MAX: 0.1131, // réduction des cotisations salariales vieillesse (base + complémentaire), plafond 11,31 % (L241-17 CSS)
+EXONERATION_IR_PLAFOND_ANNUEL: 7500, // exonération d'impôt sur le revenu, net imposable par an (81 quater CGI)
+DEDUCTION_PATRONALE_MOINS_DE_20: 1.50, // € par heure supplémentaire (L241-18 CSS)
+DEDUCTION_PATRONALE_20_ET_PLUS: 0.50,  // € par heure, 20 salariés et plus (étendue au-delà de 250 salariés depuis le 01/01/2026, LFSS 2026 art. 21)
+COMPLEMENTAIRES_MAJORATION_1: 0.10,  // heures complémentaires dans la limite du dixième de la durée contractuelle (L3123-29)
+COMPLEMENTAIRES_MAJORATION_2: 0.25,  // entre le dixième et le tiers (accord collectif nécessaire pour dépasser le dixième)
+COMPLEMENTAIRES_LIMITE_DIXIEME: 0.10,
+COMPLEMENTAIRES_LIMITE_TIERS: 1 / 3
+};
+function tauxHoraireDepuisMensuel(brutMensuel, dureeHebdo){
+var d = (isFinite(dureeHebdo) && dureeHebdo > 0) ? dureeHebdo : HEURES_SUP_2026.DUREE_LEGALE_HEBDO;
+var heuresMensualisees = d * 52 / 12;   // 35 h → 151,67 h
+return {heuresMensualisees: heuresMensualisees, tauxHoraire: (brutMensuel || 0) / heuresMensualisees};
+}
+function calculerHeuresSupplementaires(tauxHoraire, heuresSemaine, tauxMajoration1, tauxMajoration2){
+var h = Math.max(0, heuresSemaine || 0);
+var t1 = (isFinite(tauxMajoration1) && tauxMajoration1 >= HEURES_SUP_2026.MAJORATION_CONVENTIONNELLE_MIN) ? tauxMajoration1 : HEURES_SUP_2026.MAJORATION_LEGALE_1;
+var t2 = (isFinite(tauxMajoration2) && tauxMajoration2 >= HEURES_SUP_2026.MAJORATION_CONVENTIONNELLE_MIN) ? tauxMajoration2 : HEURES_SUP_2026.MAJORATION_LEGALE_2;
+var h1 = Math.min(h, HEURES_SUP_2026.SEUIL_HEURES_MAJORATION_1);
+var h2 = Math.max(0, h - HEURES_SUP_2026.SEUIL_HEURES_MAJORATION_1);
+var base = tauxHoraire * h;
+var majoration = tauxHoraire * (h1 * t1 + h2 * t2);
+return {heures: h, heuresTaux1: h1, heuresTaux2: h2, taux1: t1, taux2: t2, tauxHoraire: tauxHoraire, base: base, majoration: majoration, brut: base + majoration};
+}
+function calculerHeuresComplementaires(tauxHoraire, dureeContractuelleHebdo, heuresSemaine){
+var d = Math.max(0, dureeContractuelleHebdo || 0);
+var h = Math.max(0, heuresSemaine || 0);
+var limiteDixieme = d * HEURES_SUP_2026.COMPLEMENTAIRES_LIMITE_DIXIEME;
+var limiteTiers = d * HEURES_SUP_2026.COMPLEMENTAIRES_LIMITE_TIERS;
+var h1 = Math.min(h, limiteDixieme);
+var h2 = Math.max(0, h - limiteDixieme);
+var base = tauxHoraire * h;
+var majoration = tauxHoraire * (h1 * HEURES_SUP_2026.COMPLEMENTAIRES_MAJORATION_1 + h2 * HEURES_SUP_2026.COMPLEMENTAIRES_MAJORATION_2);
+return {heures: h, heuresTaux1: h1, heuresTaux2: h2, taux1: HEURES_SUP_2026.COMPLEMENTAIRES_MAJORATION_1, taux2: HEURES_SUP_2026.COMPLEMENTAIRES_MAJORATION_2,
+tauxHoraire: tauxHoraire, base: base, majoration: majoration, brut: base + majoration,
+limiteDixieme: limiteDixieme, limiteTiers: limiteTiers, depasseDixieme: h > limiteDixieme + 1e-9, depasseTiers: h > limiteTiers + 1e-9,
+atteintDureeLegale: d + h >= HEURES_SUP_2026.DUREE_LEGALE_HEBDO - 1e-9};
+}
+function estimerNetHeuresSupplementaires(brutHeures, statutCadre){
+var brut = Math.max(0, brutHeures || 0);
+if (brut === 0) return {brut: 0, cotisations: 0, reduction: 0, tauxReduction: 0, csgCrds: 0, net: 0, netImposable: 0};
+var c = detailCotisationsSalariales(brut, !!statutCadre);
+var tauxVieillesse = (c.vieillessePlafonnee + c.vieillesseDeplafonnee + c.agircArrco + c.ceg) / brut;
+var tauxReduction = Math.min(HEURES_SUP_2026.REDUCTION_SALARIALE_TAUX_MAX, tauxVieillesse);
+var reduction = brut * tauxReduction;
+var net = brut - c.total + reduction;
+var netImposable = brut - (c.total - c.csgNonDeductible - c.crds) + reduction;
+return {brut: brut, cotisations: c.total, reduction: reduction, tauxReduction: tauxReduction, csgCrds: c.csgDeductible + c.csgNonDeductible + c.crds, net: net, netImposable: netImposable};
+}
+function estimerCoutEmployeurHeuresSupplementaires(brutHeures, nbHeures, moinsDe20Salaries, heuresComplementaires){
+var brut = Math.max(0, brutHeures || 0);
+var charges = brut * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
+var parHeure = heuresComplementaires ? 0 : (moinsDe20Salaries ? HEURES_SUP_2026.DEDUCTION_PATRONALE_MOINS_DE_20 : HEURES_SUP_2026.DEDUCTION_PATRONALE_20_ET_PLUS);
+var deduction = Math.min(charges, parHeure * Math.max(0, nbHeures || 0));
+return {brut: brut, charges: charges, deductionParHeure: parHeure, deduction: deduction, cout: brut + charges - deduction};
+}
+function contrepartieObligatoireRepos(heuresDejaEffectuees, heuresNouvelles, contingentAnnuel, plusDe20Salaries){
+var contingent = (isFinite(contingentAnnuel) && contingentAnnuel > 0) ? contingentAnnuel : HEURES_SUP_2026.CONTINGENT_LEGAL_ANNUEL;
+var deja = Math.max(0, heuresDejaEffectuees || 0);
+var nouvelles = Math.max(0, heuresNouvelles || 0);
+var total = deja + nouvelles;
+var horsContingent = Math.max(0, Math.min(nouvelles, total - contingent));
+var taux = plusDe20Salaries ? HEURES_SUP_2026.COR_TAUX_PLUS_DE_20_SALARIES : HEURES_SUP_2026.COR_TAUX_20_SALARIES_AU_PLUS;
+return {contingent: contingent, total: total, restant: Math.max(0, contingent - total), horsContingent: horsContingent, taux: taux, reposHeures: horsContingent * taux};
+}
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
@@ -1844,6 +1920,7 @@ var SEARCH_INDEX = [
 {title:"Procédure de licenciement", url:"procedure-licenciement.html", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
 {title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI mariage pacs comparatif celibataire imposition commune decote plafonnement"},
 {title:"Participation (RSP)", url:"participation-legale.html", cat:"Simulateur", kw:"participation RSP epargne salariale reserve speciale repartition PEE"},
+{title:"Heures supplémentaires", url:"heures-supplementaires.html", cat:"Simulateur", kw:"heures sup supplementaires complementaires majoration 25 50 taux horaire contingent 220 repos compensateur exoneration impot 7500 reduction cotisations 11,31 temps partiel"},
 {title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
 {title:"Saisir les prud'hommes : délais et démarches", url:"saisir-les-prudhommes.html", cat:"Guide", kw:"saisir prud hommes conseil de prudhommes delai prescription combien de temps pour agir requete bordereau 1er octobre 2026 decret 2026-683 timbre fiscal 50 euros conciliation contester licenciement salaires impayes"},
 {title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle.html", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},
