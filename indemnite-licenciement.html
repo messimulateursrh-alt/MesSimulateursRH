@@ -96,10 +96,18 @@
     },
     {
       "@type": "Question",
+      "name": "J'ai travaillé à temps complet puis à temps partiel : comment est calculée mon indemnité de licenciement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Proportionnellement à chaque période (article L3123-5 du Code du travail). Si vous avez été occupé à temps complet et à temps partiel chez le même employeur, l'indemnité est calculée au prorata des périodes accomplies selon chaque modalité, avec le salaire correspondant à chacune. Exemple de service-public.gouv.fr : 3 ans à temps complet (2 000 € brut) puis 2 ans à mi-temps (1 000 €) → (2 000 × 1/4 × 3) + (1 000 × 1/4 × 2) = 2 000 €, au lieu de 1 250 € si l'on retenait le seul salaire à mi-temps. Renseignez le champ « Temps complet et temps partiel dans la même entreprise ? » du simulateur : il reconstitue le salaire de l'autre période à partir de la quotité. Si toute votre ancienneté est à temps partiel, aucun prorata ne s'applique : votre salaire à temps partiel est retenu tel quel. La même règle vaut pour l'indemnité de départ à la retraite."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Je gagne 3 000 € brut avec 10 ans d'ancienneté, combien vais-je toucher en indemnité de licenciement ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Avec le barème légal minimum, l'indemnité serait d'au moins 7 500 € (un quart de mois de salaire par année d'ancienneté sur 10 ans). C'est un plancher : votre convention collective peut prévoir un montant plus favorable."
+        "text": "Avec le barème légal minimum, l'indemnité serait d'au moins 7 500 € (un quart de mois de salaire par année d'ancienneté sur 10 ans). C'est un plancher : votre convention collective peut prévoir un montant plus favorable. Voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour un calcul avec vos propres chiffres."
       }
     },
     {
@@ -115,7 +123,7 @@
       "name": "Avec 15 ans d'ancienneté et 4 000 € brut, quelle indemnité minimale pour un licenciement ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Au-delà de 10 ans d'ancienneté, le calcul change de tranche : un tiers de mois de salaire par année au-delà de la 10e. Pour 4 000 € brut et 15 ans d'ancienneté, l'indemnité légale minimale est d'environ 16 667 €. C'est un minimum : elle peut être plus élevée si une convention collective plus favorable s'applique."
+        "text": "Au-delà de 10 ans d'ancienneté, le calcul change de tranche : un tiers de mois de salaire par année au-delà de la 10ᵉ. Pour 4 000 € brut et 15 ans d'ancienneté, l'indemnité légale minimale est d'environ 16 667 €. C'est un minimum : elle peut être plus élevée si une convention collective plus favorable s'applique."
       }
     },
     {
@@ -134,7 +142,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-19",
+  "dateModified": "2026-09-25",
   "name": "Simulateur Indemnité de Licenciement 2026",
   "description": "Calculez l'indemnité légale de licenciement 2026 selon votre ancienneté et votre salaire de référence. Gratuit, indicatif, calcul dans votre navigateur.",
   "url": "https://messimulateursrh.fr/indemnite-licenciement.html",
@@ -268,6 +276,31 @@
       <div class="notice" id="noticePreAnciennete" style="display:none;" role="status"></div>
     </div>
     <div class="field">
+      <label for="tempsPartielL">Temps complet et temps partiel dans la même entreprise ? (optionnel)</label>
+      <select id="tempsPartielL" onchange="afficherTempsPartielL()">
+        <option value="non" selected>Non — même durée de travail depuis l'embauche</option>
+        <option value="tp">Oui — je suis à temps partiel aujourd'hui, après une période à temps complet</option>
+        <option value="tc">Oui — je suis à temps complet aujourd'hui, après une période à temps partiel</option>
+      </select>
+      <div class="hint">Si vous avez été occupé à temps complet puis à temps partiel (ou l'inverse) chez le même employeur, l'indemnité est calculée proportionnellement à chaque période (art. L3123-5 du Code du travail) : le salaire de référence saisi ci-dessus n'est alors pas retenu pour toute l'ancienneté.</div>
+    </div>
+    <div id="blocTempsPartielL" style="display:none;">
+      <div class="row2">
+        <div class="field">
+          <label for="quotiteL">Quotité du temps partiel (% d'un temps complet)</label>
+          <input type="number" id="quotiteL" min="1" max="99" step="1" placeholder="ex : 50 pour un mi-temps, 80">
+        </div>
+        <div class="field">
+          <label for="dureeTPL">Durée totale passée à temps partiel — années</label>
+          <input type="number" id="dureeTPL" min="0" step="0.5" placeholder="ex : 2 ou 2,5">
+        </div>
+      </div>
+      <div class="field">
+        <div class="hint">Un mi-temps = 50 %, un 4/5ᵉ = 80 %. La durée à temps partiel ne peut pas dépasser l'ancienneté totale. Le simulateur reconstitue le salaire de l'autre période à partir de la quotité (un salaire à mi-temps de 1 000 € correspond à 2 000 € à temps complet) : si vos salaires réels étaient différents (augmentation, changement de poste), le résultat reste une approximation.</div>
+        <div class="notice" id="noticeTempsPartielL" style="display:none;" role="status"></div>
+      </div>
+    </div>
+    <div class="field">
       <label for="motifL">Motif du licenciement</label>
       <select id="motifL">
         <option value="normal">Motif personnel ou économique (hors faute grave/lourde)</option>
@@ -317,6 +350,9 @@
     </p>
     <p>
       Le salaire de référence retenu est le plus favorable entre la moyenne mensuelle des 12 derniers mois précédant le licenciement et le tiers des 3 derniers mois (primes annuelles ou exceptionnelles comptées au prorata). Ce barème légal est un plancher : de nombreuses conventions collectives prévoient des montants plus favorables — vérifiez la vôtre avant toute négociation.
+    </p>
+    <p>
+      <strong>Temps partiel :</strong> si vous avez été occupé à temps complet puis à temps partiel (ou l'inverse) dans la même entreprise, l'indemnité est calculée proportionnellement aux périodes accomplies sous chaque modalité, avec le salaire correspondant à chacune (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener noreferrer">Art. L3123-5 du Code du travail</a><span class="source-badge">✓ Source officielle</span>) — le champ optionnel « Temps complet et temps partiel dans la même entreprise ? » du simulateur applique ce prorata. Une carrière entièrement à temps partiel ne donne lieu à aucun prorata : le salaire à temps partiel est retenu tel quel. Pour mesurer l'effet d'un passage à temps partiel sur votre salaire net, voyez le <a href="passage-temps-partiel.html">simulateur de passage à temps partiel</a>.
     </p>
 
     <h3>Exemples chiffrés (indemnité légale minimale)</h3>
@@ -376,6 +412,10 @@
     <details class="faq">
       <summary>Le licenciement entraîne-t-il une contribution patronale spécifique, comme la rupture conventionnelle ?</summary>
       <p>Non. Contrairement à la <a href="rupture-conventionnelle.html">rupture conventionnelle</a> ou à la mise à la retraite, où l'employeur doit payer une contribution patronale spécifique (40 % en 2026 sur la part exonérée), le licenciement classique n'entraîne aucune contribution patronale additionnelle : seules les cotisations sociales normales s'appliquent, dans les mêmes limites d'exonération (2×PASS).</p>
+    </details>
+    <details class="faq">
+      <summary>J'ai travaillé à temps complet puis à temps partiel : comment est calculée mon indemnité de licenciement ?</summary>
+      <p>Proportionnellement à chaque période (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener noreferrer">article L3123-5 du Code du travail</a>). Si vous avez été occupé à temps complet et à temps partiel chez le même employeur, l'indemnité est calculée au prorata des périodes accomplies selon chaque modalité, avec le salaire correspondant à chacune. Exemple de <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F987" target="_blank" rel="noopener noreferrer">service-public.gouv.fr</a> : 3 ans à temps complet (2 000 € brut) puis 2 ans à mi-temps (1 000 €) → (2 000 × 1/4 × 3) + (1 000 × 1/4 × 2) = 2 000 €, au lieu de 1 250 € si l'on retenait le seul salaire à mi-temps. Renseignez le champ « Temps complet et temps partiel dans la même entreprise ? » du simulateur : il reconstitue le salaire de l'autre période à partir de la quotité. Si toute votre ancienneté est à temps partiel, aucun prorata ne s'applique : votre salaire à temps partiel est retenu tel quel. La même règle vaut pour l'indemnité de départ à la retraite.</p>
     </details>
     <details class="faq">
       <summary>Je gagne 3 000 € brut avec 10 ans d'ancienneté, combien vais-je toucher en indemnité de licenciement ?</summary>
@@ -447,6 +487,22 @@
 
 <script src="logique-calculs.txt"></script>
 <script>
+function afficherTempsPartielL(){
+  var actif = document.getElementById('tempsPartielL').value !== 'non';
+  document.getElementById('blocTempsPartielL').style.display = actif ? 'block' : 'none';
+  if (!actif) document.getElementById('noticeTempsPartielL').style.display = 'none';
+}
+// Lecture des champs du prorata temps complet / temps partiel (art. L3123-5). Retourne {actif:false} si non concerné, {actif:true, erreur:'…'} si les champs sont incohérents.
+function lireTempsPartielL(annees){
+  var regime = document.getElementById('tempsPartielL').value;
+  if (regime === 'non') return { actif: false };
+  var quotite = (parseFloat(document.getElementById('quotiteL').value) || 0) / 100;
+  var anneesTP = parseFloat(document.getElementById('dureeTPL').value) || 0;
+  if (!(quotite > 0 && quotite < 1)) return { actif: true, erreur: 'Indiquez la quotité du temps partiel en pourcentage d\'un temps complet, entre 1 et 99 (50 pour un mi-temps, 80 pour un 4/5ᵉ).' };
+  if (!(anneesTP > 0)) return { actif: true, erreur: 'Indiquez la durée totale passée à temps partiel, en années (2,5 pour deux ans et demi).' };
+  if (anneesTP > annees + 1e-9) return { actif: true, erreur: 'La durée à temps partiel (' + anneesTP.toFixed(2) + ' an(s)) dépasse l\'ancienneté totale saisie (' + annees.toFixed(2) + ' an(s)). Si toute votre ancienneté est à temps partiel, laissez « Non » : votre salaire actuel est alors retenu tel quel.' };
+  return { actif: true, regime: regime, quotite: quotite, anneesTP: anneesTP };
+}
 function calculerLicenciement(){
   var s12 = parseFloat(document.getElementById('salaire12L').value) || 0;
   var s3 = parseFloat(document.getElementById('salaire3L').value) || 0;
@@ -478,12 +534,31 @@ function calculerLicenciement(){
   }
   noticeSeuilL.style.display = 'none';
 
-  var indemnite = indemniteLegale(salaireRef, annees);
+  // Prorata temps complet / temps partiel (art. L3123-5)
+  var tp = lireTempsPartielL(annees);
+  var noticeTP = document.getElementById('noticeTempsPartielL');
+  if (tp.actif && tp.erreur){
+    noticeTP.style.display = 'block';
+    noticeTP.textContent = '⚠️ ' + tp.erreur;
+    resultBox.classList.remove('show');
+    return;
+  }
+  noticeTP.style.display = 'none';
+  var prorata = tp.actif ? proratiserTempsPartiel(indemniteLegale, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP) : null;
+
+  var indemnite = prorata ? prorata.montant : indemniteLegale(salaireRef, annees);
   document.getElementById('montantL').textContent = euros(indemnite);
   document.getElementById('montantLEmployeur').textContent = euros(indemnite);
 
   var detailTxt = 'Salaire de référence : ' + euros(salaireRef) + ' · Ancienneté : ' + annees.toFixed(2) + ' an(s)<br>';
-  if (annees > 10){
+  if (prorata){
+    var formuleTxt = annees > 10 ? '(10 × 1/4) + (' + (annees-10).toFixed(2) + ' × 1/3) de mois' : '1/4 de mois × ' + annees.toFixed(2) + ' an(s)';
+    detailTxt += 'Prorata temps complet / temps partiel (art. L3123-5) : salaire de référence à temps complet ' + euros(prorata.salaireTC) + (tp.regime === 'tp' ? ' (reconstitué : salaire actuel ÷ ' + Math.round(tp.quotite*100) + ' %)' : '') +
+      ', à temps partiel ' + euros(prorata.salaireTP) + (tp.regime === 'tc' ? ' (reconstitué : salaire actuel × ' + Math.round(tp.quotite*100) + ' %)' : '') + '.<br>' +
+      'Part temps complet : ' + formuleTxt + ' sur ' + euros(prorata.salaireTC) + ' = ' + euros(prorata.indemniteTC) + ' × ' + prorata.anneesTC.toFixed(2) + '/' + annees.toFixed(2) + ' an(s) = ' + euros(prorata.partTC) + '<br>' +
+      'Part temps partiel : ' + formuleTxt + ' sur ' + euros(prorata.salaireTP) + ' = ' + euros(prorata.indemniteTP) + ' × ' + prorata.anneesTP.toFixed(2) + '/' + annees.toFixed(2) + ' an(s) = ' + euros(prorata.partTP) + '<br>' +
+      'Total : ' + euros(prorata.partTC) + ' + ' + euros(prorata.partTP) + ' = <strong>' + euros(indemnite) + '</strong> (sans prorata, sur le seul salaire actuel : ' + euros(prorata.sansProrata) + ').<br>';
+  } else if (annees > 10){
     var part1 = 10*(salaireRef/4);
     var part2 = (annees-10)*(salaireRef/3);
     detailTxt += 'Calcul : (10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ')<br>' +
@@ -491,7 +566,7 @@ function calculerLicenciement(){
   } else {
     detailTxt += 'Calcul : ' + euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
   }
-  detailTxt += 'Référence : article R1234-2 du Code du travail.';
+  detailTxt += 'Référence : article R1234-2 du Code du travail' + (prorata ? ' et article L3123-5 (calcul proportionnel aux périodes à temps complet et à temps partiel)' : '') + '.';
   document.getElementById('breakdownL').innerHTML = detailTxt;
 
   // Comparaison à un montant proposé par l'employeur ou en protocole transactionnel
@@ -533,15 +608,22 @@ function telechargerPDF_L(){
   var motif = document.getElementById('motifL').value;
   var montantProposeL = parseFloat(document.getElementById('montantProposeL').value) || 0;
   if (salaireRef <= 0 || annees < (8/12) || motif === 'grave') return;
+  var tp = lireTempsPartielL(annees);
+  if (tp.actif && tp.erreur) return;
+  var prorata = tp.actif ? proratiserTempsPartiel(indemniteLegale, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP) : null;
 
-  var indemnite = indemniteLegale(salaireRef, annees);
+  var indemnite = prorata ? prorata.montant : indemniteLegale(salaireRef, annees);
   var exoSocialeL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
   var exoFiscaleL = Math.min(indemnite, BAREME_2026.PLAFOND_EXO_FISCALE_RC);
   var lignes = [
     { label: 'Salaire de référence retenu', value: euros(salaireRef) },
     { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' }
   ];
-  if (annees > 10){
+  if (prorata){
+    lignes.push({ label: 'Prorata temps complet / temps partiel (art. L3123-5)', value: prorata.anneesTC.toFixed(2) + ' an(s) à temps complet (' + euros(prorata.salaireTC) + ') + ' + prorata.anneesTP.toFixed(2) + ' an(s) à ' + Math.round(tp.quotite*100) + ' % (' + euros(prorata.salaireTP) + ')' });
+    lignes.push({ label: 'Part temps complet', value: euros(prorata.partTC) });
+    lignes.push({ label: 'Part temps partiel', value: euros(prorata.partTP) });
+  } else if (annees > 10){
     lignes.push({ label: '10 premières années (1/4 de mois/an)', value: euros(10*(salaireRef/4)) });
     lignes.push({ label: 'Années au-delà de 10 ans (1/3 de mois/an)', value: euros((annees-10)*(salaireRef/3)) });
   }

@@ -83,7 +83,7 @@
       "name": "Pourquoi ma voiture de fonction fait-elle baisser mon salaire net alors que mon brut augmente ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "C'est le fonctionnement normal de l'avantage en nature véhicule, pas une erreur. Il est ajouté au salaire brut pour le calcul des cotisations (vous cotisez donc sur un montant plus élevé), puis retranché du salaire net à payer, car il ne vous est jamais versé en espèces — il apparaît deux fois sur la fiche de paie, en haut et en bas, de façon identique. Résultat concret : votre brut affiché augmente, vous cotisez davantage, mais votre net réellement versé n'augmente pas d'autant, et peut même sembler plus bas qu'attendu si le salaire de base a été négocié en tenant compte de cet avantage. Ce simulateur permet d'intégrer ce montant pour voir l'effet exact sur votre net."
+        "text": "C'est le fonctionnement normal de l'avantage en nature véhicule, pas une erreur. Il est ajouté au salaire brut pour le calcul des cotisations (vous cotisez donc sur un montant plus élevé), puis retranché du salaire net à payer, car il ne vous est jamais versé en espèces — il apparaît deux fois sur la fiche de paie, en haut et en bas, de façon identique. Résultat concret : votre brut affiché augmente, vous cotisez davantage, mais votre net réellement versé n'augmente pas d'autant, et peut même sembler plus bas qu'attendu si le salaire de base a été négocié en tenant compte de cet avantage. Utilisez le champ optionnel de ce simulateur pour voir l'effet exact sur votre net."
       }
     },
     {
@@ -123,7 +123,7 @@
       "name": "Je gagne 3 000 \u20ac brut, combien cela fait-il en net ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Avec le coefficient moyen utilis\u00e9 par ce simulateur, 3 000 \u20ac brut repr\u00e9sentent environ 2 340 \u20ac net pour un non-cadre, et environ 2 250 \u20ac net pour un cadre. C'est une estimation moyenne : le montant exact d\u00e9pend de votre convention collective et de votre situation."
+        "text": "Avec le coefficient moyen utilisé par ce simulateur, 3 000 € brut représentent environ 2 340 € net pour un non-cadre, et environ 2 250 € net pour un cadre. C'est une estimation moyenne : voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour votre statut exact."
       }
     },
     {
@@ -141,6 +141,14 @@
         "@type": "Answer",
         "text": "Environ 1 950 \u20ac net pour un non-cadre, et environ 1 875 \u20ac net pour un cadre, avec le coefficient moyen utilis\u00e9 par ce simulateur (78 % non-cadre, 75 % cadre)."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Le 13ᵉ mois est-il obligatoire, et comment comparer un salaire « sur 13 mois » à un salaire « sur 12 mois » ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le 13ᵉ mois n'est pas une obligation du Code du travail, qui ne fixe qu'un salaire minimum (le Smic, article L3231-2) : il est dû seulement s'il est prévu par votre convention collective (le Code du travail numérique répertorie, convention par convention, les primes obligatoires), par un accord d'entreprise, par votre contrat de travail ou par un usage constant dans l'entreprise. Ses conditions (ancienneté, présence, prorata en cas d'arrivée ou de départ en cours d'année) viennent du texte qui l'institue. Il est soumis aux mêmes cotisations sociales et au même impôt qu'un salaire ordinaire. Pour comparer deux offres, raisonnez en annuel : 2 500 € brut sur 13 mois font 32 500 € par an, soit 2 708,33 € brut en moyenne mensuelle, contre 30 000 € pour 2 500 € sur 12 mois. Le champ « Nombre de mois de salaire par an » de ce simulateur affiche ce total annuel et cette moyenne lissée, en brut et en net."
+      }
     }
   ]
 }
@@ -150,7 +158,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-24",
+  "dateModified": "2026-09-25",
   "name": "Salaire Brut en Net 2026",
   "description": "Convertissez votre rémunération brute en net (ou l'inverse) selon votre statut : non-cadre, cadre, fonction publique, indépendant ou portage salarial.",
   "url": "https://messimulateursrh.fr/salaire-net-brut.html",
@@ -292,12 +300,22 @@
       <input type="number" id="avantageVehiculeNB" min="0" step="0.01" placeholder="ex : 300">
       <p class="hint">Si vous avez une voiture de fonction utilisable à titre privé, indiquez ici son évaluation mensuelle (donnée par votre employeur). Ce montant est ajouté au brut pour le calcul des cotisations, <strong>puis retranché du net</strong> — il ne vous est jamais versé en espèces. Laissez vide si vous n'en avez pas.</p>
     </div>
+    <div class="field" id="groupeMoisNB">
+      <label for="nbMoisNB">Nombre de mois de salaire par an</label>
+      <select id="nbMoisNB">
+        <option value="12" selected>12 mois (pas de 13ᵉ mois)</option>
+        <option value="13">13 mois (13ᵉ mois)</option>
+        <option value="14">14 mois (13ᵉ et 14ᵉ mois)</option>
+      </select>
+      <p class="hint">Sert uniquement au total annuel et au salaire mensuel « lissé » affichés sous le résultat : le net mensuel ci-dessus reste celui d'un mois ordinaire. Le 13ᵉ mois est soumis aux mêmes cotisations qu'un salaire ; il dépend de votre convention collective, d'un accord ou de votre contrat (voir la FAQ).</p>
+    </div>
     <button class="compute" onclick="calculerNetBrut()">Calculer</button>
 
     <div class="result" id="resultNB">
       <div class="amount" id="montantNet">—</div>
       <div class="detail" id="detailNB"></div>
       <div class="breakdown" id="breakdownNB"></div>
+      <div class="breakdown" id="annuelNB"></div>
       <p class="notice" id="avantageNoteNB" style="display:none;"></p>
       <details class="cotisations-detail" id="detailCotisationsBox" hidden>
         <summary>Voir le détail des cotisations salariales, poste par poste</summary>
@@ -415,6 +433,11 @@
       <p>Environ 1 950 € net pour un non-cadre, et environ 1 875 € net pour un cadre, avec le coefficient moyen utilisé par ce simulateur (78 % non-cadre, 75 % cadre).</p>
     </details>
 
+    <details class="faq">
+      <summary>Le 13ᵉ mois est-il obligatoire, et comment comparer un salaire « sur 13 mois » à un salaire « sur 12 mois » ?</summary>
+      <p>Le 13ᵉ mois n'est pas une obligation du Code du travail, qui ne fixe qu'un salaire minimum (le Smic, <a href="https://code.travail.gouv.fr/code-du-travail/l3231-2" target="_blank" rel="noopener noreferrer">article L3231-2</a>) : il est dû seulement s'il est prévu par votre <a href="identifier-convention-collective.html">convention collective</a> (<a href="https://code.travail.gouv.fr/contribution/quelles-sont-les-primes-prevues-par-la-convention-collective" target="_blank" rel="noopener noreferrer">le Code du travail numérique répertorie, convention par convention, les primes obligatoires</a>), par un accord d'entreprise, par votre contrat de travail ou par un usage constant dans l'entreprise. Ses conditions (ancienneté, présence, prorata en cas d'arrivée ou de départ en cours d'année) viennent du texte qui l'institue. Il est soumis aux mêmes cotisations sociales et au même impôt qu'un salaire ordinaire. Pour comparer deux offres, raisonnez en annuel : 2 500 € brut sur 13 mois font 32 500 € par an, soit 2 708,33 € brut en moyenne mensuelle, contre 30 000 € pour 2 500 € sur 12 mois. Le champ « Nombre de mois de salaire par an » de ce simulateur affiche ce total annuel et cette moyenne lissée, en brut et en net.</p>
+    </details>
+
     <div class="related-tools">
       <h3>Autres simulateurs utiles</h3>
       <div class="links">
@@ -495,6 +518,7 @@ function updateLabelsNB(){
 
   document.getElementById('statutHintNB').textContent = HINTS_STATUT_NB[statut] || '';
   document.getElementById('groupeAvantageNB').style.display = classique ? '' : 'none';
+  document.getElementById('groupeMoisNB').style.display = (classique || statut === 'fonction-publique') ? '' : 'none';
 
   if (statut === 'independant-ssi' || statut === 'independant-cipav'){
     document.getElementById('labelBrutNB').textContent = 'Bénéfice professionnel mensuel (avant cotisations)';
@@ -591,6 +615,19 @@ function calculerNetBrut(){
     document.getElementById('breakdownNB').textContent = netImposable !== null
       ? 'Net imposable estimé (base du prélèvement à la source) : ' + euros(netImposable) + (avantage > 0 ? ' (avantage en nature inclus, il est imposable).' : '.')
       : (statut.indexOf('independant') === 0 ? 'Ce montant est net de cotisations sociales mais avant impôt sur le revenu, calculé séparément selon votre foyer fiscal.' : 'Estimation par coefficient global, sans détail poste par poste pour ce statut.');
+  }
+
+  // Total annuel sur 12, 13 ou 14 mois (13ᵉ/14ᵉ mois soumis aux mêmes cotisations, approximation : le plafond mensuel de la Sécurité sociale n'est pas recalculé sur le mois du versement)
+  var nbMois = (classique || statut === 'fonction-publique') ? (parseInt(document.getElementById('nbMoisNB').value, 10) || 12) : 12;
+  var annuelBox = document.getElementById('annuelNB');
+  if (classique || statut === 'fonction-publique'){
+    var brutAnnuel = brutContractuel * nbMois;
+    var netAnnuel = net * nbMois;
+    annuelBox.innerHTML = 'Sur ' + nbMois + ' mois : <strong>' + euros(brutAnnuel) + ' brut</strong> et <strong>' + euros(netAnnuel) + ' net</strong> par an' +
+      (nbMois > 12 ? ', soit ' + euros(brutAnnuel / 12) + ' brut et ' + euros(netAnnuel / 12) + ' net en moyenne mensuelle lissée (utile pour comparer une offre « sur 13 mois » à une offre « sur 12 mois »).' : '.') +
+      (nbMois > 12 ? ' Le ' + (nbMois === 13 ? '13ᵉ mois' : '13ᵉ et le 14ᵉ mois') + ' : ' + euros(brutContractuel * (nbMois - 12)) + ' brut, ' + euros(net * (nbMois - 12)) + ' net, soumis aux cotisations et à l\'impôt comme un salaire.' : '');
+  } else {
+    annuelBox.innerHTML = '';
   }
 
   var avantageNote = document.getElementById('avantageNoteNB');
@@ -717,6 +754,14 @@ function telechargerPDF_NB(){
       var chain = mode === 'net-vers-brut' ? estimerMontantAvantCotisationsDepuisNet(net, statut) : estimerNetStatutEtendu(brut, statut);
       lignes.push({ label: 'Frais de gestion de la société de portage (10 %, par défaut)', value: '—' });
       lignes.push({ label: 'Brut équivalent après frais de gestion et charges patronales', value: euros(chain.brutEquivalent) });
+    }
+  }
+
+  if (classique || statut === 'fonction-publique'){
+    var nbMoisPdf = parseInt(document.getElementById('nbMoisNB').value, 10) || 12;
+    lignes.push({ label: 'Total annuel sur ' + nbMoisPdf + ' mois (brut / net)', value: euros(brutContractuel * nbMoisPdf) + ' / ' + euros(net * nbMoisPdf) });
+    if (nbMoisPdf > 12){
+      lignes.push({ label: 'Moyenne mensuelle lissée sur 12 mois (brut / net)', value: euros(brutContractuel * nbMoisPdf / 12) + ' / ' + euros(net * nbMoisPdf / 12) });
     }
   }
 

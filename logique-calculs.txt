@@ -529,6 +529,26 @@ return part1 + part2;
 function anneesDecimal(annees, mois){
 return (parseInt(annees || 0, 10)) + (parseInt(mois || 0, 10)) / 12;
 }
+// Prorata temps complet / temps partiel (ajouté le 25/09/2026) — art. L3123-5 al. 3 du Code du travail (version du 10/08/2016) et service-public.gouv.fr F987 (vérifiée le 05/06/2026) :
+// l'indemnité de licenciement (et donc le plancher de la rupture conventionnelle) d'un salarié occupé à temps complet ET à temps partiel dans la même entreprise
+// est calculée proportionnellement aux périodes accomplies selon chaque modalité. Méthode : on reconstitue le salaire de référence de l'autre modalité
+// à partir de la quotité, on applique la formule (légale ou conventionnelle) sur toute l'ancienneté pour chacun des deux salaires, puis on pondère
+// chaque résultat par la part de l'ancienneté passée sous cette modalité. Pour ≤ 10 ans, cela revient exactement à l'exemple de service-public :
+// 3 ans TC à 2 000 € + 2 ans mi-temps à 1 000 € → (2 000 × 1/4 × 3) + (1 000 × 1/4 × 2) = 2 000 €.
+// fnIndemnite : fonction (salaireRef, ancienneteAnnees) → montant (indemniteLegale ou une fonction conventionnelle). regimeActuel : 'tp' si salaireRef est un salaire à temps partiel, 'tc' s'il est à temps complet.
+// quotite : fraction du temps complet (0.5 = mi-temps), anneesTempsPartiel : durée totale passée à temps partiel (années décimales). Retourne null si les paramètres sont incohérents.
+function proratiserTempsPartiel(fnIndemnite, salaireRef, ancienneteAnnees, regimeActuel, quotite, anneesTempsPartiel){
+if (!(quotite > 0 && quotite < 1) || !(ancienneteAnnees > 0) || !(anneesTempsPartiel > 0) || anneesTempsPartiel > ancienneteAnnees + 1e-9) return null;
+var anneesTP = Math.min(anneesTempsPartiel, ancienneteAnnees);
+var anneesTC = ancienneteAnnees - anneesTP;
+var salaireTC = regimeActuel === 'tp' ? salaireRef / quotite : salaireRef;
+var salaireTP = regimeActuel === 'tp' ? salaireRef : salaireRef * quotite;
+var indemniteTC = fnIndemnite(salaireTC, ancienneteAnnees);
+var indemniteTP = fnIndemnite(salaireTP, ancienneteAnnees);
+var partTC = indemniteTC * (anneesTC / ancienneteAnnees);
+var partTP = indemniteTP * (anneesTP / ancienneteAnnees);
+return { montant: partTC + partTP, salaireTC: salaireTC, salaireTP: salaireTP, anneesTC: anneesTC, anneesTP: anneesTP, indemniteTC: indemniteTC, indemniteTP: indemniteTP, partTC: partTC, partTP: partTP, sansProrata: fnIndemnite(salaireRef, ancienneteAnnees) };
+}
 function indemniteSyntecCadre(salaireRef, ancienneteAnnees){
 // Convention Syntec (bureaux d'études techniques, IDCC 1486) — statut cadre.
 // Formule : 1/3 de mois de salaire par année d'ancienneté dès 2 ans, sans plafond (avenant du 22 mai 2023).
@@ -1872,8 +1892,8 @@ var taux = plusDe20Salaries ? HEURES_SUP_2026.COR_TAUX_PLUS_DE_20_SALARIES : HEU
 return {contingent: contingent, total: total, restant: Math.max(0, contingent - total), horsContingent: horsContingent, taux: taux, reposHeures: horsContingent * taux};
 }
 var SEARCH_INDEX = [
-{title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable"},
-{title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete"},
+{title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable temps partiel prorata"},
+{title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete temps partiel prorata"},
 {title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique.html", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere"},
 {title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
 {title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale"},

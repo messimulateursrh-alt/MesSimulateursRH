@@ -99,7 +99,7 @@
       "name": "Le simulateur tient-il compte de ma convention collective ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Huit formules conventionnelles sont désormais disponibles : Syntec cadre (1/3 de mois par année dès 2 ans, sans plafond) et Syntec non-cadre/ETAM (même formule que le barème légal, aucun avantage supplémentaire), Bâtiment/BTP cadre (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois), Bâtiment/BTP ETAM (2,5/10 de mois par année jusqu'à 15 ans puis 3,5/10 au-delà, plafonnée à 10 mois) et Bâtiment/BTP ouvrier (1/10 puis 3/20 de mois par année selon l'ancienneté, presque toujours moins favorable que le légal — affichée par transparence), transports routiers technicien/agent de maîtrise (3/10 de mois par année dès 3 ans), transports routiers ingénieur/cadre (4/10 de mois par année dès 3 ans), et Hôtels-Cafés-Restaurants (1/10 puis 1/15 de mois par année, toujours moins favorable que le légal, affichée par transparence). Les conventions du bâtiment (cadre, ETAM, ouvrier) prévoient aussi une majoration de 10 % à partir de 55 ans, non intégrée au calcul automatique (l'âge n'est pas demandé par ce simulateur). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle."
+        "text": "Partiellement. Le barème légal (Art. R1234-2) s'applique par défaut. Huit formules conventionnelles sont désormais disponibles : Syntec cadre (1/3 de mois par année dès 2 ans, sans plafond) et Syntec non-cadre/ETAM (même formule que le barème légal, aucun avantage supplémentaire), Bâtiment/BTP cadre (3/10 de mois par année jusqu'à 10 ans puis 6/10 au-delà, plafonnée à 15 mois), Bâtiment/BTP ETAM (2,5/10 de mois par année jusqu'à 15 ans puis 3,5/10 au-delà, plafonnée à 10 mois) et Bâtiment/BTP ouvrier (1/10 puis 3/20 de mois par année selon l'ancienneté, presque toujours moins favorable que le légal — affichée par transparence), transports routiers technicien/agent de maîtrise (3/10 de mois par année dès 3 ans), transports routiers ingénieur/cadre (4/10 de mois par année dès 3 ans), et Hôtels-Cafés-Restaurants (1/10 puis 1/15 de mois par année, toujours moins favorable que le légal, affichée par transparence). Les conventions du bâtiment (cadre, ETAM, ouvrier) prévoient aussi une majoration de 10 % à partir de 55 ans, non intégrée au calcul automatique (l'âge n'est pas demandé par ce simulateur). Les autres conventions collectives ne sont pas encore intégrées : vérifiez toujours le texte exact applicable à votre poste, notamment si votre convention prévoit une formule différente selon l'ancienneté ou la catégorie professionnelle. Besoin d'identifier votre convention ?"
       }
     },
     {
@@ -112,10 +112,18 @@
     },
     {
       "@type": "Question",
+      "name": "J'ai travaillé à temps complet puis à temps partiel : comment est calculée mon indemnité de rupture conventionnelle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Proportionnellement à chaque période (article L3123-5 du Code du travail). Le plancher de la rupture conventionnelle étant l'indemnité légale de licenciement, la règle est la même : si vous avez été occupé à temps complet et à temps partiel chez le même employeur, l'indemnité est calculée au prorata des périodes accomplies selon chaque modalité, avec le salaire correspondant à chacune. Exemple de service-public.gouv.fr : 3 ans à temps complet (2 000 € brut) puis 2 ans à mi-temps (1 000 €) → (2 000 × 1/4 × 3) + (1 000 × 1/4 × 2) = 2 000 €, au lieu de 1 250 € si l'on retenait le seul salaire à mi-temps. Renseignez le champ « Temps complet et temps partiel dans la même entreprise ? » du simulateur : il reconstitue le salaire de l'autre période à partir de la quotité. Si toute votre ancienneté est à temps partiel, aucun prorata ne s'applique : votre salaire à temps partiel est retenu tel quel."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Je gagne 3 000 € brut avec 10 ans d'ancienneté, combien vais-je toucher en rupture conventionnelle ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Avec le barème légal minimum, l'indemnité serait d'au moins 7 500 € (un quart de mois de salaire par année d'ancienneté sur 10 ans). C'est un plancher : le montant réel peut être plus élevé selon la négociation ou votre convention collective."
+        "text": "Avec le barème légal minimum, l'indemnité serait d'au moins 7 500 € (un quart de mois de salaire par année d'ancienneté sur 10 ans). C'est un plancher : le montant réel peut être plus élevé selon la négociation ou votre convention collective. Voir le tableau d'exemples ci-dessus, ou utilisez le simulateur pour un calcul avec vos propres chiffres."
       }
     },
     {
@@ -139,7 +147,7 @@
       "name": "Avec 15 ans d'ancienneté et 4 000 € brut, quelle indemnité minimale pour une rupture conventionnelle ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Au-delà de 10 ans d'ancienneté, le calcul change de tranche : un tiers de mois de salaire par année au-delà de la 10e. Pour 4 000 € brut et 15 ans d'ancienneté, l'indemnité légale minimale est d'environ 16 667 €. C'est un minimum : elle peut être plus élevée si une convention collective plus favorable s'applique."
+        "text": "Au-delà de 10 ans d'ancienneté, le calcul change de tranche : un tiers de mois de salaire par année au-delà de la 10ᵉ. Pour 4 000 € brut et 15 ans d'ancienneté, l'indemnité légale minimale est d'environ 16 667 €. C'est un minimum : elle peut être plus élevée si une convention collective plus favorable s'applique."
       }
     },
     {
@@ -166,7 +174,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-19",
+  "dateModified": "2026-09-25",
   "name": "Simulateur Rupture Conventionnelle 2026",
   "description": "Calculez l'indemnité minimale de rupture conventionnelle 2026, régime social et fiscal, et coût employeur estimé. Gratuit, indicatif, sans envoi de données.",
   "url": "https://messimulateursrh.fr/rupture-conventionnelle.html",
@@ -306,6 +314,31 @@
       <div class="notice" id="noticePreAnciennete" style="display:none;" role="status"></div>
     </div>
     <div class="field">
+      <label for="tempsPartielRC">Temps complet et temps partiel dans la même entreprise ? (optionnel)</label>
+      <select id="tempsPartielRC" onchange="afficherTempsPartielRC()">
+        <option value="non" selected>Non — même durée de travail depuis l'embauche</option>
+        <option value="tp">Oui — je suis à temps partiel aujourd'hui, après une période à temps complet</option>
+        <option value="tc">Oui — je suis à temps complet aujourd'hui, après une période à temps partiel</option>
+      </select>
+      <div class="hint">Si vous avez été occupé à temps complet puis à temps partiel (ou l'inverse) chez le même employeur, l'indemnité est calculée proportionnellement à chaque période (art. L3123-5 du Code du travail) : le salaire de référence saisi ci-dessus n'est alors pas retenu pour toute l'ancienneté.</div>
+    </div>
+    <div id="blocTempsPartielRC" style="display:none;">
+      <div class="row2">
+        <div class="field">
+          <label for="quotiteRC">Quotité du temps partiel (% d'un temps complet)</label>
+          <input type="number" id="quotiteRC" min="1" max="99" step="1" placeholder="ex : 50 pour un mi-temps, 80">
+        </div>
+        <div class="field">
+          <label for="dureeTPRC">Durée totale passée à temps partiel — années</label>
+          <input type="number" id="dureeTPRC" min="0" step="0.5" placeholder="ex : 2 ou 2,5">
+        </div>
+      </div>
+      <div class="field">
+        <div class="hint">Un mi-temps = 50 %, un 4/5ᵉ = 80 %. La durée à temps partiel ne peut pas dépasser l'ancienneté totale. Le simulateur reconstitue le salaire de l'autre période à partir de la quotité (un salaire à mi-temps de 1 000 € correspond à 2 000 € à temps complet) : si vos salaires réels étaient différents (augmentation, changement de poste), le résultat reste une approximation.</div>
+        <div class="notice" id="noticeTempsPartielRC" style="display:none;" role="status"></div>
+      </div>
+    </div>
+    <div class="field">
       <label for="montantPropose">Montant d'indemnité déjà proposé (optionnel)</label>
       <input type="number" id="montantPropose" min="0" step="0.01" placeholder="Pour comparer au minimum légal">
     </div>
@@ -397,6 +430,9 @@
     <p>
       Ce montant est un minimum légal, pas un maximum : dans la pratique, l'indemnité de rupture conventionnelle se négocie et peut être plus élevée, notamment si l'employeur souhaite accélérer le départ ou si le salarié a un rapport de force favorable (ancienneté, poste stratégique, risque de contentieux). Pour préparer cette discussion (indemnité supra-légale, CPF, ordre des démarches), consultez notre guide <a href="negocier-rupture-conventionnelle.html">négocier sa rupture conventionnelle</a>. Ce simulateur concerne les salariés du secteur privé : pour un fonctionnaire ou un contractuel en CDI de la fonction publique, utilisez le simulateur de <a href="rupture-conventionnelle-fonction-publique.html">rupture conventionnelle dans la fonction publique (ISRC)</a>, dont le barème a changé le 8 août 2026.
     </p>
+    <p>
+      <strong>Temps partiel :</strong> si vous avez été occupé à temps complet puis à temps partiel (ou l'inverse) dans la même entreprise, l'indemnité est calculée proportionnellement aux périodes accomplies sous chaque modalité, avec le salaire correspondant à chacune (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener noreferrer">Art. L3123-5 du Code du travail</a><span class="source-badge">✓ Source officielle</span>) — le champ optionnel « Temps complet et temps partiel dans la même entreprise ? » du simulateur applique ce prorata. Une carrière entièrement à temps partiel ne donne lieu à aucun prorata : le salaire à temps partiel est retenu tel quel. Pour mesurer l'effet d'un passage à temps partiel sur votre salaire net, voyez le <a href="passage-temps-partiel.html">simulateur de passage à temps partiel</a>.
+    </p>
 
     <h3>Exemples chiffrés (barème légal minimum)</h3>
     <p>
@@ -463,6 +499,10 @@
     <details class="faq">
       <summary>Les avantages en nature (véhicule de fonction, logement) comptent-ils dans le calcul de l'indemnité ?</summary>
       <p>Oui. Un avantage en nature fait partie du salaire brut de référence utilisé pour calculer l'indemnité de rupture conventionnelle, au même titre que le salaire contractuel. S'il n'est pas déjà inclus dans les montants que vous avez renseignés, ajoutez sa valeur mensuelle dans le champ dédié du simulateur pour obtenir une estimation plus précise.</p>
+    </details>
+    <details class="faq">
+      <summary>J'ai travaillé à temps complet puis à temps partiel : comment est calculée mon indemnité de rupture conventionnelle ?</summary>
+      <p>Proportionnellement à chaque période (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener noreferrer">article L3123-5 du Code du travail</a>). Le plancher de la rupture conventionnelle étant l'indemnité légale de licenciement, la règle est la même : si vous avez été occupé à temps complet et à temps partiel chez le même employeur, l'indemnité est calculée au prorata des périodes accomplies selon chaque modalité, avec le salaire correspondant à chacune. Exemple de <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F987" target="_blank" rel="noopener noreferrer">service-public.gouv.fr</a> : 3 ans à temps complet (2 000 € brut) puis 2 ans à mi-temps (1 000 €) → (2 000 × 1/4 × 3) + (1 000 × 1/4 × 2) = 2 000 €, au lieu de 1 250 € si l'on retenait le seul salaire à mi-temps. Renseignez le champ « Temps complet et temps partiel dans la même entreprise ? » du simulateur : il reconstitue le salaire de l'autre période à partir de la quotité. Si toute votre ancienneté est à temps partiel, aucun prorata ne s'applique : votre salaire à temps partiel est retenu tel quel.</p>
     </details>
     <details class="faq">
       <summary>Je gagne 3 000 € brut avec 10 ans d'ancienneté, combien vais-je toucher en rupture conventionnelle ?</summary>
@@ -542,6 +582,29 @@
 
 <script src="logique-calculs.txt"></script>
 <script>
+function afficherTempsPartielRC(){
+  var actif = document.getElementById('tempsPartielRC').value !== 'non';
+  document.getElementById('blocTempsPartielRC').style.display = actif ? 'block' : 'none';
+  if (!actif) document.getElementById('noticeTempsPartielRC').style.display = 'none';
+}
+// Lecture des champs du prorata temps complet / temps partiel (art. L3123-5). Retourne {actif:false} si non concerné, {actif:true, erreur:'…'} si les champs sont incohérents.
+function lireTempsPartielRC(annees){
+  var regime = document.getElementById('tempsPartielRC').value;
+  if (regime === 'non') return { actif: false };
+  var quotite = (parseFloat(document.getElementById('quotiteRC').value) || 0) / 100;
+  var anneesTP = parseFloat(document.getElementById('dureeTPRC').value) || 0;
+  if (!(quotite > 0 && quotite < 1)) return { actif: true, erreur: 'Indiquez la quotité du temps partiel en pourcentage d\'un temps complet, entre 1 et 99 (50 pour un mi-temps, 80 pour un 4/5ᵉ).' };
+  if (!(anneesTP > 0)) return { actif: true, erreur: 'Indiquez la durée totale passée à temps partiel, en années (2,5 pour deux ans et demi).' };
+  if (anneesTP > annees + 1e-9) return { actif: true, erreur: 'La durée à temps partiel (' + anneesTP.toFixed(2) + ' an(s)) dépasse l\'ancienneté totale saisie (' + annees.toFixed(2) + ' an(s)). Si toute votre ancienneté est à temps partiel, laissez « Non » : votre salaire actuel est alors retenu tel quel.' };
+  return { actif: true, regime: regime, quotite: quotite, anneesTP: anneesTP };
+}
+function texteProrataTempsPartielRC(p, regime, quotite, libelleFormule){
+  return 'Prorata temps complet / temps partiel (art. L3123-5) : salaire de référence à temps complet ' + euros(p.salaireTC) + (regime === 'tp' ? ' (reconstitué : salaire actuel ÷ ' + Math.round(quotite*100) + ' %)' : '') +
+    ', à temps partiel ' + euros(p.salaireTP) + (regime === 'tc' ? ' (reconstitué : salaire actuel × ' + Math.round(quotite*100) + ' %)' : '') + '.<br>' +
+    'Part temps complet : ' + libelleFormule + ' sur ' + euros(p.salaireTC) + ' = ' + euros(p.indemniteTC) + ' × ' + p.anneesTC.toFixed(2) + '/' + (p.anneesTC + p.anneesTP).toFixed(2) + ' an(s) = ' + euros(p.partTC) + '<br>' +
+    'Part temps partiel : ' + libelleFormule + ' sur ' + euros(p.salaireTP) + ' = ' + euros(p.indemniteTP) + ' × ' + p.anneesTP.toFixed(2) + '/' + (p.anneesTC + p.anneesTP).toFixed(2) + ' an(s) = ' + euros(p.partTP) + '<br>' +
+    'Total : ' + euros(p.partTC) + ' + ' + euros(p.partTP) + ' = <strong>' + euros(p.montant) + '</strong> (sans prorata, sur le seul salaire actuel : ' + euros(p.sansProrata) + ').<br>';
+}
 function calculerRC(){
   var s12 = parseFloat(document.getElementById('salaire12').value) || 0;
   var s3 = parseFloat(document.getElementById('salaire3').value) || 0;
@@ -562,18 +625,35 @@ function calculerRC(){
   // (service-public.gouv.fr F19030/F31539 ; circulaire DGT n° 2009-04 du 17/03/2009). Le seuil de 8 mois (L1234-9) ne vaut que pour le licenciement.
   seuil8mois.style.display = annees < (8/12) ? 'block' : 'none';
 
-  var indemniteBase = indemniteLegale(salaireRef, annees);
+  // Prorata temps complet / temps partiel (art. L3123-5) : appliqué au barème légal et, de la même façon, à la formule conventionnelle
+  var tp = lireTempsPartielRC(annees);
+  var noticeTP = document.getElementById('noticeTempsPartielRC');
+  if (tp.actif && tp.erreur){
+    noticeTP.style.display = 'block';
+    noticeTP.textContent = '⚠️ ' + tp.erreur;
+    resultBox.classList.remove('show');
+    return;
+  }
+  noticeTP.style.display = 'none';
+  var fnConventions = { syntec_cadre: indemniteSyntecCadre, batiment_cadre: indemniteBatimentCadre, transport_etam: indemniteTransportETAM, transport_cadre: indemniteTransportCadre, hcr: indemniteHCR, syntec_etam: indemniteSyntecETAM, batiment_etam: indemniteBatimentETAM, batiment_ouvrier: indemniteBatimentOuvrier };
+  var fnConvention = fnConventions[document.getElementById('conventionRC').value] || null;
+  var calcIndemnite = function(fn){
+    return tp.actif ? proratiserTempsPartiel(fn, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP).montant : fn(salaireRef, annees);
+  };
+  var prorataLegal = tp.actif ? proratiserTempsPartiel(indemniteLegale, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP) : null;
+
+  var indemniteBase = calcIndemnite(indemniteLegale);
 
   var conventionRC = document.getElementById('conventionRC').value;
   var indemniteConv = null;
   var conventionLabel = '';
   var conventionFormuleTxt = '';
   if (conventionRC === 'syntec_cadre'){
-    indemniteConv = indemniteSyntecCadre(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteSyntecCadre);
     conventionLabel = 'la convention Syntec (statut cadre)';
     conventionFormuleTxt = euros(salaireRef) + ' × 1/3 × ' + annees.toFixed(2);
   } else if (conventionRC === 'batiment_cadre'){
-    indemniteConv = indemniteBatimentCadre(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteBatimentCadre);
     conventionLabel = 'la convention des cadres du bâtiment (IDCC 2420)';
     if (annees > 10){
       conventionFormuleTxt = '(10 × 3/10 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 6/10 × ' + euros(salaireRef) + '), plafonné à 15 mois de salaire';
@@ -581,15 +661,15 @@ function calculerRC(){
       conventionFormuleTxt = euros(salaireRef) + ' × 3/10 × ' + annees.toFixed(2);
     }
   } else if (conventionRC === 'transport_etam'){
-    indemniteConv = indemniteTransportETAM(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteTransportETAM);
     conventionLabel = 'la convention des transports routiers — technicien/agent de maîtrise (IDCC 16)';
     conventionFormuleTxt = euros(salaireRef) + ' × 3/10 × ' + annees.toFixed(2);
   } else if (conventionRC === 'transport_cadre'){
-    indemniteConv = indemniteTransportCadre(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteTransportCadre);
     conventionLabel = 'la convention des transports routiers — ingénieur/cadre (IDCC 16)';
     conventionFormuleTxt = euros(salaireRef) + ' × 4/10 × ' + annees.toFixed(2);
   } else if (conventionRC === 'hcr'){
-    indemniteConv = indemniteHCR(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteHCR);
     conventionLabel = 'la convention Hôtels-Cafés-Restaurants (HCR, IDCC 1979)';
     if (annees > 10){
       conventionFormuleTxt = '(10 × 1/10 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/15 × ' + euros(salaireRef) + ')';
@@ -597,7 +677,7 @@ function calculerRC(){
       conventionFormuleTxt = euros(salaireRef) + ' × 1/10 × ' + annees.toFixed(2);
     }
   } else if (conventionRC === 'syntec_etam'){
-    indemniteConv = indemniteSyntecETAM(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteSyntecETAM);
     conventionLabel = 'la convention Syntec (statut non-cadre/ETAM)';
     if (annees > 10){
       conventionFormuleTxt = '(10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ')';
@@ -605,7 +685,7 @@ function calculerRC(){
       conventionFormuleTxt = euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2);
     }
   } else if (conventionRC === 'batiment_etam'){
-    indemniteConv = indemniteBatimentETAM(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteBatimentETAM);
     conventionLabel = 'la convention des ETAM du bâtiment (IDCC 2609)';
     if (annees > 15){
       conventionFormuleTxt = '(15 × 2,5/10 × ' + euros(salaireRef) + ') + (' + (annees-15).toFixed(2) + ' × 3,5/10 × ' + euros(salaireRef) + '), plafonné à 10 mois de salaire';
@@ -613,7 +693,7 @@ function calculerRC(){
       conventionFormuleTxt = euros(salaireRef) + ' × 2,5/10 × ' + annees.toFixed(2);
     }
   } else if (conventionRC === 'batiment_ouvrier'){
-    indemniteConv = indemniteBatimentOuvrier(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteBatimentOuvrier);
     conventionLabel = 'la convention des ouvriers du bâtiment (IDCC 1596/1597)';
     if (annees >= 5){
       conventionFormuleTxt = euros(salaireRef) + ' × 3/20 × ' + annees.toFixed(2) + (annees > 15 ? ' + (' + (annees-15).toFixed(2) + ' × 1/20 × ' + euros(salaireRef) + ')' : '');
@@ -634,8 +714,14 @@ function calculerRC(){
 
   var detailTxt = 'Salaire de référence : ' + euros(salaireRef) + ' (le plus favorable entre 12 et 3 derniers mois' + (avantageNature > 0 ? ' + ' + euros(avantageNature) + ' d\'avantage en nature' : '') + ') · Ancienneté : ' + annees.toFixed(2) + ' an(s)<br>';
   if (conventionRetenue){
-    detailTxt += 'Calcul (formule de ' + conventionLabel + ', plus favorable que la loi) : ' + conventionFormuleTxt + ' = <strong>' + euros(indemnite) + '</strong><br>' +
-      'Barème légal minimum à titre de comparaison : ' + euros(indemniteBase) + '.<br>' +
+    if (tp.actif){
+      var prorataConv = proratiserTempsPartiel(fnConvention, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP);
+      detailTxt += 'Formule de ' + conventionLabel + ' (plus favorable que la loi), appliquée au prorata des périodes à temps complet et à temps partiel :<br>' +
+        texteProrataTempsPartielRC(prorataConv, tp.regime, tp.quotite, 'formule conventionnelle');
+    } else {
+      detailTxt += 'Calcul (formule de ' + conventionLabel + ', plus favorable que la loi) : ' + conventionFormuleTxt + ' = <strong>' + euros(indemnite) + '</strong><br>';
+    }
+    detailTxt += 'Barème légal minimum à titre de comparaison : ' + euros(indemniteBase) + (tp.actif ? ' (au prorata temps complet / temps partiel)' : '') + '.<br>' +
       'Référence : ' + conventionLabel + ' — vérifiez le texte exact applicable à votre poste, ce montant est une estimation.';
     if (conventionRC === 'batiment_cadre'){
       detailTxt += '<br>⚠️ Si vous avez 55 ans ou plus à la fin de votre préavis, une majoration de 10 % s\'applique en plus de ce montant selon cette convention (non intégrée au calcul automatique, l\'âge n\'étant pas demandé par ce simulateur).';
@@ -647,7 +733,9 @@ function calculerRC(){
       detailTxt += '<br>⚠️ Si vous avez 55 ans ou plus à la fin de votre préavis, une majoration de 10 % s\'applique en plus de ce montant selon cette convention (non intégrée au calcul automatique, l\'âge n\'étant pas demandé par ce simulateur).';
     }
   } else {
-    if (annees > 10){
+    if (tp.actif){
+      detailTxt += texteProrataTempsPartielRC(prorataLegal, tp.regime, tp.quotite, annees > 10 ? '(10 × 1/4) + (' + (annees-10).toFixed(2) + ' × 1/3) de mois' : '1/4 de mois × ' + annees.toFixed(2) + ' an(s)');
+    } else if (annees > 10){
       var part1 = 10*(salaireRef/4);
       var part2 = (annees-10)*(salaireRef/3);
       detailTxt += 'Calcul : (10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ')<br>' +
@@ -663,7 +751,7 @@ function calculerRC(){
     if (conventionRC !== 'legal' && indemniteConv !== null){
       detailTxt += 'La formule de ' + conventionLabel + ' (' + euros(indemniteConv) + ') n\'est pas plus favorable ici : c\'est le barème légal qui s\'applique.<br>';
     }
-    detailTxt += 'Référence : article R1234-2 du Code du travail (indemnité légale de licenciement, plancher applicable à la rupture conventionnelle).';
+    detailTxt += 'Référence : article R1234-2 du Code du travail (indemnité légale de licenciement, plancher applicable à la rupture conventionnelle)' + (tp.actif ? ' et article L3123-5 (calcul proportionnel aux périodes à temps complet et à temps partiel)' : '') + '.';
   }
   document.getElementById('breakdownRC').innerHTML = detailTxt;
 
@@ -714,34 +802,39 @@ function telechargerPDF_RC(){
   var annees = anneesDecimal(document.getElementById('anneesRc').value, document.getElementById('moisRc').value);
   var montantPropose = parseFloat(document.getElementById('montantPropose').value) || 0;
   if (salaireRef <= 0 || annees <= 0) return;
+  var tp = lireTempsPartielRC(annees);
+  if (tp.actif && tp.erreur) return;
+  var calcIndemnite = function(fn){
+    return tp.actif ? proratiserTempsPartiel(fn, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP).montant : fn(salaireRef, annees);
+  };
 
-  var indemniteBase = indemniteLegale(salaireRef, annees);
+  var indemniteBase = calcIndemnite(indemniteLegale);
   var conventionRC = document.getElementById('conventionRC').value;
   var indemniteConv = null;
   var conventionLabel = '';
   if (conventionRC === 'syntec_cadre'){
-    indemniteConv = indemniteSyntecCadre(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteSyntecCadre);
     conventionLabel = 'Convention Syntec (statut cadre)';
   } else if (conventionRC === 'batiment_cadre'){
-    indemniteConv = indemniteBatimentCadre(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteBatimentCadre);
     conventionLabel = 'Convention cadres du bâtiment (IDCC 2420)';
   } else if (conventionRC === 'transport_etam'){
-    indemniteConv = indemniteTransportETAM(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteTransportETAM);
     conventionLabel = 'Convention transports routiers — technicien/agent de maîtrise (IDCC 16)';
   } else if (conventionRC === 'transport_cadre'){
-    indemniteConv = indemniteTransportCadre(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteTransportCadre);
     conventionLabel = 'Convention transports routiers — ingénieur/cadre (IDCC 16)';
   } else if (conventionRC === 'hcr'){
-    indemniteConv = indemniteHCR(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteHCR);
     conventionLabel = 'Convention Hôtels-Cafés-Restaurants (HCR, IDCC 1979)';
   } else if (conventionRC === 'syntec_etam'){
-    indemniteConv = indemniteSyntecETAM(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteSyntecETAM);
     conventionLabel = 'Convention Syntec (statut non-cadre/ETAM)';
   } else if (conventionRC === 'batiment_etam'){
-    indemniteConv = indemniteBatimentETAM(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteBatimentETAM);
     conventionLabel = 'Convention ETAM du bâtiment (IDCC 2609)';
   } else if (conventionRC === 'batiment_ouvrier'){
-    indemniteConv = indemniteBatimentOuvrier(salaireRef, annees);
+    indemniteConv = calcIndemnite(indemniteBatimentOuvrier);
     conventionLabel = 'Convention ouvriers du bâtiment (IDCC 1596/1597)';
   }
   var indemnite = indemniteBase;
@@ -764,7 +857,11 @@ function telechargerPDF_RC(){
     lignes.push({ label: 'dont avantage en nature inclus', value: euros(avantageNature) });
   }
   lignes.push({ label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' });
-  lignes.push({ label: 'Indemnité légale minimale (barème)', value: euros(indemniteBase) });
+  if (tp.actif){
+    var pTP = proratiserTempsPartiel(indemniteLegale, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP);
+    lignes.push({ label: 'Prorata temps complet / temps partiel (art. L3123-5)', value: pTP.anneesTC.toFixed(2) + ' an(s) à temps complet (' + euros(pTP.salaireTC) + ') + ' + pTP.anneesTP.toFixed(2) + ' an(s) à ' + Math.round(tp.quotite*100) + ' % (' + euros(pTP.salaireTP) + ')' });
+  }
+  lignes.push({ label: 'Indemnité légale minimale (barème' + (tp.actif ? ', au prorata' : '') + ')', value: euros(indemniteBase) });
   if (conventionRetenue){
     lignes.push({ label: conventionLabel + ' (retenue, plus favorable)', value: euros(indemniteConv) });
     if (conventionRC === 'batiment_cadre'){
