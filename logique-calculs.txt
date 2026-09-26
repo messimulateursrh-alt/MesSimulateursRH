@@ -1230,12 +1230,23 @@ totalPercuNet: totalIJNet + totalComplementEmployeur
 };
 }
 
+// Calendrier par année (vérifié le 26/09/2026 : fériés de l'art. L3133-1 tombant du lundi au vendredi ; Alsace-Moselle, art. L3134-13 : Vendredi saint — seulement dans les communes ayant un temple protestant ou une église mixte — et 26 décembre).
+var RTT_CALENDRIER = {
+2026: { joursCalendaires: 365, weekEnds: 104, joursFeries: 9, vendrediSaintEnSemaine: 1, lendemainNoelEnSemaine: 0 },
+2027: { joursCalendaires: 365, weekEnds: 104, joursFeries: 7, vendrediSaintEnSemaine: 1, lendemainNoelEnSemaine: 0 }
+};
 function estimerJoursRTT(mode, params){
-var joursCalendaires = 365;
-var weekEnds = 104;
-var joursFeries = BAREME_2026.JOURS_FERIES_SEMAINE_2026;
+params = params || {};
+var annee = RTT_CALENDRIER[params.annee] ? params.annee : 2026;
+var cal = RTT_CALENDRIER[annee];
+var joursCalendaires = cal.joursCalendaires;
+var weekEnds = cal.weekEnds;
+var feriesAlsace = (params.lendemainNoel ? cal.lendemainNoelEnSemaine : 0) + (params.vendrediSaint ? cal.vendrediSaintEnSemaine : 0);
+var joursFeries = cal.joursFeries + feriesAlsace;
 var congesPayes = BAREME_2026.CONGES_PAYES_JOURS_OUVRES;
 var joursTravaillablesHorsForfait = joursCalendaires - weekEnds - joursFeries - congesPayes;
+var moisPresence = (params.moisPresence >= 1 && params.moisPresence <= 12) ? params.moisPresence : 12;
+function prorata(j){ return Math.round(j * moisPresence / 12 * 10) / 10; }
 
 if (mode === 'forfait'){
 var forfaitAnnuel = params.forfaitAnnuel || BAREME_2026.FORFAIT_JOURS_LEGAL_MAX;
@@ -1247,7 +1258,11 @@ weekEnds: weekEnds,
 joursFeries: joursFeries,
 congesPayes: congesPayes,
 forfaitAnnuel: forfaitAnnuel,
-joursRTT: Math.max(0, Math.round(joursRTT * 10) / 10)
+annee: annee,
+feriesAlsace: feriesAlsace,
+moisPresence: moisPresence,
+joursRTT: Math.max(0, Math.round(joursRTT * 10) / 10),
+joursRTTProrata: prorata(Math.max(0, joursRTT))
 };
 }
 
@@ -1263,7 +1278,94 @@ dureeHebdo: dureeHebdo,
 dureeQuotidienne: dureeQuotidienne,
 semainesTravaillees: Math.round(semainesTravaillees * 10) / 10,
 heuresRTTAn: Math.round(heuresRTTAn * 10) / 10,
-joursRTT: Math.round(joursRTTHoraire * 10) / 10
+annee: annee,
+joursFeries: joursFeries,
+feriesAlsace: feriesAlsace,
+moisPresence: moisPresence,
+joursRTT: Math.round(joursRTTHoraire * 10) / 10,
+joursRTTProrata: prorata(joursRTTHoraire)
+};
+}
+
+// Jours de fractionnement (art. L3141-23 Code du travail, à défaut d'accord collectif) — décompte en jours ouvrables.
+// Seuls les jours du congé principal (24 premiers jours) comptent ; la 5e semaine est exclue.
+function joursFractionnement(p){
+p = p || {};
+var principal = Math.min(Math.max(Math.floor(p.joursPrincipal || 0), 0), 24);
+var prisPeriode = Math.min(Math.max(Math.floor(p.prisPeriode || 0), 0), principal);
+var horsPeriode = principal - prisPeriode;
+var jours = 0;
+if (principal > 12){
+if (horsPeriode >= 6) jours = 2;
+else if (horsPeriode >= 3) jours = 1;
+}
+return {
+principal: principal,
+prisPeriode: prisPeriode,
+horsPeriode: horsPeriode,
+joursLegaux: jours,
+joursDus: p.exclu ? 0 : jours,
+exclu: !!p.exclu,
+principalTropCourt: principal <= 12,
+fractionContinueInsuffisante: principal > 12 && prisPeriode < 12
+};
+}
+
+// Jours de congés payés acquis sur une période de référence (jours ouvrables).
+// Travail effectif et périodes assimilées : 2,5 j/mois (art. L3141-3) ; 4 semaines ou 24 jours = 1 mois (L3141-4).
+// Arrêt maladie non professionnel : 2 j/mois, 24 j maximum par période (L3141-5-1). Total arrondi à l'entier supérieur (L3141-7), 30 j maximum.
+function joursCongesAcquis(p){
+p = p || {};
+var moisTravail = Math.min(Math.max(p.moisTravail || 0, 0), 12);
+var moisMaladie = Math.min(Math.max(p.moisMaladie || 0, 0), 12 - moisTravail);
+var joursTravail = moisTravail * 2.5;
+var joursMaladieBruts = moisMaladie * 2;
+var joursMaladie = Math.min(joursMaladieBruts, 24);
+var brut = joursTravail + joursMaladie;
+var arrondi = Math.ceil(brut - 1e-9);
+var total = Math.min(arrondi, BAREME_2026.JOURS_CONGES_MAX_AN);
+return {
+moisTravail: moisTravail,
+moisMaladie: moisMaladie,
+joursTravail: joursTravail,
+joursMaladie: joursMaladie,
+maladiePlafonnee: joursMaladieBruts > 24,
+brut: brut,
+arrondi: arrondi,
+total: total,
+plafonne: arrondi > total,
+semaines: Math.round(total / 6 * 10) / 10
+};
+}
+
+// Dates du congé maternité à partir de la date présumée d'accouchement (art. L1225-17 à L1225-19 ; service-public F2265, ameli).
+// amenagement : 'report' (jusqu'à 3 semaines du prénatal reportées sur le postnatal, sur avis médical) ou 'avance' (3e enfant : 2 sem. max ; jumeaux : 4 sem. max).
+var CONGE_MATERNITE_DUREES = {
+16: { prenatal: 6, postnatal: 10, avanceMax: 0 },
+26: { prenatal: 8, postnatal: 18, avanceMax: 2 },
+34: { prenatal: 12, postnatal: 22, avanceMax: 4 },
+46: { prenatal: 24, postnatal: 22, avanceMax: 0 }
+};
+function datesCongeMaternite(dpaISO, totalSemaines, amenagement, semaines){
+var d = CONGE_MATERNITE_DUREES[totalSemaines];
+var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dpaISO || '');
+if (!d || !m) return null;
+var n = Math.max(0, Math.floor(semaines || 0));
+var pre = d.prenatal, post = d.postnatal;
+if (amenagement === 'report'){ n = Math.min(n, 3); pre -= n; post += n; }
+else if (amenagement === 'avance'){ n = Math.min(n, d.avanceMax); pre += n; post -= n; }
+else { n = 0; }
+var dpa = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+function iso(t){ return new Date(t).toISOString().slice(0, 10); }
+return {
+prenatal: pre,
+postnatal: post,
+decalage: n,
+amenagement: n > 0 ? amenagement : 'aucun',
+debut: iso(dpa - pre * 7 * 864e5),
+dpa: iso(dpa),
+fin: iso(dpa + (post * 7 - 1) * 864e5),
+totalJours: (pre + post) * 7
 };
 }
 
@@ -1902,10 +2004,10 @@ var SEARCH_INDEX = [
 {title:"Augmentation de salaire", url:"augmentation-salaire.html", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
 {title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise.html", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur"},
 {title:"Coût total d'un licenciement", url:"cout-licenciement-employeur.html", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
-{title:"Indemnité de congés payés", url:"indemnite-conges-payes.html", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite"},
+{title:"Indemnité de congés payés", url:"indemnite-conges-payes.html", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite jours acquis 2,5 jours par mois combien de jours conges"},
 {title:"Calendrier des jours de pont", url:"calendrier-ponts.html", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
 {title:"Passage à temps partiel", url:"passage-temps-partiel.html", cat:"Simulateur", kw:"temps partiel salaire net impact"},
-{title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge"},
+{title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge dates conge prenatal postnatal date accouchement report 3 semaines"},
 {title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
 {title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche date seuils 8 mois 2 ans 10 ans preavis temps partiel conge parental cdd apprentissage interim stage"},
@@ -1913,7 +2015,7 @@ var SEARCH_INDEX = [
 {title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic"},
 {title:"Trimestres de retraite restants", url:"trimestres-retraite-restants.html", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
 {title:"Je veux quitter mon emploi (guide interactif)", url:"comment-quitter-son-emploi.html", cat:"Simulateur", kw:"quitter emploi demission licenciement rupture conventionnelle guide interactif que faire"},
-{title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail"},
+{title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee"},
 {title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
 {title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD"},
@@ -1929,7 +2031,7 @@ var SEARCH_INDEX = [
 {title:"Congés payés non pris : report, perte ou paiement ?", url:"conges-payes-non-pris.html", cat:"Guide", kw:"conges payes non pris report perte paiement indemnite compensatrice 15 mois information employeur compte epargne temps CET 31 mai"},
 {title:"Arrêt maladie et congés payés", url:"arret-maladie-et-conges-payes.html", cat:"Guide", kw:"arret maladie conges payes acquisition 2 jours 24 jours accident du travail loi 22 avril 2024 report malade pendant vacances"},
 {title:"Jours fériés : payés, chômés ou travaillés ?", url:"jours-feries-travail.html", cat:"Guide", kw:"jours feries payes chomes travailles 1er mai majoration journee de solidarite lundi de pentecote alsace moselle 11 jours feries"},
-{title:"Fractionnement des congés payés", url:"fractionnement-conges-payes.html", cat:"Guide", kw:"fractionnement conges payes jours supplementaires 1er mai 31 octobre renonciation conge principal 12 jours ordre des departs"},
+{title:"Fractionnement des congés payés", url:"fractionnement-conges-payes.html", cat:"Guide", kw:"fractionnement conges payes jours supplementaires calcul calculateur 1er mai 31 octobre renonciation conge principal 12 jours ordre des departs"},
 {title:"Licenciement pour faute lourde", url:"faute-lourde.html", cat:"Guide", kw:"faute lourde intention de nuire conges payes licenciement"},
 {title:"Licenciement économique", url:"licenciement-economique.html", cat:"Guide", kw:"licenciement economique motif reclassement PSE plan sauvegarde emploi CSP difficultes economiques"},
 {title:"Licenciement pour inaptitude", url:"licenciement-inaptitude.html", cat:"Guide", kw:"inaptitude medicale licenciement reclassement medecin du travail accident du travail maladie professionnelle"},

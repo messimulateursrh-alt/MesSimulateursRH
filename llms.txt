@@ -30,11 +30,11 @@
 
 ## Congés et temps de travail
 - [Congés et temps de travail](https://messimulateursrh.fr/simulateurs-conges-temps-travail.html): 8 simulateurs gratuits sur les congés et le temps de travail : congés payés, jours de pont, temps partiel, congé maternité/paternité, chômage partiel.
-- [Simulateur d'indemnité de congés payés](https://messimulateursrh.fr/indemnite-conges-payes.html): méthode la plus favorable (dixième ou maintien de salaire).
+- [Simulateur de congés payés : jours acquis et indemnité](https://messimulateursrh.fr/indemnite-conges-payes.html): jours de congés acquis (2,5 jours ouvrables par mois, arrêt maladie, arrondi légal), puis indemnité selon la méthode la plus favorable (dixième ou maintien de salaire).
 - [Simulateur congé de naissance 2026](https://messimulateursrh.fr/conge-naissance.html): indemnisation du congé supplémentaire de naissance (jusqu'à 2 mois, 70 % puis 60 % du salaire).
-- [Indemnités congé maternité / paternité](https://messimulateursrh.fr/indemnites-conge-maternite-paternite.html): indemnités journalières CPAM pendant le congé.
+- [Congé maternité / paternité : dates et indemnités](https://messimulateursrh.fr/indemnites-conge-maternite-paternite.html): dates du congé à partir de la date prévue d'accouchement (report ou avancement du prénatal), découpage du congé paternité, indemnités journalières CPAM.
 - [Indemnités d'arrêt maladie](https://messimulateursrh.fr/indemnite-arret-maladie.html): calculez vos indemnités journalières de la Sécurité sociale et le maintien de salaire employeur en arrêt maladie 2026. Gratuit, calcul local.
-- [Calcul RTT](https://messimulateursrh.fr/calcul-rtt.html): calculez votre nombre de jours de RTT en 2026, au forfait jours (218 jours) ou à l'horaire hebdomadaire (35h à 39h). Gratuit, calcul local.
+- [Calcul RTT](https://messimulateursrh.fr/calcul-rtt.html): jours de RTT 2026 ou 2027, au forfait jours (218 jours) ou à l'horaire hebdomadaire (35h à 39h), Alsace-Moselle et prorata d'arrivée ou de départ en cours d'année.
 - [Chômage partiel (activité partielle) — indemnité salarié](https://messimulateursrh.fr/chomage-partiel.html): 60 % du taux horaire brut, plancher SMIC.
 - [Impact d'un passage à temps partiel](https://messimulateursrh.fr/passage-temps-partiel.html): effet sur le salaire net et les droits à congés payés.
 - [Calendrier des jours de pont](https://messimulateursrh.fr/calendrier-ponts.html): meilleurs jours de congés à poser en 2026-2027 autour des jours fériés.
@@ -67,7 +67,7 @@
 ## Guides : congés payés
 - [Congés payés non pris : report, perte ou paiement ?](https://messimulateursrh.fr/conges-payes-non-pris.html): congés payés non pris : perdus, reportés ou payés ? Report de 15 mois après un arrêt maladie, obligation d'information de l'employeur, paiement à la rupture.
 - [Arrêt maladie et congés payés](https://messimulateursrh.fr/arret-maladie-et-conges-payes.html): congés payés en arrêt maladie : 2 jours par mois (24 max), 2,5 jours en accident du travail, report de 15 mois, et report si vous tombez malade en vacances.
-- [Fractionnement des congés payés](https://messimulateursrh.fr/fractionnement-conges-payes.html): jours de fractionnement : 1 ou 2 jours de congés en plus si une partie du congé principal est prise hors 1er mai-31 octobre. Calcul, renonciation, délais.
+- [Fractionnement des congés payés](https://messimulateursrh.fr/fractionnement-conges-payes.html): calculateur des jours de fractionnement : 1 ou 2 jours de congés en plus si une partie du congé principal est prise hors 1er mai-31 octobre. Renonciation, délais.
 - [Jours fériés : payés, chômés ou travaillés ?](https://messimulateursrh.fr/jours-feries-travail.html): les 11 jours fériés : payés, chômés ou travaillés ? 1er mai payé double, 3 mois d'ancienneté, férié tombant un week-end, journée de solidarité, Alsace-Moselle.
 
 ## Guides : salaire, IA et conventions collectives
