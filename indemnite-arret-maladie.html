@@ -43,7 +43,7 @@
       "name": "Le délai de carence est-il le même dans le secteur privé et la fonction publique ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. Dans le secteur privé, la Sécurité sociale applique un délai de carence de 3 jours avant de verser les indemnités journalières. Dans la fonction publique, le délai de carence est de 1 jour seulement, non payé, après quoi l'agent conserve l'intégralité de son traitement (sous réserve des règles spécifiques applicables aux congés de maladie longs ou répétés)."
+        "text": "Non. Dans le secteur privé, la Sécurité sociale applique un délai de carence de 3 jours avant de verser les indemnités journalières. Dans la fonction publique, le délai de carence est de 1 jour, non rémunéré ; le fonctionnaire perçoit ensuite 90 % de son traitement pendant 3 mois, puis la moitié pendant les 9 mois suivants (article L822-3 du Code général de la fonction publique, taux applicable depuis le 1er mars 2025)."
       }
     },
     {
@@ -52,6 +52,30 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Oui. Ce simulateur applique le minimum légal (loi de mensualisation, article L1226-1 du Code du travail). De nombreuses conventions collectives prévoient un maintien de salaire plus favorable (carence réduite ou supprimée, taux ou durée supérieurs). Vérifiez votre convention collective avec notre outil dédié avant de conclure à un manque à gagner définitif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps les indemnités journalières sont-elles versées ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hors affection de longue durée, l'Assurance maladie verse au maximum 360 indemnités journalières sur une période de 3 ans (ameli.fr ; service-public.gouv.fr parle de 12 mois d'indemnités par période de 3 ans). En affection de longue durée (ALD), elles peuvent être versées pendant 3 ans. À partir du 15 octobre 2026, cette durée est ramenée à 1 an pour les ALD non exonérantes (non prises en charge à 100 %), pour les arrêts prescrits à compter de cette date et pour les arrêts en cours qui atteignent 6 mois après (décret n° 2026-866 du 16 septembre 2026). Ce simulateur ne contrôle pas cette durée maximale : il calcule l'indemnisation pour le nombre de jours saisi. Détail dans notre article sur ce qui change au 15 octobre 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Y a-t-il un nouveau délai de carence en cas de prolongation d'arrêt maladie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non pour les indemnités journalières : la Sécurité sociale n'applique pas de nouveau délai de carence lorsque l'arrêt est prolongé, ni lorsqu'un nouvel arrêt suit une reprise du travail de 48 heures au plus. En affection de longue durée, la carence n'est retenue que pour le premier arrêt sur une période de 3 ans. Pour le complément employeur, le délai de 7 jours se compte en jours d'absence : dans une prolongation sans reprise du travail, les jours de l'arrêt initial comptent. Dans la fonction publique, le jour de carence ne s'applique pas non plus à une prolongation, ni à un nouvel arrêt après une reprise de 48 heures au plus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que la subrogation pendant un arrêt maladie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "C'est le mécanisme par lequel l'employeur qui maintient le salaire perçoit les indemnités journalières de la Sécurité sociale à la place du salarié. Elle est de plein droit lorsque le salaire est maintenu en totalité (article R323-11 du Code de la sécurité sociale). Le salarié reçoit alors un seul versement de son employeur ; le montant total auquel il a droit ne change pas."
       }
     }
   ]
@@ -62,7 +86,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-07",
-  "dateModified": "2026-09-21",
+  "dateModified": "2026-10-02",
   "name": "Simulateur Indemnités Arrêt Maladie 2026",
   "description": "Calculez vos indemnités journalières de la Sécurité sociale et le maintien de salaire employeur en arrêt maladie 2026. Gratuit, calcul local.",
   "url": "https://messimulateursrh.fr/indemnite-arret-maladie.html",
@@ -166,7 +190,7 @@
       <span class="for-employeur">Estimez le complément de salaire à verser à un salarié en arrêt maladie, une fois les indemnités journalières de la Sécurité sociale déduites.</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos.html">Nathan Penin</a>, éditeur du site. Barème vérifié le 7 septembre 2026 (indemnités journalières en vigueur depuis le 1er juillet 2026) — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos.html">Nathan Penin</a>, éditeur du site. Barème vérifié le 2 octobre 2026 (indemnités journalières en vigueur depuis le 1er juillet 2026) — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> dans le secteur privé, la Sécurité sociale verse 50 % du salaire journalier de base à partir du 4e jour d'arrêt, puis l'employeur complète ce montant à partir du 8e jour si vous avez au moins 1 an d'ancienneté.</div>
@@ -176,12 +200,25 @@
       <label for="statutArretMaladie">Votre statut</label>
       <select id="statutArretMaladie" onchange="toggleStatutArretMaladie()">
         <option value="prive">Salarié du secteur privé</option>
-        <option value="public">Agent de la fonction publique</option>
+        <option value="public">Fonctionnaire (fonction publique)</option>
       </select>
+    </div>
+    <div class="field">
+      <label for="typeArretMaladie">Type d'arrêt</label>
+      <select id="typeArretMaladie" onchange="toggleTypeArretMaladie()">
+        <option value="initial">Arrêt initial</option>
+        <option value="prolongation">Prolongation de l'arrêt (sans reprise du travail)</option>
+      </select>
+    </div>
+    <div class="field" id="champDejaArretMaladie" hidden>
+      <label for="dejaArretMaladie">Jours d'arrêt déjà écoulés avant la prolongation</label>
+      <input type="number" id="dejaArretMaladie" min="1" step="1" placeholder="ex : 20">
+      <div class="hint">Nombre de jours calendaires de l'arrêt initial (et des prolongations précédentes). Il sert à savoir si les délais de carence sont déjà passés et où en est le maintien de salaire.</div>
     </div>
     <div class="field">
       <label for="salaireArretMaladie">Salaire mensuel brut (moyenne des 3 derniers mois)</label>
       <input type="number" id="salaireArretMaladie" min="0" step="0.01" placeholder="ex : 2500">
+      <div class="hint">Fonction publique : saisissez le traitement indiciaire brut mensuel.</div>
     </div>
     <div class="field" id="champAncienneteArretMaladie">
       <label for="ancienneteArretMaladie">Ancienneté dans l'entreprise (années)</label>
@@ -189,7 +226,7 @@
       <div class="hint">Le complément de salaire employeur suppose au moins 1 an d'ancienneté (loi de mensualisation). En dessous, seules les indemnités journalières de la Sécurité sociale sont dues, sauf convention collective plus favorable.</div>
     </div>
     <div class="field">
-      <label for="dureeArretMaladie">Durée de l'arrêt de travail (en jours)</label>
+      <label for="dureeArretMaladie" id="labelDureeArretMaladie">Durée de l'arrêt de travail (en jours)</label>
       <input type="number" id="dureeArretMaladie" min="1" step="1" placeholder="ex : 20">
     </div>
     <button class="compute" onclick="calculerArretMaladie()">Calculer</button>
@@ -219,7 +256,7 @@
       Ce simulateur calcule le minimum légal dû par l'employeur : le complément qui s'ajoute à l'IJSS pour atteindre 90 % puis 66,66 % du salaire brut, selon l'ancienneté du salarié, à partir du 8ᵉ jour d'arrêt. De nombreuses conventions collectives imposent un maintien de salaire plus favorable (carence réduite, taux ou durées supérieurs) : vérifiez la convention applicable avec notre <a href="identifier-convention-collective.html">outil d'identification de convention collective</a> avant de considérer ce résultat comme définitif.
     </p>
     <p>
-      <strong>Fonction publique :</strong> le régime est différent. Il n'y a pas d'indemnités journalières de la Sécurité sociale : l'agent conserve l'intégralité de son traitement dès le 2ᵉ jour d'arrêt, avec un seul jour de carence non payé (contre 3 jours dans le privé). Ce simulateur applique cette règle simplifiée ; les congés de longue maladie ou de longue durée obéissent à des règles spécifiques non couvertes ici.
+      <strong>Fonction publique :</strong> le régime est différent. Un fonctionnaire ne perçoit pas d'indemnités journalières de la Sécurité sociale : après un jour de carence non rémunéré (contre 3 jours dans le privé), il touche 90 % de son traitement pendant 3 mois, puis la moitié pendant les 9 mois suivants (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000051201136" target="_blank" rel="noopener noreferrer">article L822-3 du Code général de la fonction publique</a><span class="source-badge">✓ Source officielle</span>, taux de 90 % applicable depuis le 1ᵉʳ mars 2025 ; <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F490" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, congé de maladie du fonctionnaire</a><span class="source-badge">✓ Source officielle</span>). Ce simulateur applique cette règle au traitement saisi, en comptant 3 mois pour 90 jours et sans arrêt antérieur sur les 12 derniers mois. Il ne couvre ni les primes, ni le supplément familial de traitement et l'indemnité de résidence (maintenus en totalité), ni les agents contractuels, ni les congés de longue maladie ou de longue durée.
     </p>
     <p>
       Dans le secteur privé, si le médecin du travail vous déclare inapte à votre poste à l'issue de l'arrêt, l'employeur doit rechercher un reclassement avant tout licenciement : voir notre guide du <a href="licenciement-inaptitude.html">licenciement pour inaptitude</a> (règles, délai d'un mois, indemnités).
@@ -233,6 +270,26 @@
       Total perçu sur les 20 jours : environ <strong>1 140 €</strong> brut.</p>
     </div>
 
+    <h2 id="prolongation">Prolongation d'un arrêt : pas de nouveau délai de carence</h2>
+    <p>
+      Lorsque l'arrêt est prolongé, ou qu'un nouvel arrêt suit une reprise du travail de 48 heures au plus, la Sécurité sociale n'applique pas de nouveau délai de carence : les indemnités journalières sont versées dès le premier jour (<a href="https://www.ameli.fr/assure/remboursements/indemnites-journalieres-maladie-maternite-paternite/indemnites-journalieres-pour-maladie/arret-maladie-salarie" target="_blank" rel="noopener noreferrer">ameli.fr</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F3053" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, arrêt maladie du salarié</a><span class="source-badge">✓ Source officielle</span>). En affection de longue durée, la carence n'est retenue que pour le premier arrêt, sur une période de 3 ans.
+    </p>
+    <p>
+      Côté employeur, le complément de salaire est dû au-delà de sept jours d'absence (<a href="https://code.travail.gouv.fr/code-du-travail/d1226-3" target="_blank" rel="noopener noreferrer">article D1226-3 du Code du travail</a><span class="source-badge">✓ Source officielle</span>). Dans une prolongation sans reprise du travail, l'absence est continue : les jours de l'arrêt initial comptent dans ce délai, et les périodes indemnisées à 90 % puis à 66,66 % se poursuivent là où elles en étaient. C'est la lecture retenue par le simulateur : choisissez « Prolongation de l'arrêt » et indiquez le nombre de jours déjà écoulés. Si vous avez repris le travail entre les deux arrêts, même 48 heures au plus, le délai de 7 jours de l'employeur s'applique de nouveau au second arrêt : ce cas n'est pas traité par l'option « Prolongation ».
+    </p>
+    <div class="example-box">
+      <h3>Exemple : une prolongation de 15 jours</h3>
+      <p>Le salarié de l'exemple précédent (2 500 € brut, 5 ans d'ancienneté, 20 jours d'arrêt déjà écoulés) voit son arrêt prolongé de 15 jours :</p>
+      <p>IJSS : 41,10 € × 15 jours, sans jour de carence ≈ <strong>616 €</strong> brut.<br>
+      Complément employeur à 90 % sur les 15 jours (le délai de 7 jours est passé, et 13 des 30 jours à 90 % ont été utilisés) : (2 500/30 × 90 % − 41,10 €) × 15 ≈ <strong>509 €</strong>.<br>
+      Total perçu pour la prolongation : environ <strong>1 125 €</strong> brut.</p>
+    </div>
+
+    <h2 id="subrogation">Qui verse les indemnités : la subrogation</h2>
+    <p>
+      Lorsque l'employeur maintient le salaire pendant l'arrêt, il peut percevoir les indemnités journalières à la place du salarié : c'est la subrogation (<a href="https://www.ameli.fr/assure/remboursements/indemnites-journalieres-maladie-maternite-paternite/indemnites-journalieres-pour-maladie/arret-maladie-salarie" target="_blank" rel="noopener noreferrer">ameli.fr</a><span class="source-badge">✓ Source officielle</span>). Elle s'applique de plein droit quand le salaire est maintenu en totalité ; quand l'employeur avance les indemnités en versant le salaire maintenu sans les déduire, elle suppose que ce salaire soit au moins égal aux indemnités dues sur la période (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043356691" target="_blank" rel="noopener noreferrer">article R323-11 du Code de la sécurité sociale</a><span class="source-badge">✓ Source officielle</span>). Pour le salarié, le total perçu ne change pas : il reçoit un seul versement de son employeur au lieu d'un versement de la caisse et d'un complément. Sans subrogation, les deux versements arrivent séparément, et les montants calculés ci-dessus restent les mêmes.
+    </p>
+
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Combien touche-t-on en arrêt maladie dans le secteur privé ?</summary>
@@ -240,11 +297,24 @@
     </details>
     <details class="faq">
       <summary>Le délai de carence est-il le même dans le secteur privé et la fonction publique ?</summary>
-      <p>Non. Dans le secteur privé, la Sécurité sociale applique un délai de carence de 3 jours avant de verser les indemnités journalières. Dans la fonction publique, le délai de carence est de 1 jour seulement, non payé, après quoi l'agent conserve l'intégralité de son traitement (sous réserve des règles spécifiques applicables aux congés de maladie longs ou répétés).</p>
+      <p>Non. Dans le secteur privé, la Sécurité sociale applique un délai de carence de 3 jours avant de verser les indemnités journalières. Dans la fonction publique, le délai de carence est de 1 jour, non rémunéré ; le fonctionnaire perçoit ensuite 90 % de son traitement pendant 3 mois, puis la moitié pendant les 9 mois suivants (article L822-3 du Code général de la fonction publique, taux applicable depuis le 1er mars 2025).</p>
     </details>
     <details class="faq">
       <summary>Ma convention collective peut-elle prévoir un maintien de salaire plus favorable ?</summary>
       <p>Oui. Ce simulateur applique le minimum légal (loi de mensualisation, article L1226-1 du Code du travail). De nombreuses conventions collectives prévoient un maintien de salaire plus favorable (carence réduite ou supprimée, taux ou durée supérieurs). Vérifiez votre convention collective avec notre <a href="identifier-convention-collective.html">outil dédié</a> avant de conclure à un manque à gagner définitif.</p>
+    </details>
+    <details class="faq">
+      <summary>Combien de temps les indemnités journalières sont-elles versées ?</summary>
+      <p>Hors affection de longue durée, l'Assurance maladie verse au maximum 360 indemnités journalières sur une période de 3 ans (ameli.fr ; service-public.gouv.fr parle de 12 mois d'indemnités par période de 3 ans). En affection de longue durée (ALD), elles peuvent être versées pendant 3 ans. À partir du 15 octobre 2026, cette durée est ramenée à 1 an pour les ALD non exonérantes (non prises en charge à 100 %), pour les arrêts prescrits à compter de cette date et pour les arrêts en cours qui atteignent 6 mois après (décret n° 2026-866 du 16 septembre 2026). Ce simulateur ne contrôle pas cette durée maximale : il calcule l'indemnisation pour le nombre de jours saisi. Détail dans notre article sur <a href="plafonnement-arrets-maladie-2026.html#ald-15-octobre-2026">ce qui change au 15 octobre 2026</a>.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Y a-t-il un nouveau délai de carence en cas de prolongation d'arrêt maladie ?</summary>
+      <p>Non pour les indemnités journalières : la Sécurité sociale n'applique pas de nouveau délai de carence lorsque l'arrêt est prolongé, ni lorsqu'un nouvel arrêt suit une reprise du travail de 48 heures au plus. En affection de longue durée, la carence n'est retenue que pour le premier arrêt sur une période de 3 ans. Pour le complément employeur, le délai de 7 jours se compte en jours d'absence : dans une prolongation sans reprise du travail, les jours de l'arrêt initial comptent. Dans la fonction publique, le jour de carence ne s'applique pas non plus à une prolongation, ni à un nouvel arrêt après une reprise de 48 heures au plus.</p>
+    </details>
+    <details class="faq">
+      <summary>Qu'est-ce que la subrogation pendant un arrêt maladie ?</summary>
+      <p>C'est le mécanisme par lequel l'employeur qui maintient le salaire perçoit les indemnités journalières de la Sécurité sociale à la place du salarié. Elle est de plein droit lorsque le salaire est maintenu en totalité (article R323-11 du Code de la sécurité sociale). Le salarié reçoit alors un seul versement de son employeur ; le montant total auquel il a droit ne change pas.</p>
     </details>
 
     <div class="related-tools">
@@ -303,74 +373,105 @@ function toggleStatutArretMaladie(){
   document.getElementById('resultArretMaladie').classList.remove('show');
 }
 
-function calculerArretMaladie(){
-  var statut = document.getElementById('statutArretMaladie').value;
-  var salaire = parseFloat(document.getElementById('salaireArretMaladie').value) || 0;
-  var anciennete = parseFloat(document.getElementById('ancienneteArretMaladie').value) || 0;
-  var duree = parseFloat(document.getElementById('dureeArretMaladie').value) || 0;
-  var resultBox = document.getElementById('resultArretMaladie');
+function toggleTypeArretMaladie(){
+  var prolongation = document.getElementById('typeArretMaladie').value === 'prolongation';
+  document.getElementById('champDejaArretMaladie').hidden = !prolongation;
+  document.getElementById('labelDureeArretMaladie').textContent = prolongation ? 'Durée de la prolongation (en jours)' : 'Durée de l\'arrêt de travail (en jours)';
+  document.getElementById('resultArretMaladie').classList.remove('show');
+}
 
-  if (salaire <= 0 || duree <= 0){
+function lireSaisieArretMaladie(){
+  var s = {
+    statut: document.getElementById('statutArretMaladie').value,
+    salaire: parseFloat(document.getElementById('salaireArretMaladie').value) || 0,
+    anciennete: parseFloat(document.getElementById('ancienneteArretMaladie').value) || 0,
+    duree: Math.floor(parseFloat(document.getElementById('dureeArretMaladie').value) || 0),
+    prolongation: document.getElementById('typeArretMaladie').value === 'prolongation',
+    deja: Math.floor(parseFloat(document.getElementById('dejaArretMaladie').value) || 0)
+  };
+  s.valide = s.salaire > 0 && s.duree > 0 && (!s.prolongation || s.deja > 0);
+  if (s.valide){
+    s.r = s.prolongation
+      ? estimerProlongationArretMaladie(s.salaire, s.statut, s.anciennete, s.deja, s.duree)
+      : estimerIndemniteArretMaladie(s.salaire, s.statut, s.anciennete, s.duree);
+  }
+  return s;
+}
+
+function calculerArretMaladie(){
+  var s = lireSaisieArretMaladie();
+  var resultBox = document.getElementById('resultArretMaladie');
+  if (!s.valide){
     resultBox.classList.remove('show');
     return;
   }
+  var r = s.r;
+  var prefixe = s.prolongation ? 'Prolongation de ' + s.duree + ' jour(s) après ' + s.deja + ' jour(s) d\'arrêt. ' : '';
 
-  var r = estimerIndemniteArretMaladie(salaire, statut, anciennete, duree);
-
-  if (statut === 'public'){
-    document.getElementById('montantArretMaladie').textContent = euros(r.totalPercu);
-    document.getElementById('detailArretMaladie').textContent = 'Estimation fonction publique : traitement plein après ' + r.carenceJours + ' jour de carence non payé.';
+  if (s.statut === 'public'){
+    document.getElementById('montantArretMaladie').textContent = euros(r.totalPercu) + ' brut';
+    document.getElementById('detailArretMaladie').textContent = prefixe + (s.prolongation
+      ? 'Fonctionnaire : pas de nouveau jour de carence pour une prolongation ; 90 % du traitement pendant les 3 premiers mois de congé de maladie, la moitié ensuite.'
+      : 'Fonctionnaire : 1 jour de carence non rémunéré, puis 90 % du traitement pendant 3 mois et la moitié ensuite.');
     document.getElementById('breakdownArretMaladie').innerHTML =
-      'Traitement journalier : ' + euros(r.salaireJournalier) + '<br>' +
-      'Jour(s) de carence non payé(s) : ' + r.carenceJours + ' → perte de ' + euros(r.perteCarence) + '<br>' +
-      'Jours payés à taux plein : ' + r.joursPayesPlein + '<br>' +
-      '= Total perçu sur ' + duree + ' jour(s) : <strong>' + euros(r.totalPercu) + '</strong><br>' +
-      'Règle simplifiée hors congés de longue maladie/longue durée.';
+      'Traitement journalier (1/30 du traitement mensuel) : ' + euros(r.salaireJournalier) + '<br>' +
+      'Jour(s) de carence non rémunéré(s) : ' + r.joursCarence + ' → ' + euros(r.perteCarence) + ' non versés<br>' +
+      'Jours payés à 90 % : ' + r.joursA90 + ' → ' + euros(r.salaireJournalier * r.joursA90 * 0.90) + '<br>' +
+      (r.joursA50 > 0 ? 'Jours payés à 50 % (au-delà de 3 mois) : ' + r.joursA50 + ' → ' + euros(r.salaireJournalier * r.joursA50 * 0.50) + '<br>' : '') +
+      '= Total perçu sur ' + s.duree + ' jour(s) : <strong>' + euros(r.totalPercu) + '</strong><br>' +
+      'Écart avec le plein traitement sur la même période : ' + euros(r.manqueAGagner) + '<br>' +
+      'Base légale : article L822-3 du Code général de la fonction publique (taux de 90 % depuis le 1er mars 2025). Règle simplifiée : 3 mois comptés pour 90 jours, sans arrêt antérieur sur les 12 derniers mois, hors primes, supplément familial, indemnité de résidence, agents contractuels et congés de longue maladie ou de longue durée.';
   } else {
+    var carenceSecuTxt = !s.prolongation
+      ? 'après ' + r.carenceSecu + ' jours de carence'
+      : (r.carenceSecuRestante > 0 ? 'après ' + r.carenceSecuRestante + ' jour(s) de carence restant(s)' : 'pas de nouveau délai de carence');
+    var carenceEmpTxt = !s.prolongation
+      ? 'après ' + r.carenceEmployeur + ' jours de carence'
+      : (r.carenceEmployeurRestante > 0 ? 'après ' + r.carenceEmployeurRestante + ' jour(s) de carence restant(s)' : 'carence de 7 jours déjà écoulée');
     document.getElementById('montantArretMaladie').textContent = euros(r.totalPercuBrut) + ' brut';
-    document.getElementById('detailArretMaladie').textContent = r.eligibleMaintien
+    document.getElementById('detailArretMaladie').textContent = prefixe + (r.eligibleMaintien
       ? 'IJSS de la Sécurité sociale + complément employeur (' + (r.palier ? r.palier.jours + ' jours à 90%, ' + r.palier.jours + ' jours à 66,66%' : '') + ' selon votre ancienneté).'
-      : 'IJSS de la Sécurité sociale uniquement — ancienneté insuffisante (moins de 1 an) pour le complément employeur légal.';
+      : 'IJSS de la Sécurité sociale uniquement — ancienneté insuffisante (moins de 1 an) pour le complément employeur légal.');
     document.getElementById('breakdownArretMaladie').innerHTML =
       'Salaire journalier de base (SJB) : (' + euros(r.salairePlafonne) + ' × 3) / 91,25 = <strong>' + euros(r.sjb) + '</strong><br>' +
       'IJSS/jour (50% du SJB, plafonné) : <strong>' + euros(r.ijBrutJour) + ' brut</strong> (' + euros(r.ijNetJour) + ' net après CSG/CRDS)<br>' +
-      'Jours indemnisés par la Sécu (après ' + r.carenceSecu + ' jours de carence) : ' + r.joursIndemnisesSecu + '<br>' +
+      'Jours indemnisés par la Sécu (' + carenceSecuTxt + ') : ' + r.joursIndemnisesSecu + '<br>' +
       'Total IJSS : <strong>' + euros(r.totalIJBrut) + ' brut</strong> / ' + euros(r.totalIJNet) + ' net<br>' +
       (r.eligibleMaintien
-        ? 'Complément employeur (après ' + r.carenceEmployeur + ' jours de carence, ' + r.joursA90Effectifs + ' j à 90% + ' + r.joursA66Effectifs + ' j à 66,66%) : <strong>' + euros(r.totalComplementEmployeur) + '</strong><br>'
+        ? 'Complément employeur (' + carenceEmpTxt + ', ' + r.joursA90Effectifs + ' j à 90% + ' + r.joursA66Effectifs + ' j à 66,66%) : <strong>' + euros(r.totalComplementEmployeur) + '</strong><br>'
         : 'Pas de complément employeur légal (ancienneté < 1 an) — une convention collective peut prévoir autrement.<br>') +
       '= Total perçu brut : <strong>' + euros(r.totalPercuBrut) + '</strong> (≈ ' + euros(r.totalPercuNet) + ' net, hors complément net précis)<br>' +
-      'Références : ameli.fr (IJSS), article L1226-1 du Code du travail (maintien de salaire).';
+      'Références : ameli.fr (IJSS), article L1226-1 du Code du travail (maintien de salaire)' + (s.prolongation ? ', article D1226-3 (délai de 7 jours compté en jours d\'absence)' : '') + '.';
   }
 
   resultBox.classList.add('show');
 }
 
 function telechargerPDF_ArretMaladie(){
-  var statut = document.getElementById('statutArretMaladie').value;
-  var salaire = parseFloat(document.getElementById('salaireArretMaladie').value) || 0;
-  var anciennete = parseFloat(document.getElementById('ancienneteArretMaladie').value) || 0;
-  var duree = parseFloat(document.getElementById('dureeArretMaladie').value) || 0;
-  if (salaire <= 0 || duree <= 0) return;
-
-  var r = estimerIndemniteArretMaladie(salaire, statut, anciennete, duree);
+  var s = lireSaisieArretMaladie();
+  if (!s.valide) return;
+  var r = s.r;
   var lignes = [];
+  var typeArret = s.prolongation ? 'Prolongation (après ' + s.deja + ' jour(s) d\'arrêt)' : 'Arrêt initial';
 
-  if (statut === 'public'){
+  if (s.statut === 'public'){
     lignes = [
-      { label: 'Statut', value: 'Agent de la fonction publique' },
-      { label: 'Salaire mensuel brut', value: euros(salaire) },
-      { label: 'Durée de l\'arrêt', value: duree + ' jour(s)' },
-      { label: 'Jour(s) de carence', value: String(r.carenceJours) },
-      { label: 'Jours payés à taux plein', value: String(r.joursPayesPlein) },
-      { label: 'Total perçu estimé', value: euros(r.totalPercu), type: 'total' }
+      { label: 'Statut', value: 'Fonctionnaire' },
+      { label: 'Traitement mensuel brut', value: euros(s.salaire) },
+      { label: 'Type d\'arrêt', value: typeArret },
+      { label: s.prolongation ? 'Durée de la prolongation' : 'Durée de l\'arrêt', value: s.duree + ' jour(s)' },
+      { label: 'Jour(s) de carence non rémunéré(s)', value: String(r.joursCarence) },
+      { label: 'Jours payés à 90 %', value: String(r.joursA90) },
+      { label: 'Jours payés à 50 %', value: String(r.joursA50) },
+      { label: 'Total perçu estimé (brut)', value: euros(r.totalPercu), type: 'total' }
     ];
   } else {
     lignes = [
       { label: 'Statut', value: 'Salarié du secteur privé' },
-      { label: 'Salaire mensuel brut', value: euros(salaire) },
-      { label: 'Ancienneté', value: anciennete + ' an(s)' },
-      { label: 'Durée de l\'arrêt', value: duree + ' jour(s)' },
+      { label: 'Salaire mensuel brut', value: euros(s.salaire) },
+      { label: 'Ancienneté', value: s.anciennete + ' an(s)' },
+      { label: 'Type d\'arrêt', value: typeArret },
+      { label: s.prolongation ? 'Durée de la prolongation' : 'Durée de l\'arrêt', value: s.duree + ' jour(s)' },
       { label: 'Salaire journalier de base (SJB)', value: euros(r.sjb) },
       { label: 'IJSS par jour (brut)', value: euros(r.ijBrutJour) },
       { label: 'Jours indemnisés par la Sécu', value: String(r.joursIndemnisesSecu) },
@@ -382,9 +483,11 @@ function telechargerPDF_ArretMaladie(){
 
   genererPDFSimulation({
     titre: 'Simulation d\'indemnités d\'arrêt maladie',
-    sousTitre: statut === 'public' ? 'Fonction publique' : 'Secteur privé — IJSS + maintien de salaire',
+    sousTitre: s.statut === 'public' ? 'Fonction publique — congé de maladie ordinaire du fonctionnaire' : 'Secteur privé — IJSS + maintien de salaire',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur le régime général de la Sécurité sociale (ameli.fr) et le minimum légal du maintien de salaire employeur (article L1226-1 du Code du travail). Ne tient pas compte d'une convention collective plus favorable ni des règles spécifiques à l'accident du travail, à la maladie professionnelle ou aux arrêts de longue durée. Ne remplace pas un conseil de paie personnalisé.",
+    disclaimer: s.statut === 'public'
+      ? "Simulateur indicatif basé sur l'article L822-3 du Code général de la fonction publique (1 jour de carence, 90 % du traitement pendant 3 mois, puis la moitié). Règle simplifiée : hors primes, supplément familial de traitement, indemnité de résidence, agents contractuels, congés de longue maladie ou de longue durée, et sans arrêt antérieur sur les 12 derniers mois. Ne remplace pas l'information de votre service des ressources humaines."
+      : "Simulateur indicatif basé sur le régime général de la Sécurité sociale (ameli.fr) et le minimum légal du maintien de salaire employeur (article L1226-1 du Code du travail). Ne tient pas compte d'une convention collective plus favorable ni des règles spécifiques à l'accident du travail, à la maladie professionnelle ou aux arrêts de longue durée. Ne remplace pas un conseil de paie personnalisé.",
     nomFichier: 'simulation-arret-maladie.pdf'
   });
 }

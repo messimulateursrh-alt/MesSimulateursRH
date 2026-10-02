@@ -123,6 +123,9 @@ MAINTIEN_CARENCE_EMPLOYEUR_JOURS: 7,
 MAINTIEN_TAUX_PALIER1: 0.90,
 MAINTIEN_TAUX_PALIER2: 0.6666,
 MAINTIEN_ANCIENNETE_MIN_ANS: 1,
+CMO_PUBLIC_JOURS_PALIER1: 90,   // fonctionnaire : 3 premiers mois de congé de maladie ordinaire (art. L822-3 CGFP)
+CMO_PUBLIC_TAUX_PALIER1: 0.90,
+CMO_PUBLIC_TAUX_PALIER2: 0.50,
 JOURS_FERIES_SEMAINE_2026: 9,
 JOURS_FERIES_SEMAINE_2027: 7,
 FORFAIT_JOURS_LEGAL_MAX: 218,
@@ -175,6 +178,11 @@ function calculerPrimePrecarite(remunerationBrutePercue, tauxReduit){
 // ou 6% si un accord de branche étendu le prévoit ET que le salarié a un accès facilité à la formation professionnelle.
 var taux = tauxReduit ? BAREME_2026.PRIME_PRECARITE_TAUX_REDUIT : BAREME_2026.PRIME_PRECARITE_TAUX_STANDARD;
 return remunerationBrutePercue * taux;
+}
+function iccpFinCDD(remunerationBrute, primePrecarite){
+// Indemnité compensatrice de congés payés en fin de CDD lorsqu'aucun congé n'a été pris : au moins 1/10 de la rémunération
+// totale brute (art. L1242-16), indemnité de fin de contrat comprise (travail-emploi.gouv.fr ; service-public.gouv.fr F24661).
+return (Math.max(0, remunerationBrute || 0) + Math.max(0, primePrecarite || 0)) * 0.10;
 }
 function salaireMinimumApprenti(trancheAge, anneeContrat){
 // anneeContrat : 1, 2 ou 3. Retourne le salaire minimum brut mensuel (% du SMIC).
@@ -593,14 +601,15 @@ return ancienneteAnnees * (salaireRef * 0.40);
 }
 function indemniteHCR(salaireRef, ancienneteAnnees){
 // Convention collective nationale des hôtels, cafés, restaurants (HCR, IDCC 1979), art. 32 — tous statuts, sans distinction cadre/non-cadre (source : Légifrance, texte primaire, confirmé par 5 sources secondaires concordantes).
-// Formule : 1/10 de mois par année d'ancienneté jusqu'à 10 ans, puis 1/15 de mois par année au-delà de 10 ans.
+// Formule : 1/10 de mois par année d'ancienneté ; au-delà de 10 ans d'ancienneté, 1/10 de mois par année d'ancienneté (toutes les années)
+// plus 1/15 de mois par année au-delà de 10 ans. Corrigé le 02/10/2026 après lecture directe de l'article 32 sur Légifrance (conteneur
+// KALICONT000005635534), recoupé avec PayFit : l'ancien calcul n'appliquait plus le 1/10 aux années au-delà de la dixième.
 // Cette formule est structurellement toujours moins favorable que le barème légal (1/4 puis 1/3) — affichée par transparence, la comparaison automatique retient de toute façon le barème légal.
 if (ancienneteAnnees < 2){
 return indemniteLegale(salaireRef, ancienneteAnnees);
 }
-var anneesJusqua10 = Math.min(ancienneteAnnees, 10);
 var anneesAuDela10 = Math.max(0, ancienneteAnnees - 10);
-return (anneesJusqua10 * (salaireRef / 10)) + (anneesAuDela10 * (salaireRef / 15));
+return (ancienneteAnnees * (salaireRef / 10)) + (anneesAuDela10 * (salaireRef / 15));
 }
 function indemniteSyntecETAM(salaireRef, ancienneteAnnees){
 // Convention Syntec (bureaux d'études techniques, IDCC 1486), art. 4.5 — statut non-cadre (ETAM), texte consolidé Légifrance vérifié directement.
@@ -669,19 +678,20 @@ if (convention === 'transport_cadre'){
 return { mois: 3, texte: '3 mois' };
 }
 if (convention === 'hcr_employe'){
-// HCR (IDCC 1979), employés. Démission : 8 jours (< 6 mois), 15 jours (6 mois à 2 ans), 1 mois (2 ans et plus). Licenciement : 8 jours (< 6 mois, seuil confirmé par une seule source — LégiSocial — à traiter avec prudence), 1 mois (6 mois à 2 ans), 2 mois (2 ans et plus).
+// HCR (IDCC 1979), employés. Démission : 8 jours (< 6 mois), 15 jours (6 mois à 2 ans), 1 mois (2 ans et plus). Licenciement : 8 jours (< 6 mois), 1 mois (6 mois à 2 ans), 2 mois (2 ans et plus).
+// Tableaux des articles 30.1 et 30.2 lus directement sur Légifrance le 02/10/2026 : le seuil « moins de 6 mois » en licenciement, jusque-là confirmé par LégiSocial seulement, y figure pour les trois catégories.
 if (typeRupture === 'demission'){
 if (ancienneteAnnees < 0.5) return { mois: 8/30, texte: '8 jours' };
 if (ancienneteAnnees < 2) return { mois: 15/30, texte: '15 jours' };
 return { mois: 1, texte: '1 mois' };
 }
-if (ancienneteAnnees < 0.5) return { mois: 8/30, texte: '8 jours', seuilNonConfirme: true };
+if (ancienneteAnnees < 0.5) return { mois: 8/30, texte: '8 jours' };
 if (ancienneteAnnees < 2) return { mois: 1, texte: '1 mois' };
 return { mois: 2, texte: '2 mois' };
 }
 if (convention === 'hcr_maitrise'){
-// HCR (IDCC 1979), agents de maîtrise. Mêmes durées pour démission et licenciement : 15 jours (< 6 mois, seuil de licenciement confirmé par une seule source), 1 mois (6 mois à 2 ans), 2 mois (2 ans et plus).
-if (ancienneteAnnees < 0.5) return { mois: 15/30, texte: '15 jours', seuilNonConfirme: typeRupture !== 'demission' };
+// HCR (IDCC 1979), agents de maîtrise. Mêmes durées pour démission et licenciement : 15 jours (< 6 mois), 1 mois (6 mois à 2 ans), 2 mois (2 ans et plus) — art. 30.1 et 30.2, Légifrance.
+if (ancienneteAnnees < 0.5) return { mois: 15/30, texte: '15 jours' };
 if (ancienneteAnnees < 2) return { mois: 1, texte: '1 mois' };
 return { mois: 2, texte: '2 mois' };
 }
@@ -959,6 +969,16 @@ else if (anneesAnciennete >= 15) coef = 1;
 else if (anneesAnciennete >= 10) coef = 0.5;
 return { montant: coef * salaireRef, regime: 'salarie', coefMois: coef };
 }
+function comparerDepartsRetraite(salaireRef, anneesAnciennete){
+// Compare, pour un même salaire de référence et une même ancienneté, les deux indemnités légales de fin de carrière :
+// départ volontaire (art. L1237-9 et D1237-1) et mise à la retraite (art. L1237-7 : au moins l'indemnité légale de licenciement).
+// Préavis légal : art. L1237-10 (départ volontaire) et L1237-6 (mise à la retraite), qui renvoient à l'art. L1234-1
+// (1 mois entre 6 mois et moins de 2 ans d'ancienneté, 2 mois à partir de 2 ans ; rien de fixé par le Code en dessous de 6 mois).
+var volontaire = estimerIndemniteDepartRetraite(salaireRef, anneesAnciennete, 'salarie');
+var miseRetraite = estimerIndemniteDepartRetraite(salaireRef, anneesAnciennete, 'employeur');
+var preavisLegalMois = anneesAnciennete >= 2 ? 2 : (anneesAnciennete >= 0.5 ? 1 : null);
+return { volontaire: volontaire.montant, coefVolontaire: volontaire.coefMois, miseRetraite: miseRetraite.montant, ecart: miseRetraite.montant - volontaire.montant, preavisLegalMois: preavisLegalMois };
+}
 function estimerCumulEmploiRetraite(pensionMensuelle, salaireMensuel, dernierSalaireMensuel, tauxPlein, liquidationTotale){
 var cumulIntegral = !!tauxPlein && !!liquidationTotale;
 // Plafond = 1,6 × Smic horaire en vigueur au 1er janvier de l'année × 1 820 h ÷ 12 (circulaire Cnav 2017-29 ; service-public F13243 : 2 916,85 € en 2026), et non le Smic en vigueur en cours d'année.
@@ -1063,20 +1083,254 @@ coutMensuel: coutMensuel,
 coutAnnuel: coutMensuel * 12
 };
 }
+// Taux patronaux 2026 du secteur privé, cas général. Sources lues le 02/10/2026 : urssaf.fr « Taux de cotisations - Secteur privé »
+// (mis à jour le 01/01/2026 ; taux réduits maladie et allocations familiales supprimés en 2026 hors dispositifs spécifiques),
+// reglementation.agirc-arrco.fr « Cotisations au régime Agirc-Arrco en 2026 » (circulaire 2025-16 du 30/10/2025), arrêté du 30/12/2025
+// (JORF du 31/12/2025, art. 2 : taux net moyen national AT/MP 2,08 %), entreprendre.service-public.gouv.fr F22570 (formation, CPF-CDD)
+// et F22574 (taxe d'apprentissage). Recoupement : la somme maladie + vieillesse + allocations familiales + FNAL + CSA + chômage +
+// Agirc-Arrco T1 + CEG T1 + 0,49 point d'AT/MP donne 39,81 % (FNAL 0,10 %) ou 40,21 % (FNAL 0,50 %), soit les coefficients maximaux
+// de la réduction générale 2026 (0,3981 / 0,4021). La réduction elle-même est calculée par reductionGeneraleDegressive().
+var COTISATIONS_PATRONALES_2026 = {
+MALADIE: 0.13,
+CSA: 0.003,
+VIEILLESSE_DEPLAFONNEE: 0.0211,
+VIEILLESSE_PLAFONNEE: 0.0855,
+ALLOCATIONS_FAMILIALES: 0.0525,
+ATMP_TAUX_MOYEN_NATIONAL: 0.0208,
+DIALOGUE_SOCIAL: 0.00016,
+CHOMAGE: 0.04,
+AGS: 0.0025,
+PLAFONDS_CHOMAGE: 4,
+FNAL_MOINS_DE_50: 0.001,
+FNAL_50_ET_PLUS: 0.005,
+FORMATION_MOINS_DE_11: 0.0055,
+FORMATION_11_ET_PLUS: 0.01,
+TAXE_APPRENTISSAGE: 0.0068,
+CPF_CDD: 0.01,
+AGIRC_ARRCO_T1: 0.0472,
+AGIRC_ARRCO_T2: 0.1295,
+CEG_T1: 0.0129,
+CEG_T2: 0.0162,
+CET: 0.0021,
+PLAFONDS_TRANCHE_2: 8,
+APEC: 0.00036,
+PLAFONDS_APEC: 4,
+PREVOYANCE_CADRE_T1: 0.015
+};
+// Réduction générale dégressive unique (RGDU) 2026, cas général métropole et Drom hors Mayotte. Sources lues le 02/10/2026 au navigateur :
+// urssaf.fr « La réduction générale dégressive unique » (mis à jour le 13/07/2026) et boss.gouv.fr « Allègements généraux » ; concordant avec
+// entreprendre.service-public.gouv.fr F24542. Coefficient = Tmin + Tdelta × [(1/2) × (3 × Smic ÷ rémunération − 1)]^1,75, arrondi à 4 décimales,
+// plafonné à Tmin + Tdelta ; Smic = valeur en vigueur au 1er janvier 2026 (1 820 × 12,02 € par an), même après la revalorisation du 1er juin ;
+// réduction nulle dès que la rémunération atteint 3 fois ce Smic. Exemples Urssaf vérifiés sous Node : 2 000 € et 50 salariés et plus → 0,3178
+// (635,60 €) ; 15 000 € sur 7 mois → 0,2652. Hypothèses du simulateur : temps plein, présence toute l'année, sans heures supplémentaires.
+var RGDU_2026 = {
+TMIN: 0.02,
+TDELTA_MOINS_DE_50: 0.3781,
+TDELTA_50_ET_PLUS: 0.3821,
+PUISSANCE: 1.75,
+MULTIPLE_SMIC: 3,
+ATMP_TAUX_PRIS_EN_COMPTE: 0.0049,
+HEURES_ANNUELLES: 1820
+};
+function smicMensuelReferenceRGDU(){
+return BAREME_2026.SMIC_BRUT_HORAIRE_1ER_JANVIER * RGDU_2026.HEURES_ANNUELLES / 12;
+}
+function reductionGeneraleDegressive(remunerationMensuelleBrute, effectif50EtPlus, tauxATMP){
+var R = RGDU_2026;
+var rem = Math.max(0, remunerationMensuelleBrute || 0);
+var smicRef = smicMensuelReferenceRGDU();
+var seuil = R.MULTIPLE_SMIC * smicRef;
+var tdelta = effectif50EtPlus ? R.TDELTA_50_ET_PLUS : R.TDELTA_MOINS_DE_50;
+// Taux AT/MP de l'entreprise inférieur à la part prise en compte (0,49 %) : Tdelta est réduit d'autant (boss.gouv.fr, ajustement de Tdelta
+// lorsque les cotisations éligibles réellement dues sont inférieures à Tmin + Tdelta).
+if (typeof tauxATMP === 'number' && isFinite(tauxATMP) && tauxATMP >= 0 && tauxATMP < R.ATMP_TAUX_PRIS_EN_COMPTE){
+tdelta = Math.max(0, tdelta - (R.ATMP_TAUX_PRIS_EN_COMPTE - tauxATMP));
+}
+var coefficientMax = R.TMIN + tdelta;
+var base = { smicReference: smicRef, seuil: seuil, coefficientMax: coefficientMax, coefficient: 0, montant: 0, eligible: false, motif: '' };
+if (rem <= 0) return base;
+// Sous le Smic mensuel à temps plein, le salarié est à temps partiel ou sous contrat particulier (apprentissage…) : le Smic de la formule
+// devrait être proratisé ou la réduction ne s'applique pas ; on ne calcule pas.
+if (rem < BAREME_2026.SMIC_BRUT_MENSUEL){ base.motif = 'sousSmic'; return base; }
+if (rem >= seuil){ base.motif = 'auDessusDuSeuil'; return base; }
+var brutCoef = R.TMIN + tdelta * Math.pow(0.5 * (R.MULTIPLE_SMIC * smicRef / rem - 1), R.PUISSANCE);
+var coefficient = Math.round(Math.min(brutCoef, coefficientMax) * 10000) / 10000;
+base.eligible = true;
+base.coefficient = coefficient;
+base.montant = coefficient * rem;
+return base;
+}
+function quotiteTempsPartiel(quotite){
+// Fraction de la durée légale (0.8 pour 28 h sur 35) ; toute valeur absente, nulle ou égale ou supérieure à 1 vaut temps plein.
+return (typeof quotite === 'number' && isFinite(quotite) && quotite > 0 && quotite < 1) ? quotite : 1;
+}
+function reductionGeneraleDegressiveProratisee(remunerationMensuelleBrute, effectif50EtPlus, tauxATMP, quotite){
+// Temps partiel (ajouté le 02/10/2026) : le Smic de la formule est ajusté à proportion de la durée de travail inscrite au contrat, hors heures
+// complémentaires, rapportée à la durée légale — boss.gouv.fr « Allègements généraux » (exemple : Smic horaire × 1 820 × 30/35) et urssaf.fr
+// « La réduction générale dégressive unique » (« la valeur du Smic peut être ajustée pour tenir compte des temps partiels »), lus le 02/10/2026.
+// À temps plein (quotité 1), le résultat est exactement celui de reductionGeneraleDegressive(), qui n'est pas modifiée.
+var q = quotiteTempsPartiel(quotite);
+if (q === 1) return reductionGeneraleDegressive(remunerationMensuelleBrute, effectif50EtPlus, tauxATMP);
+var R = RGDU_2026;
+var rem = Math.max(0, remunerationMensuelleBrute || 0);
+var smicRef = smicMensuelReferenceRGDU() * q;
+var seuil = R.MULTIPLE_SMIC * smicRef;
+var tdelta = effectif50EtPlus ? R.TDELTA_50_ET_PLUS : R.TDELTA_MOINS_DE_50;
+if (typeof tauxATMP === 'number' && isFinite(tauxATMP) && tauxATMP >= 0 && tauxATMP < R.ATMP_TAUX_PRIS_EN_COMPTE){
+tdelta = Math.max(0, tdelta - (R.ATMP_TAUX_PRIS_EN_COMPTE - tauxATMP));
+}
+var coefficientMax = R.TMIN + tdelta;
+var base = { smicReference: smicRef, seuil: seuil, coefficientMax: coefficientMax, coefficient: 0, montant: 0, eligible: false, motif: '', quotite: q };
+if (rem <= 0) return base;
+// Rémunération inférieure au Smic du mois ramené à la même durée de travail (tolérance d'un euro pour les arrondis de saisie) : contrat particulier, on ne calcule pas.
+if (rem + 1 < BAREME_2026.SMIC_BRUT_MENSUEL * q){ base.motif = 'sousSmic'; return base; }
+if (rem >= seuil){ base.motif = 'auDessusDuSeuil'; return base; }
+var brutCoef = R.TMIN + tdelta * Math.pow(0.5 * (R.MULTIPLE_SMIC * smicRef / rem - 1), R.PUISSANCE);
+var coefficient = Math.round(Math.min(brutCoef, coefficientMax) * 10000) / 10000;
+base.eligible = true;
+base.coefficient = coefficient;
+base.montant = coefficient * rem;
+return base;
+}
+function detailCotisationsPatronales(brutMensuel, options){
+// options : { cadre: bool, effectif: 'moins11' | '11a49' | '50plus', tauxATMP: taux en fraction (0.0208) ou null,
+//             quotite: fraction de la durée légale pour un temps partiel (absente = temps plein) }
+// Temps partiel : le plafond de la Sécurité sociale est réduit à proportion de la durée du travail, comme l'employeur est en droit de le faire
+// (art. R242-2 du Code de la sécurité sociale, lu sur Légifrance le 02/10/2026 ; urssaf.fr « calcul des cotisations employeur », mis à jour le
+// 03/06/2026 : le plafond peut être ajusté pour le temps partiel ; l'Agirc-Arrco raisonne sur « le plafond de la sécurité sociale proratisé »).
+var o = options || {};
+var T = COTISATIONS_PATRONALES_2026;
+var brut = Math.max(0, brutMensuel || 0);
+var pass = BAREME_2026.PASS_MENSUEL * quotiteTempsPartiel(o.quotite);
+var t1 = Math.min(brut, pass);
+var t2 = Math.max(0, Math.min(brut, T.PLAFONDS_TRANCHE_2 * pass) - pass);
+var assietteChomage = Math.min(brut, T.PLAFONDS_CHOMAGE * pass);
+var effectif = (o.effectif === '11a49' || o.effectif === '50plus') ? o.effectif : 'moins11';
+var tauxATMP = (typeof o.tauxATMP === 'number' && isFinite(o.tauxATMP) && o.tauxATMP >= 0) ? o.tauxATMP : T.ATMP_TAUX_MOYEN_NATIONAL;
+var lignes = [];
+function ajouter(cle, libelle, assiette, taux){
+if (assiette <= 0 || taux <= 0) return;
+lignes.push({ cle: cle, libelle: libelle, assiette: assiette, taux: taux, montant: assiette * taux });
+}
+ajouter('maladie', 'Assurance maladie, maternité, invalidité, décès', brut, T.MALADIE);
+ajouter('csa', 'Contribution solidarité autonomie', brut, T.CSA);
+ajouter('vieillessePlafonnee', 'Assurance vieillesse plafonnée', t1, T.VIEILLESSE_PLAFONNEE);
+ajouter('vieillesseDeplafonnee', 'Assurance vieillesse déplafonnée', brut, T.VIEILLESSE_DEPLAFONNEE);
+ajouter('allocationsFamiliales', 'Allocations familiales', brut, T.ALLOCATIONS_FAMILIALES);
+ajouter('atmp', 'Accidents du travail et maladies professionnelles', brut, tauxATMP);
+if (effectif === '50plus') ajouter('fnal', 'FNAL (50 salariés et plus)', brut, T.FNAL_50_ET_PLUS);
+else ajouter('fnal', 'FNAL (moins de 50 salariés)', t1, T.FNAL_MOINS_DE_50);
+ajouter('chomage', 'Assurance chômage', assietteChomage, T.CHOMAGE);
+ajouter('ags', 'AGS (garantie des salaires)', assietteChomage, T.AGS);
+ajouter('agircArrcoT1', 'Retraite complémentaire Agirc-Arrco, tranche 1', t1, T.AGIRC_ARRCO_T1);
+ajouter('cegT1', 'Contribution d\'équilibre général, tranche 1', t1, T.CEG_T1);
+ajouter('agircArrcoT2', 'Retraite complémentaire Agirc-Arrco, tranche 2', t2, T.AGIRC_ARRCO_T2);
+ajouter('cegT2', 'Contribution d\'équilibre général, tranche 2', t2, T.CEG_T2);
+if (brut > pass) ajouter('cet', 'Contribution d\'équilibre technique', t1 + t2, T.CET);
+if (o.cadre){
+ajouter('apec', 'APEC (cadres)', Math.min(brut, T.PLAFONDS_APEC * pass), T.APEC);
+ajouter('prevoyanceCadre', 'Prévoyance des cadres (minimum, tranche 1)', t1, T.PREVOYANCE_CADRE_T1);
+}
+ajouter('formation', effectif === 'moins11' ? 'Formation professionnelle (moins de 11 salariés)' : 'Formation professionnelle (11 salariés et plus)', brut, effectif === 'moins11' ? T.FORMATION_MOINS_DE_11 : T.FORMATION_11_ET_PLUS);
+ajouter('taxeApprentissage', 'Taxe d\'apprentissage', brut, T.TAXE_APPRENTISSAGE);
+ajouter('dialogueSocial', 'Contribution au dialogue social', brut, T.DIALOGUE_SOCIAL);
+var total = 0;
+for (var i = 0; i < lignes.length; i++){ total += lignes[i].montant; }
+return {
+lignes: lignes,
+total: total,
+tauxEffectif: brut > 0 ? total / brut : 0,
+tauxATMP: tauxATMP,
+effectif: effectif,
+cadre: !!o.cadre,
+plafondMensuel: pass
+};
+}
+function estimerCoutSalarieOptions(brutMensuel, avantagesMensuel, primesAnnuelles, vehiculeMensuel, options){
+// options : { effectif: 'moyen' (défaut : taux moyen de 42 %, résultat identique à estimerCoutSalarieEntreprise) | 'moins11' | '11a49' | '50plus',
+//             cadre: bool, tauxATMP: fraction ou null, cdd: bool,
+//             primesSoumisesAnnuelles: primes soumises à cotisations (13e mois, prime de vacances, bonus), montant annuel,
+//             quotite: fraction de la durée légale pour un temps partiel (0.8 pour 28 h sur 35), absente = temps plein,
+//             precariteTauxReduit: bool, indemnité de fin de CDD à 6 % au lieu de 10 % (art. L1243-9) }
+// primesAnnuelles (4e paramètre historique) : sommes ajoutées au coût sans cotisations patronales — intéressement et participation, exonérés de
+// cotisations de sécurité sociale (urssaf.fr « Intéressement », mis à jour le 17/07/2026). Le forfait social éventuellement dû n'est pas calculé.
+// Complété le 02/10/2026 : sans les trois nouvelles options, le résultat est identique à la version précédente.
+var o = options || {};
+var q = quotiteTempsPartiel(o.quotite);
+var base = estimerCoutSalarieEntreprise(brutMensuel, avantagesMensuel, primesAnnuelles, vehiculeMensuel);
+var modeDetail = (o.effectif === 'moins11' || o.effectif === '11a49' || o.effectif === '50plus');
+// Rémunération mensuelle moyenne soumise à cotisations : salaire brut + primes soumises ramenées au mois. Les cotisations plafonnées étant
+// régularisées sur l'année (art. R242-2 du Code de la sécurité sociale) et la réduction générale étant annuelle, raisonner sur la moyenne
+// mensuelle revient au calcul annuel pour un salarié présent toute l'année (boss.gouv.fr : la rémunération prise en compte pour la
+// réduction est celle soumise à cotisations, primes comprises ; l'intéressement en est exclu).
+var primesSoumisesMensuelles = Math.max(0, o.primesSoumisesAnnuelles || 0) / 12;
+var remuneration = brutMensuel + primesSoumisesMensuelles;
+var detail = modeDetail ? detailCotisationsPatronales(remuneration, { cadre: o.cadre, effectif: o.effectif, tauxATMP: o.tauxATMP, quotite: q }) : null;
+var charges = modeDetail ? detail.total : remuneration * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
+var tauxCharges = remuneration > 0 ? charges / remuneration : 0;
+var coutMensuel = base.coutMensuel - base.charges + charges + primesSoumisesMensuelles;
+var cdd = null;
+if (o.cdd){
+// Fin de CDD : indemnité de fin de contrat de 10 % de la rémunération brute totale (art. L1243-8), ou 6 % si un accord de branche étendu ou
+// d'entreprise le prévoit avec un accès privilégié à la formation (art. L1243-9) ; elle est soumise à cotisations comme un salaire.
+// Contribution CPF-CDD de 1 % (urssaf.fr ; entreprendre.service-public.gouv.fr F22570). Cas sans indemnité non gérés ici.
+var prime = calculerPrimePrecarite(remuneration, !!o.precariteTauxReduit);
+var chargesPrime = prime * tauxCharges;
+var cpfCdd = (remuneration + prime) * COTISATIONS_PATRONALES_2026.CPF_CDD;
+cdd = { prime: prime, chargesPrime: chargesPrime, cpfCdd: cpfCdd, total: prime + chargesPrime + cpfCdd, taux: o.precariteTauxReduit ? BAREME_2026.PRIME_PRECARITE_TAUX_REDUIT : BAREME_2026.PRIME_PRECARITE_TAUX_STANDARD };
+coutMensuel += cdd.total;
+}
+// Réduction générale : seulement en mode détaillé (elle dépend de l'effectif), sur la rémunération soumise à cotisations — primes soumises et
+// indemnité de fin de CDD comprises, le coefficient se calculant contrat par contrat ; Smic proratisé pour un temps partiel.
+var reduction = null;
+if (modeDetail){
+reduction = reductionGeneraleDegressiveProratisee(remuneration + (cdd ? cdd.prime : 0), o.effectif === '50plus', detail.tauxATMP, q);
+coutMensuel -= reduction.montant;
+}
+return {
+modeDetail: modeDetail,
+detail: detail,
+reduction: reduction,
+chargesNettes: charges + (cdd ? cdd.chargesPrime : 0) - (reduction ? reduction.montant : 0),
+charges: charges,
+tauxCharges: tauxCharges,
+vehicule: base.vehicule,
+cdd: cdd,
+quotite: q,
+remuneration: remuneration,
+primesSoumisesMensuelles: primesSoumisesMensuelles,
+coutMensuel: coutMensuel,
+coutAnnuel: coutMensuel * 12
+};
+}
+function dureeContratJourFinInclus(dateEntreeStr, dateSortieStr){
+// Durée d'un contrat du premier au dernier jour, les deux compris : même décompte qu'ancienneteDepuisDates(), appliqué au lendemain de la
+// date de fin (du 1er mars au 31 mai = 3 mois ; du 1er mars au 1er juin = 3 mois et 1 jour). ancienneteDepuisDates() n'est pas modifiée.
+var dFin = dateLocaleDepuisISO(dateSortieStr);
+var dDebut = dateLocaleDepuisISO(dateEntreeStr);
+if (!dFin || !dDebut || dFin < dDebut) return null;
+var lendemain = new Date(dFin.getFullYear(), dFin.getMonth(), dFin.getDate() + 1);
+return ancienneteDepuisDates(dateEntreeStr, isoDepuisDateLocale(lendemain));
+}
 var MOTIFS_PORTABILITE_EXCLUS = ['faute_lourde', 'demission_non_legitime'];
 function estimerPortabiliteMutuelle(dateEntreeStr, dateSortieStr, motifRupture){
-var r = ancienneteDepuisDates(dateEntreeStr, dateSortieStr);
+// Art. L911-8 du Code de la sécurité sociale (lu sur Légifrance le 02/10/2026) + service-public.gouv.fr F20744 :
+// maintien pendant la période d'indemnisation du chômage, dans la limite de la durée du dernier contrat (ou des derniers
+// contrats consécutifs chez le même employeur), appréciée en mois, arrondie au nombre supérieur, 12 mois au plus.
+// Le texte ne fixe aucune ancienneté minimale : un contrat de moins d'un mois est arrondi à 1 mois (correction du 02/10/2026).
+// Corrigé le 02/10/2026 : la durée est comptée dernier jour du contrat compris (dureeContratJourFinInclus), sinon un contrat
+// du 1er mars au 1er juin (3 mois et 1 jour) était compté 3 mois au lieu de 4.
+var r = dureeContratJourFinInclus(dateEntreeStr, dateSortieStr);
 if (!r) return null;
 var moisComplets = r.years * 12 + r.months;
-var dureeContratMoisArrondie = moisComplets + (r.days > 0 ? 1 : 0);
-var ancienneteMinimaleAtteinte = moisComplets >= 1;
+var dureeContratMoisArrondie = Math.max(1, moisComplets + (r.days > 0 ? 1 : 0));
 var motifEligible = MOTIFS_PORTABILITE_EXCLUS.indexOf(motifRupture) === -1;
-var eligible = ancienneteMinimaleAtteinte && motifEligible;
+var eligible = motifEligible;
 var dureePortabiliteMois = eligible ? Math.min(dureeContratMoisArrondie, 12) : 0;
 return {
 dureeContratMois: dureeContratMoisArrondie,
 eligible: eligible,
-ancienneteMinimaleAtteinte: ancienneteMinimaleAtteinte,
+ancienneteMinimaleAtteinte: true,
 motifEligible: motifEligible,
 dureePortabiliteMois: dureePortabiliteMois
 };
@@ -1167,17 +1421,27 @@ return null;
 
 function estimerIndemniteArretMaladie(salaireMensuelBrut, statut, ancienneteAnnees, dureeJours){
 if (statut === 'public'){
+// Fonctionnaire en congé de maladie ordinaire : 1 jour de carence, puis 90 % du traitement pendant 3 mois et la moitié
+// pendant les 9 mois suivants (art. L822-3 du Code général de la fonction publique, modifié par la loi n° 2025-127 du
+// 14/02/2025, applicable depuis le 01/03/2025 ; service-public.gouv.fr F490). 3 mois comptés pour 90 jours.
 var carenceJours = BAREME_2026.CARENCE_MALADIE_PUBLIC_JOURS;
-var joursPayesPlein = Math.max(0, dureeJours - carenceJours);
 var salaireJournalier = salaireMensuelBrut / 30;
-var perteCarence = salaireJournalier * Math.min(dureeJours, carenceJours);
+var joursCarence = Math.min(dureeJours, carenceJours);
+var perteCarence = salaireJournalier * joursCarence;
+var joursA90 = Math.max(0, Math.min(dureeJours, BAREME_2026.CMO_PUBLIC_JOURS_PALIER1) - joursCarence);
+var joursA50 = Math.max(0, dureeJours - Math.max(BAREME_2026.CMO_PUBLIC_JOURS_PALIER1, joursCarence));
+var totalPercu = salaireJournalier * (joursA90 * BAREME_2026.CMO_PUBLIC_TAUX_PALIER1 + joursA50 * BAREME_2026.CMO_PUBLIC_TAUX_PALIER2);
 return {
 statut: statut,
 carenceJours: carenceJours,
+joursCarence: joursCarence,
 salaireJournalier: salaireJournalier,
 perteCarence: perteCarence,
-joursPayesPlein: joursPayesPlein,
-totalPercu: salaireJournalier * joursPayesPlein
+joursA90: joursA90,
+joursA50: joursA50,
+joursPayesPlein: joursA90 + joursA50,
+totalPercu: totalPercu,
+manqueAGagner: salaireJournalier * dureeJours - totalPercu
 };
 }
 
@@ -1228,6 +1492,31 @@ totalComplementEmployeur: totalComplementEmployeur,
 totalPercuBrut: totalIJBrut + totalComplementEmployeur,
 totalPercuNet: totalIJNet + totalComplementEmployeur
 };
+}
+function estimerProlongationArretMaladie(salaireMensuelBrut, statut, ancienneteAnnees, joursDejaEcoules, dureeProlongation){
+// Prolongation (ou nouvel arrêt après une reprise de 48 heures au plus) : pas de nouveau délai de carence (ameli.fr, service-public.gouv.fr
+// F3053 pour le privé ; F490 et F13861 pour la fonction publique). Le complément employeur court « au-delà de sept jours d'absence »
+// (art. D1226-3 du Code du travail) : les jours déjà écoulés comptent. Calcul = droits sur (jours déjà écoulés + prolongation)
+// moins droits sur les jours déjà écoulés, avec la fonction estimerIndemniteArretMaladie inchangée.
+var deja = Math.max(0, Math.floor(joursDejaEcoules || 0));
+var duree = Math.max(0, dureeProlongation || 0);
+var total = estimerIndemniteArretMaladie(salaireMensuelBrut, statut, ancienneteAnnees, deja + duree);
+var avant = estimerIndemniteArretMaladie(salaireMensuelBrut, statut, ancienneteAnnees, deja);
+var r = {};
+var k;
+for (k in total){ if (Object.prototype.hasOwnProperty.call(total, k)) r[k] = total[k]; }
+var champs = statut === 'public'
+? ['joursCarence', 'perteCarence', 'joursA90', 'joursA50', 'joursPayesPlein', 'totalPercu', 'manqueAGagner']
+: ['joursIndemnisesSecu', 'totalIJBrut', 'totalIJNet', 'joursA90Effectifs', 'joursA66Effectifs', 'totalComplementEmployeur', 'totalPercuBrut', 'totalPercuNet'];
+for (var i = 0; i < champs.length; i++){ r[champs[i]] = Math.max(0, total[champs[i]] - avant[champs[i]]); }
+r.prolongation = true;
+r.joursDejaEcoules = deja;
+r.dureeProlongation = duree;
+if (statut !== 'public'){
+r.carenceSecuRestante = Math.min(duree, Math.max(0, total.carenceSecu - deja));
+r.carenceEmployeurRestante = Math.min(duree, Math.max(0, total.carenceEmployeur - deja));
+}
+return r;
 }
 
 // Calendrier par année (vérifié le 26/09/2026 : fériés de l'art. L3133-1 tombant du lundi au vendredi ; Alsace-Moselle, art. L3134-13 : Vendredi saint — seulement dans les communes ayant un temple protestant ou une église mixte — et 26 décembre).
@@ -1999,30 +2288,30 @@ var SEARCH_INDEX = [
 {title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique.html", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere"},
 {title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
 {title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale"},
-{title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire"},
+{title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire recu documents fin de contrat certificat de travail attestation 13e mois non concurrence"},
 {title:"Salaire net à partir du brut", url:"salaire-net-brut.html", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
 {title:"Augmentation de salaire", url:"augmentation-salaire.html", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
-{title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise.html", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur"},
+{title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise.html", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur cotisations patronales taux 2026 effectif AT/MP accident du travail CDD prime precarite cout employeur smic cadre non-cadre urssaf agirc-arrco reduction generale degressive RGDU fillon allegement coefficient temps partiel 13e mois primes interessement participation"},
 {title:"Coût total d'un licenciement", url:"cout-licenciement-employeur.html", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
 {title:"Indemnité de congés payés", url:"indemnite-conges-payes.html", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite jours acquis 2,5 jours par mois combien de jours conges"},
 {title:"Calendrier des jours de pont", url:"calendrier-ponts.html", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
-{title:"Passage à temps partiel", url:"passage-temps-partiel.html", cat:"Simulateur", kw:"temps partiel salaire net impact"},
+{title:"Passage à temps partiel", url:"passage-temps-partiel.html", cat:"Simulateur", kw:"temps partiel salaire net impact heures complementaires 24 heures retraite progressive"},
 {title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge dates conge prenatal postnatal date accouchement report 3 semaines"},
 {title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
 {title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
 {title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche date seuils 8 mois 2 ans 10 ans preavis temps partiel conge parental cdd apprentissage interim stage"},
-{title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite"},
-{title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic"},
+{title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite preavis bareme comparaison 70 ans"},
+{title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic retraite progressive"},
 {title:"Trimestres de retraite restants", url:"trimestres-retraite-restants.html", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
 {title:"Je veux quitter mon emploi (guide interactif)", url:"comment-quitter-son-emploi.html", cat:"Simulateur", kw:"quitter emploi demission licenciement rupture conventionnelle guide interactif que faire"},
-{title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee"},
-{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique"},
-{title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat"},
+{title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee rachat monetisation rtt non pris"},
+{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
+{title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat syntec batiment BTP cadre ETAM ouvrier transports routiers HCR hotels cafes restaurants indemnite de licenciement conventionnelle rupture conventionnelle preavis 1486 2420 2609 1596 1597 1979"},
 {title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD"},
-{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026.html", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS"},
-{title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026.html", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026"},
-{title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026"},
-{title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd.html", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM"},
+{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026.html", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
+{title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026.html", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026 projet de loi senat index indicateurs 50 salaries"},
+{title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026 24 23 meilleures annees recalcul 2027"},
+{title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd.html", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM apprentissage professionnalisation conges payes"},
 {title:"Salaire minimum apprenti", url:"salaire-apprenti.html", cat:"Simulateur", kw:"salaire apprenti alternance grille smic pourcentage age annee contrat"},
 {title:"Salaire minimum contrat de professionnalisation", url:"salaire-contrat-professionnalisation.html", cat:"Simulateur", kw:"salaire contrat professionnalisation alternance grille pourcentage age bac pro"},
 {title:"Chômage partiel (activité partielle)", url:"chomage-partiel.html", cat:"Simulateur", kw:"chomage partiel activite partielle indemnite salarie heures chomees"},
@@ -2069,8 +2358,8 @@ var SEARCH_INDEX = [
 {title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026.html", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
 {title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission.html", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
 {title:"Démissionner et toucher le chômage", url:"demissionner-et-toucher-le-chomage.html", cat:"Guide", kw:"demission chomage demissionner toucher ARE demission legitime reconversion transitions pro 121 jours abandon de poste motifs legitimes"},
-{title:"Glossaire du droit du travail", url:"glossaire-droit-travail.html", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique"},
-{title:"Portabilité de la mutuelle", url:"portabilite-mutuelle.html", cat:"Simulateur", kw:"portabilite mutuelle prevoyance maintien gratuit L911-8 duree 12 mois rupture"},
+{title:"Glossaire du droit du travail", url:"glossaire-droit-travail.html", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique retraite progressive"},
+{title:"Portabilité de la mutuelle", url:"portabilite-mutuelle.html", cat:"Simulateur", kw:"portabilite mutuelle prevoyance maintien gratuit L911-8 duree 12 mois rupture loi evin ayants droit faute grave fin de cdd attestation france travail complementaire sante"},
 {title:"Ressources officielles", url:"ressources-officielles.html", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
 {title:"À propos", url:"a-propos.html", cat:"Page", kw:"a propos qui edite methode sources"},
 {title:"Contact", url:"contact.html", cat:"Page", kw:"contact ecrire message signaler erreur question email"},

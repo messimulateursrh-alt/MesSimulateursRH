@@ -63,21 +63,43 @@
       }
     },
     {
-
       "@type": "Question",
       "name": "Combien touche-t-on pour un départ volontaire à la retraite avec 25 ans d'ancienneté et 3 000 € de salaire ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Avec 25 ans d'ancienneté (palier 20-30 ans, coefficient 1,5 mois) et un salaire de référence de 3 000 €, l'indemnité légale de départ volontaire à la retraite est de 4 500 €. Ce montant est intégralement soumis à cotisations sociales et à l'impôt sur le revenu, sans exonération particulière."
+        "@type": "Answer",
+        "text": "Avec 25 ans d'ancienneté (palier 20-30 ans, coefficient 1,5 mois) et un salaire de référence de 3 000 €, l'indemnité légale de départ volontaire à la retraite est de 4 500 €. Ce montant est intégralement soumis à cotisations sociales et à l'impôt sur le revenu, sans exonération particulière."
       }
     },
     {
-
       "@type": "Question",
       "name": "Quelle indemnité en cas de mise à la retraite par l'employeur, 3 000 € et 12 ans d'ancienneté ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "En cas de mise à la retraite à l'initiative de l'employeur, l'indemnité suit le barème légal de licenciement : pour 12 ans d'ancienneté et 3 000 € de salaire de référence, elle s'élève à 9 500 €, contre seulement 1 500 € (0,5 mois) si le même salarié était parti volontairement à cette ancienneté. Le régime fiscal et social est aussi plus favorable, dans certaines limites."
+        "@type": "Answer",
+        "text": "En cas de mise à la retraite à l'initiative de l'employeur, l'indemnité suit le barème légal de licenciement : pour 12 ans d'ancienneté et 3 000 € de salaire de référence, elle s'élève à 9 500 €, contre seulement 1 500 € (0,5 mois) si le même salarié était parti volontairement à cette ancienneté. Le régime fiscal et social est aussi plus favorable, dans certaines limites."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel préavis respecter pour un départ à la retraite ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le salarié qui part de lui-même respecte un préavis de la même durée que le préavis de licenciement (article L1237-10 du Code du travail, qui renvoie à l'article L1234-1) : 1 mois entre 6 mois et moins de 2 ans d'ancienneté, 2 mois à partir de 2 ans. En dessous de 6 mois d'ancienneté, le Code du travail ne fixe pas de durée. L'employeur qui met un salarié à la retraite respecte le même préavis (article L1237-6). Votre convention collective peut prévoir une autre durée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le départ volontaire à la retraite est-il une démission ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, ce sont deux ruptures distinctes dans le Code du travail, même si l'initiative vient du salarié dans les deux cas. Le départ à la retraite a ses propres règles (articles L1237-9 et L1237-10) : une indemnité à partir de 10 ans d'ancienneté et un préavis aligné sur celui du licenciement, alors qu'une démission n'ouvre droit à aucune indemnité de rupture. Le modèle de lettre de code.travail.gouv.fr parle d'une volonté claire et non équivoque de partir à la retraite."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment l'employeur doit-il interroger le salarié avant 70 ans ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Par écrit, trois mois avant l'anniversaire du salarié (le 67e, puis chaque année) : l'employeur lui demande s'il a l'intention de quitter volontairement l'entreprise pour prendre sa retraite. Le salarié a un mois pour répondre. En cas de réponse négative, aucune mise à la retraite n'est possible pendant l'année qui suit ; la procédure peut être renouvelée chaque année jusqu'au 69e anniversaire (articles L1237-5 et D1237-2-1 du Code du travail). Si ces conditions ne sont pas respectées, la rupture constitue un licenciement (article L1237-8)."
       }
     }
   ]
@@ -88,7 +110,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-19",
+  "dateModified": "2026-10-02",
   "name": "Indemnité de Départ à la Retraite 2026",
   "description": "Calculez votre indemnité légale de départ à la retraite 2026 : départ volontaire du salarié ou mise à la retraite par l'employeur. Gratuit, calcul local.",
   "url": "https://messimulateursrh.fr/indemnite-depart-retraite.html",
@@ -254,6 +276,114 @@
       Le régime fiscal et social diffère fortement selon le cas. L'indemnité de mise à la retraite est exonérée de cotisations sociales dans les mêmes conditions que l'indemnité de licenciement (2×PASS), mais son plafond d'exonération d'impôt sur le revenu est plus bas (5×PASS, contre 6×PASS pour le licenciement), et une contribution patronale spécifique de 40 % s'ajoute sur la part exonérée de cotisations — une charge que l'employeur ne supporte pas en cas de licenciement classique. L'indemnité de départ volontaire, elle, est en principe intégralement soumise à cotisations et à l'impôt sur le revenu, sans aucune exonération (sauf cadre PSE).
     </p>
 
+    <h3 id="bareme-par-anciennete">Barème par ancienneté, pour un salaire de référence de 3&nbsp;000&nbsp;€</h3>
+    <p>
+      Le tableau applique les deux barèmes légaux au même salaire : il montre à quel point le montant dépend de la partie qui prend l'initiative du départ.
+    </p>
+    <div class="table-wrap">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:8px 6px;">Ancienneté</th>
+        <th style="text-align:left; padding:8px 6px;">Départ volontaire</th>
+        <th style="text-align:left; padding:8px 6px;">Mise à la retraite</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">5 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">Aucune indemnité légale</td>
+        <td style="padding:8px 6px; vertical-align:top;">1,25&nbsp;mois — 3&nbsp;750&nbsp;€</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">10 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">0,5&nbsp;mois — 1&nbsp;500&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">2,5&nbsp;mois — 7&nbsp;500&nbsp;€</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">15 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">1&nbsp;mois — 3&nbsp;000&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">4,17&nbsp;mois — 12&nbsp;500&nbsp;€</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">20 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">1,5&nbsp;mois — 4&nbsp;500&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">5,83&nbsp;mois — 17&nbsp;500&nbsp;€</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">25 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">1,5&nbsp;mois — 4&nbsp;500&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">7,5&nbsp;mois — 22&nbsp;500&nbsp;€</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">30 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">2&nbsp;mois — 6&nbsp;000&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">9,17&nbsp;mois — 27&nbsp;500&nbsp;€</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">35 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">2&nbsp;mois — 6&nbsp;000&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">10,83&nbsp;mois — 32&nbsp;500&nbsp;€</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 6px; vertical-align:top;">40 ans</td>
+        <td style="padding:8px 6px; vertical-align:top;">2&nbsp;mois — 6&nbsp;000&nbsp;€</td>
+        <td style="padding:8px 6px; vertical-align:top;">12,5&nbsp;mois — 37&nbsp;500&nbsp;€</td>
+      </tr>
+    </table>
+    </div>
+    <p>
+      Montants bruts calculés le 2 octobre 2026 avec les barèmes légaux (<a href="https://code.travail.gouv.fr/code-du-travail/d1237-1" target="_blank" rel="noopener noreferrer">art. D1237-1</a><span class="source-badge">✓ Source officielle</span> pour le départ volontaire, art. R1234-2 pour la mise à la retraite). Votre convention collective peut prévoir une indemnité plus élevée : c'est alors elle qui s'applique.
+    </p>
+
+    <h2 id="preavis-et-procedure">Préavis et procédure : ce qui distingue les deux départs</h2>
+    <div class="table-wrap">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:8px 6px;"></th>
+        <th style="text-align:left; padding:8px 6px;">Départ volontaire</th>
+        <th style="text-align:left; padding:8px 6px;">Mise à la retraite</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Qui décide</td>
+        <td style="padding:8px 6px; vertical-align:top;">Le salarié</td>
+        <td style="padding:8px 6px; vertical-align:top;">L'employeur</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Conditions</td>
+        <td style="padding:8px 6px; vertical-align:top;">Quitter l'entreprise pour bénéficier d'une pension de vieillesse (art. L1237-9)</td>
+        <td style="padding:8px 6px; vertical-align:top;">À partir de 70 ans : d'office. De 67 à 69 ans : seulement après avoir interrogé le salarié par écrit ; s'il répond non, la mise à la retraite est impossible pendant l'année qui suit (art. L1237-5)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Indemnité légale</td>
+        <td style="padding:8px 6px; vertical-align:top;">Barème par paliers, à partir de 10 ans d'ancienneté (art. D1237-1)</td>
+        <td style="padding:8px 6px; vertical-align:top;">Au moins l'indemnité légale de licenciement (art. L1237-7)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Salaire de référence</td>
+        <td style="padding:8px 6px; vertical-align:top;">Le plus favorable entre 1/12 des 12 derniers mois et 1/3 des 3 derniers mois (art. D1237-2)</td>
+        <td style="padding:8px 6px; vertical-align:top;">Même comparaison que pour l'indemnité de licenciement</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Préavis</td>
+        <td style="padding:8px 6px; vertical-align:top;">Durée du préavis de licenciement : 1 mois entre 6 mois et moins de 2 ans d'ancienneté, 2 mois à partir de 2 ans (art. L1237-10 et L1234-1)</td>
+        <td style="padding:8px 6px; vertical-align:top;">Même durée, à respecter par l'employeur (art. L1237-6)</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 6px; vertical-align:top;">Si les conditions ne sont pas réunies</td>
+        <td style="padding:8px 6px; vertical-align:top;">—</td>
+        <td style="padding:8px 6px; vertical-align:top;">La rupture constitue un licenciement (art. L1237-8)</td>
+      </tr>
+    </table>
+    </div>
+    <p>
+      Avant 70 ans, la mise à la retraite suit une procédure précise. Trois mois avant l'anniversaire du salarié (le 67ᵉ, puis chaque année), l'employeur l'interroge par écrit sur son intention de quitter volontairement l'entreprise pour prendre sa retraite ; le salarié dispose d'un mois pour répondre. S'il répond non, l'employeur ne peut pas le mettre à la retraite pendant l'année qui suit, et la même procédure peut être renouvelée chaque année jusqu'à son 69ᵉ anniversaire (<a href="https://code.travail.gouv.fr/code-du-travail/l1237-5" target="_blank" rel="noopener noreferrer">art. L1237-5</a><span class="source-badge">✓ Source officielle</span> et <a href="https://code.travail.gouv.fr/code-du-travail/d1237-2-1" target="_blank" rel="noopener noreferrer">D1237-2-1</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F13966" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, fiche F13966</a><span class="source-badge">✓ Source officielle</span>).
+    </p>
+    <p>
+      Pour un départ volontaire, le salarié respecte un préavis de la même durée que le préavis de licenciement (<a href="https://code.travail.gouv.fr/code-du-travail/l1237-10" target="_blank" rel="noopener noreferrer">art. L1237-10</a><span class="source-badge">✓ Source officielle</span>) ; service-public.gouv.fr recommande de prévenir l'employeur par lettre recommandée avec accusé de réception ou par courrier remis en main propre contre récépissé. Dans les deux cas, un salarié ne peut percevoir qu'une seule indemnité de départ ou de mise à la retraite (art. L1237-9 et L1237-7). Le <a href="preavis.html">simulateur de préavis</a> donne la durée applicable dans les principales conventions collectives.
+    </p>
+
+    <p>
+      Côté mutuelle d'entreprise, un départ à la retraite n'ouvre pas droit à la portabilité gratuite, réservée aux ruptures indemnisées par l'assurance chômage. L'assureur doit en revanche proposer, dans les 2 mois qui suivent la fin du contrat, un maintien payant de la complémentaire santé à tarif plafonné pendant trois ans : voir <a href="portabilite-mutuelle.html#loi-evin">le maintien « loi Évin »</a>.
+    </p>
+
     <div class="example-box">
       <h3>Exemple concret</h3>
       <p>Pour un salarié de 22 ans d'ancienneté et un salaire de référence de 2 600 € : en <strong>départ volontaire</strong>, le palier applicable est celui de 20 à 30 ans (1,5 mois de salaire), soit une indemnité de <strong>3 900 €</strong>.</p>
@@ -285,6 +415,18 @@
     <details class="faq">
       <summary>Quelle indemnité en cas de mise à la retraite par l'employeur, 3 000 € et 12 ans d'ancienneté ?</summary>
       <p>En cas de mise à la retraite à l'initiative de l'employeur, l'indemnité suit le barème légal de licenciement : pour 12 ans d'ancienneté et 3 000 € de salaire de référence, elle s'élève à 9 500 €, contre seulement 1 500 € (0,5 mois) si le même salarié était parti volontairement à cette ancienneté. Le régime fiscal et social est aussi plus favorable, dans certaines limites.</p>
+    </details>
+    <details class="faq">
+      <summary>Quel préavis respecter pour un départ à la retraite ?</summary>
+      <p>Le salarié qui part de lui-même respecte un préavis de la même durée que le préavis de licenciement (article L1237-10 du Code du travail, qui renvoie à l'article L1234-1) : 1 mois entre 6 mois et moins de 2 ans d'ancienneté, 2 mois à partir de 2 ans. En dessous de 6 mois d'ancienneté, le Code du travail ne fixe pas de durée. L'employeur qui met un salarié à la retraite respecte le même préavis (article L1237-6). Votre convention collective peut prévoir une autre durée.</p>
+    </details>
+    <details class="faq">
+      <summary>Le départ volontaire à la retraite est-il une démission ?</summary>
+      <p>Non, ce sont deux ruptures distinctes dans le Code du travail, même si l'initiative vient du salarié dans les deux cas. Le départ à la retraite a ses propres règles (articles L1237-9 et L1237-10) : une indemnité à partir de 10 ans d'ancienneté et un préavis aligné sur celui du licenciement, alors qu'une démission n'ouvre droit à aucune indemnité de rupture. Le modèle de lettre de code.travail.gouv.fr parle d'une volonté claire et non équivoque de partir à la retraite.</p>
+    </details>
+    <details class="faq">
+      <summary>Comment l'employeur doit-il interroger le salarié avant 70 ans ?</summary>
+      <p>Par écrit, trois mois avant l'anniversaire du salarié (le 67e, puis chaque année) : l'employeur lui demande s'il a l'intention de quitter volontairement l'entreprise pour prendre sa retraite. Le salarié a un mois pour répondre. En cas de réponse négative, aucune mise à la retraite n'est possible pendant l'année qui suit ; la procédure peut être renouvelée chaque année jusqu'au 69e anniversaire (articles L1237-5 et D1237-2-1 du Code du travail). Si ces conditions ne sont pas respectées, la rupture constitue un licenciement (article L1237-8).</p>
     </details>
 
     <div class="related-tools">
@@ -357,7 +499,8 @@ function calculerDepartRetraite(){
 
   if (type === 'salarie' && annees < 10){
     notice.style.display = 'block';
-    notice.textContent = 'En dessous de 10 ans d\'ancienneté, aucune indemnité légale de départ volontaire à la retraite n\'est due (sauf disposition plus favorable de votre convention collective).';
+    var cmpMoins10 = comparerDepartsRetraite(salaireRef, annees);
+    notice.textContent = 'En dessous de 10 ans d\'ancienneté, aucune indemnité légale de départ volontaire à la retraite n\'est due (sauf disposition plus favorable de votre convention collective).' + (annees >= 8 / 12 ? ' À titre de comparaison, une mise à la retraite décidée par l\'employeur ouvrirait droit à au moins ' + euros(cmpMoins10.miseRetraite) + ' (indemnité légale de licenciement, art. L1237-7 du Code du travail).' : '');
     resultBox.classList.remove('show');
     return;
   }
@@ -384,9 +527,31 @@ function calculerDepartRetraite(){
       ' (plafond 2026 : 2×PASS, soit ' + euros(BAREME_2026.PLAFOND_EXO_SOCIALE_RC) + '), et exonérée d\'impôt sur le revenu à hauteur de ' + euros(exoFiscaleDR) +
       ' (plafond 2026 : 5×PASS, soit ' + euros(BAREME_2026.PLAFOND_EXO_FISCALE_RETRAITE) + ' — plafond spécifique à la mise à la retraite, plus bas que celui du licenciement).<br>' +
       'Contribution patronale spécifique (40 %, sur la part exonérée de cotisations) : ' + euros(contribPatronaleDR) + ', à la charge de l\'employeur — cette contribution ne s\'applique pas à l\'indemnité de licenciement classique.';
+    if (annees < 8 / 12){
+      // Ajouté le 02/10/2026 : L1237-7 renvoie à l'indemnité de licenciement de L1234-9, qui suppose 8 mois d'ancienneté ininterrompus.
+      document.getElementById('breakdownDR').innerHTML += '<br><strong>Moins de 8 mois d\'ancienneté :</strong> l\'article L1237-7 du Code du travail renvoie à l\'indemnité de licenciement de l\'article L1234-9, réservée aux salariés qui comptent 8 mois d\'ancienneté ininterrompus. En dessous, le montant ci-dessus (calcul au prorata des mois de présence) n\'est pas garanti par le Code du travail : seule votre convention collective peut le prévoir.';
+    }
   }
 
+  var cmp = comparerDepartsRetraite(salaireRef, annees);
+  document.getElementById('breakdownDR').innerHTML += '<br>' + texteComparaisonDR(type, cmp) + '<br>' + textePreavisDR(type, cmp);
+
   resultBox.classList.add('show');
+}
+
+function texteComparaisonDR(type, cmp){
+  if (type === 'salarie'){
+    return 'À titre de comparaison : avec le même salaire et la même ancienneté, une mise à la retraite décidée par l\'employeur ouvrirait droit à au moins ' + euros(cmp.miseRetraite) + ' (indemnité légale de licenciement, art. L1237-7), soit ' + euros(cmp.ecart) + ' de plus.';
+  }
+  var volontaire = cmp.volontaire > 0 ? 'donnerait ' + euros(cmp.volontaire) + ' (' + String(cmp.coefVolontaire).replace('.', ',') + ' mois de salaire, art. D1237-1)' : 'n\'ouvrirait droit à aucune indemnité légale (moins de 10 ans d\'ancienneté)';
+  return 'À titre de comparaison : un départ volontaire avec le même salaire et la même ancienneté ' + volontaire + ', soit ' + euros(cmp.ecart) + ' de moins.';
+}
+
+function textePreavisDR(type, cmp){
+  if (!cmp.preavisLegalMois){
+    return 'Préavis : avec moins de 6 mois d\'ancienneté, le Code du travail ne fixe pas de durée ; reportez-vous à votre convention collective.';
+  }
+  return 'Préavis légal à respecter : ' + cmp.preavisLegalMois + ' mois (art. ' + (type === 'salarie' ? 'L1237-10' : 'L1237-6') + ' et L1234-1 du Code du travail) ; votre convention collective peut prévoir une autre durée.';
 }
 
 function telechargerPDF_DR(){
@@ -416,6 +581,9 @@ function telechargerPDF_DR(){
     lignes.push({ label: 'Exonération fiscale (plafond 2026 : 5×PASS, 240 300 €)', value: euros(exoFiscaleDRpdf) });
     lignes.push({ label: 'Contribution patronale spécifique (40 %, à la charge employeur)', value: euros(contribPatronaleDRpdf) });
   }
+  var cmpPdf = comparerDepartsRetraite(salaireRef, annees);
+  lignes.push({ label: type === 'salarie' ? 'Comparaison : mise à la retraite par l\'employeur' : 'Comparaison : départ volontaire', value: euros(type === 'salarie' ? cmpPdf.miseRetraite : cmpPdf.volontaire) });
+  lignes.push({ label: 'Préavis légal', value: cmpPdf.preavisLegalMois ? cmpPdf.preavisLegalMois + ' mois' : 'Non fixé par le Code du travail (moins de 6 mois)' });
   lignes.push({ label: 'Indemnité de départ à la retraite estimée', value: euros(r.montant), type: 'total' });
 
   genererPDFSimulation({

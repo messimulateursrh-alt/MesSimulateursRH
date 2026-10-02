@@ -533,9 +533,6 @@ function calculerPreavis(){
     noticeP.style.display = 'none';
     document.getElementById('dureeP').textContent = conv.texte;
     detailTexte = 'Durée selon ' + conventionLabel + ' : <strong>' + conv.texte + '</strong>' + (legalIndisponible ? ' (aucun minimum légal par défaut en dessous de 6 mois d\'ancienneté — la convention comble ce vide).' : ' (plus favorable que le minimum légal de ' + legalTexteCourt + ').');
-    if (conv.seuilNonConfirme){
-      detailTexte += ' ⚠️ Ce seuil (moins de 6 mois d\'ancienneté) n\'est confirmé que par une seule source pour cette convention — vérifiez le texte exact applicable à votre poste.';
-    }
     if (conv.avertissement){
       detailTexte += ' <br><br>⚠️ ' + conv.avertissement;
     }

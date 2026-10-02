@@ -63,21 +63,27 @@
       }
     },
     {
-
       "@type": "Question",
       "name": "Combien de prime de précarité pour un CDD avec 6 000 € de rémunération brute totale ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Au taux standard de 10 %, la prime de précarité pour une rémunération brute totale de 6 000 € sur toute la durée du CDD est de 600 €. Si un accord de branche étendu prévoit le taux réduit de 6 % avec accès facilité à la formation, elle serait de 360 € à la place."
+        "@type": "Answer",
+        "text": "Au taux standard de 10 %, la prime de précarité pour une rémunération brute totale de 6 000 € sur toute la durée du CDD est de 600 €. Si un accord de branche étendu prévoit le taux réduit de 6 % avec accès facilité à la formation, elle serait de 360 € à la place."
       }
     },
     {
-
       "@type": "Question",
       "name": "Quelle prime de précarité pour un CDD d'un an et 12 000 € de rémunération brute ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pour un CDD d'environ un an avec 12 000 € de rémunération brute totale perçue, la prime de précarité au taux standard de 10 % est de 1 200 €. Ce montant est dû sauf cas d'exclusion (poursuite en CDI, refus d'un CDI équivalent, rupture anticipée à l'initiative du salarié, etc.)."
+        "@type": "Answer",
+        "text": "Pour un CDD d'environ un an avec 12 000 € de rémunération brute totale perçue, la prime de précarité au taux standard de 10 % est de 1 200 €. Ce montant est dû sauf cas d'exclusion (poursuite en CDI, refus d'un CDI équivalent, rupture anticipée à l'initiative du salarié, etc.)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "La prime de précarité est-elle due à la fin d'un contrat d'apprentissage ou de professionnalisation ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, sauf si une convention collective prévoit le contraire. L'article L1243-10 du Code du travail écarte la prime pour les contrats conclus au titre de la politique de l'emploi ou pour assurer un complément de formation (article L1242-3), et code.travail.gouv.fr comme service-public.gouv.fr citent expressément le contrat d'apprentissage et le contrat de professionnalisation parmi les contrats qui n'y ouvrent pas droit."
       }
     }
   ]
@@ -88,7 +94,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-09-21",
+  "dateModified": "2026-10-02",
   "name": "Simulateur de prime de précarité CDD / intérim",
   "description": "Calculez votre prime de précarité (fin de CDD) ou indemnité de fin de mission (intérim) : 10% ou 6% de la rémunération brute perçue, cas d'exclusion inclus.",
   "url": "https://messimulateursrh.fr/prime-precarite-cdd.html",
@@ -222,6 +228,7 @@
         <option value="usage">Contrat d'usage (CDD d'usage)</option>
         <option value="etudiant">Contrat pendant les vacances scolaires ou universitaires</option>
         <option value="contrat_aide">Contrat aidé (CUI-CIE, CUI-CAE...)</option>
+        <option value="alternance">Contrat d'apprentissage ou de professionnalisation</option>
       </select>
     </div>
     <div class="field">
@@ -255,6 +262,65 @@
       La prime n'est pas due dans plusieurs cas : poursuite immédiate en CDI chez le même employeur, refus d'un CDI proposé pour le même poste ou un poste similaire avec une rémunération au moins équivalente (l'employeur doit désormais formaliser cette proposition par écrit et en informer France Travail), rupture anticipée à votre initiative, faute grave ou lourde, contrat saisonnier, contrat d'usage, contrat conclu pendant les vacances scolaires ou universitaires d'un jeune, ou contrat aidé.
     </p>
     <p>
+      <span class="for-employeur">Côté employeur, cette indemnité se provisionne mois par mois, cotisations patronales et contribution CPF-CDD comprises : le simulateur de <a href="cout-salarie-entreprise.html#cdd">coût d'un salarié pour l'entreprise</a> l'intègre en choisissant « CDD ». </span>À la fin du CDD, la mutuelle et la prévoyance d'entreprise restent maintenues gratuitement pendant l'indemnisation chômage, pour une durée égale à celle du contrat : voir la <a href="portabilite-mutuelle.html">portabilité de la mutuelle</a>.
+    </p>
+    <h3 id="prime-due-ou-non">Prime due ou non : les situations et leur base légale</h3>
+    <div class="table-wrap">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:8px 6px;">Situation en fin de contrat</th>
+        <th style="text-align:left; padding:8px 6px;">Prime due ?</th>
+        <th style="text-align:left; padding:8px 6px;">Base légale</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">CDD arrivé à son terme, sans CDI ensuite</td>
+        <td style="padding:8px 6px; vertical-align:top;">Oui : 10 % (6 % si un accord le prévoit avec un accès à la formation)</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-8 et L1243-9</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Poursuite en CDI à l'issue du CDD</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-8</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Contrat saisonnier ou contrat d'usage</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non, sauf convention plus favorable</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-10, 1°</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Contrat aidé, contrat d'apprentissage, contrat de professionnalisation</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non, sauf convention plus favorable</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-10, 1° (contrats de l'article L1242-3)</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Jeune employé pendant ses vacances scolaires ou universitaires</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-10, 2°</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Refus d'un CDI pour le même emploi ou un emploi similaire, à rémunération au moins équivalente</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-10, 3°</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px; vertical-align:top;">Rupture anticipée à l'initiative du salarié, faute grave, force majeure</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non</td>
+        <td style="padding:8px 6px; vertical-align:top;">Art. L1243-10, 4°</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 6px; vertical-align:top;">Rupture pendant la période d'essai</td>
+        <td style="padding:8px 6px; vertical-align:top;">Non, selon service-public.gouv.fr (seule source à le préciser)</td>
+        <td style="padding:8px 6px; vertical-align:top;">Fiche F40</td>
+      </tr>
+    </table>
+    </div>
+    <p>
+      Texte de référence : <a href="https://code.travail.gouv.fr/code-du-travail/l1243-10" target="_blank" rel="noopener noreferrer">art. L1243-10 du Code du travail</a><span class="source-badge">✓ Source officielle</span>. Pour un job d'été, le ministère du Travail précise que la prime reste due si le jeune vient d'achever ses études ou si le contrat dépasse la période des vacances.
+    </p>
+    <p>
+      <strong>Et les congés payés ?</strong> Si vous n'avez pas pris vos congés pendant le CDD, vous recevez en plus une indemnité compensatrice de congés payés au moins égale à 10 % de la rémunération totale brute, prime de précarité comprise (<a href="https://code.travail.gouv.fr/code-du-travail/l1242-16" target="_blank" rel="noopener noreferrer">art. L1242-16</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F24661" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, fiche F24661</a><span class="source-badge">✓ Source officielle</span>). Le résultat du simulateur affiche ce montant pour un CDD ; pour le détail des jours, voir le <a href="indemnite-conges-payes.html">simulateur de congés payés</a>.
+    </p>
+    <p>
       La prime est un complément de salaire à part entière : elle est soumise aux cotisations sociales, à la CSG/CRDS et à l'impôt sur le revenu comme le reste de votre rémunération, sans exonération particulière.
     </p>
     <p>
@@ -265,6 +331,7 @@
       <h3>Exemple concret</h3>
       <p>Pour un CDD de 6 mois avec une rémunération brute totale de 8 400 € (salaire de base + primes), sans cas d'exclusion et sans accord de branche à taux réduit : prime = 8 400 € × 10% = <strong>840 €</strong> bruts.</p>
       <p>Si un accord de branche étendu prévoit le taux réduit de 6% avec accès facilité à la formation : prime = 8 400 € × 6% = <strong>504 €</strong> bruts.</p>
+      <p>Sans congé pris pendant le contrat, l'indemnité compensatrice de congés payés s'ajoute : (8 400 € + 840 €) × 10 % = <strong>924 €</strong> bruts au taux standard.</p>
     </div>
 
     <h2>Questions fréquentes</h2>
@@ -292,6 +359,10 @@
     <details class="faq">
       <summary>Quelle prime de précarité pour un CDD d'un an et 12 000 € de rémunération brute ?</summary>
       <p>Pour un CDD d'environ un an avec 12 000 € de rémunération brute totale perçue, la prime de précarité au taux standard de 10 % est de 1 200 €. Ce montant est dû sauf cas d'exclusion (poursuite en CDI, refus d'un CDI équivalent, rupture anticipée à l'initiative du salarié, etc.).</p>
+    </details>
+    <details class="faq">
+      <summary>La prime de précarité est-elle due à la fin d'un contrat d'apprentissage ou de professionnalisation ?</summary>
+      <p>Non, sauf si une convention collective prévoit le contraire. L'article L1243-10 du Code du travail écarte la prime pour les contrats conclus au titre de la politique de l'emploi ou pour assurer un complément de formation (article L1242-3), et code.travail.gouv.fr comme service-public.gouv.fr citent expressément le contrat d'apprentissage et le contrat de professionnalisation parmi les contrats qui n'y ouvrent pas droit.</p>
     </details>
 
     <div class="related-tools">
@@ -351,7 +422,8 @@ var LABELS_EXCLUSION_PP = {
   saisonnier: "Un contrat saisonnier n'ouvre pas droit à la prime, sauf disposition conventionnelle plus favorable — vérifiez votre convention collective.",
   usage: "Un contrat d'usage (CDD d'usage) n'ouvre pas droit à la prime, sauf disposition conventionnelle plus favorable — vérifiez votre convention collective.",
   etudiant: "Un contrat conclu avec un jeune pendant ses vacances scolaires ou universitaires n'ouvre pas droit à la prime.",
-  contrat_aide: "Un contrat aidé (CUI-CIE, CUI-CAE...) n'ouvre pas droit à la prime."
+  contrat_aide: "Un contrat aidé (CUI-CIE, CUI-CAE...) n'ouvre pas droit à la prime.",
+  alternance: "Un contrat d'apprentissage ou de professionnalisation n'ouvre pas droit à la prime, sauf si votre convention collective prévoit le contraire."
 };
 
 function calculerPrimePrecariteCDD(){
@@ -386,7 +458,8 @@ function calculerPrimePrecariteCDD(){
     'Rémunération brute totale perçue : ' + euros(remuneration) + '<br>' +
     'Taux appliqué : ' + taux + '%<br>' +
     'Calcul : ' + euros(remuneration) + ' × ' + taux + '% = <strong>' + euros(resultat) + '</strong><br>' +
-    'Référence : ' + refLegale + '. Soumis aux cotisations sociales, CSG/CRDS et à l\'impôt sur le revenu comme un salaire.';
+    'Référence : ' + refLegale + '. Soumis aux cotisations sociales, CSG/CRDS et à l\'impôt sur le revenu comme un salaire.' +
+    (typeContrat === 'cdd' ? '<br>Congés payés : si vous n\'avez pris aucun congé pendant le contrat, l\'indemnité compensatrice s\'ajoute, soit au moins ' + euros(iccpFinCDD(remuneration, resultat)) + ' (10 % de la rémunération brute totale, prime de précarité comprise — art. L1242-16).' : '');
 
   resultBox.classList.add('show');
 }
@@ -412,6 +485,9 @@ function telechargerPDF_PP(){
     var resultat = calculerPrimePrecarite(remuneration, tauxReduit);
     var taux = tauxReduit ? 6 : 10;
     lignes.push({ label: 'Taux appliqué', value: taux + '%' });
+    if (typeContrat === 'cdd'){
+      lignes.push({ label: 'Indemnité compensatrice de congés payés si aucun congé pris (10 %, prime comprise)', value: euros(iccpFinCDD(remuneration, resultat)) });
+    }
     lignes.push({ label: nomIndemnite, value: euros(resultat), type: 'total' });
   }
 

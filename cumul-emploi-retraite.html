@@ -85,6 +85,14 @@
         "@type": "Answer",
         "text": "Non. La projection multiplie simplement votre résultat mensuel actuel par le nombre de mois choisi, en supposant un revenu et une pension stables sur toute la période — elle ne modélise ni une revalorisation annuelle de la pension, ni une évolution de salaire, ni un changement de régime (par exemple si vous atteignez 67 ans pendant la période et basculez du cumul plafonné au cumul intégral). Refaites une simulation si votre situation change."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre le cumul emploi-retraite et la retraite progressive ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le cumul emploi-retraite concerne une personne qui a déjà obtenu toutes ses retraites de base et complémentaires et qui reprend ou poursuit une activité. La retraite progressive se situe avant la retraite définitive : à partir de 60 ans et avec au moins 150 trimestres, le salarié travaille à temps partiel (entre 40 % et 80 % d'un temps complet) et perçoit une fraction de sa pension égale à 100 % moins sa quotité de travail, tout en continuant d'acquérir des droits. Ce simulateur traite uniquement le cumul emploi-retraite."
+      }
     }
   ]
 }
@@ -94,7 +102,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-07",
-  "dateModified": "2026-09-20",
+  "dateModified": "2026-10-02",
   "name": "Cumul Emploi-Retraite 2026",
   "description": "Cumul emploi-retraite 2026 : simulateur intégral ou plafonné, calcul du plafond (160% SMIC ou dernier salaire) et de l'écrêtement de la pension. Gratuit.",
   "url": "https://messimulateursrh.fr/cumul-emploi-retraite.html",
@@ -319,6 +327,16 @@
       </p>
     </div>
 
+    <div class="example-box" id="retraite-progressive">
+      <h3>Cumul emploi-retraite ou retraite progressive ?</h3>
+      <p>
+        Les deux dispositifs permettent de percevoir une pension tout en travaillant, mais à deux moments différents. Le <strong>cumul emploi-retraite</strong> suppose d'avoir d'abord obtenu toutes ses retraites de base et complémentaires, puis de reprendre ou de poursuivre une activité. La <strong>retraite progressive</strong> intervient avant la retraite définitive : à partir de 60 ans et avec au moins 150 trimestres, le salarié passe à temps partiel (entre 40 % et 80 % d'un temps complet) et perçoit une fraction de sa pension égale à 100 % moins sa quotité de travail. Il continue d'acquérir des droits, et sa retraite est recalculée lors du départ définitif (<a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F12842" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, fiche F12842</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.lassuranceretraite.fr/portail-info/home/actif/je-souhaite-partir-plus-tot/retraite-progressive.html" target="_blank" rel="noopener noreferrer">L'Assurance retraite</a><span class="source-badge">✓ Source officielle</span>).
+      </p>
+      <p>
+        Une fois la retraite définitive obtenue, toute activité poursuivie ou reprise relève des règles du cumul emploi-retraite. Ce simulateur ne calcule pas la retraite progressive ; pour l'effet d'un temps partiel sur le salaire et les règles côté employeur, voir notre page sur le <a href="passage-temps-partiel.html">passage à temps partiel</a>.
+      </p>
+    </div>
+
     <div class="example-box">
       <h3>Exemple concret</h3>
       <p>Un retraité perçoit 1 800 € de pension mensuelle brute et n'a pas le taux plein. Il reprend une activité à 2 500 € brut/mois ; son dernier salaire avant la retraite était de 2 500 €. Le plafond retenu est le plus élevé entre 160% du SMIC (2 916,85 €) et le dernier salaire (2 500 €), soit <strong>2 916,85 €</strong>. Le total pension + salaire (4 300 €) dépasse ce plafond de 1 383,15 €, montant déduit de la pension : elle passe donc à <strong>416,85 € par mois</strong> tant que l'activité se poursuit à ce niveau de rémunération.</p>
@@ -352,6 +370,10 @@
     <details class="faq">
       <summary>La projection sur plusieurs mois tient-elle compte d'une revalorisation de ma pension ?</summary>
       <p>Non. La projection multiplie simplement votre résultat mensuel actuel par le nombre de mois choisi, en supposant un revenu et une pension stables sur toute la période — elle ne modélise ni une revalorisation annuelle de la pension, ni une évolution de salaire, ni un changement de régime (par exemple si vous atteignez 67 ans pendant la période et basculez du cumul plafonné au cumul intégral). Refaites une simulation si votre situation change.</p>
+    </details>
+    <details class="faq">
+      <summary>Quelle différence entre le cumul emploi-retraite et la retraite progressive ?</summary>
+      <p>Le cumul emploi-retraite concerne une personne qui a déjà obtenu toutes ses retraites de base et complémentaires et qui reprend ou poursuit une activité. La retraite progressive se situe avant la retraite définitive : à partir de 60 ans et avec au moins 150 trimestres, le salarié travaille à temps partiel (entre 40 % et 80 % d'un temps complet) et perçoit une fraction de sa pension égale à 100 % moins sa quotité de travail, tout en continuant d'acquérir des droits. Ce simulateur traite uniquement le cumul emploi-retraite.</p>
     </details>
 
     <div class="related-tools">

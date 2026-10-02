@@ -35,7 +35,7 @@
       "name": "Le taux de 42 % de charges patronales est-il valable pour toutes les entreprises ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non, c'est une moyenne de marché à titre indicatif. Le taux réel dépend de la taille de l'entreprise, du secteur, du taux d'accident du travail propre à l'établissement, et des exonérations applicables (réduction générale des cotisations sur les bas salaires, notamment, qui réduit fortement le taux effectif autour du SMIC). Pour un chiffre exact, rapprochez-vous de votre expert-comptable ou de votre logiciel de paie."
+        "text": "Non, c'est une moyenne de marché à titre indicatif, avant réduction générale. Le taux réel dépend de la taille de l'entreprise, du secteur, du taux d'accident du travail propre à l'établissement, et surtout du niveau de salaire. En choisissant une tranche d'effectif, le simulateur remplace cette moyenne par le détail des cotisations 2026 (environ 42,9 % pour un non-cadre et 44,4 % pour un cadre sous le plafond de la Sécurité sociale, dans une entreprise de moins de 11 salariés), puis déduit la réduction générale dégressive : le taux réellement supporté tombe alors à environ 5 % au SMIC, 26 % à 2 500 € brut et 33 % à 3 000 € brut, et rejoint le taux plein à partir de 3 SMIC. Pour un chiffre exact, rapprochez-vous de votre expert-comptable ou de votre logiciel de paie."
       }
     },
     {
@@ -59,34 +59,31 @@
       "name": "Le coût est-il différent pour un cadre que pour un non-cadre ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Légèrement, oui. Ce simulateur applique un taux moyen unique de 42 %, qui ne distingue pas les deux statuts. En réalité, un cadre coûte un peu plus cher que ce taux moyen à salaire brut identique : la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1, dite \"article 7\") s'ajoute, ainsi que la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire dépassant le plafond de la Sécurité sociale. Sélectionnez \"Cadre\" dans le formulaire pour afficher cette note dans le résultat."
+        "text": "Légèrement, oui. Avec le taux moyen de 42 %, le simulateur ne distingue pas les deux statuts. En choisissant une tranche d'effectif, il passe au détail des cotisations et ajoute pour un cadre la cotisation APEC (0,036 %) et la prévoyance obligatoire des cadres (cotisation patronale minimale de 1,50 % de la tranche 1, dite \"article 7\") ; la cotisation AGIRC-ARRCO de tranche 2 s'applique à la part du salaire qui dépasse le plafond de la Sécurité sociale. Pour 3 000 € brut dans une entreprise de moins de 11 salariés, le coût mensuel après réduction générale est ainsi de 3 987,18 € pour un non-cadre et de 4 033,26 € pour un cadre."
       }
     },
     {
-
       "@type": "Question",
       "name": "Combien coûte un salarié payé 2 500 € brut à l'entreprise ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pour un salaire de 2 500 € brut mensuel, sans avantages ni primes, le coût total employeur est d'environ 3 550 € par mois (charges patronales moyennes de 42 % incluses), soit environ 42 600 € par an. Ce taux moyen varie selon la taille et le secteur de l'entreprise, et peut être réduit par les exonérations applicables aux bas salaires."
+        "@type": "Answer",
+        "text": "Pour un salaire de 2 500 € brut mensuel à temps plein, sans avantages ni primes, le coût employeur est de 3 142,65 € par mois pour un non-cadre et de 3 181,05 € pour un cadre dans une entreprise de moins de 11 salariés : 1 072,40 € de cotisations patronales pour le non-cadre (taux AT/MP moyen), moins 429,75 € de réduction générale. Sans cette réduction, avec le taux moyen de 42 %, on obtient environ 3 550 € par mois : c'est un plafond, pas le coût réel à ce niveau de salaire."
       }
     },
     {
-
       "@type": "Question",
       "name": "Quel est le coût employeur pour un salaire de 3 000 € brut ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pour un salaire de 3 000 € brut mensuel, le coût total pour l'entreprise (hors avantages et primes) est d'environ 4 260 € par mois, soit environ 51 120 € par an, en appliquant un taux moyen de charges patronales de 42 %."
+        "@type": "Answer",
+        "text": "Pour un salaire de 3 000 € brut mensuel à temps plein, le coût pour l'entreprise (hors avantages et primes) est de 3 987,18 € par mois pour un non-cadre et de 4 033,26 € pour un cadre dans une entreprise de moins de 11 salariés, soit environ 47 846 € par an pour le non-cadre : 1 286,88 € de cotisations patronales, moins 299,70 € de réduction générale. Avec le taux moyen de 42 %, sans réduction, l'estimation est de 4 260 € par mois."
       }
     },
     {
-
       "@type": "Question",
       "name": "Coût total d'un salarié au SMIC pour l'entreprise ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Un salarié payé au SMIC (1 867 € brut mensuel en 2026) coûte environ 2 651 € par mois à l'entreprise avec un taux moyen de charges patronales de 42 %, hors avantages et primes. Ce montant ne tient pas compte de la réduction générale des cotisations sur les bas salaires, qui abaisse fortement le coût réel employeur autour du SMIC : le coût réel est donc souvent inférieur à cette estimation."
+        "@type": "Answer",
+        "text": "Un salarié payé au SMIC à temps plein (1 867 € brut mensuel en 2026) coûte 1 967,74 € par mois à une entreprise de moins de 11 salariés, hors avantages et primes : 800,87 € de cotisations patronales, dont 700,13 € sont effacés par la réduction générale dégressive (coefficient de 0,3750). Sans cette réduction, le coût serait de 2 667,87 € (ou environ 2 651 € avec le taux moyen de 42 %). Le coefficient n'atteint pas son maximum de 0,3981 parce que la formule retient en 2026 le SMIC du 1er janvier, inférieur au SMIC actuel."
       }
     },
     {
@@ -95,6 +92,38 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Un véhicule de fonction mis à disposition constitue un avantage en nature dont le montant forfaitaire dépend du mode d'acquisition : 15 % (achat neuf ou de 5 ans ou moins) ou 10 % (achat de plus de 5 ans) de la valeur du véhicule par an, taux majoré à 20 % et 15 % si l'employeur prend en charge le carburant ; 50 % (ou 67 % avec carburant) du coût global annuel si le véhicule est loué (LOA/LLD). Pour un véhicule 100 % électrique, un abattement de 70 % s'applique, plafonné à 4 641,60 € par an jusqu'au 31 décembre 2027. Ce simulateur ajoute cet avantage en nature comme une ligne de coût mensuel supplémentaire, cochez la case dédiée pour l'inclure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le coût d'un salarié change-t-il selon l'effectif de l'entreprise ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, à deux seuils. À partir de 11 salariés, la contribution à la formation professionnelle passe de 0,55 % à 1 % et le versement mobilité devient dû dans les zones concernées. À partir de 50 salariés, le FNAL passe de 0,10 % du salaire plafonné à 0,50 % du salaire total, la participation à l'effort de construction s'ajoute, et le coefficient de la réduction générale est légèrement plus élevé. Pour un non-cadre payé 3 000 € brut, le coût mensuel après réduction générale passe ainsi de 3 987,18 € (moins de 11 salariés) à 4 000,68 € (11 à 49) puis 4 009,98 € (50 et plus), hors versement mobilité et participation à l'effort de construction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un CDD coûte-t-il plus cher qu'un CDI à l'employeur ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "À salaire égal, oui dans le cas général. L'employeur doit en principe une indemnité de fin de contrat de 10 % de la rémunération brute totale (article L1243-8 du Code du travail), soumise à cotisations, ainsi qu'une contribution CPF-CDD de 1 %. Pour 2 000 € brut au taux moyen de 42 %, cela représente 306 € par mois de plus qu'un CDI : 3 146 € contre 2 840 €. L'indemnité n'est pas due dans certains cas (emploi saisonnier, CDD d'usage, contrat poursuivi en CDI…)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où trouver le taux AT/MP de mon entreprise ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le taux de cotisation accidents du travail et maladies professionnelles est notifié chaque année par la Carsat et consultable dans le compte AT/MP de l'entreprise sur net-entreprises.fr. Il est fixé par secteur d'activité en dessous de 20 salariés, et dépend de plus en plus des accidents propres à l'entreprise au-delà. À défaut, le simulateur applique le taux net moyen national, fixé à 2,08 % pour 2026 par l'arrêté du 30 décembre 2025."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment est calculée la réduction générale des cotisations patronales en 2026 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La réduction générale dégressive unique est égale à la rémunération brute multipliée par un coefficient : 0,0200 + T delta × [½ × (3 × SMIC ÷ rémunération brute − 1)] à la puissance 1,75, arrondi à quatre décimales. T delta vaut 0,3781 dans une entreprise de moins de 50 salariés et 0,3821 à partir de 50 salariés. Le SMIC retenu pour toute l'année 2026 est celui du 1er janvier (1 823,03 € par mois à temps plein) et la réduction disparaît à partir de 3 fois ce montant, soit 5 469,10 € brut par mois. Exemple : pour 3 000 € brut dans une entreprise de moins de 50 salariés, le coefficient est de 0,0999 et la réduction de 299,70 € par mois."
       }
     }
   ]
@@ -105,7 +134,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-24",
+  "dateModified": "2026-10-02",
   "name": "Coût d'un Salarié pour l'Entreprise 2026",
   "description": "Calculez le coût total mensuel et annuel d'un salarié pour votre entreprise en 2026 : brut, charges patronales, avantages, primes. Gratuit, calcul local.",
   "url": "https://messimulateursrh.fr/cout-salarie-entreprise.html",
@@ -209,10 +238,10 @@
       <span class="for-salarie">Comprenez ce que représente votre salaire pour votre employeur, au-delà du brut affiché sur votre contrat.</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos.html">Nathan Penin</a>, éditeur du site. Barème vérifié le 9 septembre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos.html">Nathan Penin</a>, éditeur du site. Barème vérifié le 2 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos.html">Notre méthode</a>.</p>
   </section>
 
-  <div class="quick-answer"><strong>En bref :</strong> Le coût d'un salarié pour l'entreprise correspond au salaire brut majoré des charges patronales, en moyenne 42 % du brut.</div>
+  <div class="quick-answer"><strong>En bref :</strong> Le coût d'un salarié pour l'entreprise correspond au salaire brut majoré des charges patronales, en moyenne 42 % du brut avant réduction générale — une réduction qui ramène ce taux à environ 5 % au SMIC et s'éteint à 3 SMIC.</div>
 
   <div class="card">
     <div class="field">
@@ -220,20 +249,60 @@
       <input type="number" id="brutMensuelCSE" min="0" step="0.01" placeholder="ex : 2800">
     </div>
     <div class="field">
-      <label for="statutCSE">Statut (optionnel, pour une note ciblée)</label>
+      <label for="statutCSE">Statut</label>
       <select id="statutCSE">
         <option value="noncadre">Non-cadre</option>
         <option value="cadre">Cadre</option>
       </select>
     </div>
     <div class="field">
+      <label for="contratCSE">Type de contrat</label>
+      <select id="contratCSE">
+        <option value="cdi">CDI</option>
+        <option value="cdd">CDD — indemnité de fin de contrat de 10 % provisionnée</option>
+        <option value="cdd6">CDD — indemnité de fin de contrat à 6 % (accord de branche ou d'entreprise)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="tempsCSE">Durée du travail</label>
+      <select id="tempsCSE" onchange="toggleTempsCSE()">
+        <option value="plein">Temps plein</option>
+        <option value="partiel">Temps partiel</option>
+      </select>
+    </div>
+    <div class="field" id="groupeHeuresCSE" hidden>
+      <label for="heuresCSE">Durée hebdomadaire inscrite au contrat, en heures</label>
+      <input type="number" id="heuresCSE" min="1" max="34.99" step="0.01" placeholder="ex : 28">
+      <div class="hint">Rapportée à la durée légale de 35 heures. Dans le calcul détaillé (tranche d'effectif choisie), elle sert à proratiser le SMIC de la réduction générale et le plafond de la Sécurité sociale. Le salaire brut à saisir est celui du temps partiel.</div>
+    </div>
+    <div class="field">
+      <label for="effectifCSE">Effectif de l'entreprise (optionnel)</label>
+      <select id="effectifCSE" onchange="toggleEffectifCSE()">
+        <option value="moyen">Non précisé — taux moyen de 42 %</option>
+        <option value="moins11">Moins de 11 salariés</option>
+        <option value="11a49">De 11 à 49 salariés</option>
+        <option value="50plus">50 salariés et plus</option>
+      </select>
+      <div class="hint">En choisissant une tranche d'effectif, le calcul passe du taux moyen au détail cotisation par cotisation (taux Urssaf et Agirc-Arrco 2026), statut cadre compris.</div>
+    </div>
+    <div class="field" id="groupeATMPCSE" hidden>
+      <label for="tauxATMPCSE">Taux de cotisation accidents du travail (AT/MP), en %</label>
+      <input type="number" id="tauxATMPCSE" min="0" max="30" step="0.01" placeholder="ex : 2,08">
+      <div class="hint">Taux notifié chaque année par votre Carsat (compte AT/MP sur net-entreprises.fr). Champ vide : taux net moyen national 2026, soit 2,08 %.</div>
+    </div>
+    <div class="field">
       <label for="avantagesCSE">Avantages en nature / mutuelle / prévoyance — part employeur mensuelle (optionnel)</label>
       <input type="number" id="avantagesCSE" min="0" step="0.01" placeholder="ex : 80">
     </div>
     <div class="field">
-      <label for="primesCSE">Primes annuelles (13ᵉ mois, intéressement, participation...) — optionnel</label>
-      <input type="number" id="primesCSE" min="0" step="0.01" placeholder="ex : 2800">
-      <div class="hint">Montant annuel total, automatiquement ramené au mois dans le calcul.</div>
+      <label for="primesSoumisesCSE">Primes soumises à cotisations, par an (13ᵉ mois, prime de vacances, bonus) — optionnel</label>
+      <input type="number" id="primesSoumisesCSE" min="0" step="0.01" placeholder="ex : 2800">
+      <div class="hint">Montant annuel brut, ramené au mois. Les cotisations patronales s'y appliquent, et la réduction générale en tient compte.</div>
+    </div>
+    <div class="field">
+      <label for="primesCSE">Intéressement et participation, par an — optionnel</label>
+      <input type="number" id="primesCSE" min="0" step="0.01" placeholder="ex : 1200">
+      <div class="hint">Montant annuel, ramené au mois. Exonérés de cotisations de Sécurité sociale : ajoutés au coût sans cotisations patronales. Le forfait social, dû dans certaines entreprises selon leur effectif, n'est pas calculé.</div>
     </div>
     <div class="field">
       <label for="vehiculeActifCSE">
@@ -289,42 +358,144 @@
   <section class="content-section">
     <h2>Comment est calculé le coût total d'un salarié ?</h2>
     <p>
-      Le salaire brut n'est qu'une partie du coût réel d'un salarié pour l'entreprise. S'y ajoutent les cotisations patronales (assurance maladie, retraite, chômage, accidents du travail, formation professionnelle...), qui représentent en moyenne 42 % du salaire brut, ainsi que les avantages en nature ou sociaux (mutuelle, prévoyance, tickets restaurant) et les primes récurrentes (13ᵉ mois, intéressement, participation).
+      Le salaire brut n'est qu'une partie du coût réel d'un salarié pour l'entreprise. S'y ajoutent les cotisations patronales (assurance maladie, retraite, chômage, accidents du travail, formation professionnelle...), qui représentent en moyenne 42 % du salaire brut, ainsi que les avantages en nature ou sociaux (mutuelle, prévoyance, tickets restaurant), les primes soumises à cotisations (13ᵉ mois, prime de vacances, bonus) et l'épargne salariale (intéressement, participation).
     </p>
     <p>
-      Ce taux moyen de 42 % est une simplification : le taux réel varie selon la taille de l'entreprise, le secteur d'activité et surtout la réduction générale dégressive unique (RGDU, ex-« réduction Fillon ») : depuis le 1ᵉʳ janvier 2026, elle est maximale au SMIC puis dégressive jusqu'à 3 SMIC, où elle s'annule (<a href="https://code.travail.gouv.fr/fiche-service-public/reduction-generale-des-cotisations-patronales-ex-reduction-fillon" target="_blank" rel="noopener noreferrer">fiche RGDU du Code du travail numérique</a><span class="source-badge">✓ Source officielle</span>, mise à jour le 15 juin 2026 ; <a href="https://www.economie.gouv.fr/entreprises/gerer-ses-ressources-humaines-et-ses-salaries/comment-fonctionne-la-reduction-generale-degressive-unique-rgdu-de-cotisations-patronales" target="_blank" rel="noopener noreferrer">economie.gouv.fr</a><span class="source-badge">✓ Source officielle</span>). Les taux de chaque cotisation patronale (assiette × taux, selon l'effectif, le secteur et le lieu) sont publiés sur <a href="https://www.urssaf.fr/accueil/outils-documentation/taux-baremes/taux-cotisations-secteur-prive.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — taux de cotisations du secteur privé</a><span class="source-badge">✓ Source officielle</span> et la méthode de calcul sur <a href="https://www.urssaf.fr/accueil/employeur/cotisations/comprendre-cotisations/calcul-cotisations-employeur.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — calcul des cotisations employeur</a><span class="source-badge">✓ Source officielle</span>. Pour un calcul précis propre à votre entreprise, un logiciel de paie ou votre expert-comptable reste la référence.
+      Ce taux moyen de 42 % est une simplification : le taux réel varie selon la taille de l'entreprise, le secteur d'activité et surtout la réduction générale dégressive unique (RGDU, ex-« réduction Fillon ») : depuis le 1ᵉʳ janvier 2026, elle est maximale au SMIC puis dégressive jusqu'à 3 SMIC, où elle s'annule (<a href="https://code.travail.gouv.fr/fiche-service-public/reduction-generale-des-cotisations-patronales-ex-reduction-fillon" target="_blank" rel="noopener noreferrer">fiche RGDU du Code du travail numérique</a><span class="source-badge">✓ Source officielle</span>, mise à jour le 15 juin 2026 ; <a href="https://www.economie.gouv.fr/entreprises/gerer-ses-ressources-humaines-et-ses-salaries/comment-fonctionne-la-reduction-generale-degressive-unique-rgdu-de-cotisations-patronales" target="_blank" rel="noopener noreferrer">economie.gouv.fr</a><span class="source-badge">✓ Source officielle</span>). Les taux de chaque cotisation patronale (assiette × taux, selon l'effectif, le secteur et le lieu) sont publiés sur <a href="https://www.urssaf.fr/accueil/outils-documentation/taux-baremes/taux-cotisations-secteur-prive.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — taux de cotisations du secteur privé</a><span class="source-badge">✓ Source officielle</span> et la méthode de calcul sur <a href="https://www.urssaf.fr/accueil/employeur/cotisations/comprendre-cotisations/calcul-cotisations-employeur.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — calcul des cotisations employeur</a><span class="source-badge">✓ Source officielle</span>. Pour dépasser cette moyenne, choisissez une tranche d'effectif dans le simulateur : le calcul se fait alors cotisation par cotisation, avec votre taux d'accidents du travail, puis la <a href="#reduction-generale">réduction générale</a> est déduite (détail <a href="#detail-cotisations-patronales">plus bas</a>). Pour un calcul précis propre à votre entreprise, un logiciel de paie ou votre expert-comptable reste la référence.
     </p>
-    <div class="notice">À titre de repère, un salarié payé au <a href="glossaire-droit-travail.html#smic">SMIC</a> (1 867 € brut mensuel en 2026 — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2300" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, fiche Smic</a><span class="source-badge">✓ Source officielle</span>) coûte environ 2 651 € par mois à l'entreprise avec ce taux moyen de charges patronales, hors avantages et primes. Ce montant ne tient pas compte de la réduction générale des cotisations, qui abaisse fortement le coût réel employeur autour du SMIC.</div>
+    <div class="notice">À titre de repère, un salarié payé au <a href="glossaire-droit-travail.html#smic">SMIC</a> (1 867 € brut mensuel en 2026 — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2300" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, fiche Smic</a><span class="source-badge">✓ Source officielle</span>) coûte environ 2 651 € par mois à l'entreprise avec ce taux moyen de charges patronales, hors avantages et primes. Ce montant ne tient pas compte de la réduction générale des cotisations : en la déduisant du détail des cotisations, le coût réel est de 1 967,74 € par mois pour un non-cadre à temps plein dans une entreprise de moins de 11 salariés (taux AT/MP moyen).</div>
 
     <div class="example-box">
       <h3>Exemple concret</h3>
-      <p>Pour un salarié payé 3 000 € brut/mois, avec 100 €/mois d'avantages (mutuelle, prévoyance) et 3 000 € de primes annuelles (13ᵉ mois compris) :</p>
-      <p>Charges patronales : 3 000 × 42 % = 1 260 €. Primes proratisées au mois : 3 000 / 12 = 250 €. Coût mensuel total : 3 000 + 1 260 + 100 + 250 = <strong>4 610 €</strong>, soit environ <strong>55 320 € par an</strong> — près de 1,5 fois le salaire brut affiché sur le contrat.</p>
+      <p>Pour un salarié payé 3 000 € brut/mois, avec 100 €/mois d'avantages (mutuelle, prévoyance) et un 13ᵉ mois de 3 000 € :</p>
+      <p>13ᵉ mois ramené au mois : 3 000 / 12 = 250 €, soit une rémunération mensuelle moyenne de 3 250 €. Charges patronales au taux moyen : 3 250 × 42 % = 1 365 €. Coût mensuel total : 3 000 + 250 + 1 365 + 100 = <strong>4 715 €</strong>, soit <strong>56 580 € par an</strong> — plus de 1,5 fois le salaire brut affiché sur le contrat. Avec le détail des cotisations et la réduction générale (moins de 11 salariés), le même salarié coûte 4 491,60 € par mois.</p>
     </div>
 
-    <h3>Exemples chiffrés (coût mensuel employeur, hors avantages et primes)</h3>
+    <h2 id="cout-par-niveau-de-salaire">Coût employeur par niveau de salaire en 2026, du SMIC à 6 000 € brut</h2>
     <p>
-      Le tableau ci-dessous applique le taux moyen de charges patronales (42 %) à quelques salaires bruts courants, sans avantages ni primes. C'est un ordre de grandeur : le taux réel dépend de la taille de l'entreprise, du secteur et des exonérations applicables (voir ci-dessus). Le coût d'une heure supplémentaire, déduction forfaitaire de cotisations patronales comprise, se calcule avec le <a href="heures-supplementaires.html">simulateur d'heures supplémentaires</a>.
+      Le tableau ci-dessous additionne les cotisations patronales une à une, avec les taux 2026 du cas général, puis déduit la réduction générale dégressive. Hypothèses : entreprise de moins de 11 salariés, salarié à temps plein en contrat à durée indéterminée, présent toute l'année et sans heures supplémentaires, taux d'accidents du travail égal à la moyenne nationale (2,08 %), sans avantages ni primes. Montants calculés avec les fonctions du simulateur, barème vérifié le 2 octobre 2026.
     </p>
     <div style="overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:420px;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:680px;">
       <tr style="border-bottom:2px solid var(--border);">
         <th style="text-align:left; padding:6px;">Salaire brut mensuel</th>
-        <th style="text-align:left; padding:6px;">Charges patronales (42 %)</th>
-        <th style="text-align:left; padding:6px;">Coût mensuel total employeur</th>
+        <th style="text-align:left; padding:6px;">Cotisations patronales avant réduction (non-cadre)</th>
+        <th style="text-align:left; padding:6px;">Réduction générale</th>
+        <th style="text-align:left; padding:6px;">Coût employeur, non-cadre</th>
+        <th style="text-align:left; padding:6px;">Coût employeur, cadre</th>
       </tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1 500 €</td><td style="padding:6px;">630,00 €</td><td style="padding:6px;">2 130,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1 800 €</td><td style="padding:6px;">756,00 €</td><td style="padding:6px;">2 556,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 000 €</td><td style="padding:6px;">840,00 €</td><td style="padding:6px;">2 840,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 200 €</td><td style="padding:6px;">924,00 €</td><td style="padding:6px;">3 124,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 500 €</td><td style="padding:6px;">1 050,00 €</td><td style="padding:6px;">3 550,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 800 €</td><td style="padding:6px;">1 176,00 €</td><td style="padding:6px;">3 976,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 000 €</td><td style="padding:6px;">1 260,00 €</td><td style="padding:6px;">4 260,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 500 €</td><td style="padding:6px;">1 470,00 €</td><td style="padding:6px;">4 970,00 €</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">4 000 €</td><td style="padding:6px;">1 680,00 €</td><td style="padding:6px;">5 680,00 €</td></tr>
-      <tr><td style="padding:6px;">5 000 €</td><td style="padding:6px;">2 100,00 €</td><td style="padding:6px;">7 100,00 €</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">1 867 € (SMIC)</td><td style="padding:6px;">800,87 €</td><td style="padding:6px;">− 700,13 € (coefficient 0,3750)</td><td style="padding:6px;"><strong>1 967,74 €</strong></td><td style="padding:6px;"><strong>1 996,42 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 000 €</td><td style="padding:6px;">857,92 €</td><td style="padding:6px;">− 629,40 € (coefficient 0,3147)</td><td style="padding:6px;"><strong>2 228,52 €</strong></td><td style="padding:6px;"><strong>2 259,24 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">2 500 €</td><td style="padding:6px;">1 072,40 €</td><td style="padding:6px;">− 429,75 € (coefficient 0,1719)</td><td style="padding:6px;"><strong>3 142,65 €</strong></td><td style="padding:6px;"><strong>3 181,05 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 000 €</td><td style="padding:6px;">1 286,88 €</td><td style="padding:6px;">− 299,70 € (coefficient 0,0999)</td><td style="padding:6px;"><strong>3 987,18 €</strong></td><td style="padding:6px;"><strong>4 033,26 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">3 500 €</td><td style="padding:6px;">1 501,36 €</td><td style="padding:6px;">− 213,85 € (coefficient 0,0611)</td><td style="padding:6px;"><strong>4 787,51 €</strong></td><td style="padding:6px;"><strong>4 841,27 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">4 000 €</td><td style="padding:6px;">1 715,84 €</td><td style="padding:6px;">− 158,00 € (coefficient 0,0395)</td><td style="padding:6px;"><strong>5 557,84 €</strong></td><td style="padding:6px;"><strong>5 619,28 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">4 500 €</td><td style="padding:6px;">1 939,32 €</td><td style="padding:6px;">− 124,65 € (coefficient 0,0277)</td><td style="padding:6px;"><strong>6 314,67 €</strong></td><td style="padding:6px;"><strong>6 376,37 €</strong></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">5 000 €</td><td style="padding:6px;">2 154,40 €</td><td style="padding:6px;">− 109,00 € (coefficient 0,0218)</td><td style="padding:6px;"><strong>7 045,40 €</strong></td><td style="padding:6px;"><strong>7 107,28 €</strong></td></tr>
+      <tr><td style="padding:6px;">6 000 €</td><td style="padding:6px;">2 584,56 €</td><td style="padding:6px;">Aucune (3 SMIC ou plus)</td><td style="padding:6px;"><strong>8 584,56 €</strong></td><td style="padding:6px;"><strong>8 646,80 €</strong></td></tr>
     </table>
     </div>
+    <div class="notice">Au SMIC, la réduction générale efface presque toutes les cotisations patronales : il reste environ 5 % du brut à la charge de l'employeur, contre 43 % avant réduction. Elle diminue ensuite à mesure que le salaire augmente et disparaît à 3 SMIC. Ne sont pas comptés dans ce tableau : le versement mobilité, la participation à l'effort de construction, le forfait social et la mutuelle.</div>
+    <p>
+      Au-delà du plafond de la Sécurité sociale (4 005 € par mois en 2026), les cotisations plafonnées s'arrêtent, mais la retraite complémentaire passe en tranche 2, à un taux plus élevé. Le coût d'une heure supplémentaire, déduction forfaitaire de cotisations patronales comprise, se calcule avec le <a href="heures-supplementaires.html">simulateur d'heures supplémentaires</a>.
+    </p>
+
+    <h3 id="reduction-generale">La réduction générale dégressive en 2026 : la formule</h3>
+    <p>
+      Depuis le 1ᵉʳ janvier 2026, la réduction générale dégressive unique (RGDU) remplace l'ancienne « réduction Fillon » et les taux réduits d'assurance maladie et d'allocations familiales. Elle s'obtient en multipliant la rémunération brute par un coefficient (<a href="https://www.urssaf.fr/accueil/employeur/beneficier-exonerations/reduction-generale-cotisation.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — la réduction générale dégressive unique</a><span class="source-badge">✓ Source officielle</span>, mis à jour le 13 juillet 2026 ; <a href="https://boss.gouv.fr/portail/accueil/exonerations/allegements-generaux.html" target="_blank" rel="noopener noreferrer">Bulletin officiel de la Sécurité sociale — allègements généraux</a><span class="source-badge">✓ Source officielle</span>) :
+    </p>
+    <p>
+      <strong>Coefficient = 0,0200 + T delta × [½ × (3 × SMIC ÷ rémunération brute − 1)]<sup>1,75</sup></strong>, arrondi à quatre décimales.
+    </p>
+    <ul>
+      <li><strong>T delta</strong> vaut 0,3781 dans une entreprise de moins de 50 salariés et 0,3821 à partir de 50 salariés. Le coefficient ne peut pas dépasser 0,3981 ou 0,4021.</li>
+      <li><strong>Le SMIC</strong> de la formule est, pour toute l'année 2026, celui en vigueur au 1ᵉʳ janvier : 12,02 € de l'heure, soit 1 823,03 € par mois à temps plein — et non le SMIC revalorisé au 1ᵉʳ juin.</li>
+      <li><strong>Le seuil de sortie</strong> est de 3 fois ce SMIC, soit 5 469,10 € brut par mois à temps plein : à partir de ce montant, il n'y a plus aucune réduction.</li>
+    </ul>
+    <div class="example-box">
+      <h3>Exemple : 3 000 € brut, entreprise de moins de 50 salariés</h3>
+      <p>Coefficient : 0,0200 + 0,3781 × [½ × (3 × 1 823,03 ÷ 3 000 − 1)]<sup>1,75</sup> = <strong>0,0999</strong>.<br>
+      Réduction : 3 000 × 0,0999 = <strong>299,70 €</strong> par mois.<br>
+      Coût employeur d'un non-cadre (moins de 11 salariés) : 3 000 + 1 286,88 − 299,70 = <strong>3 987,18 €</strong>.</p>
+    </div>
+    <p>
+      Le calcul légal est annuel : la rémunération et le SMIC se comparent sur l'année, avec une régularisation au fil des mois. Le simulateur l'applique à un mois type, pour un salarié présent toute l'année, sans heures supplémentaires ni complémentaires, sur le salaire brut et les primes soumises à cotisations saisis. Jusqu'au seuil de 3 SMIC, le coefficient ne descend pas sous 0,0200 : la réduction est encore de 109 € à 5 469 € brut, puis nulle au-delà. La réduction ne concerne pas tous les employeurs ni tous les contrats (apprentissage, régimes spéciaux, déduction forfaitaire spécifique, Mayotte) : dans ces situations, le montant affiché n'est pas le bon et le <a href="https://mon-entreprise.urssaf.fr/simulateurs/salaire-brut-net" target="_blank" rel="noopener noreferrer">simulateur officiel de l'Urssaf</a> reste la référence.
+    </p>
+
+    <h3 id="primes">13ᵉ mois, intéressement, participation : ce qui supporte des cotisations</h3>
+    <p>
+      La rémunération retenue pour la réduction générale est celle qui est soumise à cotisations de Sécurité sociale : salaires, primes, avantages en nature, indemnités de congés payés (<a href="https://boss.gouv.fr/portail/accueil/exonerations/allegements-generaux.html" target="_blank" rel="noopener noreferrer">Bulletin officiel de la Sécurité sociale — allègements généraux</a><span class="source-badge">✓ Source officielle</span>). Un 13ᵉ mois, une prime de vacances ou un bonus coûtent donc à l'employeur leur montant et les cotisations patronales correspondantes, et ils diminuent le coefficient de réduction. L'intéressement et la participation, eux, sont exonérés de cotisations de Sécurité sociale lorsque l'accord est conforme et déposé (<a href="https://www.urssaf.fr/accueil/employeur/beneficier-exonerations/epargne-salariale/interessement.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — intéressement</a><span class="source-badge">✓ Source officielle</span>, mis à jour le 17 juillet 2026) : le simulateur les ajoute au coût tels quels, sans cotisations patronales et sans le forfait social qui peut être dû selon l'effectif.
+    </p>
+    <div class="example-box">
+      <h3>Exemple : 3 000 € brut et un 13ᵉ mois, moins de 11 salariés</h3>
+      <p>Rémunération mensuelle moyenne : 3 000 + 3 000 ÷ 12 = 3 250 €. Cotisations patronales : 1 394,12 €. Coefficient de réduction : <strong>0,0777</strong> au lieu de 0,0999 sans 13ᵉ mois, soit 252,53 € de réduction par mois.<br>
+      Coût mensuel moyen d'un non-cadre : 3 250 + 1 394,12 − 252,53 ≈ <strong>4 391,60 €</strong>, soit 52 699 € par an, contre 47 846 € sans 13ᵉ mois.</p>
+    </div>
+
+    <h3 id="temps-partiel">Temps partiel : SMIC et plafond proratisés</h3>
+    <p>
+      Pour un salarié à temps partiel, le SMIC de la formule est ajusté à proportion de la durée de travail inscrite au contrat, hors heures complémentaires, rapportée à la durée légale : pour 30 heures par semaine, le SMIC retenu est le SMIC horaire × 1 820 × 30 ÷ 35 (<a href="https://boss.gouv.fr/portail/accueil/exonerations/allegements-generaux.html" target="_blank" rel="noopener noreferrer">Bulletin officiel de la Sécurité sociale</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.urssaf.fr/accueil/employeur/beneficier-exonerations/reduction-generale-cotisation.html" target="_blank" rel="noopener noreferrer">Urssaf.fr</a><span class="source-badge">✓ Source officielle</span>). Le seuil de sortie de 3 SMIC est abaissé dans la même proportion. Résultat : à salaire horaire égal, le coefficient est le même qu'à temps plein.
+    </p>
+    <div class="example-box">
+      <h3>Exemple : 28 heures par semaine, 1 600 € brut, moins de 11 salariés</h3>
+      <p>SMIC de la formule : 1 823,03 × 28 ÷ 35 = 1 458,43 € par mois. Coefficient : <strong>0,3147</strong> — celui d'un temps plein payé 2 000 €. Réduction : 1 600 × 0,3147 = 503,52 €.<br>
+      Coût employeur d'un non-cadre : 1 600 + 686,34 − 503,52 = <strong>1 782,82 €</strong> par mois.</p>
+    </div>
+    <p>
+      Le plafond de la Sécurité sociale suit la même logique : pour un salarié à temps partiel, l'employeur est en droit de le réduire à proportion de la durée du travail (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000039222466" target="_blank" rel="noopener noreferrer">article R242-2 du Code de la sécurité sociale</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.urssaf.fr/accueil/employeur/cotisations/comprendre-cotisations/calcul-cotisations-employeur.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — calcul des cotisations employeur</a><span class="source-badge">✓ Source officielle</span>). Le simulateur applique cette réduction : à 28 heures, le plafond mensuel passe de 4 005 € à 3 204 €, ce qui ne change le calcul que pour un salaire à temps partiel supérieur à ce montant. Les heures complémentaires, qui majorent à la fois le SMIC de la formule et le plafond, ne sont pas gérées.
+    </p>
+
+    <h2 id="detail-cotisations-patronales">Les cotisations patronales en 2026, ligne par ligne</h2>
+    <p>
+      Voici les cotisations et contributions que le simulateur additionne lorsque vous choisissez une tranche d'effectif. Les taux du régime général viennent du tableau <a href="https://www.urssaf.fr/accueil/outils-documentation/taux-baremes/taux-cotisations-secteur-prive.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — taux de cotisations du secteur privé</a><span class="source-badge">✓ Source officielle</span> (mis à jour le 1ᵉʳ janvier 2026), ceux de la retraite complémentaire du barème <a href="https://reglementation.agirc-arrco.fr/home/baremes/listes-area/baremes-1/cotisations-au-regime-agirc-arrco-en-2026.html" target="_blank" rel="noopener noreferrer">Agirc-Arrco 2026</a><span class="source-badge">✓ Source officielle</span>.
+    </p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:560px;">
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Cotisation ou contribution</th>
+        <th style="text-align:left; padding:6px;">Assiette</th>
+        <th style="text-align:left; padding:6px;">Taux employeur</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Assurance maladie, maternité, invalidité, décès</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">13 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Contribution solidarité autonomie (CSA)</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">0,30 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Assurance vieillesse plafonnée</td><td style="padding:6px;">Jusqu’au plafond de la Sécurité sociale (4 005 € par mois)</td><td style="padding:6px;">8,55 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Assurance vieillesse déplafonnée</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">2,11 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Allocations familiales</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">5,25 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Accidents du travail et maladies professionnelles (AT/MP)</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">Taux notifié par la Carsat (moyenne nationale 2026 : 2,08 %)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">FNAL</td><td style="padding:6px;">Salaire plafonné (moins de 50 salariés) ; totalité (50 salariés et plus)</td><td style="padding:6px;">0,10 % ; 0,50 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Assurance chômage</td><td style="padding:6px;">Jusqu’à 4 plafonds</td><td style="padding:6px;">4,00 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">AGS (garantie des salaires)</td><td style="padding:6px;">Jusqu’à 4 plafonds</td><td style="padding:6px;">0,25 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Retraite complémentaire Agirc-Arrco</td><td style="padding:6px;">Tranche 1 (jusqu’au plafond) ; tranche 2 (de 1 à 8 plafonds)</td><td style="padding:6px;">4,72 % ; 12,95 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Contribution d’équilibre général (CEG)</td><td style="padding:6px;">Tranche 1 ; tranche 2</td><td style="padding:6px;">1,29 % ; 1,62 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Contribution d’équilibre technique (CET)</td><td style="padding:6px;">Tranches 1 et 2, seulement si le salaire dépasse le plafond</td><td style="padding:6px;">0,21 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">APEC (cadres)</td><td style="padding:6px;">Jusqu’à 4 plafonds</td><td style="padding:6px;">0,036 %</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Prévoyance des cadres</td><td style="padding:6px;">Tranche 1</td><td style="padding:6px;">1,50 % au minimum</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Formation professionnelle</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">0,55 % (moins de 11 salariés) ; 1 % (11 salariés et plus)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Taxe d’apprentissage</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">0,68 % (0,59 % + 0,09 %)</td></tr>
+      <tr><td style="padding:6px;">Contribution au dialogue social</td><td style="padding:6px;">Totalité du salaire</td><td style="padding:6px;">0,016 %</td></tr>
+    </table>
+    </div>
+    <p>
+      Deux points changent par rapport aux années précédentes. Les taux réduits d'assurance maladie (7 %) et d'allocations familiales (3,45 %) ne s'appliquent plus dans le cas général en 2026 : ils sont remplacés par la <a href="#reduction-generale">réduction générale dégressive</a>, et ne subsistent que pour quelques dispositifs particuliers (<a href="https://www.urssaf.fr/accueil/actualites/informations-nouvelle-annee.html" target="_blank" rel="noopener noreferrer">Urssaf.fr — ce qu'il faut savoir au 1ᵉʳ janvier 2026</a><span class="source-badge">✓ Source officielle</span>). Et la cotisation d'assurance vieillesse déplafonnée est passée de 2,02 % à 2,11 % au 1ᵉʳ janvier 2026.
+    </p>
+
+    <h3 id="effectif">Ce que change l'effectif de l'entreprise</h3>
+    <p>
+      Deux seuils modifient les taux. À partir de 11 salariés, la contribution à la formation professionnelle passe de 0,55 % à 1 % (<a href="https://entreprendre.service-public.gouv.fr/vosdroits/F22570" target="_blank" rel="noopener noreferrer">entreprendre.service-public.gouv.fr</a><span class="source-badge">✓ Source officielle</span>), et le versement mobilité devient dû dans les zones où il existe. À partir de 50 salariés, le FNAL passe de 0,10 % du salaire plafonné à 0,50 % du salaire total. À partir de 50 salariés aussi, le coefficient de la réduction générale est légèrement plus élevé. Pour un non-cadre payé 3 000 € brut, avec le taux AT/MP moyen et après réduction générale, le coût mensuel est ainsi de 3 987,18 € dans une entreprise de moins de 11 salariés, 4 000,68 € de 11 à 49 salariés et 4 009,98 € à partir de 50 salariés — hors versement mobilité et participation à l'effort de construction, dont les montants dépendent du lieu et de la situation de l'entreprise.
+    </p>
+
+    <h3 id="taux-atmp">Le taux d'accidents du travail (AT/MP)</h3>
+    <p>
+      C'est la seule cotisation dont le taux est propre à chaque établissement : il est notifié chaque année par la Carsat et consultable dans le compte AT/MP de l'entreprise sur net-entreprises.fr. Il est collectif (fixé par secteur d'activité) en dessous de 20 salariés, mixte de 20 à 149 salariés, et individuel à partir de 150 salariés (<a href="https://www.ameli.fr/entreprise/votre-entreprise/cotisation-atmp/calcul-taux-atmp-tpe-moins-20-salaries" target="_blank" rel="noopener noreferrer">ameli.fr — cotisation AT/MP</a><span class="source-badge">✓ Source officielle</span>). À défaut de saisie, le simulateur applique le taux net moyen national, fixé à 2,08 % pour 2026 par l'<a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000053228984" target="_blank" rel="noopener noreferrer">arrêté du 30 décembre 2025</a><span class="source-badge">✓ Source officielle</span> (article 2). Sur un salaire de 3 000 € brut, passer d'un taux de 1 % à un taux de 4 % ajoute 90 € de cotisations par mois.
+    </p>
+
+    <h3 id="cdd">CDD : l'indemnité de fin de contrat à provisionner</h3>
+    <p>
+      À la fin d'un CDD, l'employeur verse en principe une indemnité de fin de contrat (« prime de précarité ») égale à 10 % de la rémunération brute totale (<a href="https://code.travail.gouv.fr/code-du-travail/l1243-8" target="_blank" rel="noopener noreferrer">article L1243-8 du Code du travail</a><span class="source-badge">✓ Source officielle</span>). Elle supporte les mêmes cotisations qu'un salaire. S'y ajoute la contribution CPF-CDD de 1 % des rémunérations versées aux salariés en CDD. En sélectionnant « CDD », le simulateur provisionne ces trois montants chaque mois : pour 2 000 € brut au taux moyen de 42 %, 200 € d'indemnité, 84 € de cotisations et 22 € de CPF-CDD, soit un coût mensuel de 3 146 € contre 2 840 € pour un CDI au même salaire.
+    </p>
+    <p>
+      L'indemnité n'est pas due dans certains cas (emploi saisonnier, CDD d'usage, refus d'un CDI équivalent, rupture à l'initiative du salarié…), et une convention de branche étendue ou un accord d'entreprise peut ramener son taux à 6 % en échange de contreparties, notamment un accès privilégié à la formation professionnelle (<a href="https://code.travail.gouv.fr/code-du-travail/l1243-9" target="_blank" rel="noopener noreferrer">article L1243-9 du Code du travail</a><span class="source-badge">✓ Source officielle</span>) : l'option « CDD — indemnité à 6 % » du simulateur donne alors, pour 2 000 € brut au taux moyen, 120 € d'indemnité, 50,40 € de cotisations et 21,20 € de CPF-CDD, soit 3 031,60 € par mois. Vérifiez votre situation avec le simulateur de <a href="prime-precarite-cdd.html">prime de précarité de fin de CDD</a>. La contribution CPF-CDD n'est pas due non plus pour les contrats saisonniers, d'apprentissage, de professionnalisation et d'accompagnement dans l'emploi. L'indemnité compensatrice de congés payés éventuellement due en fin de contrat n'est pas provisionnée ici.
+    </p>
 
     <h3>Véhicule de fonction : comment l'avantage en nature est compté</h3>
     <p>
@@ -347,7 +518,7 @@
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Le taux de 42 % de charges patronales est-il valable pour toutes les entreprises ?</summary>
-      <p>Non, c'est une moyenne de marché à titre indicatif. Le taux réel dépend de la taille de l'entreprise, du secteur, du taux d'accident du travail propre à l'établissement, et des exonérations applicables (réduction générale des cotisations sur les bas salaires, notamment, qui réduit fortement le taux effectif autour du SMIC). Pour un chiffre exact, rapprochez-vous de votre expert-comptable ou de votre logiciel de paie.</p>
+      <p>Non, c'est une moyenne de marché à titre indicatif, avant réduction générale. Le taux réel dépend de la taille de l'entreprise, du secteur, du taux d'accident du travail propre à l'établissement, et surtout du niveau de salaire. En choisissant une tranche d'effectif, le simulateur remplace cette moyenne par le détail des cotisations 2026 (environ 42,9 % pour un non-cadre et 44,4 % pour un cadre sous le plafond de la Sécurité sociale, dans une entreprise de moins de 11 salariés), puis déduit la réduction générale dégressive : le taux réellement supporté tombe alors à environ 5 % au SMIC, 26 % à 2 500 € brut et 33 % à 3 000 € brut, et rejoint le taux plein à partir de 3 SMIC. Pour un chiffre exact, rapprochez-vous de votre expert-comptable ou de votre logiciel de paie.</p>
     </details>
     <details class="faq">
       <summary>Ce simulateur inclut-il les coûts de recrutement ou de formation ?</summary>
@@ -359,24 +530,42 @@
     </details>
     <details class="faq">
       <summary>Le coût est-il différent pour un cadre que pour un non-cadre ?</summary>
-      <p>Légèrement, oui. Ce simulateur applique un taux moyen unique de 42 %, qui ne distingue pas les deux statuts. En réalité, un cadre coûte un peu plus cher que ce taux moyen à salaire brut identique : la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1, dite "article 7") s'ajoute, ainsi que la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire dépassant le plafond de la Sécurité sociale. Sélectionnez "Cadre" dans le formulaire pour afficher cette note dans le résultat.</p>
+      <p>Légèrement, oui. Avec le taux moyen de 42 %, le simulateur ne distingue pas les deux statuts. En choisissant une tranche d'effectif, il passe au détail des cotisations et ajoute pour un cadre la cotisation APEC (0,036 %) et la prévoyance obligatoire des cadres (cotisation patronale minimale de 1,50 % de la tranche 1, dite "article 7") ; la cotisation AGIRC-ARRCO de tranche 2 s'applique à la part du salaire qui dépasse le plafond de la Sécurité sociale. Pour 3 000 € brut dans une entreprise de moins de 11 salariés, le coût mensuel après réduction générale est ainsi de 3 987,18 € pour un non-cadre et de 4 033,26 € pour un cadre.</p>
     </details>
 
     <details class="faq">
       <summary>Combien coûte un salarié payé 2 500 € brut à l'entreprise ?</summary>
-      <p>Pour un salaire de 2 500 € brut mensuel, sans avantages ni primes, le coût total employeur est d'environ 3 550 € par mois (charges patronales moyennes de 42 % incluses), soit environ 42 600 € par an. Ce taux moyen varie selon la taille et le secteur de l'entreprise, et peut être réduit par les exonérations applicables aux bas salaires.</p>
+      <p>Pour un salaire de 2 500 € brut mensuel à temps plein, sans avantages ni primes, le coût employeur est de 3 142,65 € par mois pour un non-cadre et de 3 181,05 € pour un cadre dans une entreprise de moins de 11 salariés : 1 072,40 € de cotisations patronales pour le non-cadre (taux AT/MP moyen), moins 429,75 € de réduction générale. Sans cette réduction, avec le taux moyen de 42 %, on obtient environ 3 550 € par mois : c'est un plafond, pas le coût réel à ce niveau de salaire.</p>
     </details>
     <details class="faq">
       <summary>Quel est le coût employeur pour un salaire de 3 000 € brut ?</summary>
-      <p>Pour un salaire de 3 000 € brut mensuel, le coût total pour l'entreprise (hors avantages et primes) est d'environ 4 260 € par mois, soit environ 51 120 € par an, en appliquant un taux moyen de charges patronales de 42 %.</p>
+      <p>Pour un salaire de 3 000 € brut mensuel à temps plein, le coût pour l'entreprise (hors avantages et primes) est de 3 987,18 € par mois pour un non-cadre et de 4 033,26 € pour un cadre dans une entreprise de moins de 11 salariés, soit environ 47 846 € par an pour le non-cadre : 1 286,88 € de cotisations patronales, moins 299,70 € de réduction générale. Avec le taux moyen de 42 %, sans réduction, l'estimation est de 4 260 € par mois.</p>
     </details>
     <details class="faq">
       <summary>Coût total d'un salarié au SMIC pour l'entreprise ?</summary>
-      <p>Un salarié payé au SMIC (1 867 € brut mensuel en 2026) coûte environ 2 651 € par mois à l'entreprise avec un taux moyen de charges patronales de 42 %, hors avantages et primes. Ce montant ne tient pas compte de la réduction générale des cotisations sur les bas salaires, qui abaisse fortement le coût réel employeur autour du SMIC : le coût réel est donc souvent inférieur à cette estimation.</p>
+      <p>Un salarié payé au SMIC à temps plein (1 867 € brut mensuel en 2026) coûte 1 967,74 € par mois à une entreprise de moins de 11 salariés, hors avantages et primes : 800,87 € de cotisations patronales, dont 700,13 € sont effacés par la réduction générale dégressive (coefficient de 0,3750). Sans cette réduction, le coût serait de 2 667,87 € (ou environ 2 651 € avec le taux moyen de 42 %). Le coefficient n'atteint pas son maximum de 0,3981 parce que la formule retient en 2026 le SMIC du 1er janvier, inférieur au SMIC actuel.</p>
     </details>
     <details class="faq">
       <summary>Comment est comptée la voiture de fonction dans le coût employeur ?</summary>
       <p>Un véhicule de fonction mis à disposition constitue un avantage en nature dont le montant forfaitaire dépend du mode d'acquisition : 15 % (achat neuf ou de 5 ans ou moins) ou 10 % (achat de plus de 5 ans) de la valeur du véhicule par an, taux majoré à 20 % et 15 % si l'employeur prend en charge le carburant ; 50 % (ou 67 % avec carburant) du coût global annuel si le véhicule est loué (LOA/LLD). Pour un véhicule 100 % électrique, un abattement de 70 % s'applique, plafonné à 4 641,60 € par an jusqu'au 31 décembre 2027. Ce simulateur ajoute cet avantage en nature comme une ligne de coût mensuel supplémentaire, cochez la case dédiée pour l'inclure.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Le coût d'un salarié change-t-il selon l'effectif de l'entreprise ?</summary>
+      <p>Oui, à deux seuils. À partir de 11 salariés, la contribution à la formation professionnelle passe de 0,55 % à 1 % et le versement mobilité devient dû dans les zones concernées. À partir de 50 salariés, le FNAL passe de 0,10 % du salaire plafonné à 0,50 % du salaire total, la participation à l'effort de construction s'ajoute, et le coefficient de la réduction générale est légèrement plus élevé. Pour un non-cadre payé 3 000 € brut, le coût mensuel après réduction générale passe ainsi de 3 987,18 € (moins de 11 salariés) à 4 000,68 € (11 à 49) puis 4 009,98 € (50 et plus), hors versement mobilité et participation à l'effort de construction.</p>
+    </details>
+    <details class="faq">
+      <summary>Un CDD coûte-t-il plus cher qu'un CDI à l'employeur ?</summary>
+      <p>À salaire égal, oui dans le cas général. L'employeur doit en principe une indemnité de fin de contrat de 10 % de la rémunération brute totale (article L1243-8 du Code du travail), soumise à cotisations, ainsi qu'une contribution CPF-CDD de 1 %. Pour 2 000 € brut au taux moyen de 42 %, cela représente 306 € par mois de plus qu'un CDI : 3 146 € contre 2 840 €. L'indemnité n'est pas due dans certains cas (emploi saisonnier, CDD d'usage, contrat poursuivi en CDI…).</p>
+    </details>
+    <details class="faq">
+      <summary>Où trouver le taux AT/MP de mon entreprise ?</summary>
+      <p>Le taux de cotisation accidents du travail et maladies professionnelles est notifié chaque année par la Carsat et consultable dans le compte AT/MP de l'entreprise sur net-entreprises.fr. Il est fixé par secteur d'activité en dessous de 20 salariés, et dépend de plus en plus des accidents propres à l'entreprise au-delà. À défaut, le simulateur applique le taux net moyen national, fixé à 2,08 % pour 2026 par l'arrêté du 30 décembre 2025.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Comment est calculée la réduction générale des cotisations patronales en 2026 ?</summary>
+      <p>La réduction générale dégressive unique est égale à la rémunération brute multipliée par un coefficient : 0,0200 + T delta × [½ × (3 × SMIC ÷ rémunération brute − 1)] à la puissance 1,75, arrondi à quatre décimales. T delta vaut 0,3781 dans une entreprise de moins de 50 salariés et 0,3821 à partir de 50 salariés. Le SMIC retenu pour toute l'année 2026 est celui du 1er janvier (1 823,03 € par mois à temps plein) et la réduction disparaît à partir de 3 fois ce montant, soit 5 469,10 € brut par mois. Exemple : pour 3 000 € brut dans une entreprise de moins de 50 salariés, le coefficient est de 0,0999 et la réduction de 299,70 € par mois.</p>
     </details>
 
     <div class="related-tools">
@@ -436,6 +625,19 @@ function toggleVehiculeCSE(){
   var actif = document.getElementById('vehiculeActifCSE').checked;
   document.getElementById('groupeVehiculeCSE').style.display = actif ? 'block' : 'none';
 }
+function toggleTempsCSE(){
+  var partiel = document.getElementById('tempsCSE').value === 'partiel';
+  document.getElementById('groupeHeuresCSE').hidden = !partiel;
+  document.getElementById('resultCSE').classList.remove('show');
+}
+function formatHeuresCSE(h){
+  return String(Math.round(h * 100) / 100).replace('.', ',') + ' h';
+}
+function toggleEffectifCSE(){
+  var detail = document.getElementById('effectifCSE').value !== 'moyen';
+  document.getElementById('groupeATMPCSE').hidden = !detail;
+  document.getElementById('resultCSE').classList.remove('show');
+}
 function calculerAvantageVehiculeCSE(){
   var actif = document.getElementById('vehiculeActifCSE').checked;
   if (!actif) return null;
@@ -446,70 +648,159 @@ function calculerAvantageVehiculeCSE(){
   if (valeur <= 0) return null;
   return estimerAvantageNatureVehicule(mode, valeur, carburant, electrique);
 }
+function formatTauxCSE(t){
+  return String(Math.round(t * 100000) / 1000).replace('.', ',') + ' %';
+}
+function lireSaisieCSE(){
+  var s = {
+    brut: parseFloat(document.getElementById('brutMensuelCSE').value) || 0,
+    avantages: parseFloat(document.getElementById('avantagesCSE').value) || 0,
+    primes: Math.max(0, parseFloat(document.getElementById('primesCSE').value) || 0),
+    primesSoumises: Math.max(0, parseFloat(document.getElementById('primesSoumisesCSE').value) || 0),
+    statut: document.getElementById('statutCSE').value,
+    effectif: document.getElementById('effectifCSE').value,
+    cdd: document.getElementById('contratCSE').value !== 'cdi',
+    cddTauxReduit: document.getElementById('contratCSE').value === 'cdd6',
+    vehicule: calculerAvantageVehiculeCSE()
+  };
+  // Temps partiel : durée du contrat rapportée à la durée légale de 35 heures ; saisie vide ou hors bornes = temps plein.
+  var heuresSaisies = parseFloat(String(document.getElementById('heuresCSE').value).replace(',', '.'));
+  s.tempsPartiel = document.getElementById('tempsCSE').value === 'partiel';
+  s.heures = (s.tempsPartiel && isFinite(heuresSaisies) && heuresSaisies > 0 && heuresSaisies < 35) ? heuresSaisies : null;
+  s.quotite = s.heures ? s.heures / 35 : 1;
+  s.options = function(effectif, tauxATMP){
+    return { effectif: effectif, cadre: s.statut === 'cadre', tauxATMP: tauxATMP, cdd: s.cdd, precariteTauxReduit: s.cddTauxReduit, primesSoumisesAnnuelles: s.primesSoumises, quotite: s.quotite };
+  };
+  var atmpSaisi = parseFloat(String(document.getElementById('tauxATMPCSE').value).replace(',', '.'));
+  s.atmpRenseigne = isFinite(atmpSaisi) && atmpSaisi >= 0 && atmpSaisi <= 30;
+  s.vehiculeMensuel = s.vehicule ? s.vehicule.avantageMensuel : 0;
+  s.r = estimerCoutSalarieOptions(s.brut, s.avantages, s.primes, s.vehiculeMensuel, s.options(s.effectif, s.atmpRenseigne ? atmpSaisi / 100 : null));
+  return s;
+}
 function calculerCoutSalarie(){
-  var brut = parseFloat(document.getElementById('brutMensuelCSE').value) || 0;
-  var avantages = parseFloat(document.getElementById('avantagesCSE').value) || 0;
-  var primes = parseFloat(document.getElementById('primesCSE').value) || 0;
-  var vehicule = calculerAvantageVehiculeCSE();
-  var vehiculeMensuel = vehicule ? vehicule.avantageMensuel : 0;
+  var s = lireSaisieCSE();
+  var r = s.r;
   var resultBox = document.getElementById('resultCSE');
 
-  if (brut <= 0){
+  if (s.brut <= 0){
     resultBox.classList.remove('show');
     return;
   }
 
-  var r = estimerCoutSalarieEntreprise(brut, avantages, primes, vehiculeMensuel);
   document.getElementById('montantCSE').textContent = euros(r.coutMensuel) + ' / mois';
   document.getElementById('detailCSE').textContent = 'Soit environ ' + euros(r.coutAnnuel) + ' par an.';
-  document.getElementById('breakdownCSE').innerHTML =
-    'Salaire brut : ' + euros(brut) + '<br>' +
-    'Charges patronales estimées (42 %) : ' + euros(r.charges) + '<br>' +
-    'Avantages en nature / mutuelle : ' + euros(avantages) + '<br>' +
-    (vehicule ? ('Avantage en nature véhicule de fonction (' + Math.round(vehicule.tauxApplique*100) + ' %' + (vehicule.abattementApplique > 0 ? ', dont abattement électrique déduit' : '') + ') : ' + euros(vehiculeMensuel) + '<br>') : '') +
-    'Primes annuelles proratisées au mois : ' + euros(primes/12);
-
-  var statutCSE = document.getElementById('statutCSE').value;
-  var noticeCadre = document.getElementById('noticeCadreCSE');
-  if (statutCSE === 'cadre'){
-    noticeCadre.innerHTML = "<strong>Nuance cadre non intégrée au taux moyen ci-dessus :</strong> pour un cadre, deux charges patronales spécifiques s'ajoutent généralement et font monter le coût réel légèrement au-dessus des 42 % appliqués ici — la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1 du salaire, dite \"article 7\") et la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire au-delà du plafond de la Sécurité sociale. Ce simulateur garde un taux moyen unique par simplicité ; pour un chiffrage exact par statut, un logiciel de paie reste la référence.";
-    noticeCadre.style.display = 'block';
+  var html = 'Salaire brut : ' + euros(s.brut) + (s.heures ? ' (temps partiel, ' + formatHeuresCSE(s.heures) + ' par semaine)' : '') + '<br>';
+  if (s.primesSoumises > 0){
+    html += 'Primes soumises à cotisations, ramenées au mois : ' + euros(r.primesSoumisesMensuelles) + ' — rémunération mensuelle moyenne : ' + euros(r.remuneration) + '<br>';
+  }
+  if (r.modeDetail){
+    html += 'Cotisations patronales détaillées avant réduction (taux effectif ' + String(Math.round(r.tauxCharges * 1000) / 10).replace('.', ',') + ' %) : <strong>' + euros(r.charges) + '</strong><br>';
+    for (var i = 0; i < r.detail.lignes.length; i++){
+      var l = r.detail.lignes[i];
+      html += '&nbsp;• ' + l.libelle + ' : ' + euros(l.assiette) + ' × ' + formatTauxCSE(l.taux) + ' = ' + euros(l.montant) + '<br>';
+    }
   } else {
-    noticeCadre.style.display = 'none';
-    noticeCadre.innerHTML = '';
+    html += 'Charges patronales estimées (42 %' + (s.primesSoumises > 0 ? ' de ' + euros(r.remuneration) : '') + ') : ' + euros(r.charges) + '<br>';
+  }
+  if (r.cdd){
+    html += 'CDD — indemnité de fin de contrat provisionnée (' + (s.cddTauxReduit ? '6 % de la rémunération brute, art. L1243-8 et L1243-9' : '10 % de la rémunération brute, art. L1243-8') + ' du Code du travail) : ' + euros(r.cdd.prime) + '<br>' +
+      'CDD — cotisations patronales sur cette indemnité : ' + euros(r.cdd.chargesPrime) + '<br>' +
+      'CDD — contribution CPF-CDD (1 %) : ' + euros(r.cdd.cpfCdd) + '<br>';
+  }
+  if (r.reduction){
+    if (r.reduction.eligible){
+      html += 'Réduction générale dégressive (coefficient ' + r.reduction.coefficient.toFixed(4).replace('.', ',') + ' × ' + euros(r.remuneration + (r.cdd ? r.cdd.prime : 0)) + (s.heures ? ', SMIC de la formule ramené à ' + euros(r.reduction.smicReference) + ' par mois pour ' + formatHeuresCSE(s.heures) : '') + ') : <strong>− ' + euros(r.reduction.montant) + '</strong><br>' +
+        'Cotisations patronales restant dues après réduction : ' + euros(r.chargesNettes) + '<br>';
+    } else if (r.reduction.motif === 'sousSmic'){
+      html += s.heures
+        ? 'Réduction générale non calculée : rémunération inférieure au SMIC ramené à ' + formatHeuresCSE(s.heures) + ' par semaine (contrat particulier : apprentissage, professionnalisation…).<br>'
+        : 'Réduction générale non calculée : salaire inférieur au SMIC mensuel à temps plein. Pour un temps partiel, choisissez « Temps partiel » et indiquez la durée du contrat : le SMIC de la formule sera proratisé.<br>';
+    } else {
+      html += 'Pas de réduction générale : rémunération égale ou supérieure à 3 SMIC (' + euros(r.reduction.seuil) + ' par mois' + (s.heures ? ' pour ' + formatHeuresCSE(s.heures) + ' par semaine' : '') + ', sur la base du SMIC au 1er janvier 2026).<br>';
+    }
+  }
+  html += 'Avantages en nature / mutuelle : ' + euros(s.avantages) + '<br>' +
+    (s.vehicule ? ('Avantage en nature véhicule de fonction (' + Math.round(s.vehicule.tauxApplique*100) + ' %' + (s.vehicule.abattementApplique > 0 ? ', dont abattement électrique déduit' : '') + ') : ' + euros(s.vehiculeMensuel) + '<br>') : '') +
+    'Intéressement et participation ramenés au mois (sans cotisations patronales) : ' + euros(s.primes/12);
+  if (r.modeDetail){
+    html += '<br>Sources : Urssaf (taux de cotisations du secteur privé au 1er janvier 2026, réduction générale dégressive unique), Agirc-Arrco (cotisations 2026), arrêté du 30 décembre 2025 (taux AT/MP moyen).';
+  }
+  document.getElementById('breakdownCSE').innerHTML = html;
+
+  var notice = document.getElementById('noticeCadreCSE');
+  var messages = [];
+  if (r.modeDetail){
+    if (r.reduction && r.reduction.eligible){
+      messages.push("<strong>Réduction générale :</strong> calculée pour un salarié " + (s.heures ? "à temps partiel (" + formatHeuresCSE(s.heures) + " sur 35)" : "à temps plein") + ", présent toute l'année, sans heures supplémentaires ni complémentaires, sur le salaire brut saisi" + (s.primesSoumises > 0 ? ", les primes soumises à cotisations" : "") + (r.cdd ? " et l'indemnité de fin de contrat" : "") + "." + (s.primesSoumises > 0 ? "" : " Un 13ᵉ mois ou une autre prime soumise à cotisations est à saisir dans le champ dédié : il augmente la rémunération annuelle et réduit le coefficient.") + " Elle ne s'applique pas à tous les employeurs ni à tous les contrats (apprentissage, régimes spéciaux, déduction forfaitaire spécifique, Mayotte).");
+    }
+    if (s.heures){
+      messages.push("<strong>Temps partiel :</strong> le plafond de la Sécurité sociale est ramené à " + euros(r.detail.plafondMensuel) + " par mois, à proportion de la durée du contrat — une correction que l'employeur est en droit d'appliquer (article R242-2 du Code de la sécurité sociale). Les heures complémentaires ne sont pas prises en compte.");
+    }
+    messages.push("<strong>Non compris dans ce détail :</strong> le versement mobilité (11 salariés et plus, taux fixé localement) ; la participation à l'effort de construction (50 salariés et plus) ; le forfait social ; la mutuelle et la prévoyance facultative, à saisir dans le champ « avantages »." +
+      (s.atmpRenseigne ? '' : " Taux AT/MP non renseigné : le taux net moyen national 2026 (2,08 %) est appliqué — remplacez-le par le taux notifié par votre Carsat."));
+  } else {
+    var repere = estimerCoutSalarieOptions(s.brut, s.avantages, s.primes, s.vehiculeMensuel, s.options('moins11', null));
+    if (repere.reduction && repere.reduction.eligible){
+      messages.push("<strong>Taux moyen, avant réduction générale.</strong> À ce niveau de salaire, la réduction générale dégressive abaisse le coût réel : environ <strong>" + euros(repere.coutMensuel) + " par mois</strong> avec le détail des cotisations (entreprise de moins de 11 salariés, " + (s.heures ? "temps partiel de " + formatHeuresCSE(s.heures) : "temps plein") + ", taux AT/MP moyen). Choisissez une tranche d'effectif pour obtenir ce calcul.");
+    }
+    if (s.statut === 'cadre'){
+      messages.push("<strong>Nuance cadre non intégrée au taux moyen ci-dessus :</strong> pour un cadre, deux charges patronales spécifiques s'ajoutent généralement et font monter le coût réel légèrement au-dessus des 42 % appliqués ici — la prévoyance obligatoire cadre (cotisation patronale minimale de 1,50 % de la tranche 1 du salaire, dite \"article 7\") et la cotisation AGIRC-ARRCO en tranche 2 sur la part du salaire au-delà du plafond de la Sécurité sociale. Choisissez une tranche d'effectif pour passer au détail cotisation par cotisation, qui les intègre.");
+    }
+  }
+  if (messages.length){
+    notice.innerHTML = messages.join('<br><br>');
+    notice.style.display = 'block';
+  } else {
+    notice.style.display = 'none';
+    notice.innerHTML = '';
   }
 
   resultBox.classList.add('show');
 }
 
 function telechargerPDF_CSE(){
-  var brut = parseFloat(document.getElementById('brutMensuelCSE').value) || 0;
-  var avantages = parseFloat(document.getElementById('avantagesCSE').value) || 0;
-  var primes = parseFloat(document.getElementById('primesCSE').value) || 0;
-  var statutCSE = document.getElementById('statutCSE').value;
-  var vehicule = calculerAvantageVehiculeCSE();
-  var vehiculeMensuel = vehicule ? vehicule.avantageMensuel : 0;
-  if (brut <= 0) return;
+  var s = lireSaisieCSE();
+  var r = s.r;
+  if (s.brut <= 0) return;
+  var libellesEffectif = { moyen: 'Non précisé (taux moyen de 42 %)', moins11: 'Moins de 11 salariés', '11a49': 'De 11 à 49 salariés', '50plus': '50 salariés et plus' };
 
-  var r = estimerCoutSalarieEntreprise(brut, avantages, primes, vehiculeMensuel);
   var lignes = [
-    { label: 'Salaire mensuel brut', value: euros(brut) },
-    { label: 'Statut', value: statutCSE === 'cadre' ? 'Cadre' : 'Non-cadre' },
-    { label: 'Charges patronales estimées (42 %)', value: euros(r.charges) },
-    { label: 'Avantages en nature / mutuelle', value: euros(avantages) }
+    { label: 'Salaire mensuel brut', value: euros(s.brut) },
+    { label: 'Statut', value: s.statut === 'cadre' ? 'Cadre' : 'Non-cadre' },
+    { label: 'Type de contrat', value: s.cdd ? (s.cddTauxReduit ? 'CDD (indemnité de fin de contrat à 6 %)' : 'CDD (indemnité de fin de contrat de 10 %)') : 'CDI' },
+    { label: 'Durée du travail', value: s.heures ? 'Temps partiel, ' + formatHeuresCSE(s.heures) + ' par semaine' : 'Temps plein' },
+    { label: 'Effectif de l\'entreprise', value: libellesEffectif[s.effectif] || libellesEffectif.moyen }
   ];
-  if (vehicule){
-    lignes.push({ label: 'Avantage en nature véhicule de fonction (' + Math.round(vehicule.tauxApplique*100) + ' %)', value: euros(vehiculeMensuel) });
+  if (s.primesSoumises > 0){
+    lignes.push({ label: 'Primes soumises à cotisations, ramenées au mois', value: euros(r.primesSoumisesMensuelles) });
   }
-  lignes.push({ label: 'Primes annuelles proratisées au mois', value: euros(primes/12) });
+  if (r.modeDetail){
+    lignes.push({ label: 'Taux AT/MP appliqué', value: formatTauxCSE(r.detail.tauxATMP) + (s.atmpRenseigne ? '' : ' (moyenne nationale 2026)') });
+    lignes.push({ label: 'Cotisations patronales avant réduction (taux effectif ' + String(Math.round(r.tauxCharges * 1000) / 10).replace('.', ',') + ' %)', value: euros(r.charges) });
+    if (r.reduction && r.reduction.eligible){
+      lignes.push({ label: 'Réduction générale dégressive (coefficient ' + r.reduction.coefficient.toFixed(4).replace('.', ',') + ')', value: '- ' + euros(r.reduction.montant) });
+    }
+  } else {
+    lignes.push({ label: 'Charges patronales estimées (42 %)', value: euros(r.charges) });
+  }
+  if (r.cdd){
+    lignes.push({ label: 'CDD : indemnité de fin de contrat, cotisations et CPF-CDD', value: euros(r.cdd.total) });
+  }
+  lignes.push({ label: 'Avantages en nature / mutuelle', value: euros(s.avantages) });
+  if (s.vehicule){
+    lignes.push({ label: 'Avantage en nature véhicule de fonction (' + Math.round(s.vehicule.tauxApplique*100) + ' %)', value: euros(s.vehiculeMensuel) });
+  }
+  lignes.push({ label: 'Intéressement et participation ramenés au mois', value: euros(s.primes/12) });
   lignes.push({ label: 'Coût total mensuel', value: euros(r.coutMensuel) });
   lignes.push({ label: 'Coût total annuel', value: euros(r.coutAnnuel), type: 'total' });
 
   var disclaimerCSE = "Simulateur indicatif basé sur un taux moyen de charges patronales (42 %) qui ne tient pas compte des exonérations spécifiques à votre entreprise ni des coûts indirects. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
-  if (statutCSE === 'cadre'){
+  if (r.modeDetail){
+    disclaimerCSE = "Simulateur indicatif. Cotisations patronales calculées avec les taux 2026 du cas général (Urssaf, Agirc-Arrco), réduction générale dégressive estimée pour un salarié présent toute l'année, sans heures supplémentaires ni complémentaires (SMIC et plafond proratisés pour un temps partiel) ; hors versement mobilité, participation à l'effort de construction, forfait social et dispositifs d'exonération propres à votre entreprise. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
+  } else if (s.statut === 'cadre'){
     disclaimerCSE = "Simulateur indicatif basé sur un taux moyen de charges patronales (42 %), qui ne distingue pas cadre et non-cadre. Pour un cadre, la prévoyance obligatoire (1,50 % de la tranche 1, \"article 7\") et l'AGIRC-ARRCO tranche 2 font généralement monter le coût réel légèrement au-dessus de ce taux moyen. Ne remplace pas un conseil d'expert-comptable ou de service paie.";
   }
-  if (vehicule){
+  if (s.vehicule){
     disclaimerCSE += " L'avantage en nature véhicule de fonction est estimé selon le barème forfaitaire URSSAF 2026 (pourcentage de la valeur du véhicule selon le mode d'acquisition), une méthode alternative existe (barème au réel) susceptible de donner un montant différent.";
   }
 
