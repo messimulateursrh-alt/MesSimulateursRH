@@ -91,7 +91,7 @@
       "name": "Comment est comptée la voiture de fonction dans le coût employeur ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Un véhicule de fonction mis à disposition constitue un avantage en nature dont le montant forfaitaire dépend du mode d'acquisition : 15 % (achat neuf ou de 5 ans ou moins) ou 10 % (achat de plus de 5 ans) de la valeur du véhicule par an, taux majoré à 20 % et 15 % si l'employeur prend en charge le carburant ; 50 % (ou 67 % avec carburant) du coût global annuel si le véhicule est loué (LOA/LLD). Pour un véhicule 100 % électrique, un abattement de 70 % s'applique, plafonné à 4 641,60 € par an jusqu'au 31 décembre 2027. Ce simulateur ajoute cet avantage en nature comme une ligne de coût mensuel supplémentaire, cochez la case dédiée pour l'inclure."
+        "text": "Un véhicule de fonction mis à disposition constitue un avantage en nature dont le montant forfaitaire dépend du mode d'acquisition : 15 % (achat neuf ou de 5 ans ou moins) ou 10 % (achat de plus de 5 ans) de la valeur du véhicule par an, taux majoré à 20 % et 15 % si l'employeur prend en charge le carburant ; 50 % (ou 67 % avec carburant) du coût global annuel si le véhicule est loué (LOA/LLD). Pour un véhicule 100 % électrique, un abattement de 70 % s'applique, plafonné à 4 641,60 € par an jusqu'au 31 décembre 2027. Ce simulateur ajoute cet avantage en nature au coût mensuel et lui applique les cotisations patronales, puisqu'un avantage en nature est soumis à cotisations comme le salaire ; cochez la case dédiée pour l'inclure."
       }
     },
     {
@@ -134,7 +134,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-10-02",
+  "dateModified": "2026-10-03",
   "name": "Coût d'un Salarié pour l'Entreprise 2026",
   "description": "Calculez le coût total mensuel et annuel d'un salarié pour votre entreprise en 2026 : brut, charges patronales, avantages, primes. Gratuit, calcul local.",
   "url": "https://messimulateursrh.fr/cout-salarie-entreprise.html",
@@ -283,7 +283,7 @@
         <option value="11a49">De 11 à 49 salariés</option>
         <option value="50plus">50 salariés et plus</option>
       </select>
-      <div class="hint">En choisissant une tranche d'effectif, le calcul passe du taux moyen au détail cotisation par cotisation (taux Urssaf et Agirc-Arrco 2026), statut cadre compris.</div>
+      <div class="hint">En choisissant une tranche d'effectif, le calcul passe du taux moyen au détail cotisation par cotisation (taux Urssaf et Agirc-Arrco 2026), statut cadre compris. Pour situer votre entreprise, voir les <a href="seuils-effectif-entreprise.html">seuils d'effectif et le calcul de l'effectif moyen annuel</a>.</div>
     </div>
     <div class="field" id="groupeATMPCSE" hidden>
       <label for="tauxATMPCSE">Taux de cotisation accidents du travail (AT/MP), en %</label>
@@ -291,8 +291,14 @@
       <div class="hint">Taux notifié chaque année par votre Carsat (compte AT/MP sur net-entreprises.fr). Champ vide : taux net moyen national 2026, soit 2,08 %.</div>
     </div>
     <div class="field">
-      <label for="avantagesCSE">Avantages en nature / mutuelle / prévoyance — part employeur mensuelle (optionnel)</label>
+      <label for="avantagesCSE">Mutuelle et prévoyance — part employeur mensuelle (optionnel)</label>
       <input type="number" id="avantagesCSE" min="0" step="0.01" placeholder="ex : 80">
+      <div class="hint">Ajoutée au coût sans cotisations patronales : pour un contrat collectif et obligatoire, la part patronale est exclue de l'assiette des cotisations dans certaines limites. Le forfait social de 8 %, dû à partir de 11 salariés, n'est pas calculé.</div>
+    </div>
+    <div class="field">
+      <label for="avantagesNatureCSE">Avantages en nature hors véhicule, par mois (logement, repas, téléphone…) — optionnel</label>
+      <input type="number" id="avantagesNatureCSE" min="0" step="0.01" placeholder="ex : 120">
+      <div class="hint">Valeur mensuelle de l'avantage, au forfait Urssaf ou au réel. Soumise à cotisations patronales comme le salaire, et prise en compte dans la réduction générale.</div>
     </div>
     <div class="field">
       <label for="primesSoumisesCSE">Primes soumises à cotisations, par an (13ᵉ mois, prime de vacances, bonus) — optionnel</label>
@@ -499,7 +505,7 @@
 
     <h3>Véhicule de fonction : comment l'avantage en nature est compté</h3>
     <p>
-      Un véhicule de fonction mis à disposition d'un salarié (y compris pour un usage personnel) constitue un avantage en nature, dont le montant est ajouté au coût employeur. L'URSSAF admet une évaluation au forfait, exprimée en pourcentage de la valeur du véhicule, qui dépend du mode d'acquisition et de la prise en charge ou non du carburant :
+      Un véhicule de fonction mis à disposition d'un salarié (y compris pour un usage personnel) constitue un avantage en nature, dont le montant est ajouté au coût employeur. Comme tout avantage en nature, il fait partie de la rémunération et entre dans l'assiette des cotisations au même titre que le salaire (<a href="https://boss.gouv.fr/portail/accueil/autres-elements-de-remuneration/avantages-en-nature.html" target="_blank" rel="noopener noreferrer">Bulletin officiel de la Sécurité sociale — avantages en nature</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.urssaf.fr/accueil/employeur/cotisations/avantages-en-nature.html" target="_blank" rel="noopener noreferrer">Urssaf — les avantages en nature</a><span class="source-badge">✓ Source officielle</span>) : le simulateur l'ajoute donc à la rémunération soumise à cotisations patronales et à celle de la réduction générale, comme la valeur saisie dans le champ « avantages en nature hors véhicule ». Cette valeur sert aussi d'estimation du coût de l'avantage pour l'entreprise ; le coût réel (loyer, amortissement, entretien, assurance) peut s'en écarter. L'URSSAF admet une évaluation au forfait, exprimée en pourcentage de la valeur du véhicule, qui dépend du mode d'acquisition et de la prise en charge ou non du carburant :
     </p>
     <div style="overflow-x:auto;">
     <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:420px;">
@@ -514,6 +520,9 @@
     </table>
     </div>
     <div class="notice">Pour un véhicule 100 % électrique, un abattement de 70 % s'applique sur ce montant, plafonné à 4 641,60 € par an, quel que soit le mode d'acquisition — dispositif applicable jusqu'au 31 décembre 2027. Ce barème forfaitaire est une simplification autorisée par l'URSSAF ; une évaluation au réel (basée sur les coûts réels du véhicule : amortissement, assurance, entretien) reste possible et peut donner un montant différent.</div>
+    <p>
+      La part patronale de mutuelle et de prévoyance suit une autre logique : pour un contrat collectif et obligatoire, elle est exclue de l'assiette des cotisations dans certaines limites, et le simulateur l'ajoute au coût sans cotisations patronales. Les chèques cadeaux et bons d'achat restent eux aussi hors de ce calcul tant qu'ils respectent le <a href="plafond-cheques-cadeaux-cse.html">plafond d'exonération de 200 € par salarié en 2026</a>.
+    </p>
 
     <h2>Questions fréquentes</h2>
     <details class="faq">
@@ -547,7 +556,7 @@
     </details>
     <details class="faq">
       <summary>Comment est comptée la voiture de fonction dans le coût employeur ?</summary>
-      <p>Un véhicule de fonction mis à disposition constitue un avantage en nature dont le montant forfaitaire dépend du mode d'acquisition : 15 % (achat neuf ou de 5 ans ou moins) ou 10 % (achat de plus de 5 ans) de la valeur du véhicule par an, taux majoré à 20 % et 15 % si l'employeur prend en charge le carburant ; 50 % (ou 67 % avec carburant) du coût global annuel si le véhicule est loué (LOA/LLD). Pour un véhicule 100 % électrique, un abattement de 70 % s'applique, plafonné à 4 641,60 € par an jusqu'au 31 décembre 2027. Ce simulateur ajoute cet avantage en nature comme une ligne de coût mensuel supplémentaire, cochez la case dédiée pour l'inclure.</p>
+      <p>Un véhicule de fonction mis à disposition constitue un avantage en nature dont le montant forfaitaire dépend du mode d'acquisition : 15 % (achat neuf ou de 5 ans ou moins) ou 10 % (achat de plus de 5 ans) de la valeur du véhicule par an, taux majoré à 20 % et 15 % si l'employeur prend en charge le carburant ; 50 % (ou 67 % avec carburant) du coût global annuel si le véhicule est loué (LOA/LLD). Pour un véhicule 100 % électrique, un abattement de 70 % s'applique, plafonné à 4 641,60 € par an jusqu'au 31 décembre 2027. Ce simulateur ajoute cet avantage en nature au coût mensuel et lui applique les cotisations patronales, puisqu'un avantage en nature est soumis à cotisations comme le salaire ; cochez la case dédiée pour l'inclure.</p>
     </details>
 
     <details class="faq">
@@ -654,7 +663,8 @@ function formatTauxCSE(t){
 function lireSaisieCSE(){
   var s = {
     brut: parseFloat(document.getElementById('brutMensuelCSE').value) || 0,
-    avantages: parseFloat(document.getElementById('avantagesCSE').value) || 0,
+    avantages: Math.max(0, parseFloat(document.getElementById('avantagesCSE').value) || 0),
+    avantagesNature: Math.max(0, parseFloat(document.getElementById('avantagesNatureCSE').value) || 0),
     primes: Math.max(0, parseFloat(document.getElementById('primesCSE').value) || 0),
     primesSoumises: Math.max(0, parseFloat(document.getElementById('primesSoumisesCSE').value) || 0),
     statut: document.getElementById('statutCSE').value,
@@ -669,12 +679,12 @@ function lireSaisieCSE(){
   s.heures = (s.tempsPartiel && isFinite(heuresSaisies) && heuresSaisies > 0 && heuresSaisies < 35) ? heuresSaisies : null;
   s.quotite = s.heures ? s.heures / 35 : 1;
   s.options = function(effectif, tauxATMP){
-    return { effectif: effectif, cadre: s.statut === 'cadre', tauxATMP: tauxATMP, cdd: s.cdd, precariteTauxReduit: s.cddTauxReduit, primesSoumisesAnnuelles: s.primesSoumises, quotite: s.quotite };
+    return { effectif: effectif, cadre: s.statut === 'cadre', tauxATMP: tauxATMP, cdd: s.cdd, precariteTauxReduit: s.cddTauxReduit, primesSoumisesAnnuelles: s.primesSoumises, quotite: s.quotite, avantagesNatureSoumisMensuel: s.avantagesNature + s.vehiculeMensuel };
   };
   var atmpSaisi = parseFloat(String(document.getElementById('tauxATMPCSE').value).replace(',', '.'));
   s.atmpRenseigne = isFinite(atmpSaisi) && atmpSaisi >= 0 && atmpSaisi <= 30;
   s.vehiculeMensuel = s.vehicule ? s.vehicule.avantageMensuel : 0;
-  s.r = estimerCoutSalarieOptions(s.brut, s.avantages, s.primes, s.vehiculeMensuel, s.options(s.effectif, s.atmpRenseigne ? atmpSaisi / 100 : null));
+  s.r = estimerCoutSalarieOptions(s.brut, s.avantages + s.avantagesNature, s.primes, s.vehiculeMensuel, s.options(s.effectif, s.atmpRenseigne ? atmpSaisi / 100 : null));
   return s;
 }
 function calculerCoutSalarie(){
@@ -690,7 +700,13 @@ function calculerCoutSalarie(){
   document.getElementById('montantCSE').textContent = euros(r.coutMensuel) + ' / mois';
   document.getElementById('detailCSE').textContent = 'Soit environ ' + euros(r.coutAnnuel) + ' par an.';
   var html = 'Salaire brut : ' + euros(s.brut) + (s.heures ? ' (temps partiel, ' + formatHeuresCSE(s.heures) + ' par semaine)' : '') + '<br>';
-  if (s.primesSoumises > 0){
+  if (r.avantagesNatureSoumis > 0){
+    if (s.primesSoumises > 0){
+      html += 'Primes soumises à cotisations, ramenées au mois : ' + euros(r.primesSoumisesMensuelles) + '<br>';
+    }
+    html += 'Avantages en nature soumis à cotisations' + (s.vehicule ? (s.avantagesNature > 0 ? ', véhicule de fonction compris' : ' (véhicule de fonction)') : '') + ' : ' + euros(r.avantagesNatureSoumis) + '<br>' +
+      'Rémunération mensuelle soumise à cotisations : ' + euros(r.remuneration) + '<br>';
+  } else if (s.primesSoumises > 0){
     html += 'Primes soumises à cotisations, ramenées au mois : ' + euros(r.primesSoumisesMensuelles) + ' — rémunération mensuelle moyenne : ' + euros(r.remuneration) + '<br>';
   }
   if (r.modeDetail){
@@ -700,7 +716,7 @@ function calculerCoutSalarie(){
       html += '&nbsp;• ' + l.libelle + ' : ' + euros(l.assiette) + ' × ' + formatTauxCSE(l.taux) + ' = ' + euros(l.montant) + '<br>';
     }
   } else {
-    html += 'Charges patronales estimées (42 %' + (s.primesSoumises > 0 ? ' de ' + euros(r.remuneration) : '') + ') : ' + euros(r.charges) + '<br>';
+    html += 'Charges patronales estimées (42 %' + ((s.primesSoumises > 0 || r.avantagesNatureSoumis > 0) ? ' de ' + euros(r.remuneration) : '') + ') : ' + euros(r.charges) + '<br>';
   }
   if (r.cdd){
     html += 'CDD — indemnité de fin de contrat provisionnée (' + (s.cddTauxReduit ? '6 % de la rémunération brute, art. L1243-8 et L1243-9' : '10 % de la rémunération brute, art. L1243-8') + ' du Code du travail) : ' + euros(r.cdd.prime) + '<br>' +
@@ -719,7 +735,8 @@ function calculerCoutSalarie(){
       html += 'Pas de réduction générale : rémunération égale ou supérieure à 3 SMIC (' + euros(r.reduction.seuil) + ' par mois' + (s.heures ? ' pour ' + formatHeuresCSE(s.heures) + ' par semaine' : '') + ', sur la base du SMIC au 1er janvier 2026).<br>';
     }
   }
-  html += 'Avantages en nature / mutuelle : ' + euros(s.avantages) + '<br>' +
+  html += 'Mutuelle et prévoyance, part employeur (sans cotisations patronales) : ' + euros(s.avantages) + '<br>' +
+    (s.avantagesNature > 0 ? ('Avantages en nature hors véhicule : ' + euros(s.avantagesNature) + '<br>') : '') +
     (s.vehicule ? ('Avantage en nature véhicule de fonction (' + Math.round(s.vehicule.tauxApplique*100) + ' %' + (s.vehicule.abattementApplique > 0 ? ', dont abattement électrique déduit' : '') + ') : ' + euros(s.vehiculeMensuel) + '<br>') : '') +
     'Intéressement et participation ramenés au mois (sans cotisations patronales) : ' + euros(s.primes/12);
   if (r.modeDetail){
@@ -731,15 +748,15 @@ function calculerCoutSalarie(){
   var messages = [];
   if (r.modeDetail){
     if (r.reduction && r.reduction.eligible){
-      messages.push("<strong>Réduction générale :</strong> calculée pour un salarié " + (s.heures ? "à temps partiel (" + formatHeuresCSE(s.heures) + " sur 35)" : "à temps plein") + ", présent toute l'année, sans heures supplémentaires ni complémentaires, sur le salaire brut saisi" + (s.primesSoumises > 0 ? ", les primes soumises à cotisations" : "") + (r.cdd ? " et l'indemnité de fin de contrat" : "") + "." + (s.primesSoumises > 0 ? "" : " Un 13ᵉ mois ou une autre prime soumise à cotisations est à saisir dans le champ dédié : il augmente la rémunération annuelle et réduit le coefficient.") + " Elle ne s'applique pas à tous les employeurs ni à tous les contrats (apprentissage, régimes spéciaux, déduction forfaitaire spécifique, Mayotte).");
+      messages.push("<strong>Réduction générale :</strong> calculée pour un salarié " + (s.heures ? "à temps partiel (" + formatHeuresCSE(s.heures) + " sur 35)" : "à temps plein") + ", présent toute l'année, sans heures supplémentaires ni complémentaires, sur le salaire brut saisi" + (s.primesSoumises > 0 ? ", les primes soumises à cotisations" : "") + (r.avantagesNatureSoumis > 0 ? ", les avantages en nature" : "") + (r.cdd ? " et l'indemnité de fin de contrat" : "") + "." + (s.primesSoumises > 0 ? "" : " Un 13ᵉ mois ou une autre prime soumise à cotisations est à saisir dans le champ dédié : il augmente la rémunération annuelle et réduit le coefficient.") + " Elle ne s'applique pas à tous les employeurs ni à tous les contrats (apprentissage, régimes spéciaux, déduction forfaitaire spécifique, Mayotte).");
     }
     if (s.heures){
       messages.push("<strong>Temps partiel :</strong> le plafond de la Sécurité sociale est ramené à " + euros(r.detail.plafondMensuel) + " par mois, à proportion de la durée du contrat — une correction que l'employeur est en droit d'appliquer (article R242-2 du Code de la sécurité sociale). Les heures complémentaires ne sont pas prises en compte.");
     }
-    messages.push("<strong>Non compris dans ce détail :</strong> le versement mobilité (11 salariés et plus, taux fixé localement) ; la participation à l'effort de construction (50 salariés et plus) ; le forfait social ; la mutuelle et la prévoyance facultative, à saisir dans le champ « avantages »." +
+    messages.push("<strong>Non compris dans ce détail :</strong> le versement mobilité (11 salariés et plus, taux fixé localement) ; la participation à l'effort de construction (50 salariés et plus) ; le forfait social (8 % sur la part patronale de mutuelle et de prévoyance à partir de 11 salariés) ; la mutuelle et la prévoyance elles-mêmes, à saisir dans le champ dédié." +
       (s.atmpRenseigne ? '' : " Taux AT/MP non renseigné : le taux net moyen national 2026 (2,08 %) est appliqué — remplacez-le par le taux notifié par votre Carsat."));
   } else {
-    var repere = estimerCoutSalarieOptions(s.brut, s.avantages, s.primes, s.vehiculeMensuel, s.options('moins11', null));
+    var repere = estimerCoutSalarieOptions(s.brut, s.avantages + s.avantagesNature, s.primes, s.vehiculeMensuel, s.options('moins11', null));
     if (repere.reduction && repere.reduction.eligible){
       messages.push("<strong>Taux moyen, avant réduction générale.</strong> À ce niveau de salaire, la réduction générale dégressive abaisse le coût réel : environ <strong>" + euros(repere.coutMensuel) + " par mois</strong> avec le détail des cotisations (entreprise de moins de 11 salariés, " + (s.heures ? "temps partiel de " + formatHeuresCSE(s.heures) : "temps plein") + ", taux AT/MP moyen). Choisissez une tranche d'effectif pour obtenir ce calcul.");
     }
@@ -786,9 +803,12 @@ function telechargerPDF_CSE(){
   if (r.cdd){
     lignes.push({ label: 'CDD : indemnité de fin de contrat, cotisations et CPF-CDD', value: euros(r.cdd.total) });
   }
-  lignes.push({ label: 'Avantages en nature / mutuelle', value: euros(s.avantages) });
+  lignes.push({ label: 'Mutuelle et prévoyance, part employeur', value: euros(s.avantages) });
+  if (s.avantagesNature > 0){
+    lignes.push({ label: 'Avantages en nature hors véhicule (soumis à cotisations)', value: euros(s.avantagesNature) });
+  }
   if (s.vehicule){
-    lignes.push({ label: 'Avantage en nature véhicule de fonction (' + Math.round(s.vehicule.tauxApplique*100) + ' %)', value: euros(s.vehiculeMensuel) });
+    lignes.push({ label: 'Avantage en nature véhicule de fonction (' + Math.round(s.vehicule.tauxApplique*100) + ' %, soumis à cotisations)', value: euros(s.vehiculeMensuel) });
   }
   lignes.push({ label: 'Intéressement et participation ramenés au mois', value: euros(s.primes/12) });
   lignes.push({ label: 'Coût total mensuel', value: euros(r.coutMensuel) });

@@ -1251,7 +1251,9 @@ function estimerCoutSalarieOptions(brutMensuel, avantagesMensuel, primesAnnuelle
 //             cadre: bool, tauxATMP: fraction ou null, cdd: bool,
 //             primesSoumisesAnnuelles: primes soumises à cotisations (13e mois, prime de vacances, bonus), montant annuel,
 //             quotite: fraction de la durée légale pour un temps partiel (0.8 pour 28 h sur 35), absente = temps plein,
-//             precariteTauxReduit: bool, indemnité de fin de CDD à 6 % au lieu de 10 % (art. L1243-9) }
+//             precariteTauxReduit: bool, indemnité de fin de CDD à 6 % au lieu de 10 % (art. L1243-9),
+//             avantagesNatureSoumisMensuel: valeur mensuelle des avantages en nature soumis à cotisations (véhicule compris), déjà comptée
+//             dans le coût par les 2e et 4e paramètres }
 // primesAnnuelles (4e paramètre historique) : sommes ajoutées au coût sans cotisations patronales — intéressement et participation, exonérés de
 // cotisations de sécurité sociale (urssaf.fr « Intéressement », mis à jour le 17/07/2026). Le forfait social éventuellement dû n'est pas calculé.
 // Complété le 02/10/2026 : sans les trois nouvelles options, le résultat est identique à la version précédente.
@@ -1264,7 +1266,13 @@ var modeDetail = (o.effectif === 'moins11' || o.effectif === '11a49' || o.effect
 // mensuelle revient au calcul annuel pour un salarié présent toute l'année (boss.gouv.fr : la rémunération prise en compte pour la
 // réduction est celle soumise à cotisations, primes comprises ; l'intéressement en est exclu).
 var primesSoumisesMensuelles = Math.max(0, o.primesSoumisesAnnuelles || 0) / 12;
-var remuneration = brutMensuel + primesSoumisesMensuelles;
+// Avantages en nature (ajouté le 03/10/2026) : véhicule de fonction, logement, repas, outils de communication… Ils constituent un élément de la
+// rémunération et entrent dans l'assiette des cotisations au même titre que le salaire (boss.gouv.fr « Avantages en nature », § 20, art.
+// L136-1-1 du Code de la sécurité sociale ; urssaf.fr « Les avantages en nature », mis à jour le 01/06/2026 — lus le 03/10/2026). Leur valeur
+// reste comptée une seule fois dans le coût (2e et 4e paramètres) ; elle s'ajoute ici à la rémunération soumise à cotisations, donc à celle
+// de la réduction générale. La part patronale de mutuelle et de prévoyance n'y entre pas. Sans cette option, le résultat est inchangé.
+var avantagesNatureSoumis = Math.max(0, o.avantagesNatureSoumisMensuel || 0);
+var remuneration = brutMensuel + primesSoumisesMensuelles + avantagesNatureSoumis;
 var detail = modeDetail ? detailCotisationsPatronales(remuneration, { cadre: o.cadre, effectif: o.effectif, tauxATMP: o.tauxATMP, quotite: q }) : null;
 var charges = modeDetail ? detail.total : remuneration * BAREME_2026.CHARGES_PATRONALES_MOYENNES;
 var tauxCharges = remuneration > 0 ? charges / remuneration : 0;
@@ -1299,6 +1307,7 @@ cdd: cdd,
 quotite: q,
 remuneration: remuneration,
 primesSoumisesMensuelles: primesSoumisesMensuelles,
+avantagesNatureSoumis: avantagesNatureSoumis,
 coutMensuel: coutMensuel,
 coutAnnuel: coutMensuel * 12
 };
@@ -2282,6 +2291,105 @@ var horsContingent = Math.max(0, Math.min(nouvelles, total - contingent));
 var taux = plusDe20Salaries ? HEURES_SUP_2026.COR_TAUX_PLUS_DE_20_SALARIES : HEURES_SUP_2026.COR_TAUX_20_SALARIES_AU_PLUS;
 return {contingent: contingent, total: total, restant: Math.max(0, contingent - total), horsContingent: horsContingent, taux: taux, reposHeures: horsContingent * taux};
 }
+// Bons d'achat et cadeaux attribués par le CSE ou, à défaut de CSE gérant les activités sociales et culturelles, par l'employeur : tolérance
+// ministérielle (instruction du 17/04/1985). Sources lues le 03/10/2026 au navigateur : urssaf.fr « Les prestations du CSE exonérées de
+// cotisations sous conditions » (mis à jour le 17/04/2026 : seuil de 5 % du plafond mensuel de la Sécurité sociale, soit 200 € en 2026, apprécié
+// sur l'année puis par événement) ; entreprendre.service-public.gouv.fr, actualité A18812 du 26/02/2026 (200 € par salarié en 2026) ;
+// economie.gouv.fr « Chèques-cadeaux, bons d'achats, cadeaux attribués aux salariés » (30/10/2025 : mêmes conditions, 196 € en 2025).
+// 5 % × 4 005 € = 200,25 € : l'Urssaf publie 200 €, montant retenu ici. À revoir chaque 1er janvier avec le plafond de la Sécurité sociale.
+var CADEAUX_CSE_2026 = {
+SEUIL: 200,
+TAUX_PLAFOND_MENSUEL: 0.05
+};
+var EVENEMENTS_CADEAUX_CSE = {
+noel_salarie: { libelle: 'Noël du salarié', parEnfant: false },
+noel_enfants: { libelle: 'Noël des enfants', parEnfant: true },
+rentree: { libelle: 'Rentrée scolaire', parEnfant: true },
+naissance: { libelle: 'Naissance ou adoption', parEnfant: false },
+mariage: { libelle: 'Mariage ou pacs', parEnfant: false },
+retraite: { libelle: 'Départ à la retraite', parEnfant: false },
+fete_parents: { libelle: 'Fête des mères ou des pères', parEnfant: false },
+catherine_nicolas: { libelle: 'Sainte-Catherine ou Saint-Nicolas', parEnfant: false }
+};
+function verifierExonerationCadeauxCSE(attributions, utilisationDeterminee){
+// attributions : [{ evenement: clé de EVENEMENTS_CADEAUX_CSE ou 'autre', montant: valeur attribuée pour cet événement, bons d'achat et cadeaux en
+//                  nature cumulés (par enfant pour le Noël des enfants et la rentrée scolaire), enfants: nombre d'enfants concernés }]
+// 1) Total de l'année civile ≤ seuil : tout est exonéré, quel que soit le motif d'attribution.
+// 2) Sinon, chaque attribution est examinée : événement de la liste, utilisation déterminée en lien avec l'événement, montant ≤ seuil par
+//    événement (par enfant pour la rentrée scolaire ; par enfant et pour le salarié à Noël). Le seuil n'est pas une franchise : une attribution
+//    qui le dépasse est soumise à cotisations pour sa totalité.
+var seuil = CADEAUX_CSE_2026.SEUIL;
+var lignes = [];
+var total = 0;
+var i, a, ev, unitaire, enfants, montantTotal;
+for (i = 0; i < (attributions || []).length; i++){
+a = attributions[i] || {};
+unitaire = (isFinite(a.montant) && a.montant > 0) ? a.montant : 0;
+if (unitaire <= 0) continue;
+ev = EVENEMENTS_CADEAUX_CSE[a.evenement] || null;
+enfants = (ev && ev.parEnfant) ? Math.max(1, Math.floor(a.enfants || 1)) : 1;
+montantTotal = unitaire * enfants;
+total += montantTotal;
+lignes.push({ evenement: ev ? a.evenement : 'autre', libelle: ev ? ev.libelle : 'Autre motif (hors liste des événements)', parEnfant: !!(ev && ev.parEnfant), enfants: enfants, montantUnitaire: unitaire, montantTotal: montantTotal, exonere: false, motif: '' });
+}
+var sousSeuilAnnuel = total <= seuil + 1e-9;
+var totalExonere = 0, totalSoumis = 0;
+for (i = 0; i < lignes.length; i++){
+var l = lignes[i];
+if (sousSeuilAnnuel){ l.exonere = true; l.motif = 'seuilAnnuel'; }
+else if (l.evenement === 'autre'){ l.motif = 'horsListe'; }
+else if (!utilisationDeterminee){ l.motif = 'utilisation'; }
+else if (l.montantUnitaire > seuil + 1e-9){ l.motif = 'montant'; }
+else { l.exonere = true; l.motif = 'conditionsRemplies'; }
+if (l.exonere) totalExonere += l.montantTotal; else totalSoumis += l.montantTotal;
+}
+return {
+seuil: seuil,
+total: total,
+sousSeuilAnnuel: sousSeuilAnnuel,
+lignes: lignes,
+totalExonere: totalExonere,
+totalSoumis: totalSoumis
+};
+}
+// Effectif « sécurité sociale » : art. L130-1 et R130-1 du Code de la sécurité sociale. Sources lues le 03/10/2026 au navigateur : Légifrance
+// (L130-1), boss.gouv.fr rubrique « Effectif » (§ 90 à 110 : moyenne des effectifs mensuels de l'année civile précédente, mois sans salarié exclus,
+// arrondi au centième inférieur ; § 380, 440 et 450 : prorata du temps de travail et de la durée du contrat), urssaf.fr « Comment est calculé
+// l'effectif ? » (mis à jour le 09/02/2026) et entreprendre.service-public.gouv.fr F24332 et F31415 (vérifiées le 14/08/2026).
+// Exemples officiels rejoués sous Node le 03/10/2026 : 3,91 et 3,70 (BOSS), 9,90 et 17,66 (service-public) ; par salarié : 0,38, 0,57, 0,53, 0,22 (BOSS).
+var SEUILS_EFFECTIF = [11, 20, 50, 250];
+function tronquerAuCentieme(x){
+// Centième inférieur ; l'arrondi préalable à 6 décimales évite qu'une valeur comme 3,70 ne tombe à 3,69 par erreur de virgule flottante.
+if (!isFinite(x) || x <= 0) return 0;
+return Math.floor(Math.round(x * 1e6) / 1e4) / 100;
+}
+function effectifMoyenAnnuel(effectifsMensuels){
+// effectifsMensuels : effectif de chacun des mois de l'année civile écoulée (salariés à temps plein présents tout le mois comptés pour 1, les
+// autres au prorata). Les mois sans salarié ne comptent pas dans la moyenne. Résultat : effectif applicable l'année suivante.
+var somme = 0, moisComptes = 0, i, v;
+for (i = 0; i < (effectifsMensuels || []).length && i < 12; i++){
+v = effectifsMensuels[i];
+if (isFinite(v) && v > 0){ somme += v; moisComptes++; }
+}
+var ema = moisComptes > 0 ? tronquerAuCentieme(somme / moisComptes) : 0;
+var seuils = [];
+for (i = 0; i < SEUILS_EFFECTIF.length; i++){
+seuils.push({ seuil: SEUILS_EFFECTIF[i], atteint: moisComptes > 0 && ema >= SEUILS_EFFECTIF[i] });
+}
+return { somme: somme, moisComptes: moisComptes, ema: ema, seuils: seuils };
+}
+function quotiteEffectifSalarie(heuresHebdo, dureeReferenceHebdo, joursEmploi, joursDuMois){
+// Un salarié sur un mois : (jours calendaires d'emploi ÷ jours calendaires du mois) × (heures du contrat ÷ durée légale, ou conventionnelle si
+// elle est inférieure), chaque rapport étant borné à 1. Temps plein présent tout le mois : 1.
+var ref = (isFinite(dureeReferenceHebdo) && dureeReferenceHebdo > 0) ? Math.min(dureeReferenceHebdo, 35) : 35;
+var h = (isFinite(heuresHebdo) && heuresHebdo > 0) ? heuresHebdo : ref;
+var jm = (isFinite(joursDuMois) && joursDuMois >= 28 && joursDuMois <= 31) ? Math.floor(joursDuMois) : 30;
+var je = (isFinite(joursEmploi) && joursEmploi > 0) ? Math.min(Math.floor(joursEmploi), jm) : jm;
+var partTemps = Math.min(1, h / ref);
+var partDuree = je / jm;
+var valeur = partTemps * partDuree;
+return { partTemps: partTemps, partDuree: partDuree, valeur: valeur, valeurAffichee: tronquerAuCentieme(valeur), joursEmploi: je, joursDuMois: jm, heures: h, dureeReference: ref };
+}
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable temps partiel prorata"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete temps partiel prorata"},
@@ -2292,6 +2400,8 @@ var SEARCH_INDEX = [
 {title:"Salaire net à partir du brut", url:"salaire-net-brut.html", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
 {title:"Augmentation de salaire", url:"augmentation-salaire.html", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
 {title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise.html", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur cotisations patronales taux 2026 effectif AT/MP accident du travail CDD prime precarite cout employeur smic cadre non-cadre urssaf agirc-arrco reduction generale degressive RGDU fillon allegement coefficient temps partiel 13e mois primes interessement participation"},
+{title:"Chèques cadeaux et bons d'achat : plafond Urssaf", url:"plafond-cheques-cadeaux-cse.html", cat:"Simulateur", kw:"cheque cadeau bon d'achat CSE plafond urssaf 200 euros 5 % plafond mensuel securite sociale noel rentree scolaire naissance mariage exoneration cotisations ASC activites sociales et culturelles carte cadeau"},
+{title:"Seuils d'effectif et effectif moyen annuel", url:"seuils-effectif-entreprise.html", cat:"Simulateur", kw:"seuil effectif 11 20 50 250 salaries effectif moyen annuel EMA ETP equivalent temps plein obligations employeur CSE FNAL versement mobilite forfait social OETH franchissement de seuil 5 ans L130-1"},
 {title:"Coût total d'un licenciement", url:"cout-licenciement-employeur.html", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
 {title:"Indemnité de congés payés", url:"indemnite-conges-payes.html", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite jours acquis 2,5 jours par mois combien de jours conges"},
 {title:"Calendrier des jours de pont", url:"calendrier-ponts.html", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},

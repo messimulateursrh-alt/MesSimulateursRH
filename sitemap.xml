@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://messimulateursrh.fr/</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -122,7 +122,19 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/cout-salarie-entreprise.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/plafond-cheques-cadeaux-cse.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/seuils-effectif-entreprise.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -284,7 +296,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/simulateurs-salaire-cout-travail.html</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
