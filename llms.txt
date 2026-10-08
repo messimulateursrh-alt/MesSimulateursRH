@@ -96,7 +96,7 @@
 - [Droits au chômage (ARE)](https://messimulateursrh.fr/formation-chomage-are.html): apprenez les conditions d'éligibilité et le calcul de l'allocation chômage (ARE), avec un quiz de validation et une attestation de participation à télécharger.
 - [Congés payés](https://messimulateursrh.fr/formation-conges-payes.html): apprenez le calcul de l'indemnité de congés payés (règle du dixième, maintien de salaire), avec quiz de validation et attestation à télécharger.
 - [Congé de naissance](https://messimulateursrh.fr/formation-conge-naissance.html): apprenez le fonctionnement du congé de naissance 2026 (indemnisation, délais, conditions), avec quiz de validation et attestation à télécharger.
-- [Passage à temps partiel](https://messimulateursrh.fr/formation-temps-partiel.html): apprenez l'impact réel d'un passage à temps partiel (salaire, congés payés, retraite), avec quiz de validation et attestation à télécharger.
+- [Passage à temps partiel](https://messimulateursrh.fr/formation-temps-partiel): apprenez l'impact réel d'un passage à temps partiel (salaire, congés payés, retraite), avec quiz de validation et attestation à télécharger.
 - [Départ et mise à la retraite](https://messimulateursrh.fr/formation-depart-retraite.html): apprenez la différence entre départ volontaire et mise à la retraite (barèmes, fiscalité), avec quiz de validation et attestation à télécharger.
 
 ## Ressources et site

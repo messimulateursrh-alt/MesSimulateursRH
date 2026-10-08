@@ -2465,7 +2465,7 @@ var SEARCH_INDEX = [
 {title:"Formation : Droits au chômage (ARE)", url:"formation-chomage-are.html", cat:"Formation", kw:"formation chomage ARE cours quiz"},
 {title:"Formation : Congé de naissance", url:"formation-conge-naissance.html", cat:"Formation", kw:"formation conge naissance cours quiz"},
 {title:"Formation : Départ et mise à la retraite", url:"formation-depart-retraite.html", cat:"Formation", kw:"formation depart retraite mise a la retraite cours quiz"},
-{title:"Formation : Passage à temps partiel", url:"formation-temps-partiel.html", cat:"Formation", kw:"formation temps partiel cours quiz"},
+{title:"Formation : Passage à temps partiel", url:"formation-temps-partiel", cat:"Formation", kw:"formation temps partiel cours quiz"},
 {title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026.html", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
 {title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission.html", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
 {title:"Démissionner et toucher le chômage", url:"demissionner-et-toucher-le-chomage.html", cat:"Guide", kw:"demission chomage demissionner toucher ARE demission legitime reconversion transitions pro 121 jours abandon de poste motifs legitimes"},

@@ -2,7 +2,7 @@
   publish = "."
 
 # Point 1.48 : adresses sans extension -> adresse canonique en .html (301).
-# Test valide en ligne le 08/10 sur /formation-temps-partiel (301, pas de boucle).
+# 08/10 : sens inverse en test sur /formation-temps-partiel (adresses propres, voir suivi-lot-0810.md).
 # Une regle par page, pas de joker (/:page attraperait sitemap.xml et les .html).
 [[redirects]]
   from = "/a-propos"
@@ -196,9 +196,10 @@
   status = 301
   force = true
 
+# TEST adresses propres (08/10) : .html -> sans extension, sur cette seule page.
 [[redirects]]
-  from = "/formation-temps-partiel"
-  to = "/formation-temps-partiel.html"
+  from = "/formation-temps-partiel.html"
+  to = "/formation-temps-partiel"
   status = 301
   force = true
 
