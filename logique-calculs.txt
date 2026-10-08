@@ -4,6 +4,7 @@ document.body.classList.add('audience-' + value);
 localStorage.setItem('audience', value);
 document.querySelectorAll('.audience-toggle button').forEach(function(btn){
 btn.classList.toggle('active', btn.dataset.audience === value);
+btn.setAttribute('aria-pressed', btn.dataset.audience === value ? 'true' : 'false');
 });
 }
 function initAudience(){
@@ -2393,7 +2394,7 @@ return { partTemps: partTemps, partDuree: partDuree, valeur: valeur, valeurAffic
 var SEARCH_INDEX = [
 {title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable temps partiel prorata"},
 {title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete temps partiel prorata"},
-{title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique.html", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere"},
+{title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique.html", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere enseignant education nationale professeur policier police municipale pompier sdis infirmier aide-soignant hopital gendarme militaire metier"},
 {title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
 {title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale"},
 {title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire recu documents fin de contrat certificat de travail attestation 13e mois non concurrence"},
@@ -2409,7 +2410,7 @@ var SEARCH_INDEX = [
 {title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge dates conge prenatal postnatal date accouchement report 3 semaines"},
 {title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
 {title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
-{title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche date seuils 8 mois 2 ans 10 ans preavis temps partiel conge parental cdd apprentissage interim stage"},
+{title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche date seuils 8 mois 1 an 2 ans 10 ans preavis temps partiel conge parental cdd apprentissage interim stage prime d'anciennete prime anciennete majoration periode d'essai certificat de travail transfert"},
 {title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite preavis bareme comparaison 70 ans"},
 {title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic retraite progressive"},
 {title:"Trimestres de retraite restants", url:"trimestres-retraite-restants.html", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
@@ -2417,7 +2418,7 @@ var SEARCH_INDEX = [
 {title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee rachat monetisation rtt non pris"},
 {title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat syntec batiment BTP cadre ETAM ouvrier transports routiers HCR hotels cafes restaurants indemnite de licenciement conventionnelle rupture conventionnelle preavis 1486 2420 2609 1596 1597 1979"},
-{title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD"},
+{title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD metier expose exposition"},
 {title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026.html", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
 {title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026.html", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026 projet de loi senat index indicateurs 50 salaries"},
 {title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026 24 23 meilleures annees recalcul 2027"},
@@ -2605,6 +2606,30 @@ if (r.top >= haut && r.bottom <= vh) return;
 var doux = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 window.scrollTo({ top: Math.max(0, window.pageYOffset + r.top - haut), behavior: doux ? 'smooth' : 'auto' });
 }
+var etatAvantCalcul = null;
+function retirerAideSaisie(card){
+var aide = card ? card.querySelector('.compute-hint') : null;
+if (aide && aide.parentNode) aide.parentNode.removeChild(aide);
+}
+function signalerCalculSansRetour(card, btn){
+if (!card || !btn || !card.querySelector('.result')) return;
+var retours = card.querySelectorAll('.result, .notice[id]');
+for (var i = 0; i < retours.length; i++){
+if (retours[i].offsetWidth || retours[i].offsetHeight || retours[i].getClientRects().length) return;
+}
+if (etatAvantCalcul && etatAvantCalcul.card === card && (card.innerText || '').length > etatAvantCalcul.texte) return;
+var aide = document.createElement('p');
+aide.className = 'notice compute-hint';
+aide.setAttribute('role', 'status');
+aide.textContent = 'Complétez les champs du formulaire pour afficher le résultat.';
+btn.insertAdjacentElement('afterend', aide);
+var bas = aide.getBoundingClientRect().bottom;
+var vh = window.innerHeight || document.documentElement.clientHeight;
+if (bas > vh){
+var doux = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+window.scrollBy({ top: bas - vh + 16, behavior: doux ? 'smooth' : 'auto' });
+}
+}
 function initResultatAccessible(){
 document.querySelectorAll('.card .result').forEach(function(res){
 if (!res.hasAttribute('aria-live')) res.setAttribute('aria-live', 'polite');
@@ -2613,7 +2638,21 @@ document.addEventListener('click', function(e){
 var btn = e.target.closest ? e.target.closest('button.compute') : null;
 if (!btn || btn.classList.contains('pdf')) return;
 var card = btn.closest('.card');
-window.requestAnimationFrame(function(){ defilerVersResultat(card); });
+if (!card) return;
+retirerAideSaisie(card);
+etatAvantCalcul = { card: card, texte: (card.innerText || '').length };
+}, true);
+document.addEventListener('click', function(e){
+var btn = e.target.closest ? e.target.closest('button.compute') : null;
+if (!btn || btn.classList.contains('pdf')) return;
+var card = btn.closest('.card');
+window.requestAnimationFrame(function(){ defilerVersResultat(card); signalerCalculSansRetour(card, btn); });
+});
+['input', 'change'].forEach(function(type){
+document.addEventListener(type, function(e){
+var card = e.target && e.target.closest ? e.target.closest('.card') : null;
+if (card) retirerAideSaisie(card);
+});
 });
 document.addEventListener('keydown', function(e){
 if (e.key !== 'Enter' || e.isComposing || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey) return;

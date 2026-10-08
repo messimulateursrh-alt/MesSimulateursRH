@@ -1,6 +1,14 @@
 [build]
   publish = "."
 
+# Test (point 1.48) : adresse sans extension -> adresse canonique en .html
+# Page de test hors menu et hors pied de page (07/10) : si la regle boucle, une seule page peu exposee est touchee.
+[[redirects]]
+  from = "/formation-temps-partiel"
+  to = "/formation-temps-partiel.html"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/404.html"
