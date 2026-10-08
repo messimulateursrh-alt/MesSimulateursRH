@@ -2474,7 +2474,7 @@ var SEARCH_INDEX = [
 {title:"Ressources officielles", url:"ressources-officielles.html", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
 {title:"À propos", url:"a-propos.html", cat:"Page", kw:"a propos qui edite methode sources"},
 {title:"Contact", url:"contact.html", cat:"Page", kw:"contact ecrire message signaler erreur question email"},
-{title:"Accueil", url:"index.html", cat:"Page", kw:"accueil simulateurs droit du travail"},
+{title:"Accueil", url:"/", cat:"Page", kw:"accueil simulateurs droit du travail"},
 {title:"Mentions légales", url:"mentions-legales.html", cat:"Page", kw:"mentions legales editeur"},
 {title:"Politique de confidentialité", url:"politique-de-confidentialite.html", cat:"Page", kw:"confidentialite RGPD donnees"}
 ];
@@ -2491,7 +2491,7 @@ function searchPages(query){
 var q = normalizeSearchStr(query).trim();
 if (!q) return [];
 var words = q.split(/\s+/).filter(Boolean);
-var currentPath = window.location.pathname.split('/').pop() || 'index.html';
+var currentPath = window.location.pathname.split('/').pop() || '/';
 var results = [];
 SEARCH_INDEX.forEach(function(entry){
 if (entry.url === currentPath) return;

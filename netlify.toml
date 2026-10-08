@@ -1,11 +1,510 @@
 [build]
   publish = "."
 
-# Test (point 1.48) : adresse sans extension -> adresse canonique en .html
-# Page de test hors menu et hors pied de page (07/10) : si la regle boucle, une seule page peu exposee est touchee.
+# Point 1.48 : adresses sans extension -> adresse canonique en .html (301).
+# Test valide en ligne le 08/10 sur /formation-temps-partiel (301, pas de boucle).
+# Une regle par page, pas de joker (/:page attraperait sitemap.xml et les .html).
+[[redirects]]
+  from = "/a-propos"
+  to = "/a-propos.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/actualites"
+  to = "/actualites.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/aller-plus-loin"
+  to = "/aller-plus-loin.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/arret-maladie-et-conges-payes"
+  to = "/arret-maladie-et-conges-payes.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/augmentation-salaire"
+  to = "/augmentation-salaire.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/calcul-anciennete"
+  to = "/calcul-anciennete.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/calcul-rtt"
+  to = "/calcul-rtt.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/calendrier-ponts"
+  to = "/calendrier-ponts.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cause-reelle-et-serieuse"
+  to = "/cause-reelle-et-serieuse.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/chomage-partiel"
+  to = "/chomage-partiel.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/comment-lire-sa-fiche-de-paie"
+  to = "/comment-lire-sa-fiche-de-paie.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/comment-quitter-son-emploi"
+  to = "/comment-quitter-son-emploi.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/conge-naissance"
+  to = "/conge-naissance.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/conge-naissance-2026"
+  to = "/conge-naissance-2026.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/conges-payes-non-pris"
+  to = "/conges-payes-non-pris.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contester-rupture-conventionnelle"
+  to = "/contester-rupture-conventionnelle.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cout-licenciement-employeur"
+  to = "/cout-licenciement-employeur.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cout-salarie-entreprise"
+  to = "/cout-salarie-entreprise.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cumul-emploi-retraite"
+  to = "/cumul-emploi-retraite.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/demissionner-et-toucher-le-chomage"
+  to = "/demissionner-et-toucher-le-chomage.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/droits-chomage"
+  to = "/droits-chomage.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faute-grave"
+  to = "/faute-grave.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faute-lourde"
+  to = "/faute-lourde.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation"
+  to = "/formation.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-anciennete-preavis"
+  to = "/formation-anciennete-preavis.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-chomage-are"
+  to = "/formation-chomage-are.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-conge-naissance"
+  to = "/formation-conge-naissance.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-conges-payes"
+  to = "/formation-conges-payes.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-depart-retraite"
+  to = "/formation-depart-retraite.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-indemnite-licenciement"
+  to = "/formation-indemnite-licenciement.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-rupture-conventionnelle"
+  to = "/formation-rupture-conventionnelle.html"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/formation-temps-partiel"
   to = "/formation-temps-partiel.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fractionnement-conges-payes"
+  to = "/fractionnement-conges-payes.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/frais-kilometriques"
+  to = "/frais-kilometriques.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/glossaire-droit-travail"
+  to = "/glossaire-droit-travail.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/heures-supplementaires"
+  to = "/heures-supplementaires.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ia-et-conventions-collectives"
+  to = "/ia-et-conventions-collectives.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ia-et-travail-obligations-employeur"
+  to = "/ia-et-travail-obligations-employeur.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/identifier-convention-collective"
+  to = "/identifier-convention-collective.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/indemnite-arret-maladie"
+  to = "/indemnite-arret-maladie.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/indemnite-conges-payes"
+  to = "/indemnite-conges-payes.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/indemnite-depart-retraite"
+  to = "/indemnite-depart-retraite.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/indemnite-licenciement"
+  to = "/indemnite-licenciement.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/indemnites-conge-maternite-paternite"
+  to = "/indemnites-conge-maternite-paternite.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/insuffisance-professionnelle"
+  to = "/insuffisance-professionnelle.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/jours-feries-travail"
+  to = "/jours-feries-travail.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lettre-notification-licenciement"
+  to = "/lettre-notification-licenciement.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/licenciement-abusif-bareme-macron"
+  to = "/licenciement-abusif-bareme-macron.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/licenciement-economique"
+  to = "/licenciement-economique.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/licenciement-inaptitude"
+  to = "/licenciement-inaptitude.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/licenciement-vs-rupture-conventionnelle-vs-demission"
+  to = "/licenciement-vs-rupture-conventionnelle-vs-demission.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentions-legales"
+  to = "/mentions-legales.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/negocier-rupture-conventionnelle"
+  to = "/negocier-rupture-conventionnelle.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/negocier-son-premier-salaire"
+  to = "/negocier-son-premier-salaire.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/participation-legale"
+  to = "/participation-legale.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/passage-temps-partiel"
+  to = "/passage-temps-partiel.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/plafond-cheques-cadeaux-cse"
+  to = "/plafond-cheques-cadeaux-cse.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/plafonnement-arrets-maladie-2026"
+  to = "/plafonnement-arrets-maladie-2026.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/politique-de-confidentialite"
+  to = "/politique-de-confidentialite.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portabilite-mutuelle"
+  to = "/portabilite-mutuelle.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/preavis"
+  to = "/preavis.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/prime-precarite-cdd"
+  to = "/prime-precarite-cdd.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/procedure-licenciement"
+  to = "/procedure-licenciement.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/qui-peut-vous-accompagner-rupture-conventionnelle"
+  to = "/qui-peut-vous-accompagner-rupture-conventionnelle.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quotient-familial"
+  to = "/quotient-familial.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reforme-rupture-conventionnelle-chomage-2026"
+  to = "/reforme-rupture-conventionnelle-chomage-2026.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/remplace-par-ia-licenciement"
+  to = "/remplace-par-ia-licenciement.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ressources-officielles"
+  to = "/ressources-officielles.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/retraite-parents-trimestres-2026"
+  to = "/retraite-parents-trimestres-2026.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rupture-conventionnelle"
+  to = "/rupture-conventionnelle.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rupture-conventionnelle-fonction-publique"
+  to = "/rupture-conventionnelle-fonction-publique.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/saisir-les-prudhommes"
+  to = "/saisir-les-prudhommes.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/salaire-apprenti"
+  to = "/salaire-apprenti.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/salaire-contrat-professionnalisation"
+  to = "/salaire-contrat-professionnalisation.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/salaire-net-brut"
+  to = "/salaire-net-brut.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/seuils-effectif-entreprise"
+  to = "/seuils-effectif-entreprise.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/simulateurs-anciennete-carriere"
+  to = "/simulateurs-anciennete-carriere.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/simulateurs-conges-temps-travail"
+  to = "/simulateurs-conges-temps-travail.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/simulateurs-rupture-contrat"
+  to = "/simulateurs-rupture-contrat.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/simulateurs-salaire-cout-travail"
+  to = "/simulateurs-salaire-cout-travail.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solde-tout-compte"
+  to = "/solde-tout-compte.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/transparence-salariale-directive-2026"
+  to = "/transparence-salariale-directive-2026.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/trimestres-retraite-restants"
+  to = "/trimestres-retraite-restants.html"
   status = 301
   force = true
 
