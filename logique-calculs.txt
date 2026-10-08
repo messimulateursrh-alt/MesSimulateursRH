@@ -457,7 +457,7 @@ tauxTotal: total / brutMensuel
 }
 // Statuts étendus (fonction publique, indépendant BNC, portage salarial) : coefficient global ou chaîne de calcul dédiée,
 // distincts de estimerNetDepuisBrut/estimerBrutDepuisNet (non-cadre/cadre) pour ne pas modifier leur signature — utilisées
-// ailleurs sur le site (passage-temps-partiel.html, augmentation-salaire.html) avec le paramètre booléen d'origine.
+// ailleurs sur le site (passage-temps-partiel, augmentation-salaire) avec le paramètre booléen d'origine.
 // statut : 'fonction-publique' | 'independant-ssi' | 'independant-cipav' | 'portage'.
 function estimerNetStatutEtendu(montantAvantCotisations, statut){
 if (statut === 'fonction-publique'){
@@ -917,7 +917,7 @@ if (iso) input.value = dateFRDepuisISO(iso);
 });
 }
 function preRemplirAnciennete(idAnnees, idMois, idNotice){
-// Ancienneté transmise par calcul-anciennete.html dans le fragment d'URL (#pre=1&src=anciennete&annees=…&mois=…).
+// Ancienneté transmise par calcul-anciennete dans le fragment d'URL (#pre=1&src=anciennete&annees=…&mois=…).
 // Le fragment n'est jamais envoyé au serveur ; il est retiré de l'adresse aussitôt lu. Rien n'est stocké. Aucun calcul n'est lancé.
 var hash = window.location.hash || '';
 if (hash.indexOf('#pre=1') !== 0) return false;
@@ -2146,7 +2146,7 @@ donneesInsuffisantes: donneesInsuffisantes
 };
 }
 
-// Délais pour saisir le conseil de prud'hommes (saisir-les-prudhommes.html).
+// Délais pour saisir le conseil de prud'hommes (saisir-les-prudhommes).
 // Sources : L1471-1, L1237-14, L3245-1, L1234-20, L1134-5 du Code du travail ; art. 2224 et 2226 du Code civil ; service-public.gouv.fr F2360.
 var DELAIS_PRUDHOMMES = {
 rupture:{mois:12, depart:"de la notification de la rupture (date de première présentation de la lettre de licenciement, par exemple)", article:"article L1471-1 du Code du travail"},
@@ -2175,7 +2175,7 @@ var joursRestants = Math.round((limite - ref) / 86400000);
 return {mois:regle.mois, depart:depart, limite:limite, joursRestants:joursRestants, futur:depart > ref, regle:regle};
 }
 
-// ISRC — indemnité spécifique de rupture conventionnelle dans la fonction publique (rupture-conventionnelle-fonction-publique.html).
+// ISRC — indemnité spécifique de rupture conventionnelle dans la fonction publique (rupture-conventionnelle-fonction-publique).
 // Décret n° 2019-1596 du 31/12/2019 modifié par le décret n° 2026-746 du 6 août 2026 (en vigueur le 8 août 2026).
 // Sources : fonction-publique.gouv.fr (fiche « Dispositif de rupture conventionnelle », maj 02/09/2026), service-public.gouv.fr F31094 (vérifiée le 08/08/2026).
 // Plancher par année complète d'ancienneté, par tranches (fraction de la rémunération mensuelle brute = rémunération brute annuelle N-1 / 12) ; plafond par année, dans la limite de 24 ans.
@@ -2217,7 +2217,7 @@ var jours = Math.min(joursBruts, plafond);
 return {montant:montant, diviseur:DIFFERE_ARE_2026.DIVISEUR, joursBruts:joursBruts, jours:jours, plafond:plafond, plafonne:joursBruts > plafond, montantAuPlafond:plafond * DIFFERE_ARE_2026.DIVISEUR};
 }
 // Heures supplémentaires et heures complémentaires (ajouté le 24/09/2026) — art. L3121-33, L3121-36, L3121-38, D3121-24 et L3123-29 du Code du travail ;
-// art. L241-17 et L241-18 du Code de la sécurité sociale ; art. 81 quater du CGI. Fonctions dédiées à heures-supplementaires.html, sans modifier les fonctions partagées.
+// art. L241-17 et L241-18 du Code de la sécurité sociale ; art. 81 quater du CGI. Fonctions dédiées à heures-supplementaires, sans modifier les fonctions partagées.
 var HEURES_SUP_2026 = {
 DUREE_LEGALE_HEBDO: 35,
 MAJORATION_LEGALE_1: 0.25,           // 8 premières heures supplémentaires de la semaine (36e à 43e heure), à défaut d'accord
@@ -2392,91 +2392,91 @@ var valeur = partTemps * partDuree;
 return { partTemps: partTemps, partDuree: partDuree, valeur: valeur, valeurAffichee: tronquerAuCentieme(valeur), joursEmploi: je, joursDuMois: jm, heures: h, dureeReference: ref };
 }
 var SEARCH_INDEX = [
-{title:"Rupture conventionnelle", url:"rupture-conventionnelle.html", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable temps partiel prorata"},
-{title:"Indemnité de licenciement", url:"indemnite-licenciement.html", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete temps partiel prorata"},
-{title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique.html", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere enseignant education nationale professeur policier police municipale pompier sdis infirmier aide-soignant hopital gendarme militaire metier"},
-{title:"Durée de préavis", url:"preavis.html", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
-{title:"Droits au chômage (ARE)", url:"droits-chomage.html", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale"},
-{title:"Solde de tout compte", url:"solde-tout-compte.html", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire recu documents fin de contrat certificat de travail attestation 13e mois non concurrence"},
-{title:"Salaire net à partir du brut", url:"salaire-net-brut.html", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
-{title:"Augmentation de salaire", url:"augmentation-salaire.html", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
-{title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise.html", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur cotisations patronales taux 2026 effectif AT/MP accident du travail CDD prime precarite cout employeur smic cadre non-cadre urssaf agirc-arrco reduction generale degressive RGDU fillon allegement coefficient temps partiel 13e mois primes interessement participation"},
-{title:"Chèques cadeaux et bons d'achat : plafond Urssaf", url:"plafond-cheques-cadeaux-cse.html", cat:"Simulateur", kw:"cheque cadeau bon d'achat CSE plafond urssaf 200 euros 5 % plafond mensuel securite sociale noel rentree scolaire naissance mariage exoneration cotisations ASC activites sociales et culturelles carte cadeau"},
-{title:"Seuils d'effectif et effectif moyen annuel", url:"seuils-effectif-entreprise.html", cat:"Simulateur", kw:"seuil effectif 11 20 50 250 salaries effectif moyen annuel EMA ETP equivalent temps plein obligations employeur CSE FNAL versement mobilite forfait social OETH franchissement de seuil 5 ans L130-1"},
-{title:"Coût total d'un licenciement", url:"cout-licenciement-employeur.html", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
-{title:"Indemnité de congés payés", url:"indemnite-conges-payes.html", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite jours acquis 2,5 jours par mois combien de jours conges"},
-{title:"Calendrier des jours de pont", url:"calendrier-ponts.html", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
-{title:"Passage à temps partiel", url:"passage-temps-partiel.html", cat:"Simulateur", kw:"temps partiel salaire net impact heures complementaires 24 heures retraite progressive"},
-{title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite.html", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge dates conge prenatal postnatal date accouchement report 3 semaines"},
-{title:"Congé de naissance 2026", url:"conge-naissance.html", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
-{title:"Congé de naissance : ce qui change", url:"conge-naissance-2026.html", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
-{title:"Calcul d'ancienneté", url:"calcul-anciennete.html", cat:"Simulateur", kw:"anciennete annees mois jours embauche date seuils 8 mois 1 an 2 ans 10 ans preavis temps partiel conge parental cdd apprentissage interim stage prime d'anciennete prime anciennete majoration periode d'essai certificat de travail transfert"},
-{title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite.html", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite preavis bareme comparaison 70 ans"},
-{title:"Cumul emploi-retraite", url:"cumul-emploi-retraite.html", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic retraite progressive"},
-{title:"Trimestres de retraite restants", url:"trimestres-retraite-restants.html", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
-{title:"Je veux quitter mon emploi (guide interactif)", url:"comment-quitter-son-emploi.html", cat:"Simulateur", kw:"quitter emploi demission licenciement rupture conventionnelle guide interactif que faire"},
-{title:"Calcul RTT", url:"calcul-rtt.html", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee rachat monetisation rtt non pris"},
-{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie.html", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
-{title:"Trouver sa convention collective", url:"identifier-convention-collective.html", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat syntec batiment BTP cadre ETAM ouvrier transports routiers HCR hotels cafes restaurants indemnite de licenciement conventionnelle rupture conventionnelle preavis 1486 2420 2609 1596 1597 1979"},
-{title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement.html", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD metier expose exposition"},
-{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026.html", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
-{title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026.html", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026 projet de loi senat index indicateurs 50 salaries"},
-{title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026.html", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026 24 23 meilleures annees recalcul 2027"},
-{title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd.html", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM apprentissage professionnalisation conges payes"},
-{title:"Salaire minimum apprenti", url:"salaire-apprenti.html", cat:"Simulateur", kw:"salaire apprenti alternance grille smic pourcentage age annee contrat"},
-{title:"Salaire minimum contrat de professionnalisation", url:"salaire-contrat-professionnalisation.html", cat:"Simulateur", kw:"salaire contrat professionnalisation alternance grille pourcentage age bac pro"},
-{title:"Chômage partiel (activité partielle)", url:"chomage-partiel.html", cat:"Simulateur", kw:"chomage partiel activite partielle indemnite salarie heures chomees"},
-{title:"Indemnités kilométriques", url:"frais-kilometriques.html", cat:"Simulateur", kw:"frais kilometriques indemnite bareme fiscal CV puissance distance frais reels"},
-{title:"Licenciement pour faute grave", url:"faute-grave.html", cat:"Guide", kw:"faute grave licenciement prescription 2 mois mise a pied conservatoire abandon poste"},
-{title:"Congés payés non pris : report, perte ou paiement ?", url:"conges-payes-non-pris.html", cat:"Guide", kw:"conges payes non pris report perte paiement indemnite compensatrice 15 mois information employeur compte epargne temps CET 31 mai"},
-{title:"Arrêt maladie et congés payés", url:"arret-maladie-et-conges-payes.html", cat:"Guide", kw:"arret maladie conges payes acquisition 2 jours 24 jours accident du travail loi 22 avril 2024 report malade pendant vacances"},
-{title:"Jours fériés : payés, chômés ou travaillés ?", url:"jours-feries-travail.html", cat:"Guide", kw:"jours feries payes chomes travailles 1er mai majoration journee de solidarite lundi de pentecote alsace moselle 11 jours feries"},
-{title:"Fractionnement des congés payés", url:"fractionnement-conges-payes.html", cat:"Guide", kw:"fractionnement conges payes jours supplementaires calcul calculateur 1er mai 31 octobre renonciation conge principal 12 jours ordre des departs"},
-{title:"Licenciement pour faute lourde", url:"faute-lourde.html", cat:"Guide", kw:"faute lourde intention de nuire conges payes licenciement"},
-{title:"Licenciement économique", url:"licenciement-economique.html", cat:"Guide", kw:"licenciement economique motif reclassement PSE plan sauvegarde emploi CSP difficultes economiques"},
-{title:"Licenciement pour inaptitude", url:"licenciement-inaptitude.html", cat:"Guide", kw:"inaptitude medicale licenciement reclassement medecin du travail accident du travail maladie professionnelle"},
-{title:"Insuffisance professionnelle", url:"insuffisance-professionnelle.html", cat:"Guide", kw:"insuffisance professionnelle licenciement insuffisance de resultats"},
-{title:"Cause réelle et sérieuse", url:"cause-reelle-et-serieuse.html", cat:"Guide", kw:"cause reelle et serieuse licenciement motif personnel motif economique prud hommes"},
-{title:"Licenciement abusif et barème Macron", url:"licenciement-abusif-bareme-macron.html", cat:"Guide", kw:"licenciement abusif bareme macron indemnite prud hommes anciennete sans cause reelle et serieuse"},
-{title:"Lettre de notification de licenciement", url:"lettre-notification-licenciement.html", cat:"Guide", kw:"lettre licenciement notification motifs delai recommande"},
-{title:"Procédure de licenciement", url:"procedure-licenciement.html", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
-{title:"Parts fiscales et quotient familial", url:"quotient-familial.html", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI mariage pacs comparatif celibataire imposition commune decote plafonnement"},
-{title:"Participation (RSP)", url:"participation-legale.html", cat:"Simulateur", kw:"participation RSP epargne salariale reserve speciale repartition PEE"},
-{title:"Heures supplémentaires", url:"heures-supplementaires.html", cat:"Simulateur", kw:"heures sup supplementaires complementaires majoration 25 50 taux horaire contingent 220 repos compensateur exoneration impot 7500 reduction cotisations 11,31 temps partiel"},
-{title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle.html", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
-{title:"Saisir les prud'hommes : délais et démarches", url:"saisir-les-prudhommes.html", cat:"Guide", kw:"saisir prud hommes conseil de prudhommes delai prescription combien de temps pour agir requete bordereau 1er octobre 2026 decret 2026-683 timbre fiscal 50 euros conciliation contester licenciement salaires impayes"},
-{title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle.html", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},
-{title:"Qui peut vous accompagner en rupture conventionnelle", url:"qui-peut-vous-accompagner-rupture-conventionnelle.html", cat:"Guide", kw:"conseiller du salarie syndicat representant du personnel assistance entretien rupture conventionnelle licenciement gratuit"},
-{title:"Négocier son premier salaire", url:"negocier-son-premier-salaire.html", cat:"Guide", kw:"negocier premier salaire embauche entretien alternance jeune diplome avantages salariaux"},
-{title:"IA et travail : obligations de l'employeur", url:"ia-et-travail-obligations-employeur.html", cat:"Guide", kw:"intelligence artificielle travail CSE consultation formation adaptation surveillance algorithmique AI Act discrimination"},
-{title:"IA et conventions collectives", url:"ia-et-conventions-collectives.html", cat:"Guide", kw:"intelligence artificielle convention collective accord de branche accord d'entreprise MAIF BPCE negociation collective"},
-{title:"Comment lire sa fiche de paie", url:"comment-lire-sa-fiche-de-paie.html", cat:"Guide", kw:"fiche de paie bulletin de salaire avantage en nature titre restaurant heures supplementaires CSG CRDS net imposable prelevement a la source"},
-{title:"Rupture du contrat de travail (catégorie)", url:"simulateurs-rupture-contrat.html", cat:"Catégorie", kw:"rupture contrat travail simulateurs categorie licenciement demission"},
-{title:"Salaire et coût du travail (catégorie)", url:"simulateurs-salaire-cout-travail.html", cat:"Catégorie", kw:"salaire cout travail simulateurs categorie brut net charges"},
-{title:"Congés et temps de travail (catégorie)", url:"simulateurs-conges-temps-travail.html", cat:"Catégorie", kw:"conges temps de travail simulateurs categorie maternite naissance"},
-{title:"Ancienneté et fin de carrière (catégorie)", url:"simulateurs-anciennete-carriere.html", cat:"Catégorie", kw:"anciennete carriere retraite simulateurs categorie"},
-{title:"Aller plus loin (catégorie)", url:"aller-plus-loin.html", cat:"Catégorie", kw:"aller plus loin guides formation actualites glossaire ressources"},
-{title:"Formation gratuite : les bases du droit du travail", url:"formation.html", cat:"Formation", kw:"formation quiz attestation modules cours gratuit"},
-{title:"Actualités du droit du travail", url:"actualites.html", cat:"Actualité", kw:"actualites blog reformes lois decrets droit du travail 2026"},
-{title:"Formation : Rupture conventionnelle", url:"formation-rupture-conventionnelle.html", cat:"Formation", kw:"formation rupture conventionnelle cours quiz"},
-{title:"Formation : Indemnité de licenciement", url:"formation-indemnite-licenciement.html", cat:"Formation", kw:"formation licenciement cours quiz"},
-{title:"Formation : Ancienneté et préavis", url:"formation-anciennete-preavis.html", cat:"Formation", kw:"formation anciennete preavis cours quiz"},
-{title:"Formation : Congés payés", url:"formation-conges-payes.html", cat:"Formation", kw:"formation conges payes cours quiz"},
-{title:"Formation : Droits au chômage (ARE)", url:"formation-chomage-are.html", cat:"Formation", kw:"formation chomage ARE cours quiz"},
-{title:"Formation : Congé de naissance", url:"formation-conge-naissance.html", cat:"Formation", kw:"formation conge naissance cours quiz"},
-{title:"Formation : Départ et mise à la retraite", url:"formation-depart-retraite.html", cat:"Formation", kw:"formation depart retraite mise a la retraite cours quiz"},
+{title:"Rupture conventionnelle", url:"rupture-conventionnelle", cat:"Simulateur", kw:"indemnite rupture conventionnelle RC exoneration sociale fiscale rompre contrat amiable temps partiel prorata"},
+{title:"Indemnité de licenciement", url:"indemnite-licenciement", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete temps partiel prorata"},
+{title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere enseignant education nationale professeur policier police municipale pompier sdis infirmier aide-soignant hopital gendarme militaire metier"},
+{title:"Durée de préavis", url:"preavis", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
+{title:"Droits au chômage (ARE)", url:"droits-chomage", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale"},
+{title:"Solde de tout compte", url:"solde-tout-compte", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire recu documents fin de contrat certificat de travail attestation 13e mois non concurrence"},
+{title:"Salaire net à partir du brut", url:"salaire-net-brut", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
+{title:"Augmentation de salaire", url:"augmentation-salaire", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
+{title:"Coût d'un salarié pour l'entreprise", url:"cout-salarie-entreprise", cat:"Simulateur", kw:"cout salarie charges patronales entreprise employeur cotisations patronales taux 2026 effectif AT/MP accident du travail CDD prime precarite cout employeur smic cadre non-cadre urssaf agirc-arrco reduction generale degressive RGDU fillon allegement coefficient temps partiel 13e mois primes interessement participation"},
+{title:"Chèques cadeaux et bons d'achat : plafond Urssaf", url:"plafond-cheques-cadeaux-cse", cat:"Simulateur", kw:"cheque cadeau bon d'achat CSE plafond urssaf 200 euros 5 % plafond mensuel securite sociale noel rentree scolaire naissance mariage exoneration cotisations ASC activites sociales et culturelles carte cadeau"},
+{title:"Seuils d'effectif et effectif moyen annuel", url:"seuils-effectif-entreprise", cat:"Simulateur", kw:"seuil effectif 11 20 50 250 salaries effectif moyen annuel EMA ETP equivalent temps plein obligations employeur CSE FNAL versement mobilite forfait social OETH franchissement de seuil 5 ans L130-1"},
+{title:"Coût total d'un licenciement", url:"cout-licenciement-employeur", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
+{title:"Indemnité de congés payés", url:"indemnite-conges-payes", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite jours acquis 2,5 jours par mois combien de jours conges"},
+{title:"Calendrier des jours de pont", url:"calendrier-ponts", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
+{title:"Passage à temps partiel", url:"passage-temps-partiel", cat:"Simulateur", kw:"temps partiel salaire net impact heures complementaires 24 heures retraite progressive"},
+{title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge dates conge prenatal postnatal date accouchement report 3 semaines"},
+{title:"Congé de naissance 2026", url:"conge-naissance", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
+{title:"Congé de naissance : ce qui change", url:"conge-naissance-2026", cat:"Actualité", kw:"conge naissance reforme loi LFSS 2026 juillet"},
+{title:"Calcul d'ancienneté", url:"calcul-anciennete", cat:"Simulateur", kw:"anciennete annees mois jours embauche date seuils 8 mois 1 an 2 ans 10 ans preavis temps partiel conge parental cdd apprentissage interim stage prime d'anciennete prime anciennete majoration periode d'essai certificat de travail transfert"},
+{title:"Indemnité de départ à la retraite", url:"indemnite-depart-retraite", cat:"Simulateur", kw:"retraite depart volontaire mise a la retraite indemnite preavis bareme comparaison 70 ans"},
+{title:"Cumul emploi-retraite", url:"cumul-emploi-retraite", cat:"Simulateur", kw:"cumul emploi retraite plafonne integral ecretement pension smic retraite progressive"},
+{title:"Trimestres de retraite restants", url:"trimestres-retraite-restants", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
+{title:"Je veux quitter mon emploi (guide interactif)", url:"comment-quitter-son-emploi", cat:"Simulateur", kw:"quitter emploi demission licenciement rupture conventionnelle guide interactif que faire"},
+{title:"Calcul RTT", url:"calcul-rtt", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee rachat monetisation rtt non pris"},
+{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
+{title:"Trouver sa convention collective", url:"identifier-convention-collective", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat syntec batiment BTP cadre ETAM ouvrier transports routiers HCR hotels cafes restaurants indemnite de licenciement conventionnelle rupture conventionnelle preavis 1486 2420 2609 1596 1597 1979"},
+{title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD metier expose exposition"},
+{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
+{title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026 projet de loi senat index indicateurs 50 salaries"},
+{title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026 24 23 meilleures annees recalcul 2027"},
+{title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM apprentissage professionnalisation conges payes"},
+{title:"Salaire minimum apprenti", url:"salaire-apprenti", cat:"Simulateur", kw:"salaire apprenti alternance grille smic pourcentage age annee contrat"},
+{title:"Salaire minimum contrat de professionnalisation", url:"salaire-contrat-professionnalisation", cat:"Simulateur", kw:"salaire contrat professionnalisation alternance grille pourcentage age bac pro"},
+{title:"Chômage partiel (activité partielle)", url:"chomage-partiel", cat:"Simulateur", kw:"chomage partiel activite partielle indemnite salarie heures chomees"},
+{title:"Indemnités kilométriques", url:"frais-kilometriques", cat:"Simulateur", kw:"frais kilometriques indemnite bareme fiscal CV puissance distance frais reels"},
+{title:"Licenciement pour faute grave", url:"faute-grave", cat:"Guide", kw:"faute grave licenciement prescription 2 mois mise a pied conservatoire abandon poste"},
+{title:"Congés payés non pris : report, perte ou paiement ?", url:"conges-payes-non-pris", cat:"Guide", kw:"conges payes non pris report perte paiement indemnite compensatrice 15 mois information employeur compte epargne temps CET 31 mai"},
+{title:"Arrêt maladie et congés payés", url:"arret-maladie-et-conges-payes", cat:"Guide", kw:"arret maladie conges payes acquisition 2 jours 24 jours accident du travail loi 22 avril 2024 report malade pendant vacances"},
+{title:"Jours fériés : payés, chômés ou travaillés ?", url:"jours-feries-travail", cat:"Guide", kw:"jours feries payes chomes travailles 1er mai majoration journee de solidarite lundi de pentecote alsace moselle 11 jours feries"},
+{title:"Fractionnement des congés payés", url:"fractionnement-conges-payes", cat:"Guide", kw:"fractionnement conges payes jours supplementaires calcul calculateur 1er mai 31 octobre renonciation conge principal 12 jours ordre des departs"},
+{title:"Licenciement pour faute lourde", url:"faute-lourde", cat:"Guide", kw:"faute lourde intention de nuire conges payes licenciement"},
+{title:"Licenciement économique", url:"licenciement-economique", cat:"Guide", kw:"licenciement economique motif reclassement PSE plan sauvegarde emploi CSP difficultes economiques"},
+{title:"Licenciement pour inaptitude", url:"licenciement-inaptitude", cat:"Guide", kw:"inaptitude medicale licenciement reclassement medecin du travail accident du travail maladie professionnelle"},
+{title:"Insuffisance professionnelle", url:"insuffisance-professionnelle", cat:"Guide", kw:"insuffisance professionnelle licenciement insuffisance de resultats"},
+{title:"Cause réelle et sérieuse", url:"cause-reelle-et-serieuse", cat:"Guide", kw:"cause reelle et serieuse licenciement motif personnel motif economique prud hommes"},
+{title:"Licenciement abusif et barème Macron", url:"licenciement-abusif-bareme-macron", cat:"Guide", kw:"licenciement abusif bareme macron indemnite prud hommes anciennete sans cause reelle et serieuse"},
+{title:"Lettre de notification de licenciement", url:"lettre-notification-licenciement", cat:"Guide", kw:"lettre licenciement notification motifs delai recommande"},
+{title:"Procédure de licenciement", url:"procedure-licenciement", cat:"Guide", kw:"procedure licenciement entretien prealable convocation preavis indemnite legale solde tout compte"},
+{title:"Parts fiscales et quotient familial", url:"quotient-familial", cat:"Simulateur", kw:"parts fiscales quotient familial impot revenu tranche marginale imposition TMI mariage pacs comparatif celibataire imposition commune decote plafonnement"},
+{title:"Participation (RSP)", url:"participation-legale", cat:"Simulateur", kw:"participation RSP epargne salariale reserve speciale repartition PEE"},
+{title:"Heures supplémentaires", url:"heures-supplementaires", cat:"Simulateur", kw:"heures sup supplementaires complementaires majoration 25 50 taux horaire contingent 220 repos compensateur exoneration impot 7500 reduction cotisations 11,31 temps partiel"},
+{title:"Négocier sa rupture conventionnelle", url:"negocier-rupture-conventionnelle", cat:"Guide", kw:"negocier rupture conventionnelle indemnite supra legale CPF transitions pro reconversion formation"},
+{title:"Saisir les prud'hommes : délais et démarches", url:"saisir-les-prudhommes", cat:"Guide", kw:"saisir prud hommes conseil de prudhommes delai prescription combien de temps pour agir requete bordereau 1er octobre 2026 decret 2026-683 timbre fiscal 50 euros conciliation contester licenciement salaires impayes"},
+{title:"Contester une rupture conventionnelle", url:"contester-rupture-conventionnelle", cat:"Guide", kw:"contester rupture conventionnelle vice du consentement prud hommes homologation delai 12 mois annulation"},
+{title:"Qui peut vous accompagner en rupture conventionnelle", url:"qui-peut-vous-accompagner-rupture-conventionnelle", cat:"Guide", kw:"conseiller du salarie syndicat representant du personnel assistance entretien rupture conventionnelle licenciement gratuit"},
+{title:"Négocier son premier salaire", url:"negocier-son-premier-salaire", cat:"Guide", kw:"negocier premier salaire embauche entretien alternance jeune diplome avantages salariaux"},
+{title:"IA et travail : obligations de l'employeur", url:"ia-et-travail-obligations-employeur", cat:"Guide", kw:"intelligence artificielle travail CSE consultation formation adaptation surveillance algorithmique AI Act discrimination"},
+{title:"IA et conventions collectives", url:"ia-et-conventions-collectives", cat:"Guide", kw:"intelligence artificielle convention collective accord de branche accord d'entreprise MAIF BPCE negociation collective"},
+{title:"Comment lire sa fiche de paie", url:"comment-lire-sa-fiche-de-paie", cat:"Guide", kw:"fiche de paie bulletin de salaire avantage en nature titre restaurant heures supplementaires CSG CRDS net imposable prelevement a la source"},
+{title:"Rupture du contrat de travail (catégorie)", url:"simulateurs-rupture-contrat", cat:"Catégorie", kw:"rupture contrat travail simulateurs categorie licenciement demission"},
+{title:"Salaire et coût du travail (catégorie)", url:"simulateurs-salaire-cout-travail", cat:"Catégorie", kw:"salaire cout travail simulateurs categorie brut net charges"},
+{title:"Congés et temps de travail (catégorie)", url:"simulateurs-conges-temps-travail", cat:"Catégorie", kw:"conges temps de travail simulateurs categorie maternite naissance"},
+{title:"Ancienneté et fin de carrière (catégorie)", url:"simulateurs-anciennete-carriere", cat:"Catégorie", kw:"anciennete carriere retraite simulateurs categorie"},
+{title:"Aller plus loin (catégorie)", url:"aller-plus-loin", cat:"Catégorie", kw:"aller plus loin guides formation actualites glossaire ressources"},
+{title:"Formation gratuite : les bases du droit du travail", url:"formation", cat:"Formation", kw:"formation quiz attestation modules cours gratuit"},
+{title:"Actualités du droit du travail", url:"actualites", cat:"Actualité", kw:"actualites blog reformes lois decrets droit du travail 2026"},
+{title:"Formation : Rupture conventionnelle", url:"formation-rupture-conventionnelle", cat:"Formation", kw:"formation rupture conventionnelle cours quiz"},
+{title:"Formation : Indemnité de licenciement", url:"formation-indemnite-licenciement", cat:"Formation", kw:"formation licenciement cours quiz"},
+{title:"Formation : Ancienneté et préavis", url:"formation-anciennete-preavis", cat:"Formation", kw:"formation anciennete preavis cours quiz"},
+{title:"Formation : Congés payés", url:"formation-conges-payes", cat:"Formation", kw:"formation conges payes cours quiz"},
+{title:"Formation : Droits au chômage (ARE)", url:"formation-chomage-are", cat:"Formation", kw:"formation chomage ARE cours quiz"},
+{title:"Formation : Congé de naissance", url:"formation-conge-naissance", cat:"Formation", kw:"formation conge naissance cours quiz"},
+{title:"Formation : Départ et mise à la retraite", url:"formation-depart-retraite", cat:"Formation", kw:"formation depart retraite mise a la retraite cours quiz"},
 {title:"Formation : Passage à temps partiel", url:"formation-temps-partiel", cat:"Formation", kw:"formation temps partiel cours quiz"},
-{title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026.html", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
-{title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission.html", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
-{title:"Démissionner et toucher le chômage", url:"demissionner-et-toucher-le-chomage.html", cat:"Guide", kw:"demission chomage demissionner toucher ARE demission legitime reconversion transitions pro 121 jours abandon de poste motifs legitimes"},
-{title:"Glossaire du droit du travail", url:"glossaire-droit-travail.html", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique retraite progressive"},
-{title:"Portabilité de la mutuelle", url:"portabilite-mutuelle.html", cat:"Simulateur", kw:"portabilite mutuelle prevoyance maintien gratuit L911-8 duree 12 mois rupture loi evin ayants droit faute grave fin de cdd attestation france travail complementaire sante"},
-{title:"Ressources officielles", url:"ressources-officielles.html", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
-{title:"À propos", url:"a-propos.html", cat:"Page", kw:"a propos qui edite methode sources"},
-{title:"Contact", url:"contact.html", cat:"Page", kw:"contact ecrire message signaler erreur question email"},
+{title:"Rupture conventionnelle et chômage : ce qui change en 2026", url:"reforme-rupture-conventionnelle-chomage-2026", cat:"Actualité", kw:"reforme 2026 loi rupture conventionnelle chomage septembre"},
+{title:"Licenciement vs rupture conventionnelle vs démission", url:"licenciement-vs-rupture-conventionnelle-vs-demission", cat:"Comparatif", kw:"comparatif licenciement rupture conventionnelle demission differences"},
+{title:"Démissionner et toucher le chômage", url:"demissionner-et-toucher-le-chomage", cat:"Guide", kw:"demission chomage demissionner toucher ARE demission legitime reconversion transitions pro 121 jours abandon de poste motifs legitimes"},
+{title:"Glossaire du droit du travail", url:"glossaire-droit-travail", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique retraite progressive"},
+{title:"Portabilité de la mutuelle", url:"portabilite-mutuelle", cat:"Simulateur", kw:"portabilite mutuelle prevoyance maintien gratuit L911-8 duree 12 mois rupture loi evin ayants droit faute grave fin de cdd attestation france travail complementaire sante"},
+{title:"Ressources officielles", url:"ressources-officielles", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
+{title:"À propos", url:"a-propos", cat:"Page", kw:"a propos qui edite methode sources"},
+{title:"Contact", url:"contact", cat:"Page", kw:"contact ecrire message signaler erreur question email"},
 {title:"Accueil", url:"/", cat:"Page", kw:"accueil simulateurs droit du travail"},
-{title:"Mentions légales", url:"mentions-legales.html", cat:"Page", kw:"mentions legales editeur"},
-{title:"Politique de confidentialité", url:"politique-de-confidentialite.html", cat:"Page", kw:"confidentialite RGPD donnees"}
+{title:"Mentions légales", url:"mentions-legales", cat:"Page", kw:"mentions legales editeur"},
+{title:"Politique de confidentialité", url:"politique-de-confidentialite", cat:"Page", kw:"confidentialite RGPD donnees"}
 ];
 
 function normalizeSearchStr(s){

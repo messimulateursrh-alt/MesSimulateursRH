@@ -1,202 +1,201 @@
 [build]
   publish = "."
 
-# Point 1.48 : adresses sans extension -> adresse canonique en .html (301).
-# 08/10 : sens inverse en test sur /formation-temps-partiel (adresses propres, voir suivi-lot-0810.md).
+# Adresses propres (08/10) : ancienne adresse .html -> adresse sans extension (301).
+# Test valide en ligne le 08/10 sur /formation-temps-partiel (1 redirection, pas de boucle).
 # Une regle par page, pas de joker (/:page attraperait sitemap.xml et les .html).
 [[redirects]]
-  from = "/a-propos"
-  to = "/a-propos.html"
+  from = "/a-propos.html"
+  to = "/a-propos"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/actualites"
-  to = "/actualites.html"
+  from = "/actualites.html"
+  to = "/actualites"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/aller-plus-loin"
-  to = "/aller-plus-loin.html"
+  from = "/aller-plus-loin.html"
+  to = "/aller-plus-loin"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/arret-maladie-et-conges-payes"
-  to = "/arret-maladie-et-conges-payes.html"
+  from = "/arret-maladie-et-conges-payes.html"
+  to = "/arret-maladie-et-conges-payes"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/augmentation-salaire"
-  to = "/augmentation-salaire.html"
+  from = "/augmentation-salaire.html"
+  to = "/augmentation-salaire"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/calcul-anciennete"
-  to = "/calcul-anciennete.html"
+  from = "/calcul-anciennete.html"
+  to = "/calcul-anciennete"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/calcul-rtt"
-  to = "/calcul-rtt.html"
+  from = "/calcul-rtt.html"
+  to = "/calcul-rtt"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/calendrier-ponts"
-  to = "/calendrier-ponts.html"
+  from = "/calendrier-ponts.html"
+  to = "/calendrier-ponts"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/cause-reelle-et-serieuse"
-  to = "/cause-reelle-et-serieuse.html"
+  from = "/cause-reelle-et-serieuse.html"
+  to = "/cause-reelle-et-serieuse"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/chomage-partiel"
-  to = "/chomage-partiel.html"
+  from = "/chomage-partiel.html"
+  to = "/chomage-partiel"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/comment-lire-sa-fiche-de-paie"
-  to = "/comment-lire-sa-fiche-de-paie.html"
+  from = "/comment-lire-sa-fiche-de-paie.html"
+  to = "/comment-lire-sa-fiche-de-paie"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/comment-quitter-son-emploi"
-  to = "/comment-quitter-son-emploi.html"
+  from = "/comment-quitter-son-emploi.html"
+  to = "/comment-quitter-son-emploi"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/conge-naissance"
-  to = "/conge-naissance.html"
+  from = "/conge-naissance.html"
+  to = "/conge-naissance"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/conge-naissance-2026"
-  to = "/conge-naissance-2026.html"
+  from = "/conge-naissance-2026.html"
+  to = "/conge-naissance-2026"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/conges-payes-non-pris"
-  to = "/conges-payes-non-pris.html"
+  from = "/conges-payes-non-pris.html"
+  to = "/conges-payes-non-pris"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/contact"
-  to = "/contact.html"
+  from = "/contact.html"
+  to = "/contact"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/contester-rupture-conventionnelle"
-  to = "/contester-rupture-conventionnelle.html"
+  from = "/contester-rupture-conventionnelle.html"
+  to = "/contester-rupture-conventionnelle"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/cout-licenciement-employeur"
-  to = "/cout-licenciement-employeur.html"
+  from = "/cout-licenciement-employeur.html"
+  to = "/cout-licenciement-employeur"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/cout-salarie-entreprise"
-  to = "/cout-salarie-entreprise.html"
+  from = "/cout-salarie-entreprise.html"
+  to = "/cout-salarie-entreprise"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/cumul-emploi-retraite"
-  to = "/cumul-emploi-retraite.html"
+  from = "/cumul-emploi-retraite.html"
+  to = "/cumul-emploi-retraite"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/demissionner-et-toucher-le-chomage"
-  to = "/demissionner-et-toucher-le-chomage.html"
+  from = "/demissionner-et-toucher-le-chomage.html"
+  to = "/demissionner-et-toucher-le-chomage"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/droits-chomage"
-  to = "/droits-chomage.html"
+  from = "/droits-chomage.html"
+  to = "/droits-chomage"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/faute-grave"
-  to = "/faute-grave.html"
+  from = "/faute-grave.html"
+  to = "/faute-grave"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/faute-lourde"
-  to = "/faute-lourde.html"
+  from = "/faute-lourde.html"
+  to = "/faute-lourde"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation"
-  to = "/formation.html"
+  from = "/formation.html"
+  to = "/formation"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-anciennete-preavis"
-  to = "/formation-anciennete-preavis.html"
+  from = "/formation-anciennete-preavis.html"
+  to = "/formation-anciennete-preavis"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-chomage-are"
-  to = "/formation-chomage-are.html"
+  from = "/formation-chomage-are.html"
+  to = "/formation-chomage-are"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-conge-naissance"
-  to = "/formation-conge-naissance.html"
+  from = "/formation-conge-naissance.html"
+  to = "/formation-conge-naissance"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-conges-payes"
-  to = "/formation-conges-payes.html"
+  from = "/formation-conges-payes.html"
+  to = "/formation-conges-payes"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-depart-retraite"
-  to = "/formation-depart-retraite.html"
+  from = "/formation-depart-retraite.html"
+  to = "/formation-depart-retraite"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-indemnite-licenciement"
-  to = "/formation-indemnite-licenciement.html"
+  from = "/formation-indemnite-licenciement.html"
+  to = "/formation-indemnite-licenciement"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/formation-rupture-conventionnelle"
-  to = "/formation-rupture-conventionnelle.html"
+  from = "/formation-rupture-conventionnelle.html"
+  to = "/formation-rupture-conventionnelle"
   status = 301
   force = true
 
-# TEST adresses propres (08/10) : .html -> sans extension, sur cette seule page.
 [[redirects]]
   from = "/formation-temps-partiel.html"
   to = "/formation-temps-partiel"
@@ -204,308 +203,308 @@
   force = true
 
 [[redirects]]
-  from = "/fractionnement-conges-payes"
-  to = "/fractionnement-conges-payes.html"
+  from = "/fractionnement-conges-payes.html"
+  to = "/fractionnement-conges-payes"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/frais-kilometriques"
-  to = "/frais-kilometriques.html"
+  from = "/frais-kilometriques.html"
+  to = "/frais-kilometriques"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/glossaire-droit-travail"
-  to = "/glossaire-droit-travail.html"
+  from = "/glossaire-droit-travail.html"
+  to = "/glossaire-droit-travail"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/heures-supplementaires"
-  to = "/heures-supplementaires.html"
+  from = "/heures-supplementaires.html"
+  to = "/heures-supplementaires"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/ia-et-conventions-collectives"
-  to = "/ia-et-conventions-collectives.html"
+  from = "/ia-et-conventions-collectives.html"
+  to = "/ia-et-conventions-collectives"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/ia-et-travail-obligations-employeur"
-  to = "/ia-et-travail-obligations-employeur.html"
+  from = "/ia-et-travail-obligations-employeur.html"
+  to = "/ia-et-travail-obligations-employeur"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/identifier-convention-collective"
-  to = "/identifier-convention-collective.html"
+  from = "/identifier-convention-collective.html"
+  to = "/identifier-convention-collective"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/indemnite-arret-maladie"
-  to = "/indemnite-arret-maladie.html"
+  from = "/indemnite-arret-maladie.html"
+  to = "/indemnite-arret-maladie"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/indemnite-conges-payes"
-  to = "/indemnite-conges-payes.html"
+  from = "/indemnite-conges-payes.html"
+  to = "/indemnite-conges-payes"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/indemnite-depart-retraite"
-  to = "/indemnite-depart-retraite.html"
+  from = "/indemnite-depart-retraite.html"
+  to = "/indemnite-depart-retraite"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/indemnite-licenciement"
-  to = "/indemnite-licenciement.html"
+  from = "/indemnite-licenciement.html"
+  to = "/indemnite-licenciement"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/indemnites-conge-maternite-paternite"
-  to = "/indemnites-conge-maternite-paternite.html"
+  from = "/indemnites-conge-maternite-paternite.html"
+  to = "/indemnites-conge-maternite-paternite"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/insuffisance-professionnelle"
-  to = "/insuffisance-professionnelle.html"
+  from = "/insuffisance-professionnelle.html"
+  to = "/insuffisance-professionnelle"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/jours-feries-travail"
-  to = "/jours-feries-travail.html"
+  from = "/jours-feries-travail.html"
+  to = "/jours-feries-travail"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/lettre-notification-licenciement"
-  to = "/lettre-notification-licenciement.html"
+  from = "/lettre-notification-licenciement.html"
+  to = "/lettre-notification-licenciement"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/licenciement-abusif-bareme-macron"
-  to = "/licenciement-abusif-bareme-macron.html"
+  from = "/licenciement-abusif-bareme-macron.html"
+  to = "/licenciement-abusif-bareme-macron"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/licenciement-economique"
-  to = "/licenciement-economique.html"
+  from = "/licenciement-economique.html"
+  to = "/licenciement-economique"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/licenciement-inaptitude"
-  to = "/licenciement-inaptitude.html"
+  from = "/licenciement-inaptitude.html"
+  to = "/licenciement-inaptitude"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/licenciement-vs-rupture-conventionnelle-vs-demission"
-  to = "/licenciement-vs-rupture-conventionnelle-vs-demission.html"
+  from = "/licenciement-vs-rupture-conventionnelle-vs-demission.html"
+  to = "/licenciement-vs-rupture-conventionnelle-vs-demission"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/mentions-legales"
-  to = "/mentions-legales.html"
+  from = "/mentions-legales.html"
+  to = "/mentions-legales"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/negocier-rupture-conventionnelle"
-  to = "/negocier-rupture-conventionnelle.html"
+  from = "/negocier-rupture-conventionnelle.html"
+  to = "/negocier-rupture-conventionnelle"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/negocier-son-premier-salaire"
-  to = "/negocier-son-premier-salaire.html"
+  from = "/negocier-son-premier-salaire.html"
+  to = "/negocier-son-premier-salaire"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/participation-legale"
-  to = "/participation-legale.html"
+  from = "/participation-legale.html"
+  to = "/participation-legale"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/passage-temps-partiel"
-  to = "/passage-temps-partiel.html"
+  from = "/passage-temps-partiel.html"
+  to = "/passage-temps-partiel"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/plafond-cheques-cadeaux-cse"
-  to = "/plafond-cheques-cadeaux-cse.html"
+  from = "/plafond-cheques-cadeaux-cse.html"
+  to = "/plafond-cheques-cadeaux-cse"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/plafonnement-arrets-maladie-2026"
-  to = "/plafonnement-arrets-maladie-2026.html"
+  from = "/plafonnement-arrets-maladie-2026.html"
+  to = "/plafonnement-arrets-maladie-2026"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/politique-de-confidentialite"
-  to = "/politique-de-confidentialite.html"
+  from = "/politique-de-confidentialite.html"
+  to = "/politique-de-confidentialite"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/portabilite-mutuelle"
-  to = "/portabilite-mutuelle.html"
+  from = "/portabilite-mutuelle.html"
+  to = "/portabilite-mutuelle"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/preavis"
-  to = "/preavis.html"
+  from = "/preavis.html"
+  to = "/preavis"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/prime-precarite-cdd"
-  to = "/prime-precarite-cdd.html"
+  from = "/prime-precarite-cdd.html"
+  to = "/prime-precarite-cdd"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/procedure-licenciement"
-  to = "/procedure-licenciement.html"
+  from = "/procedure-licenciement.html"
+  to = "/procedure-licenciement"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/qui-peut-vous-accompagner-rupture-conventionnelle"
-  to = "/qui-peut-vous-accompagner-rupture-conventionnelle.html"
+  from = "/qui-peut-vous-accompagner-rupture-conventionnelle.html"
+  to = "/qui-peut-vous-accompagner-rupture-conventionnelle"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/quotient-familial"
-  to = "/quotient-familial.html"
+  from = "/quotient-familial.html"
+  to = "/quotient-familial"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/reforme-rupture-conventionnelle-chomage-2026"
-  to = "/reforme-rupture-conventionnelle-chomage-2026.html"
+  from = "/reforme-rupture-conventionnelle-chomage-2026.html"
+  to = "/reforme-rupture-conventionnelle-chomage-2026"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/remplace-par-ia-licenciement"
-  to = "/remplace-par-ia-licenciement.html"
+  from = "/remplace-par-ia-licenciement.html"
+  to = "/remplace-par-ia-licenciement"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/ressources-officielles"
-  to = "/ressources-officielles.html"
+  from = "/ressources-officielles.html"
+  to = "/ressources-officielles"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/retraite-parents-trimestres-2026"
-  to = "/retraite-parents-trimestres-2026.html"
+  from = "/retraite-parents-trimestres-2026.html"
+  to = "/retraite-parents-trimestres-2026"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/rupture-conventionnelle"
-  to = "/rupture-conventionnelle.html"
+  from = "/rupture-conventionnelle.html"
+  to = "/rupture-conventionnelle"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/rupture-conventionnelle-fonction-publique"
-  to = "/rupture-conventionnelle-fonction-publique.html"
+  from = "/rupture-conventionnelle-fonction-publique.html"
+  to = "/rupture-conventionnelle-fonction-publique"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/saisir-les-prudhommes"
-  to = "/saisir-les-prudhommes.html"
+  from = "/saisir-les-prudhommes.html"
+  to = "/saisir-les-prudhommes"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/salaire-apprenti"
-  to = "/salaire-apprenti.html"
+  from = "/salaire-apprenti.html"
+  to = "/salaire-apprenti"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/salaire-contrat-professionnalisation"
-  to = "/salaire-contrat-professionnalisation.html"
+  from = "/salaire-contrat-professionnalisation.html"
+  to = "/salaire-contrat-professionnalisation"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/salaire-net-brut"
-  to = "/salaire-net-brut.html"
+  from = "/salaire-net-brut.html"
+  to = "/salaire-net-brut"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/seuils-effectif-entreprise"
-  to = "/seuils-effectif-entreprise.html"
+  from = "/seuils-effectif-entreprise.html"
+  to = "/seuils-effectif-entreprise"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/simulateurs-anciennete-carriere"
-  to = "/simulateurs-anciennete-carriere.html"
+  from = "/simulateurs-anciennete-carriere.html"
+  to = "/simulateurs-anciennete-carriere"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/simulateurs-conges-temps-travail"
-  to = "/simulateurs-conges-temps-travail.html"
+  from = "/simulateurs-conges-temps-travail.html"
+  to = "/simulateurs-conges-temps-travail"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/simulateurs-rupture-contrat"
-  to = "/simulateurs-rupture-contrat.html"
+  from = "/simulateurs-rupture-contrat.html"
+  to = "/simulateurs-rupture-contrat"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/simulateurs-salaire-cout-travail"
-  to = "/simulateurs-salaire-cout-travail.html"
+  from = "/simulateurs-salaire-cout-travail.html"
+  to = "/simulateurs-salaire-cout-travail"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/solde-tout-compte"
-  to = "/solde-tout-compte.html"
+  from = "/solde-tout-compte.html"
+  to = "/solde-tout-compte"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/transparence-salariale-directive-2026"
-  to = "/transparence-salariale-directive-2026.html"
+  from = "/transparence-salariale-directive-2026.html"
+  to = "/transparence-salariale-directive-2026"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/trimestres-retraite-restants"
-  to = "/trimestres-retraite-restants.html"
+  from = "/trimestres-retraite-restants.html"
+  to = "/trimestres-retraite-restants"
   status = 301
   force = true
 
