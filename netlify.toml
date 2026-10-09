@@ -77,6 +77,12 @@
   force = true
 
 [[redirects]]
+  from = "/conges-evenements-familiaux.html"
+  to = "/conges-evenements-familiaux"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/conge-naissance.html"
   to = "/conge-naissance"
   status = 301

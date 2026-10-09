@@ -71,6 +71,7 @@
 - [Arrêt maladie et congés payés](https://messimulateursrh.fr/arret-maladie-et-conges-payes): congés payés en arrêt maladie : 2 jours par mois (24 max), 2,5 jours en accident du travail, report de 15 mois, et report si vous tombez malade en vacances.
 - [Fractionnement des congés payés](https://messimulateursrh.fr/fractionnement-conges-payes): calculateur des jours de fractionnement : 1 ou 2 jours de congés en plus si une partie du congé principal est prise hors 1er mai-31 octobre. Renonciation, délais.
 - [Jours fériés : payés, chômés ou travaillés ?](https://messimulateursrh.fr/jours-feries-travail): les 11 jours fériés : payés, chômés ou travaillés ? 1er mai payé double, 3 mois d'ancienneté, férié tombant un week-end, journée de solidarité, Alsace-Moselle.
+- [Congés pour événements familiaux](https://messimulateursrh.fr/conges-evenements-familiaux): mariage ou PACS 4 jours, naissance 3, décès d'un parent 3, d'un enfant 12 à 14 + 8 jours de deuil, annonce du handicap d'un enfant 10 jours depuis le 14 juin 2026 ; jours ouvrables, payés, sans ancienneté.
 
 ## Guides : salaire, IA et conventions collectives
 - [Comment lire sa fiche de paie](https://messimulateursrh.fr/comment-lire-sa-fiche-de-paie): avantages en nature, titre-restaurant, heures supplémentaires, CSG/CRDS : les lignes qui expliquent l'écart entre salaire brut et net réellement versé.
