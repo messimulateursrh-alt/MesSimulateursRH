@@ -120,6 +120,14 @@ IJ_MALADIE_MAX_JOUR: 42.97,
 IJ_MALADIE_CSG_CRDS_TAUX: 0.067,
 CARENCE_MALADIE_PRIVE_JOURS: 3,
 CARENCE_MALADIE_PUBLIC_JOURS: 1,
+IJ_ATMP_TAUX_J1_28: 0.60,          // AT/MP : 60 % du salaire journalier jusqu'au 28e jour (R433-1 CSS)
+IJ_ATMP_TAUX_J29: 0.80,            // 80 % à partir du 29e jour (R433-3 CSS)
+IJ_ATMP_JOURS_TAUX1: 28,
+IJ_ATMP_DIVISEUR: 30.42,           // salaire journalier = 1/30,42 du salaire brut du mois civil précédent (R433-4 1°)
+IJ_ATMP_PLAFOND_PASS_AVANT_NOV2026: 0.00834,  // salaire journalier pris en compte dans la limite de 0,834 % du PASS (R433-2 ancien)
+IJ_ATMP_PLAFOND_PASS_DEPUIS_NOV2026: 0.00226, // 0,226 % du PASS pour un AT/MP survenu à compter du 01/11/2026 (décret n° 2026-909, art. 1 et 3)
+IJ_ATMP_ABATTEMENT_GAIN_NET: 0.21, // IJ ≤ gain journalier net = salaire journalier − 21 % (R433-4 dernier alinéa, R331-5 ; service-public F175)
+IJ_ATMP_CSG_CRDS_TAUX: 0.067,      // CSG 6,2 % + CRDS 0,5 % (service-public F175)
 MAINTIEN_CARENCE_EMPLOYEUR_JOURS: 7,
 MAINTIEN_TAUX_PALIER1: 0.90,
 MAINTIEN_TAUX_PALIER2: 0.6666,
@@ -1529,6 +1537,61 @@ r.carenceEmployeurRestante = Math.min(duree, Math.max(0, total.carenceEmployeur 
 return r;
 }
 
+// Accident du travail / maladie professionnelle, salarié du privé (régime général) — fonction à part, ajoutée le 12/10/2026.
+// IJ de la Sécurité sociale : 60 % du salaire journalier jusqu'au 28e jour d'arrêt, 80 % à partir du 29e (R433-1, R433-3 CSS) ;
+// salaire journalier = 1/30,42 du salaire brut du mois civil précédant l'arrêt (R433-4 1°), retenu dans la limite de 0,834 % du PASS,
+// ou de 0,226 % pour un accident ou une maladie professionnelle survenus à compter du 01/11/2026 (R433-2, décret n° 2026-909) ;
+// l'IJ ne dépasse pas le gain journalier net, salaire journalier non plafonné diminué de 21 % (R433-4 ; F175).
+// Pas de carence : le jour de l'accident est payé par l'employeur, les IJ courent dès le lendemain (L433-1) ; dureeJours = jours
+// d'arrêt après ce jour. Complément employeur dès le 1er jour d'absence (D1226-3), mêmes paliers que la maladie, 1 an d'ancienneté
+// (L1226-1, F175). Prolongation sans reprise : joursDejaEcoules > 0, les taux et paliers reprennent là où ils en étaient.
+function _cumulArretATMP(salaire, anciennete, nJours, apresNov2026){
+var T = BAREME_2026;
+var sj = salaire / T.IJ_ATMP_DIVISEUR;
+var plafondSJ = T.PASS_ANNUEL * (apresNov2026 ? T.IJ_ATMP_PLAFOND_PASS_DEPUIS_NOV2026 : T.IJ_ATMP_PLAFOND_PASS_AVANT_NOV2026);
+var sjRetenu = Math.min(sj, plafondSJ);
+var gainNet = sj * (1 - T.IJ_ATMP_ABATTEMENT_GAIN_NET);
+var ij1 = Math.min(sjRetenu * T.IJ_ATMP_TAUX_J1_28, gainNet);
+var ij2 = Math.min(sjRetenu * T.IJ_ATMP_TAUX_J29, gainNet);
+var eligible = anciennete >= T.MAINTIEN_ANCIENNETE_MIN_ANS;
+var palier = eligible ? trouverPalierMaintien(Math.floor(anciennete)) : null;
+var salaireBrutJour = salaire / 30;
+var c = { sj: sj, plafondSJ: plafondSJ, sjRetenu: sjRetenu, plafonne: sj > plafondSJ, gainNet: gainNet, ij1: ij1, ij2: ij2,
+eligibleMaintien: eligible, palier: palier, joursA60: 0, joursA80: 0, totalIJBrut: 0, joursA90Effectifs: 0, joursA66Effectifs: 0, totalComplementEmployeur: 0 };
+for (var d = 1; d <= nJours; d++){
+var ij = d <= T.IJ_ATMP_JOURS_TAUX1 ? ij1 : ij2;
+if (d <= T.IJ_ATMP_JOURS_TAUX1) c.joursA60++; else c.joursA80++;
+c.totalIJBrut += ij;
+if (palier){
+if (d <= palier.jours){ c.joursA90Effectifs++; c.totalComplementEmployeur += Math.max(0, salaireBrutJour * T.MAINTIEN_TAUX_PALIER1 - ij); }
+else if (d <= 2 * palier.jours){ c.joursA66Effectifs++; c.totalComplementEmployeur += Math.max(0, salaireBrutJour * T.MAINTIEN_TAUX_PALIER2 - ij); }
+}
+}
+return c;
+}
+function estimerIndemniteArretATMP(salaireMoisPrecedent, ancienneteAnnees, dureeJours, apresNov2026, joursDejaEcoules){
+var T = BAREME_2026;
+var deja = Math.max(0, Math.floor(joursDejaEcoules || 0));
+var duree = Math.max(0, Math.floor(dureeJours || 0));
+var total = _cumulArretATMP(salaireMoisPrecedent, ancienneteAnnees, deja + duree, !!apresNov2026);
+var avant = _cumulArretATMP(salaireMoisPrecedent, ancienneteAnnees, deja, !!apresNov2026);
+var r = {};
+var k;
+for (k in total){ if (Object.prototype.hasOwnProperty.call(total, k)) r[k] = total[k]; }
+var champs = ['joursA60', 'joursA80', 'totalIJBrut', 'joursA90Effectifs', 'joursA66Effectifs', 'totalComplementEmployeur'];
+for (var i = 0; i < champs.length; i++){ r[champs[i]] = Math.max(0, total[champs[i]] - avant[champs[i]]); }
+r.statut = 'atmp';
+r.apresNov2026 = !!apresNov2026;
+r.joursDejaEcoules = deja;
+r.dureeJours = duree;
+r.ij1Net = r.ij1 * (1 - T.IJ_ATMP_CSG_CRDS_TAUX);
+r.ij2Net = r.ij2 * (1 - T.IJ_ATMP_CSG_CRDS_TAUX);
+r.totalIJNet = r.totalIJBrut * (1 - T.IJ_ATMP_CSG_CRDS_TAUX);
+r.totalPercuBrut = r.totalIJBrut + r.totalComplementEmployeur;
+r.totalPercuNet = r.totalIJNet + r.totalComplementEmployeur;
+return r;
+}
+
 // Calendrier par année (vérifié le 26/09/2026 : fériés de l'art. L3133-1 tombant du lundi au vendredi ; Alsace-Moselle, art. L3134-13 : Vendredi saint — seulement dans les communes ayant un temple protestant ou une église mixte — et 26 décembre).
 var RTT_CALENDRIER = {
 2026: { joursCalendaires: 365, weekEnds: 104, joursFeries: 9, vendrediSaintEnSemaine: 1, lendemainNoelEnSemaine: 0 },
@@ -2416,10 +2479,10 @@ var SEARCH_INDEX = [
 {title:"Trimestres de retraite restants", url:"trimestres-retraite-restants", cat:"Simulateur", kw:"trimestres retraite restants age legal taux plein generation suspension reforme 2026"},
 {title:"Je veux quitter mon emploi (guide interactif)", url:"comment-quitter-son-emploi", cat:"Simulateur", kw:"quitter emploi demission licenciement rupture conventionnelle guide interactif que faire"},
 {title:"Calcul RTT", url:"calcul-rtt", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee rachat monetisation rtt non pris"},
-{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie", cat:"Simulateur", kw:"arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
+{title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie", cat:"Simulateur", kw:"accident du travail maladie professionnelle AT MP plafond 1er novembre 2026 arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat syntec batiment BTP cadre ETAM ouvrier transports routiers HCR hotels cafes restaurants indemnite de licenciement conventionnelle rupture conventionnelle preavis 1486 2420 2609 1596 1597 1979"},
 {title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD metier expose exposition"},
-{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026", cat:"Actualité", kw:"arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
+{title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026", cat:"Actualité", kw:"accident du travail 1er novembre 2026 plafond 1,8 smic arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
 {title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026 projet de loi senat index indicateurs 50 salaries"},
 {title:"Retraite des parents : ce qui change au 1er septembre 2026", url:"retraite-parents-trimestres-2026", cat:"Actualité", kw:"retraite parents trimestres majoration duree assurance pension 2026 24 23 meilleures annees recalcul 2027"},
 {title:"Prime de précarité CDD / intérim", url:"prime-precarite-cdd", cat:"Simulateur", kw:"prime precarite CDD interim indemnite fin contrat fin de mission IFM apprentissage professionnalisation conges payes"},

@@ -1,0 +1,55 @@
+name: IndexNow (Bing, Yandex...) apres chaque push
+
+# Point 1.51 (12/10/2026) : a chaque push sur main qui touche une page,
+# envoie a api.indexnow.org les adresses propres (sans .html) des pages
+# modifiees, une fois que Netlify sert la nouvelle version.
+# Lancement manuel possible (onglet Actions) : tout le sitemap, ou essai a blanc.
+
+on:
+  push:
+    branches: [main]
+    paths: ['*.html']
+  workflow_dispatch:
+    inputs:
+      tout:
+        description: "Envoyer toutes les adresses du sitemap"
+        type: boolean
+        default: false
+      essai:
+        description: "Essai a blanc (afficher sans envoyer)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout du site
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Envoi IndexNow (push)
+        if: github.event_name == 'push'
+        run: python3 scripts/indexnow.py --base "${{ github.event.before }}" --head "${{ github.sha }}"
+
+      - name: Envoi IndexNow (manuel)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          ARGS=""
+          if [ "${{ inputs.tout }}" = "true" ]; then ARGS="--all"; else ARGS="--head ${{ github.sha }} --no-wait"; fi
+          if [ "${{ inputs.essai }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python3 scripts/indexnow.py $ARGS
