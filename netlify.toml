@@ -77,6 +77,12 @@
   force = true
 
 [[redirects]]
+  from = "/historique-mises-a-jour.html"
+  to = "/historique-mises-a-jour"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/conges-evenements-familiaux.html"
   to = "/conges-evenements-familiaux"
   status = 301

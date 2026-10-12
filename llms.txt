@@ -71,7 +71,7 @@
 - [Arrêt maladie et congés payés](https://messimulateursrh.fr/arret-maladie-et-conges-payes): congés payés en arrêt maladie : 2 jours par mois (24 max), 2,5 jours en accident du travail, report de 15 mois, et report si vous tombez malade en vacances.
 - [Fractionnement des congés payés](https://messimulateursrh.fr/fractionnement-conges-payes): calculateur des jours de fractionnement : 1 ou 2 jours de congés en plus si une partie du congé principal est prise hors 1er mai-31 octobre. Renonciation, délais.
 - [Jours fériés : payés, chômés ou travaillés ?](https://messimulateursrh.fr/jours-feries-travail): les 11 jours fériés : payés, chômés ou travaillés ? 1er mai payé double, 3 mois d'ancienneté, férié tombant un week-end, journée de solidarité, Alsace-Moselle.
-- [Congés pour événements familiaux](https://messimulateursrh.fr/conges-evenements-familiaux): mariage ou PACS 4 jours, naissance 3, décès d'un parent 3, d'un enfant 12 à 14 + 8 jours de deuil, annonce du handicap d'un enfant 10 jours depuis le 14 juin 2026 ; jours ouvrables, payés, sans ancienneté.
+- [Congés pour événements familiaux](https://messimulateursrh.fr/conges-evenements-familiaux): mariage ou PACS 4 jours, naissance 3, décès d'un parent 3, d'un enfant 12 à 14 + 8 jours de deuil, annonce du handicap d'un enfant 10 jours depuis le 14 juin 2026 ; jours ouvrables, payés, sans ancienneté ; enfant malade : 3 ou 5 jours par an, en principe non payés (L1225-61).
 
 ## Guides : salaire, IA et conventions collectives
 - [Comment lire sa fiche de paie](https://messimulateursrh.fr/comment-lire-sa-fiche-de-paie): avantages en nature, titre-restaurant, heures supplémentaires, CSG/CRDS : les lignes qui expliquent l'écart entre salaire brut et net réellement versé.
@@ -82,7 +82,7 @@
 - [Remplacé par une IA et licencié : quels recours ?](https://messimulateursrh.fr/remplace-par-ia-licenciement): votre employeur invoque l'IA pour justifier votre licenciement ? Cause réelle et sérieuse, formation, reclassement, RGPD et AI Act : vos droits expliqués.
 
 ## Réformes et actualité légale 2026
-- [Actualités](https://messimulateursrh.fr/actualites): suivi des réformes et évolutions légales récentes.
+- [Actualités](https://messimulateursrh.fr/actualites): suivi des réformes et évolutions légales récentes, avec un calendrier des prochaines échéances datées.
 - [Rupture conventionnelle et chômage : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/reforme-rupture-conventionnelle-chomage-2026): loi n°2026-470 du 11 juin 2026, durée d'indemnisation chômage réduite.
 - [Congé de naissance 2026 : ce qu'il faut savoir](https://messimulateursrh.fr/conge-naissance-2026): dispositif en vigueur depuis juillet 2026, durée, conditions, démarches.
 - [Retraite des parents : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/retraite-parents-trimestres-2026): décrets n° 2026-699 et 2026-700, calcul de la pension et trimestres supplémentaires ; application du nouveau calcul courant 2027 au régime général, avec recalcul automatique.
@@ -106,6 +106,7 @@
 - [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail): 41 termes expliqués simplement, reliés aux simulateurs correspondants.
 - [Ressources officielles](https://messimulateursrh.fr/ressources-officielles): annuaire de sites officiels (Code du travail numérique, TéléRC, France Travail, URSSAF, Ameli).
 - [À propos et méthode](https://messimulateursrh.fr/a-propos): méthode de vérification des barèmes, fréquence de mise à jour, code source public.
+- [Mises à jour et corrections](https://messimulateursrh.fr/historique-mises-a-jour): corrections publiées depuis la mise en ligne (date, page, erreur, correction) et date de dernière mise à jour de chaque page.
 - [Contacter MesSimulateursRH.fr](https://messimulateursrh.fr/contact): contacter MesSimulateursRH.fr : signaler une erreur de calcul, suggérer un simulateur, poser une question sur une page ou proposer un partenariat. Réponse sous quelques jours.
 - [Mentions légales](https://messimulateursrh.fr/mentions-legales): mentions légales de MesSimulateursRH.fr : identité de l'éditeur, hébergement du site, propriété intellectuelle et limites de responsabilité du contenu proposé.
 - [Politique de confidentialité](https://messimulateursrh.fr/politique-de-confidentialite): politique de confidentialité de MesSimulateursRH.fr : calculs 100% dans votre navigateur, aucune donnée envoyée à un serveur, aucun cookie à ce jour.
