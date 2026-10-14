@@ -62,7 +62,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-09-15",
+  "dateModified": "2026-10-14",
   "name": "Calendrier des Jours de Pont 2026 / 2027",
   "description": "Trouvez les meilleurs jours de congés à poser en 2026 et 2027 pour maximiser vos week-ends prolongés autour des jours fériés. Gratuit, calcul local.",
   "url": "https://messimulateursrh.fr/calendrier-ponts",
@@ -171,7 +171,7 @@
       Trouvez les meilleurs jours de congés à poser autour des jours fériés pour maximiser vos week-ends prolongés en 2026 et 2027.
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 7 septembre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Dates vérifiées le 14 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> Un jour férié tombant un mardi ou un jeudi ne nécessite qu'un seul jour de congé posé pour obtenir 4 jours de repos consécutifs.</div>
@@ -182,6 +182,7 @@
       <select id="anneePont">
         <option value="2026">2026</option>
         <option value="2027">2027</option>
+        <option value="2028">2028</option>
       </select>
     </div>
     <button class="compute" onclick="calculerPonts()">Afficher les meilleurs ponts</button>
@@ -204,7 +205,7 @@
       Un "pont" consiste à poser un ou plusieurs jours de congé entre un jour férié et un week-end pour obtenir une période de repos continue plus longue que le seul jour férié. Selon le jour de la semaine sur lequel tombe le jour férié, le nombre de jours de congé nécessaires — et le nombre de jours de repos obtenus au total — varient fortement : un jour férié tombant un mardi ou un jeudi ne demande qu'un seul jour de congé pour obtenir 4 jours de repos consécutifs, tandis qu'un jour férié tombant un mercredi permet, avec deux jours de congé, d'obtenir un pont de 5 jours.
     </p>
     <p>
-      Ce simulateur liste les 11 jours fériés de France métropolitaine pour l'année choisie (pour savoir lesquels sont payés, chômés ou travaillés, voir notre guide des <a href="jours-feries-travail">jours fériés</a>), calcule automatiquement le jour de la semaine correspondant, et classe les opportunités de pont par meilleur rendement (nombre de jours de repos obtenus par jour de congé posé). Si vous êtes au forfait jours ou à plus de 35 h par semaine, vos jours de RTT peuvent aussi servir à poser un pont : <a href="calcul-rtt">calculez votre nombre de RTT</a> pour l'année.
+      Ce simulateur liste les 11 jours fériés de France métropolitaine pour l'année choisie (pour savoir lesquels sont payés, chômés ou travaillés, voir notre guide des <a href="jours-feries-travail">jours fériés</a>), calcule automatiquement le jour de la semaine correspondant, et classe les opportunités de pont par meilleur rendement (nombre de jours de repos obtenus par jour de congé posé). Les dates proviennent du jeu de données public <a href="https://www.data.gouv.fr/datasets/jours-feries-en-france" target="_blank" rel="noopener noreferrer">« Jours fériés en France »</a> publié sur data.gouv.fr, et couvrent 2026, 2027 et 2028. Si vous êtes au forfait jours ou à plus de 35 h par semaine, vos jours de RTT peuvent aussi servir à poser un pont : <a href="calcul-rtt">calculez votre nombre de RTT</a> pour l'année.
     </p>
 
     <div class="example-box">
@@ -267,7 +268,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> calendrier basé sur les dates officielles des jours fériés en France métropolitaine (hors Alsace-Moselle, qui compte 2 jours fériés supplémentaires : Vendredi Saint et Saint-Étienne). Vérifiez les jours fériés spécifiques à votre région ou collectivité d'Outre-mer si applicable. Ne remplace pas la politique de congés de votre entreprise.
+    <strong>Avertissement :</strong> calendrier basé sur les dates officielles des jours fériés en France métropolitaine, issues du jeu de données public <a href="https://www.data.gouv.fr/datasets/jours-feries-en-france" target="_blank" rel="noopener noreferrer">« Jours fériés en France »</a> (data.gouv.fr, API calendrier.api.gouv.fr) (hors Alsace-Moselle, qui compte 2 jours fériés supplémentaires : Vendredi Saint et Saint-Étienne). Vérifiez les jours fériés spécifiques à votre région ou collectivité d'Outre-mer si applicable. Ne remplace pas la politique de congés de votre entreprise.
     <br><br>
     <a href="a-propos">À propos</a> · <a href="mentions-legales">Mentions légales</a> · <a href="politique-de-confidentialite">Politique de confidentialité</a>
   </div>
@@ -301,6 +302,19 @@ var JOURS_FERIES = {
     { nom: 'Toussaint', date: '2027-11-01' },
     { nom: 'Armistice 1918', date: '2027-11-11' },
     { nom: 'Noël', date: '2027-12-25' }
+  ],
+  2028: [
+    { nom: "Jour de l'An", date: '2028-01-01' },
+    { nom: 'Lundi de Pâques', date: '2028-04-17' },
+    { nom: 'Fête du Travail', date: '2028-05-01' },
+    { nom: 'Victoire 1945', date: '2028-05-08' },
+    { nom: 'Ascension', date: '2028-05-25' },
+    { nom: 'Lundi de Pentecôte', date: '2028-06-05' },
+    { nom: 'Fête nationale', date: '2028-07-14' },
+    { nom: 'Assomption', date: '2028-08-15' },
+    { nom: 'Toussaint', date: '2028-11-01' },
+    { nom: 'Armistice 1918', date: '2028-11-11' },
+    { nom: 'Noël', date: '2028-12-25' }
   ]
 };
 

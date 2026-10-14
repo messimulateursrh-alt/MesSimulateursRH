@@ -2468,7 +2468,7 @@ var SEARCH_INDEX = [
 {title:"Seuils d'effectif et effectif moyen annuel", url:"seuils-effectif-entreprise", cat:"Simulateur", kw:"seuil effectif 11 20 50 250 salaries effectif moyen annuel EMA ETP equivalent temps plein obligations employeur CSE FNAL versement mobilite forfait social OETH franchissement de seuil 5 ans L130-1"},
 {title:"Coût total d'un licenciement", url:"cout-licenciement-employeur", cat:"Simulateur", kw:"cout licenciement employeur charges patronales total"},
 {title:"Indemnité de congés payés", url:"indemnite-conges-payes", cat:"Simulateur", kw:"conges payes dixieme maintien de salaire indemnite jours acquis 2,5 jours par mois combien de jours conges"},
-{title:"Calendrier des jours de pont", url:"calendrier-ponts", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027"},
+{title:"Calendrier des jours de pont", url:"calendrier-ponts", cat:"Simulateur", kw:"jours de pont conges jours feries calendrier 2026 2027 2028"},
 {title:"Passage à temps partiel", url:"passage-temps-partiel", cat:"Simulateur", kw:"temps partiel salaire net impact heures complementaires 24 heures retraite progressive"},
 {title:"Indemnités congé maternité / paternité", url:"indemnites-conge-maternite-paternite", cat:"Simulateur", kw:"maternite paternite indemnites journalieres IJ CPAM conge dates conge prenatal postnatal date accouchement report 3 semaines"},
 {title:"Congé de naissance 2026", url:"conge-naissance", cat:"Simulateur", kw:"conge naissance supplementaire 2026 indemnisation parent trimestre retraite 58 jours conge paternite difference convention collective maintien salaire"},
