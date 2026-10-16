@@ -39,7 +39,7 @@
 - [Calcul RTT](https://messimulateursrh.fr/calcul-rtt): jours de RTT 2026 ou 2027, au forfait jours (218 jours) ou à l'horaire hebdomadaire (35h à 39h), Alsace-Moselle et prorata d'arrivée ou de départ en cours d'année.
 - [Chômage partiel (activité partielle) — indemnité salarié](https://messimulateursrh.fr/chomage-partiel): 60 % du taux horaire brut, plancher SMIC.
 - [Impact d'un passage à temps partiel](https://messimulateursrh.fr/passage-temps-partiel): effet sur le salaire net et les droits à congés payés ; heures complémentaires et retraite progressive.
-- [Calendrier des jours de pont](https://messimulateursrh.fr/calendrier-ponts): meilleurs jours de congés à poser en 2026-2027 autour des jours fériés.
+- [Ponts 2027 : calendrier et classement des jours de pont](https://messimulateursrh.fr/calendrier-ponts): classement des ponts 2027, combinaison optimale de congés (25 jours posés = 56 jours de repos, méthode publiée) et calendrier 2026-2028, Alsace-Moselle comprise.
 
 ## Ancienneté et fin de carrière
 - [Ancienneté et fin de carrière](https://messimulateursrh.fr/simulateurs-anciennete-carriere): 4 simulateurs gratuits sur l'ancienneté et la fin de carrière : calcul d'ancienneté, trimestres restants, cumul emploi-retraite, indemnité de départ à la retraite.
