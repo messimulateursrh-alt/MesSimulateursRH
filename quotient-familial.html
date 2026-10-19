@@ -51,7 +51,7 @@
       "name": "Plus j'ai de parts, mon impôt baisse-t-il sans limite ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non : l'avantage fiscal de chaque demi-part supplémentaire au-delà de 2 parts (couple) ou 1 part (personne seule) est plafonné (1 807 € par demi-part dans le cas général pour les revenus 2025, plafonds différents pour les parents isolés, invalides et anciens combattants). Ce simulateur ne calcule pas ce plafonnement."
+        "text": "Non : l'avantage fiscal de chaque demi-part supplémentaire au-delà de 2 parts (couple) ou 1 part (personne seule) est plafonné (1 807 € par demi-part dans le cas général pour les revenus 2025, plafonds différents pour les parents isolés, invalides et anciens combattants). Le calcul des parts ne l'applique pas ; le comparateur mariage/PACS, lui, l'applique."
       }
     },
     {
@@ -59,7 +59,7 @@
       "name": "Le nombre de parts fiscales me permet-il de calculer mon impôt sur le revenu ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. Le nombre de parts sert uniquement à déterminer le taux marginal d'imposition (quotient familial). Le calcul réel de l'impôt intègre ensuite le plafonnement du quotient familial, la décote, les crédits et réductions d'impôt, et l'ensemble des revenus du foyer fiscal — des éléments que cet outil n'intègre pas."
+        "text": "Non. Le nombre de parts sert à calculer le quotient familial : on applique le barème au revenu divisé par le nombre de parts, puis on multiplie le résultat par ce nombre de parts. Le calcul réel de l'impôt intègre ensuite le plafonnement du quotient familial, la décote, les crédits et réductions d'impôt, et l'ensemble des revenus du foyer fiscal — des éléments que cet outil n'intègre pas."
       }
     },
     {
@@ -112,7 +112,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-09-15",
+  "dateModified": "2026-10-19",
   "name": "Simulateur de parts fiscales et quotient familial",
   "description": "Calculez vos parts fiscales (quotient familial), votre taux marginal d'imposition, et comparez votre impôt avant/après mariage ou PACS. Gratuit, sans compte.",
   "url": "https://messimulateursrh.fr/quotient-familial",
@@ -221,7 +221,7 @@
       Calculez votre nombre de parts fiscales selon votre situation familiale, et le taux marginal d'imposition (TMI) qui en découle. <strong>Ce n'est pas un calcul d'impôt</strong> : voir plus bas pourquoi, et ce que cet outil ne remplace pas.
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 14 septembre 2026 (revenus 2025, déclaration 2026). <a href="a-propos">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026 (revenus 2025, déclaration 2026). <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> 1 part pour une personne seule, 2 parts pour un couple marié ou pacsé, + 0,5 part pour chacun des deux premiers enfants à charge, + 1 part à partir du 3ᵉ. Le quotient familial (revenu ÷ parts) indique votre taux marginal d'imposition — pas le montant de votre impôt.</div>
@@ -383,11 +383,11 @@
     </details>
     <details class="faq">
       <summary>Plus j'ai de parts, mon impôt baisse-t-il sans limite ?</summary>
-      <p>Non : l'avantage fiscal de chaque demi-part supplémentaire au-delà de 2 parts (couple) ou 1 part (personne seule) est plafonné (1 807 € par demi-part dans le cas général pour les revenus 2025, plafonds différents pour les parents isolés, invalides et anciens combattants). Ce simulateur ne calcule pas ce plafonnement.</p>
+      <p>Non : l'avantage fiscal de chaque demi-part supplémentaire au-delà de 2 parts (couple) ou 1 part (personne seule) est plafonné (1 807 € par demi-part dans le cas général pour les revenus 2025, plafonds différents pour les parents isolés, invalides et anciens combattants). Le calcul des parts ne l'applique pas ; le comparateur mariage/PACS, lui, l'applique.</p>
     </details>
     <details class="faq">
       <summary>Le nombre de parts fiscales me permet-il de calculer mon impôt sur le revenu ?</summary>
-      <p>Non. Le nombre de parts sert uniquement à déterminer le taux marginal d'imposition (quotient familial). Le calcul réel de l'impôt intègre ensuite le plafonnement du quotient familial, la décote, les crédits et réductions d'impôt, et l'ensemble des revenus du foyer fiscal — des éléments que cet outil n'intègre pas.</p>
+      <p>Non. Le nombre de parts sert à calculer le quotient familial : on applique le barème au revenu divisé par le nombre de parts, puis on multiplie le résultat par ce nombre de parts. Le calcul réel de l'impôt intègre ensuite le plafonnement du quotient familial, la décote, les crédits et réductions d'impôt, et l'ensemble des revenus du foyer fiscal — des éléments que cet outil n'intègre pas.</p>
     </details>
     <details class="faq">
       <summary>Qu'est-ce que la case T sur ma déclaration de revenus ?</summary>
@@ -451,7 +451,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur les articles 194 et 195 du Code général des impôts (nombre de parts) et le barème 2026 de l'impôt sur le revenu applicable aux revenus 2025 (déclaration 2026, revalorisé de 0,9 % par la loi de finances pour 2026). Ne calcule ni votre impôt sur le revenu, ni votre prélèvement à la source : n'intègre pas le plafonnement du quotient familial, la décote, ni les crédits et réductions d'impôt. Pour un calcul complet, utilisez le simulateur officiel de la DGFiP sur impots.gouv.fr. Ne remplace pas un conseil fiscal personnalisé.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur les articles 194 et 195 du Code général des impôts (nombre de parts) et le barème 2026 de l'impôt sur le revenu applicable aux revenus 2025 (déclaration 2026, revalorisé de 0,9 % par la loi de finances pour 2026). Ne calcule ni votre impôt sur le revenu, ni votre prélèvement à la source : le calcul des parts et du taux marginal n'intègre pas le plafonnement du quotient familial ni la décote (le comparateur mariage/PACS applique le plafonnement général et la décote), ni les crédits et réductions d'impôt. Pour un calcul complet, utilisez le simulateur officiel de la DGFiP sur impots.gouv.fr. Ne remplace pas un conseil fiscal personnalisé.
     <br><br>
     <a href="a-propos">À propos</a> · <a href="mentions-legales">Mentions légales</a> · <a href="politique-de-confidentialite">Politique de confidentialité</a>
   </div>

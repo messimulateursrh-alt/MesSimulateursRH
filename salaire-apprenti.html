@@ -96,7 +96,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-09-15",
+  "dateModified": "2026-10-19",
   "name": "Simulateur de salaire minimum apprenti",
   "description": "Calculez le salaire brut et net d'un apprenti selon son âge, l'année et la date du contrat, avec le seuil d'exonération 2026. Gratuit, grille officielle.",
   "url": "https://messimulateursrh.fr/salaire-apprenti",
@@ -212,7 +212,7 @@
       <span class="for-employeur">Vérifiez le salaire minimum légal à verser à un apprenti selon son âge et l'année de son contrat.</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 8 septembre 2026, SMIC au 1ᵉʳ juin 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026, SMIC au 1ᵉʳ juin 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> de 27% du SMIC (moins de 18 ans, 1ère année) à 100% du SMIC (26 ans et plus), selon une grille croisant l'âge de l'apprenti et l'année d'exécution du contrat.</div>
@@ -304,7 +304,7 @@
       </tr>
     </table>
     <p style="margin-top:10px;">
-      Ces pourcentages s'appliquent au SMIC — ou au minimum conventionnel de branche si celui-ci est plus favorable (art. D6222-26 du Code du travail). Le passage à la tranche d'âge supérieure s'applique automatiquement le premier jour du mois suivant l'anniversaire de l'apprenti, même en cours de contrat.
+      Ces pourcentages s'appliquent au SMIC ; à partir de 21 ans, ils s'appliquent au minimum conventionnel de l'emploi occupé s'il est plus élevé (art. D6222-26 du Code du travail). Le passage à la tranche d'âge supérieure s'applique automatiquement le premier jour du mois suivant l'anniversaire de l'apprenti, même en cours de contrat.
     </p>
 
     <div class="example-box">
@@ -430,7 +430,7 @@ function calculerSalaireApprenti(){
   var net = estimerNetApprenti(salaireBrut, dateContrat === 'apres');
   var netHtml = 'Net réel estimé : <strong>' + euros(net.net) + ' / mois</strong>.';
   if (net.montantSoumis > 0){
-    netHtml += ' Seuil d\'exonération de cotisations salariales : ' + euros(net.seuil) + ' (' + (net.tauxSeuil * 100).toFixed(0) + '% du SMIC). La part au-dessus (' + euros(net.montantSoumis) + ') est soumise aux cotisations salariales et à la CSG/CRDS de droit commun (' + euros(net.cotisations.total) + '), le reste (' + euros(net.montantExonere) + ') est intégralement exonéré.';
+    netHtml += ' Seuil d\'exonération de cotisations salariales : ' + euros(net.seuil) + ' (' + (net.tauxSeuil * 100).toFixed(0) + '% du SMIC). La part au-dessus (' + euros(net.montantSoumis) + ') est soumise aux cotisations salariales' + (net.tauxSeuil < 0.6 ? ' et à la CSG/CRDS de droit commun' : ', la CSG/CRDS étant exonérée pour un contrat conclu avant le 1ᵉʳ mars 2025') + ' (' + euros(net.cotisations.total) + '), le reste (' + euros(net.montantExonere) + ') est intégralement exonéré.';
   } else {
     netHtml += ' Votre salaire est intégralement sous le seuil d\'exonération (' + euros(net.seuil) + ', soit ' + (net.tauxSeuil * 100).toFixed(0) + '% du SMIC) : aucune cotisation salariale ni CSG/CRDS, le net est égal au brut.';
   }
@@ -463,7 +463,7 @@ function telechargerPDF_SA(){
     { label: 'Pourcentage applicable', value: (pct * 100).toFixed(0) + '%' + (majoration ? ' (dont majoration +15 points)' : '') },
     { label: 'Salaire minimum brut mensuel', value: euros(salaireBrut) },
     { label: 'Seuil d\'exonération de cotisations', value: euros(net.seuil) + ' (' + (net.tauxSeuil * 100).toFixed(0) + '% du SMIC)' },
-    { label: 'Cotisations salariales + CSG/CRDS estimées', value: euros(net.cotisations.total) },
+    { label: 'Cotisations salariales' + (net.tauxSeuil < 0.6 ? ' + CSG/CRDS' : '') + ' estimées', value: euros(net.cotisations.total) },
     { label: 'Net réel estimé', value: euros(net.net), type: 'total' }
   ];
 

@@ -77,6 +77,10 @@ TAUX_VIEILLESSE_PLAFONNEE: 0.0690,
 TAUX_VIEILLESSE_DEPLAFONNEE: 0.0040,
 TAUX_AGIRC_ARRCO_T1_SALARIE: 0.0315,
 TAUX_CEG_T1_SALARIE: 0.0086,
+// Tranche 2 (1 à 8 PASS) et CET, part salariale (Agirc-Arrco, chiffres clés 2026 ; cleiss.fr) — ajout du 19/10/2026.
+TAUX_AGIRC_ARRCO_T2_SALARIE: 0.0864,
+TAUX_CEG_T2_SALARIE: 0.0108,
+TAUX_CET_SALARIE: 0.0014,
 TAUX_APEC_SALARIE: 0.00024,
 TAUX_CSG_DEDUCTIBLE: 0.0680,
 TAUX_CSG_NON_DEDUCTIBLE: 0.0240,
@@ -95,11 +99,17 @@ VEHICULE_ELECTRIQUE_ABATTEMENT_TAUX: 0.70,
 VEHICULE_ELECTRIQUE_ABATTEMENT_PLAFOND_AN: 4641.60,
 SJB_DIVISEUR: 91.25,
 IJ_MATERNITE_TAUX: 0.79,
-IJ_PATERNITE_TAUX: 0.938,
+// Paternité : même calcul que la maternité (SJB − 21 %, plafond 104,02 €/j en 2026) — service-public F3156 et ameli « montants maximum ».
+// Correction du 19/10/2026 : 0.938 surestimait l'indemnité d'environ 19 %.
+IJ_PATERNITE_TAUX: 0.79,
 CONGE_PATERNITE_JOURS_STANDARD: 25,
 CONGE_PATERNITE_JOURS_MULTIPLE: 32,
 CONGE_NAISSANCE_TAUX_MOIS1: 0.70,
 CONGE_NAISSANCE_TAUX_MOIS2: 0.60,
+// Plafond du congé supplémentaire de naissance : PASS mensuel 4 005 € brut = 3 163,95 € net au 01/01/2026
+// (ameli.fr, page « Congé supplémentaire de naissance : indemnités journalières », maj 27/08/2026 : max 72,81 €/j puis 62,41 €/j).
+// Le salaire de référence étant net, c'est ce plafond net qui s'applique (correction du 19/10/2026 : 4 005 était appliqué au net).
+CONGE_NAISSANCE_PLAFOND_NET_MENSUEL: 3163.95,
 SMIC_BRUT_HORAIRE: 12.31,
 SMIC_NET_HORAIRE: 9.74,
 PRIME_PRECARITE_TAUX_STANDARD: 0.10,
@@ -213,6 +223,13 @@ var seuil = BAREME_2026.SMIC_BRUT_MENSUEL * tauxSeuil;
 var montantExonere = Math.min(salaireBrut, seuil);
 var montantSoumis = Math.max(0, salaireBrut - seuil);
 var cotisations = detailCotisationsSalariales(montantSoumis, false);
+// Contrat conclu avant le 1er mars 2025 : CSG/CRDS totalement exonérées, seules les cotisations salariales sont dues
+// au-delà de 79 % du SMIC (service-public F2918, vérifiée le 08/09/2026) — correction du 19/10/2026.
+if (!contratApres1erMars2025){
+cotisations.total = cotisations.vieillessePlafonnee + cotisations.vieillesseDeplafonnee + cotisations.agircArrco + cotisations.ceg + cotisations.agircArrcoT2 + cotisations.cegT2 + cotisations.cet;
+cotisations.csgDeductible = 0; cotisations.csgNonDeductible = 0; cotisations.crds = 0;
+cotisations.tauxTotal = montantSoumis > 0 ? cotisations.total / montantSoumis : 0;
+}
 var net = salaireBrut - cotisations.total;
 return {
 tauxSeuil: tauxSeuil,
@@ -428,18 +445,28 @@ methodeRetenue: dixieme >= maintien ? 'dixième' : 'maintien de salaire'
 function estimerNetDepuisBrut(brutMensuel, statutCadre){
 var coef = statutCadre ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_CADRE;
 var net = brutMensuel * coef;
-var netImposable = net * 1.0169; // réintégration approximative de la CSG/CRDS non déductible (~1.7% du brut)
+// Net imposable = net + CSG non déductible + CRDS (2,9 % de l'assiette CSG) — correction du 19/10/2026 (l'ancien × 1,0169 sous-estimait).
+var netImposable = net + assietteCSGCRDS(brutMensuel) * (BAREME_2026.TAUX_CSG_NON_DEDUCTIBLE + BAREME_2026.TAUX_CRDS);
 return { net: net, netImposable: netImposable, coef: coef };
 }
 function estimerBrutDepuisNet(netMensuel, statutCadre){
 var coef = statutCadre ? BAREME_2026.COEF_NET_CADRE : BAREME_2026.COEF_NET_NON_CADRE;
 var brut = netMensuel / coef;
-var netImposable = netMensuel * 1.0169; // réintégration approximative de la CSG/CRDS non déductible (~1.7% du net)
+var netImposable = netMensuel + assietteCSGCRDS(brut) * (BAREME_2026.TAUX_CSG_NON_DEDUCTIBLE + BAREME_2026.TAUX_CRDS);
 return { brut: brut, netImposable: netImposable, coef: coef };
+}
+// Assiette CSG/CRDS : abattement de 1,75 % dans la limite de 4 PASS, brut intégral au-delà.
+function assietteCSGCRDS(brutMensuel){
+var limite = 4 * BAREME_2026.PASS_MENSUEL;
+return Math.min(brutMensuel, limite) * BAREME_2026.ABATTEMENT_ASSIETTE_CSG_CRDS + Math.max(0, brutMensuel - limite);
 }
 function detailCotisationsSalariales(brutMensuel, statutCadre){
 var brutPlafonne = Math.min(brutMensuel, BAREME_2026.PASS_MENSUEL);
-var assietteCSG = brutMensuel * BAREME_2026.ABATTEMENT_ASSIETTE_CSG_CRDS;
+var assietteCSG = assietteCSGCRDS(brutMensuel);
+var trancheT2 = Math.max(0, Math.min(brutMensuel, 8 * BAREME_2026.PASS_MENSUEL) - BAREME_2026.PASS_MENSUEL);
+var agircArrcoT2 = trancheT2 * BAREME_2026.TAUX_AGIRC_ARRCO_T2_SALARIE;
+var cegT2 = trancheT2 * BAREME_2026.TAUX_CEG_T2_SALARIE;
+var cet = brutMensuel > BAREME_2026.PASS_MENSUEL ? Math.min(brutMensuel, 8 * BAREME_2026.PASS_MENSUEL) * BAREME_2026.TAUX_CET_SALARIE : 0;
 var vieillessePlafonnee = brutPlafonne * BAREME_2026.TAUX_VIEILLESSE_PLAFONNEE;
 var vieillesseDeplafonnee = brutMensuel * BAREME_2026.TAUX_VIEILLESSE_DEPLAFONNEE;
 var agircArrco = brutPlafonne * BAREME_2026.TAUX_AGIRC_ARRCO_T1_SALARIE;
@@ -448,13 +475,16 @@ var apec = statutCadre ? Math.min(brutMensuel, 4 * BAREME_2026.PASS_MENSUEL) * B
 var csgDeductible = assietteCSG * BAREME_2026.TAUX_CSG_DEDUCTIBLE;
 var csgNonDeductible = assietteCSG * BAREME_2026.TAUX_CSG_NON_DEDUCTIBLE;
 var crds = assietteCSG * BAREME_2026.TAUX_CRDS;
-var total = vieillessePlafonnee + vieillesseDeplafonnee + agircArrco + ceg + apec + csgDeductible + csgNonDeductible + crds;
+var total = vieillessePlafonnee + vieillesseDeplafonnee + agircArrco + ceg + agircArrcoT2 + cegT2 + cet + apec + csgDeductible + csgNonDeductible + crds;
 return {
 brutPlafonne: brutPlafonne,
 vieillessePlafonnee: vieillessePlafonnee,
 vieillesseDeplafonnee: vieillesseDeplafonnee,
 agircArrco: agircArrco,
 ceg: ceg,
+agircArrcoT2: agircArrcoT2,
+cegT2: cegT2,
+cet: cet,
 apec: apec,
 csgDeductible: csgDeductible,
 csgNonDeductible: csgNonDeductible,
@@ -509,8 +539,10 @@ var brancheA = 0.404 * sjr + BAREME_2026.ARE_PARTIE_FIXE_JOUR;
 var brancheB = 0.57 * sjr;
 var brut = Math.max(brancheA, brancheB);
 var plafond = BAREME_2026.ARE_PLAFOND_PART_SJR * sjr;
-brut = Math.min(brut, plafond);
+// Minimum de 32,13 € « dans la limite de 75 % » du SJR (France Travail, Unédic) : plancher d'abord, plafond ensuite
+// (correction du 19/10/2026 : l'ordre inverse relevait au plancher, au-delà de 75 % du SJR, les allocations des petits salaires).
 brut = Math.max(brut, BAREME_2026.ARE_PLANCHER_JOUR);
+brut = Math.min(brut, plafond);
 return { sjr: sjr, jour: brut, mois: brut * 30.42 };
 }
 function estimerCumulARE(salaireAncien, nouveauSalaire){
@@ -1360,6 +1392,8 @@ dureePortabiliteMois: dureePortabiliteMois
 // et retraite.com, convergentes sur ce tableau. Ne couvre que le régime général salarié (pas la fonction
 // publique catégorie active, dont le barème diffère).
 var BAREME_RETRAITE_AGE_LEGAL = [
+// Générations 1955-1957 : 166 trimestres (correction du 19/10/2026 ; avant 1955 : hors barème, renvoi vers info-retraite.fr).
+{ anneeMax: 1957, ageAns: 62, ageMoisSupp: 0, trimestresRequis: 166 },
 { anneeMax: 1960, ageAns: 62, ageMoisSupp: 0, trimestresRequis: 167 },
 { annee: 1961, moisMax: 8, ageAns: 62, ageMoisSupp: 0, trimestresRequis: 168 },
 { annee: 1961, moisMin: 9, ageAns: 62, ageMoisSupp: 3, trimestresRequis: 169 },
@@ -1406,6 +1440,27 @@ tauxPleinAtteint: trimestresRestants <= 0,
 ageTauxPleinAutomatique: RETRAITE_AGE_TAUX_PLEIN_AUTOMATIQUE
 };
 }
+// Exonérations de l'indemnité de rupture conventionnelle (ajout du 19/10/2026).
+// Impôt (art. 80 duodecies 1-6° CGI, BOFiP BOI-RSA-CHAMP-20-40-10-30 §170-180) : part exonérée = plus élevé de
+// (a) l'indemnité légale ou conventionnelle, sans plafond, et (b) 2 × rémunération annuelle brute de l'année précédente
+// ou 50 % de l'indemnité, ce montant (b) étant plafonné à 6 PASS ; aucune exonération d'impôt si le salarié est en droit
+// de bénéficier d'une pension de retraite d'un régime obligatoire à la date de rupture effective.
+// Cotisations : même part, dans la limite de 2 PASS, nulle si l'indemnité dépasse 10 PASS ; règles identiques que le
+// salarié puisse ou non partir à la retraite depuis le 01/09/2023 (urssaf.fr). Contribution patronale de 40 % sur la
+// part exonérée de cotisations (service-public F31539).
+function exonerationsRuptureConventionnelle(montant, indemniteLegaleOuConv, remunerationAnnuelleBrute, droitPension){
+var pass = BAREME_2026.PASS_ANNUEL;
+var montantAlternatif = Math.min(Math.max(2 * remunerationAnnuelleBrute, 0.5 * montant), 6 * pass);
+var partNonImposable = Math.min(montant, Math.max(indemniteLegaleOuConv, montantAlternatif));
+var exoFiscale = droitPension ? 0 : partNonImposable;
+var exoSociale = montant > 10 * pass ? 0 : Math.min(partNonImposable, 2 * pass);
+return {
+partNonImposable: partNonImposable,
+exoFiscale: exoFiscale,
+exoSociale: exoSociale,
+contribPatronale: exoSociale * 0.40
+};
+}
 function estimerIJMaternitePaternite(salaireMensuelBrut, type, dureeJours){
 var salairePlafonne = Math.min(salaireMensuelBrut, BAREME_2026.PASS_MENSUEL);
 var sjb = (salairePlafonne * 3) / BAREME_2026.SJB_DIVISEUR;
@@ -1418,7 +1473,7 @@ total: ijJour * dureeJours
 };
 }
 function estimerCongeNaissance(salaireNetMensuel, dureeMois){
-var salairePlafonne = Math.min(salaireNetMensuel, BAREME_2026.PASS_MENSUEL);
+var salairePlafonne = Math.min(salaireNetMensuel, BAREME_2026.CONGE_NAISSANCE_PLAFOND_NET_MENSUEL);
 var mois1 = salairePlafonne * BAREME_2026.CONGE_NAISSANCE_TAUX_MOIS1;
 var mois2 = dureeMois >= 2 ? salairePlafonne * BAREME_2026.CONGE_NAISSANCE_TAUX_MOIS2 : 0;
 return {
@@ -2175,11 +2230,14 @@ function estimerPartParticipation(montantGlobal, cle, salaireBrutAnnuel, masseSa
 // concordantes) : plafond de salaire pris en compte pour la répartition proportionnelle = 3×PASS (post loi PACTE 2019,
 // remplace l'ancien plafond de 4×PASS antérieur à 2019) ; plafond individuel de versement = 75 % du PASS.
 var quotitePresence = Math.min(Math.max((moisPresence || 12) / 12, 0), 1);
-var plafondSalairePriseEnCompte = 3 * BAREME_2026.PASS_ANNUEL;
-var plafondIndividuel = 0.75 * BAREME_2026.PASS_ANNUEL;
+// Présence incomplète (art. D3324-13, revérifié le 19/10/2026 sur code.travail.gouv.fr) : les deux plafonds
+// (D3324-10 et D3324-12) sont réduits au prorata du temps de présence. Le salaire saisi est le salaire perçu sur
+// l'exercice : il reflète déjà la présence, on ne le multiplie donc plus par la quotité (correction du 19/10/2026).
+var plafondSalairePriseEnCompte = 3 * BAREME_2026.PASS_ANNUEL * quotitePresence;
+var plafondIndividuel = 0.75 * BAREME_2026.PASS_ANNUEL * quotitePresence;
 var salairePlafonne = salaireBrutAnnuel > 0 ? Math.min(salaireBrutAnnuel, plafondSalairePriseEnCompte) : 0;
 var partUniforme = (effectifTotal > 0) ? (montantGlobal / effectifTotal) * quotitePresence : null;
-var partSalaire = (masseSalarialeTotale > 0 && salaireBrutAnnuel > 0) ? montantGlobal * (salairePlafonne * quotitePresence) / masseSalarialeTotale : null;
+var partSalaire = (masseSalarialeTotale > 0 && salaireBrutAnnuel > 0) ? montantGlobal * salairePlafonne / masseSalarialeTotale : null;
 var part = null;
 if (cle === 'uniforme'){
 part = partUniforme;

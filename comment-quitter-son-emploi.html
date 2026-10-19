@@ -78,7 +78,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-09",
-  "dateModified": "2026-09-19",
+  "dateModified": "2026-10-19",
   "name": "Je Veux Quitter Mon Emploi ? Guide Interactif 2026",
   "description": "Démission, licenciement ou rupture conventionnelle ? Répondez à 2 questions, ce guide interactif gratuit vous oriente vers la bonne solution.",
   "url": "https://messimulateursrh.fr/comment-quitter-son-emploi",
@@ -187,7 +187,7 @@
       Démission, licenciement ou rupture conventionnelle n'ouvrent pas les mêmes droits. Répondez à 1 ou 2 questions simples : ce guide identifie votre situation et vous oriente vers les bonnes ressources et les bons simulateurs du site.
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun compte, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Contenu vérifié le 9 septembre 2026 — mis à jour à chaque évolution du droit du travail. <a href="a-propos">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Contenu vérifié le 19 octobre 2026 — mis à jour à chaque évolution du droit du travail. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> démission, licenciement et rupture conventionnelle n'ouvrent pas les mêmes droits (indemnité, préavis, chômage). Ce guide gratuit et sans compte vous aide à identifier votre situation en 2 étapes et vous oriente vers les bonnes pages du site.</div>
@@ -352,7 +352,7 @@ var GUIDE_STEPS = {
 var GUIDE_RESULTS = {
   cr: {
     title: '→ Une rupture conventionnelle est la piste à explorer',
-    text: "Puisque vous êtes d'accord tous les deux pour vous séparer, la rupture conventionnelle est en général la solution la plus protectrice pour vous : elle garantit une indemnité au moins égale à l'indemnité légale de licenciement (négociable à la hausse) et ouvre droit à l'assurance chômage comme un licenciement, sans qu'aucun motif ne soit à justifier. Elle suppose l'accord des deux parties, un entretien, un délai de rétractation de 15 jours calendaires, puis l'homologation par la DREETS.",
+    text: "Puisque vous êtes d'accord tous les deux pour vous séparer, la rupture conventionnelle est en général la solution la plus protectrice pour vous : elle garantit une indemnité au moins égale à l'indemnité légale de licenciement (négociable à la hausse) et ouvre droit à l'assurance chômage (durée maximale réduite à 15 mois, ou 20,5 mois à partir de 55 ans, pour les ruptures prenant effet depuis le 1ᵉʳ septembre 2026), sans qu'aucun motif ne soit à justifier. Elle suppose l'accord des deux parties, un entretien, un délai de rétractation de 15 jours calendaires, puis l'homologation par la DREETS.",
     links: [
       ['rupture-conventionnelle', 'Simulateur : indemnité de rupture conventionnelle'],
       ['negocier-rupture-conventionnelle', 'Comment négocier sa rupture conventionnelle'],
@@ -510,7 +510,9 @@ function wizardShowResult(resultKey, reason){
       ]
     };
     if (reason === 'reconversion'){
-      notice = 'Attention, ce cas est particulier : le projet de reconversion doit être validé par la commission paritaire interprofessionnelle régionale de Transitions Pro AVANT votre démission (l’attestation obtenue est ensuite valable 6 mois pour démissionner). Une démission déjà effectuée sans validation préalable ne peut pas être régularisée après coup dans le cadre de ce dispositif spécifique.';
+      data.title = '→ La démission pour reconversion peut ouvrir droit au chômage, sous conditions';
+      data.text = 'La démission pour projet de reconversion professionnelle relève d’un dispositif distinct de la démission légitime : CDI de droit privé, 1 300 jours travaillés sur les 60 derniers mois, conseil en évolution professionnelle puis validation du projet par Transitions Pro avant de démissionner. Si ces conditions sont remplies, elle peut vous ouvrir droit à l’assurance chômage (ARE).';
+      notice = 'Attention, ce cas est particulier : le projet de reconversion doit être validé par la commission paritaire interprofessionnelle régionale de Transitions Pro AVANT votre démission (une fois le projet validé et la démission faite, vous avez 6 mois à compter de la notification de la décision pour vous inscrire à France Travail et demander l’allocation). Une démission déjà effectuée sans validation préalable ne peut pas être régularisée après coup dans le cadre de ce dispositif spécifique.';
     }
   } else {
     data = GUIDE_RESULTS[resultKey];
