@@ -96,7 +96,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-09-02",
+  "dateModified": "2026-10-19",
   "name": "Simulateur d'indemnités kilométriques",
   "description": "Calculez vos indemnités kilométriques 2026 en frais réels selon les CV et les km parcourus : barème officiel des impôts, +20 % pour un véhicule électrique.",
   "url": "https://messimulateursrh.fr/frais-kilometriques",
@@ -227,6 +227,7 @@
         <option value="6" selected>6 CV</option>
         <option value="7">7 CV et plus</option>
       </select>
+      <div class="hint">C'est le nombre de chevaux fiscaux (CV) inscrit à la rubrique P.6 de votre carte grise (certificat d'immatriculation), « puissance administrative nationale ».</div>
     </div>
     <div class="field">
       <label for="distanceFK">Distance professionnelle parcourue dans l'année (km)</label>
@@ -258,7 +259,7 @@
   <section class="content-section">
     <h2>Le barème complet 2026 (revenus 2025)</h2>
     <p>
-      Ce barème est publié chaque année par arrêté et repris par l'administration fiscale, sur la base de l'article 6 B de l'annexe IV du Code général des impôts. Retrouvez le barème officiel à jour sur la page dédiée de <a href="https://www.economie.gouv.fr/particuliers/impots-et-fiscalite/gerer-mon-impot-sur-le-revenu/impot-sur-le-revenu-tout-savoir-sur-le-bareme-des-frais-kilometriques" target="_blank" rel="noopener noreferrer">economie.gouv.fr</a><span class="source-badge">✓ Source officielle</span>.
+      Ce barème est prévu par l'<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000054373766" target="_blank" rel="noopener noreferrer">article 83, 3° du Code général des impôts</a><span class="source-badge">✓ Source officielle</span> : le salarié qui opte pour les frais réels peut évaluer ses frais de déplacement par un barème fixé par arrêté, selon la puissance administrative du véhicule, retenue dans la limite de 7 CV, le type de motorisation et la distance annuelle parcourue. Le barème lui-même figure à l'article 6 B de l'annexe IV du Code général des impôts ; l'administration fiscale le reprend dans sa doctrine (<a href="https://bofip.impots.gouv.fr/bofip/2185-PGP.html/identifiant=BOI-BAREME-000001-20230720" target="_blank" rel="noopener noreferrer">BOFiP, BOI-BAREME-000001</a><span class="source-badge">✓ Source officielle</span>) et sur <a href="https://www.economie.gouv.fr/particuliers/impots-et-fiscalite/gerer-mon-impot-sur-le-revenu/impot-sur-le-revenu-tout-savoir-sur-le-bareme-des-frais-kilometriques" target="_blank" rel="noopener noreferrer">economie.gouv.fr</a><span class="source-badge">✓ Source officielle</span>. Le montant obtenu couvre la dépréciation du véhicule, l'entretien, les réparations, les pneus, le carburant et l'assurance, mais pas les péages, le stationnement ni les intérêts d'un crédit auto, qui se déduisent en plus sur justificatifs. Si vous déduisez vos frais réels sans utiliser le barème, ils ne peuvent pas dépasser le montant du barème pour un véhicule de 7 CV, à distance identique.
     </p>
     <div style="overflow-x:auto;">
     <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:520px;">
@@ -305,8 +306,11 @@
     </p>
 
     <div class="example-box">
-      <h3>Exemple concret</h3>
-      <p>Un véhicule de 6 CV parcourant 12 000 km professionnels dans l'année (tranche 5 001-20 000 km) : (12 000 × 0,374) + 1 457 = <strong>5 945 €</strong> déductibles ou remboursables au titre de l'année.</p>
+      <h3>Trois exemples, un par tranche de distance</h3>
+      <p><strong>4 CV, 3 000 km dans l'année</strong> (tranche jusqu'à 5 000 km) : 3 000 × 0,606 = <strong>1 818 €</strong>.</p>
+      <p><strong>5 CV 100 % électrique, 15 000 km</strong> (tranche de 5 001 à 20 000 km) : (15 000 × 0,357) + 1 395 = 6 750 €, majorés de 20 % pour la motorisation électrique, soit <strong>8 100 €</strong>.</p>
+      <p><strong>7 CV, 25 000 km</strong> (tranche au-delà de 20 000 km) : 25 000 × 0,470 = <strong>11 750 €</strong>. Un véhicule de 8 CV ou plus se calcule sur cette même ligne « 7 CV et plus ».</p>
+      <p>Ces montants s'ajoutent à vos autres frais réels, à la place de l'abattement forfaitaire de 10 % : ils n'ont d'intérêt que si le total dépasse cet abattement.</p>
     </div>
 
     <h2>Questions fréquentes</h2>

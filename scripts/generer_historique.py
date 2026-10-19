@@ -22,6 +22,9 @@ EXCLUS = {"404.html", SLUG + ".html"}
 
 # (date ISO, [pages], ce qui était inexact, ce qui a été fait)
 CORRECTIONS = [
+    ("2026-10-19", ["conge-naissance", "conge-naissance-2026"],
+     "Pour un enfant né entre le 1er janvier et le 30 juin 2026, le congé supplémentaire de naissance était présenté comme devant être « pris » avant le 31 mars 2027.",
+     "C'est la date limite pour le débuter : il peut se terminer après (service-public.gouv.fr, info.gouv.fr). Le simulateur affichait déjà la bonne date limite de début."),
     ("2026-10-12", ["formation-rupture-conventionnelle"],
      "Une question du quiz datait du 12 juin 2026 la loi qui réduit la durée d'indemnisation chômage après une rupture conventionnelle.",
      "Date corrigée : loi n° 2026-470 du 11 juin 2026, comme dans le reste du module."),
