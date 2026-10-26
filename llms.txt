@@ -5,7 +5,7 @@
 ## Rupture du contrat de travail
 - [Rupture du contrat de travail](https://messimulateursrh.fr/simulateurs-rupture-contrat): 9 simulateurs gratuits pour la rupture du contrat : rupture conventionnelle (privé et fonction publique), licenciement, préavis, chômage, portabilité mutuelle.
 - [Simulateur de rupture conventionnelle](https://messimulateursrh.fr/rupture-conventionnelle): indemnité minimale (due quelle que soit l'ancienneté, au prorata des mois de présence en dessous d'un an), régime social et fiscal, formules conventionnelles (Syntec, Bâtiment cadre) en plus du barème légal.
-- [Simulateur d'indemnité de licenciement](https://messimulateursrh.fr/indemnite-licenciement): indemnité légale de licenciement selon ancienneté et salaire de référence.
+- [Simulateur d'indemnité de licenciement](https://messimulateursrh.fr/indemnite-licenciement): indemnité légale de licenciement selon ancienneté et salaire de référence, y compris licenciement pour inaptitude (préavis compté dans l'ancienneté, ou indemnité spéciale doublée et indemnité compensatrice si l'origine est professionnelle).
 - [Mes droits au chômage après une rupture de contrat](https://messimulateursrh.fr/droits-chomage): éligibilité et montant de l'allocation chômage (ARE) après licenciement, rupture conventionnelle ou démission légitime.
 - [Simulateur de durée de préavis](https://messimulateursrh.fr/preavis): durée légale de préavis en cas de démission ou licenciement.
 - [Simulateur de solde de tout compte](https://messimulateursrh.fr/solde-tout-compte): salaire, indemnité, préavis et congés payés restants au départ ; sommes dues selon le motif de rupture, documents remis et délais pour contester le reçu.

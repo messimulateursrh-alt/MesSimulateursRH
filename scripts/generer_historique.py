@@ -22,6 +22,9 @@ EXCLUS = {"404.html", SLUG + ".html"}
 
 # (date ISO, [pages], ce qui était inexact, ce qui a été fait)
 CORRECTIONS = [
+    ("2026-10-26", ["conge-naissance"],
+     "Pour un enfant né à partir du 1er juillet 2026, la date limite de début du congé supplémentaire de naissance affichée par le simulateur tombait un jour trop tard (date de naissance + 9 mois).",
+     "Le délai se compte de date à date : pour un enfant né le 15 juillet 2026, le dernier jour est le 14 avril 2027 ; en cas de congé fractionné, c'est le 2e mois qui doit débuter dans ce délai (ameli.fr, service-public.gouv.fr)."),
     ("2026-10-19", ["rupture-conventionnelle"],
      "Le simulateur exonérait d'impôt toute l'indemnité jusqu'à 6 PASS et de cotisations jusqu'à 2 PASS, quel que soit le salaire, et faisait dépendre l'exonération fiscale d'une retraite « à taux plein ».",
      "Part exonérée recalculée : montant légal ou conventionnel sans plafond, au-delà 2 fois la rémunération annuelle ou 50 % de l'indemnité dans la limite de 6 PASS ; cotisations dans la limite de 2 PASS (aucune au-delà de 10 PASS) ; exonération d'impôt nulle si le salarié est en droit de bénéficier d'une pension, taux plein ou non (BOFiP, urssaf.fr)."),

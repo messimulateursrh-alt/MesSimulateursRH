@@ -72,6 +72,14 @@
     },
     {
       "@type": "Question",
+      "name": "Je suis licencié pour inaptitude : comment est calculée mon indemnité ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tout dépend de l'origine de l'inaptitude. Si elle ne vient pas du travail (maladie ou accident de la vie courante), vous touchez l'indemnité légale dès 8 mois d'ancienneté ; le préavis n'est ni exécuté ni payé, mais sa durée légale s'ajoute à votre ancienneté pour le calcul (article L1226-4 du Code du travail). Si elle fait suite à un accident du travail ou à une maladie professionnelle, l'indemnité spéciale vaut le double de l'indemnité légale, sans condition d'ancienneté, et s'y ajoute une indemnité compensatrice égale au préavis légal (article L1226-14). Exemple pour 2 500 € brut et 6 ans d'ancienneté : 3 854,17 € dans le premier cas ; 7 500 € + 5 000 € = 12 500 € dans le second. Choisissez le motif « Inaptitude » correspondant dans le simulateur, et voyez le détail du calcul."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Quelle différence entre indemnité légale et indemnité conventionnelle ?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -142,7 +150,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-10-24",
   "name": "Simulateur Indemnité de Licenciement 2026",
   "description": "Exemple : 2 500 € brut et 8 ans d'ancienneté = 5 000 € d'indemnité légale de licenciement. Calculez la vôtre en 2026 selon salaire et ancienneté. Gratuit.",
   "url": "https://messimulateursrh.fr/indemnite-licenciement",
@@ -314,11 +322,14 @@
     </div>
     <div class="field">
       <label for="motifL">Motif du licenciement</label>
-      <select id="motifL">
+      <select id="motifL" onchange="afficherInaptitudeL()">
         <option value="normal">Motif personnel ou économique (hors faute grave/lourde)</option>
+        <option value="inapt_nonpro">Inaptitude d'origine non professionnelle (maladie ou accident de la vie courante)</option>
+        <option value="inapt_pro">Inaptitude d'origine professionnelle (accident du travail, maladie professionnelle)</option>
         <option value="grave">Faute grave ou lourde</option>
       </select>
-      <div class="hint">En cas de faute grave ou lourde, aucune indemnité légale de licenciement n'est due.</div>
+      <div class="hint">En cas de faute grave ou lourde, aucune indemnité légale de licenciement n'est due. En cas d'inaptitude constatée par le médecin du travail, le calcul change selon l'origine de l'inaptitude : <a href="#inaptitude">voir le détail</a>.</div>
+      <div class="hint" id="hintInaptitudeL" style="display:none;"></div>
     </div>
     <div class="field">
       <label for="montantProposeL">Montant proposé par l'employeur ou en transaction (optionnel)</label>
@@ -329,12 +340,13 @@
 
     <div class="result" id="resultL">
       <div class="for-salarie"><div class="amount" id="montantL">—</div>
-        <div class="detail">Indemnité légale minimale due. Votre convention collective peut prévoir un montant plus favorable — vérifiez-la.</div>
+        <div class="detail" id="detailMontantL">Indemnité légale minimale due. Votre convention collective peut prévoir un montant plus favorable — vérifiez-la.</div>
       </div>
       <div class="for-employeur"><div class="amount" id="montantLEmployeur">—</div>
-        <div class="detail">Indemnité légale minimale à provisionner (hors indemnité de préavis et de congés payés).</div>
+        <div class="detail" id="detailMontantLEmployeur">Indemnité légale minimale à provisionner (hors indemnité de préavis et de congés payés).</div>
       </div>
       <div class="breakdown" id="breakdownL"></div>
+      <div class="breakdown" id="inaptitudeL" style="display:none;"></div>
       <div class="notice" id="noticeComparaisonL" style="display:none;"></div>
       <div class="breakdown" id="regimeFiscalL"></div>
       <div class="breakdown for-employeur" id="coutEmployeurL"></div>
@@ -365,6 +377,18 @@
     </p>
     <p>
       <strong>Temps partiel :</strong> si vous avez été occupé à temps complet puis à temps partiel (ou l'inverse) dans la même entreprise, l'indemnité est calculée proportionnellement aux périodes accomplies sous chaque modalité, avec le salaire correspondant à chacune (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener noreferrer">Art. L3123-5 du Code du travail</a><span class="source-badge">✓ Source officielle</span>) — le champ optionnel « Temps complet et temps partiel dans la même entreprise ? » du simulateur applique ce prorata. Une carrière entièrement à temps partiel ne donne lieu à aucun prorata : le salaire à temps partiel est retenu tel quel. Pour mesurer l'effet d'un passage à temps partiel sur votre salaire net, voyez le <a href="passage-temps-partiel">simulateur de passage à temps partiel</a>.
+    </p>
+
+    <h3 id="inaptitude">Licenciement pour inaptitude : ce qui change dans le calcul</h3>
+    <p>
+      Quand le médecin du travail déclare un salarié inapte et que l'employeur le licencie faute de reclassement, le calcul dépend de l'origine de l'inaptitude (<a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F133" target="_blank" rel="noopener noreferrer">service-public.gouv.fr, licenciement d'un salarié en arrêt maladie</a><span class="source-badge">✓ Source officielle</span>). Le simulateur applique les deux régimes : choisissez le motif « Inaptitude » correspondant.
+    </p>
+    <ul>
+      <li><strong>Origine non professionnelle</strong> (maladie ou accident de la vie courante) : indemnité légale, ouverte à partir de 8 mois d'ancienneté. Le préavis n'est pas exécuté et n'est pas payé, mais sa durée légale (1 mois de 6 mois à 2 ans d'ancienneté, 2 mois au-delà) s'ajoute à l'ancienneté pour calculer l'indemnité (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-4" target="_blank" rel="noopener noreferrer">art. L1226-4 du Code du travail</a><span class="source-badge">✓ Source officielle</span>). Si vous étiez en arrêt maladie, le salaire de référence est celui des 12 ou des 3 mois qui précèdent l'arrêt, selon la formule la plus favorable (Cour de cassation, chambre sociale, 23 mai 2017, n° 15-22.223).</li>
+      <li><strong>Origine professionnelle</strong> (accident du travail ou maladie professionnelle, dès lors que l'employeur connaissait ce lien) : indemnité spéciale égale au double de l'indemnité légale, sans condition d'ancienneté, plus une indemnité compensatrice d'un montant égal à l'indemnité de préavis légal, même si le préavis n'est pas exécuté (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-14" target="_blank" rel="noopener noreferrer">art. L1226-14</a><span class="source-badge">✓ Source officielle</span>). Les deux se calculent sur le salaire que vous auriez perçu au cours des 3 derniers mois si vous aviez continué à travailler (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-16" target="_blank" rel="noopener noreferrer">art. L1226-16</a>). Une indemnité conventionnelle plus élevée que ce double s'applique à la place, sans être doublée. Ces indemnités ne sont pas dues si l'employeur établit que le salarié a refusé abusivement un reclassement : l'indemnité légale reste alors due.</li>
+    </ul>
+    <p>
+      Exemple, pour 2 500 € brut par mois et 6 ans d'ancienneté : inaptitude non professionnelle, 6 ans + 2 mois de préavis retenus, soit <strong>3 854,17 €</strong> ; inaptitude professionnelle, indemnité spéciale de 2 × 3 750 € = 7 500 € et indemnité compensatrice de 2 mois de salaire, 5 000 €, soit <strong>12 500 €</strong>. Le reclassement, le rôle du médecin du travail et le délai d'un mois sont expliqués dans notre guide du <a href="licenciement-inaptitude">licenciement pour inaptitude médicale</a>.
     </p>
 
     <h3>Exemples chiffrés (indemnité légale minimale)</h3>
@@ -414,8 +438,12 @@
       <p>Les arrêts maladie d'origine non professionnelle ne rompent pas l'ancienneté, mais ces périodes ne sont pas prises en compte dans son calcul, sauf disposition plus favorable de la convention collective ; retirez-les de votre ancienneté avant d'utiliser le simulateur. Les arrêts pour accident du travail ou maladie professionnelle comptent en totalité. Les congés parentaux d'éducation à temps plein, en revanche, ne comptent que pour moitié dans le calcul de l'ancienneté, sauf disposition plus favorable de la convention collective.</p>
     </details>
     <details class="faq">
+      <summary>Je suis licencié pour inaptitude : comment est calculée mon indemnité ?</summary>
+      <p>Tout dépend de l'origine de l'inaptitude. Si elle ne vient pas du travail (maladie ou accident de la vie courante), vous touchez l'indemnité légale dès 8 mois d'ancienneté ; le préavis n'est ni exécuté ni payé, mais sa durée légale s'ajoute à votre ancienneté pour le calcul (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-4" target="_blank" rel="noopener noreferrer">article L1226-4 du Code du travail</a>). Si elle fait suite à un accident du travail ou à une maladie professionnelle, l'indemnité spéciale vaut le double de l'indemnité légale, sans condition d'ancienneté, et s'y ajoute une indemnité compensatrice égale au préavis légal (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-14" target="_blank" rel="noopener noreferrer">article L1226-14</a>). Exemple pour 2 500 € brut et 6 ans d'ancienneté : 3 854,17 € dans le premier cas ; 7 500 € + 5 000 € = 12 500 € dans le second. Choisissez le motif « Inaptitude » correspondant dans le simulateur, et voyez le <a href="#inaptitude">détail du calcul</a>.</p>
+    </details>
+    <details class="faq">
       <summary>Quelle différence entre indemnité légale et indemnité conventionnelle ?</summary>
-      <p>L'indemnité légale est le montant plancher fixé par le Code du travail, calculé par ce simulateur. L'indemnité conventionnelle, prévue par certaines conventions collectives (métallurgie, Syntec, etc.), peut être plus favorable : dans ce cas, c'est elle qui s'applique. Vérifiez toujours votre convention collective avant de vous baser uniquement sur le montant légal.</p>
+      <p>L'indemnité légale est le montant plancher fixé par le Code du travail, calculé par ce simulateur. L'indemnité conventionnelle, prévue par certaines conventions collectives (métallurgie, Syntec, etc.), peut être plus favorable : dans ce cas, c'est elle qui s'applique. Vérifiez toujours <a href="identifier-convention-collective">votre convention collective</a> avant de vous baser uniquement sur le montant légal.</p>
     </details>
     <details class="faq">
       <summary>Quand l'indemnité de licenciement doit-elle être versée ?</summary>
@@ -491,7 +519,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. L1234-9 du Code du travail pour l'ancienneté minimale de 8 mois, R1234-2 pour le montant) et le régime social/fiscal 2026 (exonération sociale jusqu'à 2×PASS soit 96 120 €, exonération totale d'impôt sur le revenu pour l'indemnité légale ou conventionnelle). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, ce qui peut aussi modifier le régime d'exonération applicable, de même qu'un protocole transactionnel librement négocié. Contrairement à la rupture conventionnelle, aucune contribution patronale spécifique ne s'applique ici. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur le barème légal minimum (Art. L1234-9 du Code du travail pour l'ancienneté minimale de 8 mois, R1234-2 pour le montant) et le régime social/fiscal 2026 (exonération sociale jusqu'à 2×PASS soit 96 120 €, exonération totale d'impôt sur le revenu pour l'indemnité légale ou conventionnelle). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, ce qui peut aussi modifier le régime d'exonération applicable, de même qu'un protocole transactionnel librement négocié. Contrairement à la rupture conventionnelle, aucune contribution patronale spécifique ne s'applique ici. N'inclut pas l'indemnité de préavis ni de congés payés, sauf l'indemnité compensatrice due en cas d'inaptitude d'origine professionnelle (art. L1226-14), estimée sur le préavis légal. Ne remplace pas un conseil juridique personnalisé.
     <br><br>
     <a href="a-propos">À propos</a> · <a href="mentions-legales">Mentions légales</a> · <a href="politique-de-confidentialite">Politique de confidentialité</a>
   </div>
@@ -499,6 +527,36 @@
 
 <script src="logique-calculs.txt"></script>
 <script>
+// Licenciement pour inaptitude (24/10/2026) : paramètres tirés de parametresInaptitude (logique-calculs.txt).
+function origineInaptitudeL(motif){ return motif === 'inapt_pro' ? 'pro' : (motif === 'inapt_nonpro' ? 'nonpro' : null); }
+function afficherInaptitudeL(){
+  var origine = origineInaptitudeL(document.getElementById('motifL').value);
+  var hint = document.getElementById('hintInaptitudeL');
+  if (!origine){ hint.style.display = 'none'; hint.innerHTML = ''; return; }
+  hint.style.display = 'block';
+  hint.innerHTML = origine === 'pro'
+    ? '<strong>Salaire à saisir :</strong> celui que vous auriez perçu au cours des 3 derniers mois si vous aviez continué à travailler à votre poste, primes et avantages compris (art. L1226-16 du Code du travail) — indiquez-le dans le premier champ et laissez le second vide. <strong>Ancienneté :</strong> à la date de notification du licenciement, arrêts pour accident du travail ou maladie professionnelle compris.'
+    : '<strong>Salaire à saisir :</strong> si vous étiez en arrêt maladie avant le licenciement, la moyenne des 12 ou des 3 mois qui précèdent l\'arrêt, et non les salaires réduits pendant l\'arrêt (Cour de cassation, chambre sociale, 23 mai 2017, n° 15-22.223). <strong>Ancienneté :</strong> à la date de notification du licenciement, sans les périodes d\'arrêt maladie (sauf convention plus favorable) ; le simulateur ajoute lui-même la durée du préavis.';
+}
+// Texte du bloc « inaptitude » du résultat. legale : indemnité légale calculée sur l'ancienneté retenue ; p : retour de parametresInaptitude.
+function texteInaptitudeL(origine, p, anneesSaisies, legale, salaireRef){
+  var moisTxt = function(m){ return m + ' mois'; };
+  if (origine === 'nonpro'){
+    return '<p><strong>Inaptitude d\'origine non professionnelle</strong></p>' +
+      '<p>Le préavis n\'est pas exécuté et l\'employeur n\'a pas à le payer, mais sa durée légale (' + moisTxt(p.moisPreavisLegal) + ') s\'ajoute à votre ancienneté pour calculer l\'indemnité : ' + anneesSaisies.toFixed(2) + ' an(s) + ' + moisTxt(p.moisPreavisLegal) + ' = <strong>' + p.ancienneteRetenue.toFixed(2) + ' an(s)</strong> retenus (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-4" target="_blank" rel="noopener noreferrer">art. L1226-4 du Code du travail</a>). Une convention ou un accord collectif peut prévoir une indemnité plus favorable, voire le paiement du préavis.</p>';
+  }
+  var compensatrice = p.moisCompensatrice * salaireRef;
+  var html = '<p><strong>Inaptitude d\'origine professionnelle (accident du travail ou maladie professionnelle)</strong></p>' +
+    '<p>Indemnité spéciale de licenciement : le double de l\'indemnité légale, due sans condition d\'ancienneté — 2 × ' + euros(legale) + ' = <strong>' + euros(2 * legale) + '</strong> (<a href="https://code.travail.gouv.fr/code-du-travail/l1226-14" target="_blank" rel="noopener noreferrer">art. L1226-14 du Code du travail</a>). Si votre convention collective prévoit une indemnité plus élevée que ce double, c\'est elle qui s\'applique, sans être doublée.</p>';
+  if (p.preavisNonFixe){
+    html += '<p>Indemnité compensatrice : à moins de 6 mois d\'ancienneté, la loi ne fixe pas de durée de préavis ; son montant dépend de votre convention collective ou des usages et n\'est pas chiffré ici.</p>';
+  } else {
+    html += '<p>Indemnité compensatrice, égale à l\'indemnité de préavis légal même si le préavis n\'est pas exécuté : ' + moisTxt(p.moisCompensatrice) + ' × ' + euros(salaireRef) + ' = <strong>' + euros(compensatrice) + '</strong> (art. L1226-14 et <a href="https://code.travail.gouv.fr/code-du-travail/l1234-1" target="_blank" rel="noopener noreferrer">L1234-1</a> : 1 mois de 6 mois à 2 ans d\'ancienneté, 2 mois au-delà).</p>' +
+      '<p>Total des deux indemnités : ' + euros(2 * legale) + ' + ' + euros(compensatrice) + ' = <strong>' + euros(2 * legale + compensatrice) + '</strong>, hors indemnité de congés payés.</p>';
+  }
+  html += '<p>Ces indemnités ne sont pas dues si l\'employeur établit que vous avez refusé abusivement un reclassement : vous percevez alors l\'indemnité légale, sauf convention plus favorable.</p>';
+  return html;
+}
 function afficherTempsPartielL(){
   var actif = document.getElementById('tempsPartielL').value !== 'non';
   document.getElementById('blocTempsPartielL').style.display = actif ? 'block' : 'none';
@@ -538,13 +596,19 @@ function calculerLicenciement(){
     return;
   }
 
-  if (annees < (8/12)){
+  var origineInapt = origineInaptitudeL(motif);
+  var pInapt = origineInapt ? parametresInaptitude(origineInapt, annees) : null;
+  if (pInapt ? !pInapt.eligible : annees < (8/12)){
     resultBox.classList.remove('show');
     noticeSeuilL.style.display = 'block';
-    noticeSeuilL.textContent = "À moins de 8 mois d'ancienneté, aucune indemnité légale n'est due (sauf disposition plus favorable de votre convention collective).";
+    noticeSeuilL.textContent = origineInapt === 'nonpro'
+      ? "À moins de 8 mois d'ancienneté à la notification du licenciement, aucune indemnité légale n'est due, y compris en cas d'inaptitude d'origine non professionnelle (sauf disposition plus favorable de votre convention collective). Le préavis n'est ni exécuté ni payé."
+      : "À moins de 8 mois d'ancienneté, aucune indemnité légale n'est due (sauf disposition plus favorable de votre convention collective).";
     return;
   }
   noticeSeuilL.style.display = 'none';
+  var anneesSaisies = annees;
+  if (pInapt) annees = pInapt.ancienneteRetenue; // inaptitude non professionnelle : préavis légal ajouté à l'ancienneté (L1226-4)
 
   // Prorata temps complet / temps partiel (art. L3123-5)
   var tp = lireTempsPartielL(annees);
@@ -559,8 +623,24 @@ function calculerLicenciement(){
   var prorata = tp.actif ? proratiserTempsPartiel(indemniteLegale, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP) : null;
 
   var indemnite = prorata ? prorata.montant : indemniteLegale(salaireRef, annees);
+  var indemniteLegaleL = indemnite;
+  if (pInapt) indemnite = indemniteLegaleL * pInapt.multiplicateur; // inaptitude professionnelle : indemnité spéciale = double (L1226-14)
   document.getElementById('montantL').textContent = euros(indemnite);
   document.getElementById('montantLEmployeur').textContent = euros(indemnite);
+  document.getElementById('detailMontantL').textContent = origineInapt === 'pro'
+    ? "Indemnité spéciale de licenciement (double de l'indemnité légale), hors indemnité compensatrice détaillée ci-dessous. Une convention collective plus favorable s'applique à la place si elle dépasse ce double."
+    : (origineInapt === 'nonpro' ? "Indemnité légale minimale due, préavis compté dans l'ancienneté. Votre convention collective peut prévoir un montant plus favorable — vérifiez-la." : "Indemnité légale minimale due. Votre convention collective peut prévoir un montant plus favorable — vérifiez-la.");
+  document.getElementById('detailMontantLEmployeur').textContent = origineInapt === 'pro'
+    ? "Indemnité spéciale de licenciement à provisionner (double de l'indemnité légale), hors indemnité compensatrice détaillée ci-dessous et congés payés."
+    : "Indemnité légale minimale à provisionner (hors indemnité de préavis et de congés payés).";
+  var blocInapt = document.getElementById('inaptitudeL');
+  if (pInapt){
+    blocInapt.innerHTML = texteInaptitudeL(origineInapt, pInapt, anneesSaisies, indemniteLegaleL, salaireRef);
+    blocInapt.style.display = 'block';
+  } else {
+    blocInapt.innerHTML = '';
+    blocInapt.style.display = 'none';
+  }
 
   var detailTxt = 'Salaire de référence : ' + euros(salaireRef) + ' · Ancienneté : ' + annees.toFixed(2) + ' an(s)<br>';
   if (prorata){
@@ -569,16 +649,17 @@ function calculerLicenciement(){
       ', à temps partiel ' + euros(prorata.salaireTP) + (tp.regime === 'tc' ? ' (reconstitué : salaire actuel × ' + Math.round(tp.quotite*100) + ' %)' : '') + '.<br>' +
       'Part temps complet : ' + formuleTxt + ' sur ' + euros(prorata.salaireTC) + ' = ' + euros(prorata.indemniteTC) + ' × ' + prorata.anneesTC.toFixed(2) + '/' + annees.toFixed(2) + ' an(s) = ' + euros(prorata.partTC) + '<br>' +
       'Part temps partiel : ' + formuleTxt + ' sur ' + euros(prorata.salaireTP) + ' = ' + euros(prorata.indemniteTP) + ' × ' + prorata.anneesTP.toFixed(2) + '/' + annees.toFixed(2) + ' an(s) = ' + euros(prorata.partTP) + '<br>' +
-      'Total : ' + euros(prorata.partTC) + ' + ' + euros(prorata.partTP) + ' = <strong>' + euros(indemnite) + '</strong> (sans prorata, sur le seul salaire actuel : ' + euros(prorata.sansProrata) + ').<br>';
+      'Total : ' + euros(prorata.partTC) + ' + ' + euros(prorata.partTP) + ' = <strong>' + euros(indemniteLegaleL) + '</strong> (sans prorata, sur le seul salaire actuel : ' + euros(prorata.sansProrata) + ').<br>';
   } else if (annees > 10){
     var part1 = 10*(salaireRef/4);
     var part2 = (annees-10)*(salaireRef/3);
     detailTxt += 'Calcul : (10 × 1/4 × ' + euros(salaireRef) + ') + (' + (annees-10).toFixed(2) + ' × 1/3 × ' + euros(salaireRef) + ')<br>' +
-      '= ' + euros(part1) + ' + ' + euros(part2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+      '= ' + euros(part1) + ' + ' + euros(part2) + ' = <strong>' + euros(indemniteLegaleL) + '</strong><br>';
   } else {
-    detailTxt += 'Calcul : ' + euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+    detailTxt += 'Calcul : ' + euros(salaireRef) + ' × 1/4 × ' + annees.toFixed(2) + ' = <strong>' + euros(indemniteLegaleL) + '</strong><br>';
   }
-  detailTxt += 'Référence : article R1234-2 du Code du travail' + (prorata ? ' et article L3123-5 (calcul proportionnel aux périodes à temps complet et à temps partiel)' : '') + '.';
+  if (origineInapt === 'pro') detailTxt += 'Indemnité spéciale (inaptitude d\'origine professionnelle) : 2 × ' + euros(indemniteLegaleL) + ' = <strong>' + euros(indemnite) + '</strong><br>';
+  detailTxt += 'Référence : article R1234-2 du Code du travail' + (prorata ? ' et article L3123-5 (calcul proportionnel aux périodes à temps complet et à temps partiel)' : '') + (origineInapt === 'pro' ? ', article L1226-14 (indemnité spéciale)' : (origineInapt === 'nonpro' ? ', article L1226-4 (préavis compté dans l\'ancienneté)' : '')) + '.';
   document.getElementById('breakdownL').innerHTML = detailTxt;
 
   // Comparaison à un montant proposé par l'employeur ou en protocole transactionnel
@@ -620,19 +701,25 @@ function telechargerPDF_L(){
   var annees = anneesDecimal(document.getElementById('anneesL').value, document.getElementById('moisL').value);
   var motif = document.getElementById('motifL').value;
   var montantProposeL = parseFloat(document.getElementById('montantProposeL').value) || 0;
-  if (salaireRef <= 0 || annees < (8/12) || motif === 'grave') return;
+  var origineInapt = origineInaptitudeL(motif);
+  var pInapt = origineInapt ? parametresInaptitude(origineInapt, annees) : null;
+  if (salaireRef <= 0 || annees <= 0 || motif === 'grave' || (pInapt ? !pInapt.eligible : annees < (8/12))) return;
+  var anneesSaisies = annees;
+  if (pInapt) annees = pInapt.ancienneteRetenue;
   var tp = lireTempsPartielL(annees);
   if (tp.actif && tp.erreur) return;
   var prorata = tp.actif ? proratiserTempsPartiel(indemniteLegale, salaireRef, annees, tp.regime, tp.quotite, tp.anneesTP) : null;
 
-  var indemnite = prorata ? prorata.montant : indemniteLegale(salaireRef, annees);
+  var indemniteLegaleL = prorata ? prorata.montant : indemniteLegale(salaireRef, annees);
+  var indemnite = pInapt ? indemniteLegaleL * pInapt.multiplicateur : indemniteLegaleL;
   // Indemnité légale : exonérée d'IR en totalité (art. 80 duodecies CGI, BOFiP §40) ; aucune exonération sociale au-delà de 10 PASS.
   var exoSocialeL = indemnite > 10 * BAREME_2026.PASS_ANNUEL ? 0 : Math.min(indemnite, BAREME_2026.PLAFOND_EXO_SOCIALE_RC);
   var exoFiscaleL = indemnite;
   var lignes = [
     { label: 'Salaire de référence retenu', value: euros(salaireRef) },
-    { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' }
+    { label: 'Ancienneté prise en compte', value: annees.toFixed(2) + ' an(s)' + (origineInapt === 'nonpro' ? ' (' + anneesSaisies.toFixed(2) + ' an(s) + ' + pInapt.moisPreavisLegal + ' mois de préavis, art. L1226-4)' : '') }
   ];
+  if (origineInapt) lignes.push({ label: 'Motif', value: origineInapt === 'pro' ? "Inaptitude d'origine professionnelle (accident du travail, maladie professionnelle)" : "Inaptitude d'origine non professionnelle" });
   if (prorata){
     lignes.push({ label: 'Prorata temps complet / temps partiel (art. L3123-5)', value: prorata.anneesTC.toFixed(2) + ' an(s) à temps complet (' + euros(prorata.salaireTC) + ') + ' + prorata.anneesTP.toFixed(2) + ' an(s) à ' + Math.round(tp.quotite*100) + ' % (' + euros(prorata.salaireTP) + ')' });
     lignes.push({ label: 'Part temps complet', value: euros(prorata.partTC) });
@@ -641,7 +728,13 @@ function telechargerPDF_L(){
     lignes.push({ label: '10 premières années (1/4 de mois/an)', value: euros(10*(salaireRef/4)) });
     lignes.push({ label: 'Années au-delà de 10 ans (1/3 de mois/an)', value: euros((annees-10)*(salaireRef/3)) });
   }
-  lignes.push({ label: 'Indemnité légale de licenciement', value: euros(indemnite), type: 'total' });
+  if (origineInapt === 'pro'){
+    lignes.push({ label: 'Indemnité légale de licenciement', value: euros(indemniteLegaleL) });
+    lignes.push({ label: 'Indemnité spéciale de licenciement (2 × légale, art. L1226-14)', value: euros(indemnite), type: 'total' });
+    lignes.push({ label: 'Indemnité compensatrice (égale au préavis légal, art. L1226-14)', value: pInapt.preavisNonFixe ? 'Non chiffrée : moins de 6 mois d\'ancienneté, durée fixée par la convention ou les usages' : pInapt.moisCompensatrice + ' mois × ' + euros(salaireRef) + ' = ' + euros(pInapt.moisCompensatrice * salaireRef) });
+  } else {
+    lignes.push({ label: 'Indemnité légale de licenciement', value: euros(indemnite), type: 'total' });
+  }
   if (montantProposeL > 0){
     lignes.push({ label: "Montant proposé par l'employeur ou en transaction", value: euros(montantProposeL) });
   }
@@ -650,10 +743,10 @@ function telechargerPDF_L(){
   lignes.push({ label: 'Contribution patronale spécifique (licenciement classique)', value: "Aucune — s'applique uniquement à la rupture conventionnelle et à la mise à la retraite" });
 
   genererPDFSimulation({
-    titre: "Simulation d'indemnité de licenciement",
+    titre: origineInapt ? "Simulation d'indemnité de licenciement pour inaptitude" : "Simulation d'indemnité de licenciement",
     sousTitre: 'Montant légal minimum dû, hors préavis et congés payés',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, de même qu'un protocole transactionnel librement négocié. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.",
+    disclaimer: (origineInapt === 'pro' ? "Inaptitude d'origine professionnelle : indemnités non dues en cas de refus abusif d'un reclassement (art. L1226-14). " : '') + "Simulateur indicatif basé sur le barème légal minimum (Art. R1234-2 du Code du travail). Ce barème est un plancher : votre convention collective peut prévoir un montant plus favorable, de même qu'un protocole transactionnel librement négocié. N'inclut pas l'indemnité de préavis ni de congés payés. Ne remplace pas un conseil juridique personnalisé.",
     nomFichier: 'simulation-indemnite-licenciement.pdf'
   });
 }
