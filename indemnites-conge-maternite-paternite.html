@@ -55,21 +55,19 @@
       }
     },
     {
-
       "@type": "Question",
       "name": "Combien touche-t-on en congé maternité pour un salaire de 2 500 € brut ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pour un salaire mensuel brut de 2 500 € (sous le plafond du PASS), le salaire journalier de base est d'environ 82,19 €, et l'indemnité journalière de maternité (79 % du SJB) d'environ 64,93 €/jour. Sur un congé maternité de 16 semaines (112 jours), le total estimé est d'environ 7 272 €, après l'abattement de 21 % et avant prélèvement à la source de l'impôt sur le revenu."
+        "@type": "Answer",
+        "text": "Pour un salaire mensuel brut de 2 500 € (sous le plafond du PASS), le salaire journalier de base est d'environ 82,19 €, et l'indemnité journalière de maternité (79 % du SJB) d'environ 64,93 €/jour. Sur un congé maternité de 16 semaines (112 jours), le total estimé est d'environ 7 272 €, après l'abattement de 21 % et avant prélèvement à la source de l'impôt sur le revenu."
       }
     },
     {
-
       "@type": "Question",
       "name": "Quelle indemnité pour un congé paternité de 25 jours avec 2 800 € de salaire brut ?",
       "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pour un salaire mensuel brut de 2 800 € et un congé paternité de 25 jours, le salaire journalier de base est d'environ 92,05 €, et l'indemnité journalière de paternité (79 % du SJB, comme en maternité) d'environ 72,72 €/jour, soit un total estimé d'environ 1 818 € sur les 25 jours."
+        "@type": "Answer",
+        "text": "Pour un salaire mensuel brut de 2 800 € et un congé paternité de 25 jours, le salaire journalier de base est d'environ 92,05 €, et l'indemnité journalière de paternité (79 % du SJB, comme en maternité) d'environ 72,72 €/jour, soit un total estimé d'environ 1 818 € sur les 25 jours."
       }
     },
     {
@@ -95,6 +93,22 @@
         "@type": "Answer",
         "text": "Il comprend 4 jours obligatoires pris juste après les 3 jours du congé de naissance, puis 21 jours (28 en cas de naissances multiples) à prendre dans les 6 mois suivant la naissance, en une fois ou en 2 périodes d'au moins 5 jours (article L1225-35 du Code du travail). Les 25 jours sont indemnisés par la CPAM ; les 3 jours du congé de naissance sont payés par l'employeur."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Mon employeur maintient mon salaire à 100 % : combien verse-t-il en plus des indemnités ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La différence entre votre salaire net habituel sur la période et les indemnités journalières, qui sont versées après une retenue forfaitaire de 21 % (CSG et CRDS comprises). Sous le plafond de la Sécurité sociale (4 005 € brut par mois en 2026), les indemnités atteignent déjà à peu près le salaire net : le complément est faible. Au-dessus, il devient sensible : pour 5 000 € brut et 3 900 € net par mois, un congé maternité de 16 semaines donne 11 650,27 € d'indemnités journalières, et le maintien du salaire net coûte 2 710,28 € à l'employeur. Ce maintien n'existe que si votre convention collective, un accord ou votre contrat le prévoit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on enchaîner le congé maternité avec le congé supplémentaire de naissance ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, pour un enfant né ou adopté à partir du 1ᵉʳ janvier 2026 : chaque parent peut prendre jusqu'à 2 mois de congé supplémentaire de naissance, à la suite du congé de maternité ou de paternité, indemnisés par la Sécurité sociale à 70 % du salaire net le 1ᵉʳ mois et 60 % le 2ᵉ. Exemple calculé avec le simulateur : pour 2 500 € brut (environ 1 950 € net), 16 semaines de congé maternité donnent 7 272,33 €, puis 2 mois de congé supplémentaire 2 535 €, soit 9 807,33 € sur l'ensemble de la période, avant impôt."
+      }
     }
   ]
 }
@@ -104,7 +118,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-10-28",
   "name": "Congé Maternité / Paternité 2026 : dates et indemnités",
   "description": "Calculez les dates de votre congé maternité ou paternité et vos indemnités journalières CPAM 2026 : durées, report du prénatal, montant estimé. Calcul local.",
   "url": "https://messimulateursrh.fr/indemnites-conge-maternite-paternite",
@@ -262,6 +276,34 @@
       <label for="dateConge" id="labelDateConge">Date prévue d'accouchement (facultatif, pour calculer les dates)</label>
       <input type="date" id="dateConge" min="2025-01-01" max="2030-12-31">
     </div>
+    <div class="field">
+      <label for="ajoutCongeNaissanceMP">Enchaîner avec le congé supplémentaire de naissance ? (enfant né ou adopté à partir du 1ᵉʳ janvier 2026)</label>
+      <select id="ajoutCongeNaissanceMP" onchange="majOptionsMP()">
+        <option value="non">Non</option>
+        <option value="oui">Oui, à la suite de ce congé</option>
+      </select>
+      <div class="hint">Jusqu'à 2 mois par parent, indemnisés par la Sécurité sociale à 70 % puis 60 % du salaire net. Détail et délais : <a href="conge-naissance">congé supplémentaire de naissance</a>.</div>
+    </div>
+    <div class="field" id="groupeDureeNaissanceMP" style="display:none;">
+      <label for="dureeNaissanceMP">Durée du congé supplémentaire de naissance</label>
+      <select id="dureeNaissanceMP">
+        <option value="1">1 mois</option>
+        <option value="2" selected>2 mois</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="maintienSalaireMP">Votre employeur maintient-il votre salaire à 100 % pendant ce congé ?</label>
+      <select id="maintienSalaireMP" onchange="majOptionsMP()">
+        <option value="non">Non, ou je ne sais pas</option>
+        <option value="oui">Oui (convention collective, accord ou contrat)</option>
+      </select>
+      <div class="hint">Le simulateur ne devine pas votre convention : répondez « Oui » seulement si votre convention, un accord ou votre contrat prévoit ce maintien intégral.</div>
+    </div>
+    <div class="field" id="groupeNetMP" style="display:none;">
+      <label for="salaireNetMP">Salaire net mensuel habituel, avant impôt (facultatif)</label>
+      <input type="number" id="salaireNetMP" min="0" step="0.01" placeholder="à défaut, estimé à partir du brut">
+      <div class="hint">Montant « net à payer avant impôt sur le revenu » de vos bulletins. Laissé vide, il est estimé à partir du salaire brut (taux de cotisations d'un non-cadre).</div>
+    </div>
     <button class="compute" onclick="calculerIJConge()">Calculer</button>
 
     <div class="result" id="resultIJ">
@@ -357,6 +399,15 @@
       <p>Il comprend 4 jours obligatoires pris juste après les 3 jours du congé de naissance, puis 21 jours (28 en cas de naissances multiples) à prendre dans les 6 mois suivant la naissance, en une fois ou en 2 périodes d&#x27;au moins 5 jours (article L1225-35 du Code du travail). Les 25 jours sont indemnisés par la CPAM ; les 3 jours du congé de naissance sont payés par l&#x27;employeur.</p>
     </details>
 
+    <details class="faq">
+      <summary>Mon employeur maintient mon salaire à 100 % : combien verse-t-il en plus des indemnités ?</summary>
+      <p>La différence entre votre salaire net habituel sur la période et les indemnités journalières, qui sont versées après une retenue forfaitaire de 21 % (CSG et CRDS comprises). Sous le plafond de la Sécurité sociale (4 005 € brut par mois en 2026), les indemnités atteignent déjà à peu près le salaire net : le complément est faible. Au-dessus, il devient sensible : pour 5 000 € brut et 3 900 € net par mois, un congé maternité de 16 semaines donne 11 650,27 € d'indemnités journalières, et le maintien du salaire net coûte 2 710,28 € à l'employeur. Ce maintien n'existe que si votre convention collective, un accord ou votre contrat le prévoit.</p>
+    </details>
+    <details class="faq">
+      <summary>Peut-on enchaîner le congé maternité avec le congé supplémentaire de naissance ?</summary>
+      <p>Oui, pour un enfant né ou adopté à partir du 1ᵉʳ janvier 2026 : chaque parent peut prendre jusqu'à 2 mois de congé supplémentaire de naissance, à la suite du congé de maternité ou de paternité, indemnisés par la Sécurité sociale à 70 % du salaire net le 1ᵉʳ mois et 60 % le 2ᵉ. Exemple calculé avec le simulateur : pour 2 500 € brut (environ 1 950 € net), 16 semaines de congé maternité donnent 7 272,33 €, puis 2 mois de congé supplémentaire 2 535 €, soit 9 807,33 € sur l'ensemble de la période, avant impôt.</p>
+    </details>
+
     <div class="related-tools">
       <h3>Autres simulateurs utiles</h3>
       <div class="links">
@@ -400,7 +451,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur une simplification du calcul officiel de la CPAM (salaire journalier de base selon <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043356709" target="_blank" rel="noopener noreferrer">l'article R331-5 du Code de la sécurité sociale</a><span class="source-badge">✓ Source officielle</span>, plafonné au PASS mensuel 2026, taux forfaitaire de 21 % (indemnité = 79 % du SJB) en maternité comme en paternité). Ne tient pas compte des conditions d'ouverture de droits, des planchers d'indemnisation, ni d'un éventuel maintien de salaire conventionnel. Pour un calcul officiel, consultez ameli.fr ou votre CPAM.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur une simplification du calcul officiel de la CPAM (salaire journalier de base selon <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043356709" target="_blank" rel="noopener noreferrer">l'article R331-5 du Code de la sécurité sociale</a><span class="source-badge">✓ Source officielle</span>, plafonné au PASS mensuel 2026, taux forfaitaire de 21 % (indemnité = 79 % du SJB) en maternité comme en paternité). Ne tient pas compte des conditions d'ouverture de droits ni des planchers d'indemnisation ; le complément de l'employeur n'est calculé que si vous indiquez le maintien intégral du salaire prévu par votre convention ou accord. Pour un calcul officiel, consultez ameli.fr ou votre CPAM.
     <br><br>
     <a href="a-propos">À propos</a> · <a href="mentions-legales">Mentions légales</a> · <a href="politique-de-confidentialite">Politique de confidentialité</a>
   </div>
@@ -450,6 +501,45 @@ function lireDatesConge(type){
   return { naissance: iso, limite: dateLimitePaternite(iso) };
 }
 document.addEventListener('DOMContentLoaded', majAmenagementMaternite);
+function majOptionsMP(){
+  var naissance = document.getElementById('ajoutCongeNaissanceMP').value === 'oui';
+  var maintien = document.getElementById('maintienSalaireMP').value === 'oui';
+  document.getElementById('groupeDureeNaissanceMP').style.display = naissance ? 'block' : 'none';
+  document.getElementById('groupeNetMP').style.display = (naissance || maintien) ? 'block' : 'none';
+}
+// Salaire net mensuel : saisi, ou estimé depuis le brut (coefficient non-cadre, estimerNetDepuisBrut).
+function lireNetMensuelMP(brut){
+  var saisi = parseFloat(document.getElementById('salaireNetMP').value) || 0;
+  if (saisi > 0) return { net: saisi, estime: false };
+  return { net: estimerNetDepuisBrut(brut, false).net, estime: true };
+}
+// Complément de l'employeur pour un maintien du salaire net à 100 % : salaire net sur la période
+// (net mensuel × 3 / 91,25 par jour, même base journalière que le SJB) moins les IJ, versées après
+// la retenue forfaitaire de 21 % (CSG et CRDS comprises, ameli.fr ; fiche F2265).
+function estimerComplementMaintienMP(netMensuel, ijTotal, dureeJours){
+  var netJour = netMensuel * 3 / BAREME_2026.SJB_DIVISEUR;
+  var netPeriode = netJour * dureeJours;
+  return { netJour: netJour, netPeriode: netPeriode, complement: Math.max(0, netPeriode - ijTotal) };
+}
+function ajouterJoursISO(iso, n){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  if (!m) return '';
+  return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3] + n)).toISOString().slice(0, 10);
+}
+function optionsMP(type, salaire, r, dureeJours, d){
+  var naissance = document.getElementById('ajoutCongeNaissanceMP').value === 'oui';
+  var maintien = document.getElementById('maintienSalaireMP').value === 'oui';
+  if (!naissance && !maintien) return null;
+  var n = lireNetMensuelMP(salaire);
+  var o = { net: n.net, estime: n.estime };
+  if (maintien) o.maintien = estimerComplementMaintienMP(n.net, r.total, dureeJours);
+  if (naissance){
+    o.dureeNaissance = parseInt(document.getElementById('dureeNaissanceMP').value, 10);
+    o.naissance = estimerCongeNaissance(n.net, o.dureeNaissance);
+    o.debutNaissance = (d && type === 'maternite') ? ajouterJoursISO(d.fin, 1) : '';
+  }
+  return o;
+}
 
 function calculerIJConge(){
   var type = document.getElementById('typeConge').value;
@@ -488,7 +578,33 @@ function calculerIJConge(){
       'Dès la naissance : 3 jours de congé de naissance (employeur), puis <strong>4 jours</strong> de congé de paternité obligatoires.<br>' +
       'Les ' + (dureeJours - 4) + ' jours restants sont à prendre avant le <strong>' + dateLongueFR(d.limite) + '</strong> (6 mois après la naissance), en une fois ou en 2 périodes d\'au moins 5 jours (art. L1225-35).';
   }
+  var o = optionsMP(type, salaire, r, dureeJours, d);
+  var libConge = type === 'maternite' ? 'congé maternité' : 'congé paternité';
+  if (o){
+    breakdownTxtIJ += '<br><br><strong>Salaire net mensuel retenu : ' + euros(o.net) + '</strong>' + (o.estime ? ' (estimé à partir du brut, taux de cotisations d\'un non-cadre : saisissez votre net réel pour un résultat plus juste)' : ' (saisi)');
+  }
+  if (o && o.maintien){
+    breakdownTxtIJ += '<br><br><strong>Maintien du salaire à 100 % par l\'employeur</strong><br>' +
+      'Salaire net sur la période : ' + euros(o.net) + ' × 3 / ' + BAREME_2026.SJB_DIVISEUR + ' = ' + euros(o.maintien.netJour) + ' par jour × ' + dureeJours + ' jours = ' + euros(o.maintien.netPeriode) + '<br>' +
+      'Complément versé par l\'employeur : ' + euros(o.maintien.netPeriode) + ' − ' + euros(r.total) + ' d\'indemnités journalières = <strong>' + euros(o.maintien.complement) + '</strong><br>' +
+      'Les indemnités journalières étant versées après une retenue forfaitaire de 21 % (CSG et CRDS comprises), ce complément ramène le revenu au niveau du salaire net habituel. Les modalités exactes (salaire de référence, primes, subrogation) sont celles de votre convention ou accord.' +
+      (o.maintien.complement === 0 ? '<br>Ici, les indemnités journalières atteignent déjà votre salaire net : le maintien n\'ajoute presque rien sous le plafond de la Sécurité sociale (4 005 € brut par mois en 2026) ; il pèse surtout pour les salaires au-dessus de ce plafond.' : '');
+  }
+  if (o && o.naissance){
+    var totalPeriode = r.total + o.naissance.total + (o.maintien ? o.maintien.complement : 0);
+    breakdownTxtIJ += '<br><br><strong>Puis congé supplémentaire de naissance (' + o.dureeNaissance + ' mois)</strong>' + (o.debutNaissance ? ', à partir du <strong>' + dateLongueFR(o.debutNaissance) + '</strong> s\'il suit immédiatement le congé maternité' : '') + '<br>' +
+      'Salaire net pris en compte : ' + euros(o.naissance.salairePlafonne) + (o.net > o.naissance.salairePlafonne ? ' (plafonné à 3 163,95 € net par mois en 2026)' : '') + '<br>' +
+      'Indemnité : ' + euros(o.naissance.salairePlafonne) + ' × 70 % = ' + euros(o.naissance.mois1) + ' le 1ᵉʳ mois' + (o.dureeNaissance === 2 ? ', puis × 60 % = ' + euros(o.naissance.mois2) + ' le 2ᵉ mois' : '') + ', soit <strong>' + euros(o.naissance.total) + '</strong>, versés par la Sécurité sociale' + (o.maintien ? ' (le maintien de salaire indiqué ci-dessus ne couvre ici que le ' + libConge + ' : vérifiez dans votre convention s\'il s\'étend à ce congé)' : '') + '.<br>' +
+      '<strong>Total sur l\'ensemble de la période : ' + euros(totalPeriode) + '</strong> (' + libConge + ' ' + (o.maintien ? 'avec complément de l\'employeur ' : '') + '+ ' + o.dureeNaissance + ' mois de congé supplémentaire de naissance), avant impôt sur le revenu.';
+  }
   document.getElementById('breakdownIJ').innerHTML = breakdownTxtIJ;
+  if (o){
+    var tot = r.total + (o.maintien ? o.maintien.complement : 0) + (o.naissance ? o.naissance.total : 0);
+    document.getElementById('montantIJ').textContent = euros(tot) + ' au total';
+    document.getElementById('detailIJ').textContent = 'Dont ' + euros(r.total) + ' d\'indemnités journalières CPAM (' + euros(r.ijJour) + ' par jour sur ' + dureeJours + ' jours)' +
+      (o.maintien ? ', ' + euros(o.maintien.complement) + ' de complément de l\'employeur' : '') +
+      (o.naissance ? ', ' + euros(o.naissance.total) + ' de congé supplémentaire de naissance' : '') + '.';
+  }
 
   resultBox.classList.add('show');
 }
@@ -524,11 +640,22 @@ function telechargerPDF_IJ(){
     lignes.splice(lignes.length - 1, 0, { label: 'Date limite des jours restants (6 mois)', value: dateFRDepuisISO(d.limite) });
   }
 
+  var oPdf = optionsMP(type, salaire, r, dureeJours, d);
+  if (oPdf){
+    lignes.push({ label: oPdf.estime ? 'Salaire net mensuel (estimé, non-cadre)' : 'Salaire net mensuel saisi', value: euros(oPdf.net) });
+    if (oPdf.maintien) lignes.push({ label: 'Complément de l\'employeur (maintien à 100 %)', value: euros(oPdf.maintien.complement) });
+    if (oPdf.naissance){
+      if (oPdf.debutNaissance) lignes.push({ label: 'Début du congé supplémentaire de naissance (s\'il suit immédiatement)', value: dateFRDepuisISO(oPdf.debutNaissance) });
+      lignes.push({ label: 'Congé supplémentaire de naissance (' + oPdf.dureeNaissance + ' mois)', value: euros(oPdf.naissance.total) });
+    }
+    lignes.push({ label: 'Total sur l\'ensemble de la période', value: euros(r.total + (oPdf.maintien ? oPdf.maintien.complement : 0) + (oPdf.naissance ? oPdf.naissance.total : 0)), type: 'total' });
+  }
+
   genererPDFSimulation({
     titre: 'Simulation d\'indemnités ' + (type === 'maternite' ? 'congé maternité' : 'congé paternité'),
     sousTitre: 'Estimation des indemnités journalières versées par la CPAM',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur une simplification du calcul officiel de la CPAM. Ne tient pas compte des conditions d'ouverture de droits ni d'un éventuel maintien de salaire conventionnel. Pour un calcul officiel, consultez ameli.fr.",
+    disclaimer: "Simulateur indicatif basé sur une simplification du calcul officiel de la CPAM. Ne tient pas compte des conditions d'ouverture de droits ; le maintien de salaire, s'il est indiqué, suppose une règle de maintien intégral du salaire net prévue par votre convention ou accord. Pour un calcul officiel, consultez ameli.fr.",
     nomFichier: 'simulation-ij-' + type + '.pdf'
   });
 }

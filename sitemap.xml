@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/rupture-conventionnelle</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -116,7 +116,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/identifier-convention-collective</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -128,7 +128,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/plafond-cheques-cadeaux-cse</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -152,7 +152,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/indemnites-conge-maternite-paternite</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -272,7 +272,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/historique-mises-a-jour</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -290,7 +290,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/remplace-par-ia-licenciement</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -476,7 +476,7 @@
   </url>
   <url>
     <loc>https://messimulateursrh.fr/ia-et-travail-obligations-employeur</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -519,6 +519,12 @@
   <url>
     <loc>https://messimulateursrh.fr/indemnite-arret-maladie</loc>
     <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://messimulateursrh.fr/etude-indemnite-licenciement-conventions-collectives</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

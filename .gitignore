@@ -56,3 +56,6 @@ secrets*.json
 *.zip
 *.tar.gz
 node_modules/
+etude_indemnite_cc.js
+generer_etude_cc.py
+etude-donnees.json

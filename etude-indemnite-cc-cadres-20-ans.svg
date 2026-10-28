@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 366" role="img" aria-labelledby="t d" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+<title id="t">Indemnité de licenciement d'un cadre, 20 ans d'ancienneté, salaire de référence 2 500 €</title>
+<desc id="d">Code du travail : 14 583 €; Syntec : 16 667 €; Commerce alimentaire : 17 500 €; Transports routiers : 20 000 €; Métallurgie : 23 000 €; Hospitalisation privée : 37 500 €. Source : MesSimulateursRH.fr, textes Légifrance lus le 28/10/2026.</desc>
+<rect width="640" height="100%" fill="#ffffff"/>
+<text x="16" y="26" font-size="16" font-weight="700" fill="#1c2430">Cadre, 20 ans d'ancienneté, 2 500 € de salaire de référence</text>
+<text x="16" y="46" font-size="12" fill="#5a6472">Indemnité de licenciement due selon la convention collective (minimum de branche)</text>
+<text x="180" y="83.0" font-size="13" text-anchor="end" fill="#1c2430">Code du travail</text>
+<path d="M190 64 H317.24996999999996 a4 4 0 0 1 4 4 V90 a4 4 0 0 1 -4 4 H190 Z" fill="#94a3b8"/>
+<text x="329.24996999999996" y="83.0" font-size="13" font-weight="600" fill="#1c2430">14 583 €</text>
+<text x="180" y="125.0" font-size="13" text-anchor="end" fill="#1c2430">Syntec</text>
+<path d="M190 106 H336.00003 a4 4 0 0 1 4 4 V132 a4 4 0 0 1 -4 4 H190 Z" fill="#1d4ed8"/>
+<text x="348.00003" y="125.0" font-size="13" font-weight="600" fill="#1c2430">16 667 €</text>
+<text x="180" y="167.0" font-size="13" text-anchor="end" fill="#1c2430">Commerce alimentaire</text>
+<path d="M190 148 H343.5 a4 4 0 0 1 4 4 V174 a4 4 0 0 1 -4 4 H190 Z" fill="#1d4ed8"/>
+<text x="355.5" y="167.0" font-size="13" font-weight="600" fill="#1c2430">17 500 €</text>
+<text x="180" y="209.0" font-size="13" text-anchor="end" fill="#1c2430">Transports routiers</text>
+<path d="M190 190 H366.0 a4 4 0 0 1 4 4 V216 a4 4 0 0 1 -4 4 H190 Z" fill="#1d4ed8"/>
+<text x="378.0" y="209.0" font-size="13" font-weight="600" fill="#1c2430">20 000 €</text>
+<text x="180" y="251.0" font-size="13" text-anchor="end" fill="#1c2430">Métallurgie</text>
+<path d="M190 232 H393.0 a4 4 0 0 1 4 4 V258 a4 4 0 0 1 -4 4 H190 Z" fill="#1d4ed8"/>
+<text x="405.0" y="251.0" font-size="13" font-weight="600" fill="#1c2430">23 000 €</text>
+<text x="180" y="293.0" font-size="13" text-anchor="end" fill="#1c2430">Hospitalisation privée</text>
+<path d="M190 274 H523.5 a4 4 0 0 1 4 4 V300 a4 4 0 0 1 -4 4 H190 Z" fill="#1d4ed8"/>
+<text x="535.5" y="293.0" font-size="13" font-weight="600" fill="#1c2430">37 500 €</text>
+<line x1="321.2" y1="58" x2="321.2" y2="308" stroke="#5a6472" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="190" y1="58" x2="190" y2="308" stroke="#e2e6ec" stroke-width="1"/>
+<text x="16" y="334" font-size="11" fill="#5a6472">Source : messimulateursrh.fr/etude-indemnite-licenciement-conventions-collectives</text>
+<text x="16" y="350" font-size="11" fill="#5a6472">Textes Légifrance lus le 28/10/2026 · Hors accord d'entreprise et hors majorations liées à l'âge.</text>
+</svg>

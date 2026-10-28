@@ -667,17 +667,15 @@ var anneesAuDela10 = Math.max(0, ancienneteAnnees - 10);
 return (ancienneteAnnees * (salaireRef / 10)) + (anneesAuDela10 * (salaireRef / 15));
 }
 function indemniteSyntecETAM(salaireRef, ancienneteAnnees){
-// Convention Syntec (bureaux d'études techniques, IDCC 1486), art. 4.5 — statut non-cadre (ETAM), texte consolidé Légifrance vérifié directement.
+// Convention Syntec (bureaux d'études techniques, IDCC 1486), art. 4.5 — statut non-cadre (ETAM), texte relu sur Légifrance le 28/10/2026.
 // Formule (depuis le 1er mai 2023, avenants n°46 du 16/07/2021 et n°2 du 27/10/2022, étendus par arrêté du 5 avril 2023) :
-// 1/4 de mois de salaire par année d'ancienneté jusqu'à 10 ans, puis 1/3 de mois par année au-delà — c'est-à-dire structurellement
-// la même formule que le barème légal (Art. R1234-2), sans plafond. Incluse ici par transparence : la convention ne procure aucun
-// avantage supplémentaire pour ce statut, contrairement au statut cadre (voir indemniteSyntecCadre).
+// 1/4 de mois par année de présence jusqu'à 10 ans d'ancienneté ; après 10 ans, « 1/3 de mois pour chaque année de présence »,
+// c'est-à-dire sur toute l'ancienneté (même lecture que le simulateur officiel code.travail.gouv.fr). Corrigé le 28/10/2026 :
+// l'ancienne version appliquait le 1/3 aux seules années au-delà de 10 ans (= barème légal) et sous-estimait l'indemnité au-delà de 10 ans.
 if (ancienneteAnnees <= 10){
 return ancienneteAnnees * (salaireRef / 4);
 }
-var part1 = 10 * (salaireRef / 4);
-var part2 = (ancienneteAnnees - 10) * (salaireRef / 3);
-return part1 + part2;
+return ancienneteAnnees * (salaireRef / 3);
 }
 function indemniteBatimentETAM(salaireRef, ancienneteAnnees){
 // Convention collective nationale des employés, techniciens et agents de maîtrise du bâtiment du 12 juillet 2006 (IDCC 2609).
@@ -708,7 +706,8 @@ if (ancienneteAnnees < 2){
 return indemniteLegale(salaireRef, ancienneteAnnees);
 }
 var base;
-if (ancienneteAnnees < 5){
+if (ancienneteAnnees <= 5){
+// Art. 10.3 relu sur Légifrance le 28/10/2026 : 1/10 « à partir de 2 ans et jusqu'à 5 ans », 3/20 « après 5 ans » (corrigé le 28/10/2026 : la bascule se faisait à 5 ans pile).
 base = ancienneteAnnees * (salaireRef * 0.10);
 } else {
 base = ancienneteAnnees * (salaireRef * 0.15);
@@ -2553,6 +2552,7 @@ var SEARCH_INDEX = [
 {title:"Calcul RTT", url:"calcul-rtt", cat:"Simulateur", kw:"calcul rtt 2026 2027 forfait jours 218 horaire hebdomadaire 37h 39h reduction temps travail alsace moselle prorata arrivee rachat monetisation rtt non pris"},
 {title:"Indemnités d'arrêt maladie", url:"indemnite-arret-maladie", cat:"Simulateur", kw:"accident du travail maladie professionnelle AT MP plafond 1er novembre 2026 arret maladie indemnites journalieres IJSS maintien de salaire carence secu fonction publique fonctionnaire 90 % duree maximale ALD prolongation subrogation"},
 {title:"Trouver sa convention collective", url:"identifier-convention-collective", cat:"Guide", kw:"convention collective IDCC bulletin de paie contrat syntec batiment BTP cadre ETAM ouvrier transports routiers HCR hotels cafes restaurants indemnite de licenciement conventionnelle rupture conventionnelle preavis 1486 2420 2609 1596 1597 1979"},
+{title:"Étude : indemnité de licenciement et conventions collectives", url:"etude-indemnite-licenciement-conventions-collectives", cat:"Étude", kw:"etude indemnite de licenciement convention collective comparatif 2216 commerce alimentaire syntec hcr metallurgie batiment transports routiers proprete aide a domicile automobile hospitalisation privee cadre non cadre donnees csv"},
 {title:"Remplacé par une IA et licencié : quels recours ?", url:"remplace-par-ia-licenciement", cat:"Guide", kw:"IA intelligence artificielle licenciement remplace robot automatisation recours prudhommes RGPD metier expose exposition"},
 {title:"Arrêts de travail plafonnés : ce qui change au 1er septembre 2026", url:"plafonnement-arrets-maladie-2026", cat:"Actualité", kw:"accident du travail 1er novembre 2026 plafond 1,8 smic arret maladie plafonnement duree prescription renouvellement 2026 LFSS ALD affection longue duree non exonerante 15 octobre indemnites journalieres 1 an"},
 {title:"Transparence salariale : ce qui va changer pour les salariés", url:"transparence-salariale-directive-2026", cat:"Actualité", kw:"transparence salariale directive europeenne ecart remuneration fourchette salaire egapro 2026 projet de loi senat index indicateurs 50 salaries"},

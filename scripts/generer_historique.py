@@ -22,6 +22,12 @@ EXCLUS = {"404.html", SLUG + ".html"}
 
 # (date ISO, [pages], ce qui était inexact, ce qui a été fait)
 CORRECTIONS = [
+    ("2026-10-28", ["rupture-conventionnelle", "identifier-convention-collective"],
+     "Pour un ETAM de la convention Syntec, le tiers de mois prévu après 10 ans d'ancienneté n'était appliqué qu'aux années au-delà de la dixième, ce qui ramenait l'indemnité conventionnelle au minimum légal.",
+     "L'article 4.5 prévoit, après 10 ans, un tiers de mois pour chaque année de présence : il s'applique à toute l'ancienneté (lecture du simulateur officiel du ministère du Travail). Pour 3 000 € et 20 ans d'ancienneté : 20 000 € au lieu de 17 500 €."),
+    ("2026-10-28", ["rupture-conventionnelle", "identifier-convention-collective"],
+     "Pour un ouvrier du bâtiment ayant exactement 5 ans d'ancienneté, l'indemnité conventionnelle affichée appliquait déjà le taux de 3/20 de mois par année.",
+     "L'article 10.3 prévoit 1/10 de mois par année jusqu'à 5 ans inclus et 3/20 après 5 ans. Le montant dû ne change pas : le minimum légal, plus élevé, s'appliquait déjà."),
     ("2026-10-26", ["conge-naissance"],
      "Pour un enfant né à partir du 1er juillet 2026, la date limite de début du congé supplémentaire de naissance affichée par le simulateur tombait un jour trop tard (date de naissance + 9 mois).",
      "Le délai se compte de date à date : pour un enfant né le 15 juillet 2026, le dernier jour est le 14 avril 2027 ; en cas de congé fractionné, c'est le 2e mois qui doit débuter dans ce délai (ameli.fr, service-public.gouv.fr)."),
@@ -212,7 +218,7 @@ def main():
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="/">Accueil</a>
       <span class="sep" aria-hidden="true">›</span>
-      <a href="a-propos">À propos</a>
+      <a href="a-propos">À propos de MesSimulateursRH.fr</a>
       <span class="sep" aria-hidden="true">›</span>
       <span aria-current="page">{H1}</span>
     </nav>
