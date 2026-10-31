@@ -22,6 +22,12 @@ EXCLUS = {"404.html", SLUG + ".html"}
 
 # (date ISO, [pages], ce qui était inexact, ce qui a été fait)
 CORRECTIONS = [
+    ("2026-10-31", ["conge-naissance-2026"],
+     "La FAQ indiquait que les textes ne précisaient pas si le congé supplémentaire de naissance compte pour l'ancienneté et les congés payés.",
+     "L'article L1225-46-3 du Code du travail assimile ce congé à du travail effectif pour les droits liés à l'ancienneté (service-public.gouv.fr, fiche F39685) ; pour les congés payés, il ne figure pas, à ce jour, dans la liste de l'article L3141-5."),
+    ("2026-10-31", ["salaire-apprenti"],
+     "La FAQ indiquait que le salaire minimum de l'apprenti dépend uniquement de l'âge et de l'année du contrat, sans exception liée au diplôme préparé.",
+     "L'article D6222-32 du Code du travail fait exception pour la licence professionnelle préparée en un an : l'apprenti est payé au minimum comme en 2e année de contrat (service-public.gouv.fr, fiche F2918)."),
     ("2026-10-28", ["rupture-conventionnelle", "identifier-convention-collective"],
      "Pour un ETAM de la convention Syntec, le tiers de mois prévu après 10 ans d'ancienneté n'était appliqué qu'aux années au-delà de la dixième, ce qui ramenait l'indemnité conventionnelle au minimum légal.",
      "L'article 4.5 prévoit, après 10 ans, un tiers de mois pour chaque année de présence : il s'applique à toute l'ancienneté (lecture du simulateur officiel du ministère du Travail). Pour 3 000 € et 20 ans d'ancienneté : 20 000 € au lieu de 17 500 €."),

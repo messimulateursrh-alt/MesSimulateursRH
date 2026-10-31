@@ -59,7 +59,7 @@
       "name": "Ce simulateur fonctionne-t-il aussi pour un contrat d'apprentissage en école d'ingénieur ou en master (bac+5) ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Le salaire minimum légal de l'apprenti dépend uniquement de l'âge et de l'année du contrat (articles L6222-27 à L6222-30 et D6222-26 du Code du travail), pas du niveau de diplôme préparé : les mêmes pourcentages du SMIC s'appliquent, qu'il s'agisse d'un CAP ou d'un diplôme d'ingénieur ou d'un master en 5 ans. Seul un minimum conventionnel de branche peut, le cas échéant, prévoir un montant plus favorable selon le niveau — à vérifier dans votre convention collective."
+        "text": "Oui. Le salaire minimum légal de l'apprenti dépend de l'âge et de l'année du contrat (articles L6222-27 et D6222-26 du Code du travail), pas du niveau de diplôme préparé : les mêmes pourcentages du SMIC s'appliquent, qu'il s'agisse d'un CAP, d'un diplôme d'ingénieur ou d'un master en 5 ans. Seule exception : la licence professionnelle préparée en un an, payée au minimum comme une 2ᵉ année de contrat (art. D6222-32) ; choisissez alors « 2ème année ». Un minimum conventionnel de branche peut aussi prévoir un montant plus favorable selon le niveau — à vérifier dans votre convention collective."
       }
     },
     {
@@ -96,7 +96,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-10-31",
   "name": "Simulateur de salaire minimum apprenti",
   "description": "Calculez le salaire brut et net d'un apprenti selon son âge, l'année et la date du contrat, avec le seuil d'exonération 2026. Gratuit, grille officielle.",
   "url": "https://messimulateursrh.fr/salaire-apprenti",
@@ -212,7 +212,7 @@
       <span class="for-employeur">Vérifiez le salaire minimum légal à verser à un apprenti selon son âge et l'année de son contrat.</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026, SMIC au 1ᵉʳ juin 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 31 octobre 2026, SMIC au 1ᵉʳ juin 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> de 27% du SMIC (moins de 18 ans, 1ère année) à 100% du SMIC (26 ans et plus), selon une grille croisant l'âge de l'apprenti et l'année d'exécution du contrat.</div>
@@ -312,6 +312,25 @@
       <p>Un apprenti de 19 ans en 2ème année de contrat : 51% du SMIC brut mensuel (1 867 €), soit environ <strong>952,17 €</strong> bruts par mois — pour un contrat conclu à partir du 1ᵉʳ mars 2025, cela donne environ <strong>948 €</strong> nets (seuil d'exonération à 50% du SMIC dépassé de 18,67 €, soumis aux cotisations salariales de droit commun).</p>
     </div>
 
+    <h2 id="cas-particuliers">Les cas particuliers prévus par le Code du travail</h2>
+    <p>La grille ci-dessus couvre l'essentiel des contrats. Le Code du travail prévoit toutefois plusieurs situations où le minimum change :</p>
+    <ul>
+      <li><strong>Licence professionnelle en un an</strong> : l'apprenti est payé au minimum comme en 2ᵉ année de contrat (art. D6222-32). Dans le simulateur, choisissez « 2ème année ».</li>
+      <li><strong>Apprenti de moins de 16 ans</strong> : même grille que pour un apprenti de 16 ou 17 ans (art. D6222-27).</li>
+      <li><strong>Formation prolongée</strong> : pendant la prolongation, le salaire minimum reste celui de la dernière année du contrat (art. D6222-28).</li>
+      <li><strong>Nouveau contrat après un diplôme obtenu</strong> : chez le même employeur comme chez un autre, l'apprenti perçoit au moins le salaire de la dernière année de son précédent contrat, sauf si la grille d'âge lui donne davantage (art. D6222-29).</li>
+      <li><strong>Majoration de 15 points</strong> (option du simulateur) : elle s'ajoute au pourcentage légal, mais pas au minimum fixé par une convention collective (service-public, fiche F2918).</li>
+      <li><strong>Anniversaire en cours d'année</strong> : la hausse prend effet le 1ᵉʳ du mois suivant (art. D6222-31). Un apprenti de 1ʳᵉ année qui fête ses 18 ans le 10 juin passe ainsi de 27 % à 43 % du SMIC le 1ᵉʳ juillet.</li>
+      <li><strong>Logement ou repas fournis</strong> : ces avantages en nature peuvent être retenus sur le salaire, dans les limites fixées par l'article D6222-33.</li>
+    </ul>
+
+    <h2 id="sources">Base légale et sources officielles</h2>
+    <p>Grille, cas particuliers et seuil d'exonération vérifiés le 31 octobre 2026 sur deux sources officielles :</p>
+    <ul>
+      <li>Code du travail : <a href="https://code.travail.gouv.fr/code-du-travail/l6222-27" target="_blank" rel="noopener noreferrer">L6222-27</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-26" target="_blank" rel="noopener noreferrer">D6222-26</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-27" target="_blank" rel="noopener noreferrer">D6222-27</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-28" target="_blank" rel="noopener noreferrer">D6222-28</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-29" target="_blank" rel="noopener noreferrer">D6222-29</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-30" target="_blank" rel="noopener noreferrer">D6222-30</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-31" target="_blank" rel="noopener noreferrer">D6222-31</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-32" target="_blank" rel="noopener noreferrer">D6222-32</a>, <a href="https://code.travail.gouv.fr/code-du-travail/d6222-33" target="_blank" rel="noopener noreferrer">D6222-33</a><span class="source-badge">✓ Source officielle</span></li>
+      <li>Service-public : <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2918" target="_blank" rel="noopener noreferrer">contrat d’apprentissage</a> (rémunération, majorations, exonération de cotisations à 50 % du SMIC) et <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2300" target="_blank" rel="noopener noreferrer">montant du SMIC</a><span class="source-badge">✓ Source officielle</span></li>
+    </ul>
+
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Le salaire de l'apprenti augmente-t-il automatiquement à son anniversaire ?</summary>
@@ -327,7 +346,7 @@
     </details>
     <details class="faq">
       <summary>Ce simulateur fonctionne-t-il aussi pour un contrat d'apprentissage en école d'ingénieur ou en master (bac+5) ?</summary>
-      <p>Oui. Le salaire minimum légal de l'apprenti dépend uniquement de l'âge et de l'année du contrat (articles L6222-27 à L6222-30 et D6222-26 du Code du travail), pas du niveau de diplôme préparé : les mêmes pourcentages du SMIC s'appliquent, qu'il s'agisse d'un CAP ou d'un diplôme d'ingénieur ou d'un master en 5 ans. Seul un minimum conventionnel de branche peut, le cas échéant, prévoir un montant plus favorable selon le niveau — à vérifier dans votre convention collective.</p>
+      <p>Oui. Le salaire minimum légal de l'apprenti dépend de l'âge et de l'année du contrat (articles L6222-27 et D6222-26 du Code du travail), pas du niveau de diplôme préparé : les mêmes pourcentages du SMIC s'appliquent, qu'il s'agisse d'un CAP, d'un diplôme d'ingénieur ou d'un master en 5 ans. Seule exception : la licence professionnelle préparée en un an, payée au minimum comme une 2ᵉ année de contrat (art. D6222-32) ; choisissez alors « 2ème année ». Un minimum conventionnel de branche peut aussi prévoir un montant plus favorable selon le niveau — à vérifier dans votre convention collective.</p>
     </details>
     <details class="faq">
       <summary>Le salaire de l'apprenti est-il exonéré de cotisations sociales ?</summary>

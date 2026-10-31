@@ -59,7 +59,7 @@
       "name": "Le cumul emploi-retraite permet-il d'acquérir de nouveaux droits à la retraite ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cela dépend du mode de cumul. En cumul plafonné, les cotisations versées sur l'activité reprise ne génèrent aucun nouveau droit (ni trimestre, ni point) dans le régime de base. En cumul intégral en revanche, un dispositif de seconde pension existe depuis la réforme des retraites de 2023 : il plafonne les droits ainsi acquis à 5% du plafond annuel de la Sécurité sociale, soit environ 2 403 € brut par an en 2026. Ce mécanisme est distinct de la réforme du cumul emploi-retraite prévue au 1er janvier 2027, qui ne le crée pas mais pourrait le faire évoluer."
+        "text": "Cela dépend du mode de cumul. En cumul plafonné, les cotisations versées sur l'activité reprise ne génèrent aucun nouveau droit (ni trimestre, ni point) dans le régime de base. En cumul intégral en revanche, un dispositif de seconde pension existe depuis la réforme des retraites de 2023 : il plafonne les droits ainsi acquis à 5% du plafond annuel de la Sécurité sociale, soit environ 2 403 € brut par an en 2026. Pour les premières retraites qui débutent à partir du 1er janvier 2027, seul le cumul à partir de 67 ans permettra d'acquérir de nouveaux droits."
       }
     },
     {
@@ -72,10 +72,10 @@
     },
     {
       "@type": "Question",
-      "name": "Qu'est-ce qui va changer avec la réforme du cumul emploi-retraite au 1er janvier 2027 ?",
+      "name": "Qu'est-ce qui change pour les retraites qui débutent à partir du 1er janvier 2027 ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite applicable aux pensions liquidées à partir du 1er janvier 2027 (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles). Elle durcirait le cumul plafonné pour les retraités entre l'âge légal et 67 ans, avec un mécanisme de franchise puis de réduction de la pension au-delà. Les décrets d'application n'étant pas publiés à ce jour (septembre 2026), les montants exacts ne sont pas encore fixés : ce simulateur applique les règles actuellement en vigueur et sera mis à jour dès la publication des décrets."
+        "text": "La loi de financement de la Sécurité sociale pour 2026 (article 102) réforme le cumul emploi-retraite pour les premières retraites qui prennent effet à partir du 1er janvier 2027 ; les personnes déjà retraitées ne sont pas concernées. Seul l'âge compte : avant l'âge légal, les revenus d'activité sont déduits en totalité de la retraite ; entre l'âge légal et 67 ans, le cumul est possible jusqu'à un seuil annoncé à 7 000 € brut par an, puis la retraite est réduite de la moitié du dépassement ; à partir de 67 ans, le cumul est intégral et ouvre de nouveaux droits. Le décret qui fixe le seuil n'est pas publié au 30 octobre 2026 : ce simulateur applique les règles en vigueur et sera mis à jour à sa publication."
       }
     },
     {
@@ -102,7 +102,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-07",
-  "dateModified": "2026-10-02",
+  "dateModified": "2026-10-30",
   "name": "Cumul Emploi-Retraite 2026",
   "description": "Exemple : 1 200 € de pension + 2 000 € de salaire = 283,15 € écrêtés sur la pension (plafond 2 916,85 € en 2026). Cumul emploi-retraite intégral ou plafonné.",
   "url": "https://messimulateursrh.fr/cumul-emploi-retraite",
@@ -329,13 +329,32 @@
       Simplification assumée : lorsque votre pension provient de plusieurs caisses (régime de base et régime complémentaire), chacune applique en pratique sa propre règle d'écrêtement sur sa propre part — le mécanisme réel peut donc différer légèrement d'une simple soustraction globale. Ce simulateur donne une estimation du dépassement et de la réduction totale, pas une répartition caisse par caisse.
     </div>
 
-    <div class="example-box">
-      <h3>⚠️ Ce qui change au 1er janvier 2027</h3>
+    <div class="example-box" id="reforme-2027">
+      <h3>⚠️ Retraites qui débutent à partir du 1er janvier 2027 : ce qui change</h3>
       <p>
-        La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite qui s'appliquerait aux <strong>pensions liquidées à partir du 1er janvier 2027</strong> (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles, dans une logique de non-rétroactivité). Le cumul plafonné serait durci pour les retraités entre l'âge légal et 67 ans, avec une franchise annuelle puis une réduction de la pension au-delà. Le cumul deviendrait libre à partir de 67 ans, avec en plus la possibilité d'ouvrir de nouveaux droits à une seconde pension.
+        L'article 102 de la loi n° 2025-1403 du 30 décembre 2025 de financement de la Sécurité sociale pour 2026 réforme le cumul emploi-retraite pour les <strong>premières retraites qui prennent effet à partir du 1er janvier 2027</strong>. Les personnes parties à la retraite avant cette date ne sont pas concernées : les règles calculées par ce simulateur continuent de s'appliquer à elles. La distinction entre cumul intégral et cumul plafonné disparaît ; seul l'âge compte (<a href="https://www.service-public.gouv.fr/particuliers/actualites/A18914" target="_blank" rel="noopener noreferrer">service-public.gouv.fr (actualité du 22 mai 2026)</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.lassuranceretraite.fr/portail-info/hors-menu/newsletter/vos-droits-evoluent-retraite.html" target="_blank" rel="noopener noreferrer">L'Assurance retraite, « Vos droits évoluent »</a><span class="source-badge">✓ Source officielle</span>).
+      </p>
+      <div class="table-wrap">
+      <table class="compare-table">
+        <thead><tr><th>Départ à la retraite</th><th>Règle pour les retraites débutant à partir de 2027</th></tr></thead>
+        <tbody>
+          <tr><td>Avant l'âge légal (carrière longue, par exemple)</td><td>Les revenus d'activité et de remplacement (indemnités journalières comprises) sont déduits en totalité de la retraite, dès le premier euro.</td></tr>
+          <tr><td>Entre l'âge légal et 67 ans</td><td>Cumul possible jusqu'à 67 ans tant que ces revenus ne dépassent pas un seuil annoncé à <strong>7 000 € brut par an</strong> ; au-delà, la retraite est réduite de la moitié du dépassement.</td></tr>
+          <tr><td>À partir de 67 ans</td><td>Cumul intégral, sans plafond ; les cotisations de l'activité ouvrent de nouveaux droits à retraite.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>
+        <strong>Exemple de l'Assurance retraite</strong>, avec un seuil de 7 000 € : 10 000 € de revenus d'activité dans l'année dépassent le seuil de 3 000 € ; la retraite est réduite de 1 500 € (la moitié du dépassement).
       </p>
       <p>
-        À la date du 7 septembre 2026, les décrets d'application ne sont pas publiés et les montants précis (seuil de franchise, taux de réduction) restent donc indicatifs selon les sources consultées. Ce simulateur applique les règles actuellement en vigueur (celles qui continueront de s'appliquer aux pensions déjà liquidées) et sera mis à jour dès la publication des décrets définitifs.
+        <strong>Ce qui n'est pas encore fixé.</strong> Le seuil de 7 000 € doit être fixé par le décret d'application de l'article 102, qui n'est pas publié au 30 octobre 2026. L'Assurance retraite indique aussi qu'elle ne connaîtra les nouveaux revenus qu'après leur déclaration : la retraite sera d'abord versée en entier, puis le trop-perçu récupéré après coup.
+      </p>
+      <p>
+        <strong>Calendrier.</strong> Une retraite du régime général prend toujours effet le 1er jour d'un mois, jamais avant la date de dépôt de la demande (<a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F33324" target="_blank" rel="noopener noreferrer">fiche F33324 de service-public.gouv.fr</a><span class="source-badge">✓ Source officielle</span>). Une première retraite qui prend effet au plus tard le 1er décembre 2026 relève donc encore des règles actuelles ; à partir du 1er janvier 2027, des nouvelles.
+      </p>
+      <p>
+        Ce simulateur applique les règles en vigueur aujourd'hui ; le calcul des retraites débutant en 2027 sera ajouté dès la publication du décret. Encadré vérifié le 30 octobre 2026.
       </p>
     </div>
 
@@ -369,15 +388,15 @@
     </details>
     <details class="faq">
       <summary>Le cumul emploi-retraite permet-il d'acquérir de nouveaux droits à la retraite ?</summary>
-      <p>Cela dépend du mode de cumul. En cumul plafonné, les cotisations versées sur l'activité reprise ne génèrent aucun nouveau droit (ni trimestre, ni point) dans le régime de base. En cumul intégral en revanche, un dispositif de <strong>seconde pension</strong> existe depuis la réforme des retraites de 2023 : il plafonne les droits ainsi acquis à 5% du plafond annuel de la Sécurité sociale, soit environ 2 403 € brut par an en 2026. Ce mécanisme est distinct de la réforme du cumul emploi-retraite prévue au 1er janvier 2027, qui ne le crée pas mais pourrait le faire évoluer.</p>
+      <p>Cela dépend du mode de cumul. En cumul plafonné, les cotisations versées sur l'activité reprise ne génèrent aucun nouveau droit (ni trimestre, ni point) dans le régime de base. En cumul intégral en revanche, un dispositif de <strong>seconde pension</strong> existe depuis la réforme des retraites de 2023 : il plafonne les droits ainsi acquis à 5% du plafond annuel de la Sécurité sociale, soit environ 2 403 € brut par an en 2026. Pour les premières retraites qui débutent à partir du 1er janvier 2027, seul le cumul à partir de 67 ans permettra d'acquérir de nouveaux droits.</p>
     </details>
     <details class="faq">
       <summary>Puis-je reprendre une activité chez mon ancien employeur juste après ma retraite ?</summary>
       <p>Un délai de 6 mois doit en principe être respecté avant de reprendre une activité chez le même employeur après la liquidation de la retraite (Art. L161-22 du Code de la sécurité sociale), quel que soit le mode de cumul retenu. Ce délai ne s'applique pas si vous reprenez une activité chez un autre employeur.</p>
     </details>
     <details class="faq">
-      <summary>Qu'est-ce qui va changer avec la réforme du cumul emploi-retraite au 1er janvier 2027 ?</summary>
-      <p>La loi de financement de la Sécurité sociale pour 2026 a adopté une réforme du cumul emploi-retraite applicable aux pensions liquidées à partir du 1er janvier 2027 (les pensions déjà liquidées avant cette date resteraient soumises aux règles actuelles). Elle durcirait le cumul plafonné pour les retraités entre l'âge légal et 67 ans, avec un mécanisme de franchise puis de réduction de la pension au-delà. Les décrets d'application n'étant pas publiés à ce jour (septembre 2026), les montants exacts ne sont pas encore fixés : ce simulateur applique les règles actuellement en vigueur et sera mis à jour dès la publication des décrets.</p>
+      <summary>Qu'est-ce qui change pour les retraites qui débutent à partir du 1er janvier 2027 ?</summary>
+      <p>La loi de financement de la Sécurité sociale pour 2026 (article 102) réforme le cumul emploi-retraite pour les premières retraites qui prennent effet à partir du 1er janvier 2027 ; les personnes déjà retraitées ne sont pas concernées. Seul l'âge compte : avant l'âge légal, les revenus d'activité sont déduits en totalité de la retraite ; entre l'âge légal et 67 ans, le cumul est possible jusqu'à un seuil annoncé à 7 000 € brut par an, puis la retraite est réduite de la moitié du dépassement ; à partir de 67 ans, le cumul est intégral et ouvre de nouveaux droits. Le décret qui fixe le seuil n'est pas publié au 30 octobre 2026 : ce simulateur applique les règles en vigueur et sera mis à jour à sa publication.</p>
     </details>
     <details class="faq">
       <summary>La projection sur plusieurs mois tient-elle compte d'une revalorisation de ma pension ?</summary>
@@ -431,7 +450,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Les règles peuvent varier selon votre régime de retraite (fonction publique, professions libérales, indépendants) et une réforme du cumul emploi-retraite est prévue au 1er janvier 2027 dont les décrets d'application ne sont pas encore publiés. Rapprochez-vous de votre caisse de retraite (Assurance retraite, Agirc-Arrco) avant toute décision.
+    <strong>Avertissement :</strong> simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Les règles peuvent varier selon votre régime de retraite (fonction publique, professions libérales, indépendants) et de nouvelles règles s'appliquent aux premières retraites qui prennent effet à partir du 1er janvier 2027 (seuil fixé par un décret non publié au 30 octobre 2026). Rapprochez-vous de votre caisse de retraite (Assurance retraite, Agirc-Arrco) avant toute décision.
     <br><br>
     <a href="a-propos">À propos</a> · <a href="mentions-legales">Mentions légales</a> · <a href="politique-de-confidentialite">Politique de confidentialité</a>
   </div>
@@ -570,7 +589,7 @@ function telechargerPDF_CER(){
     titre: 'Simulation de cumul emploi-retraite',
     sousTitre: r.mode === 'integral' ? 'Cumul intégral' : 'Cumul plafonné',
     lignes: lignes,
-    disclaimer: "Simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Estimation nette simplifiée (coefficients net/brut moyens, prélèvements sociaux sur pension selon le taux indiqué, impôt sur le revenu au taux marginal indiqué le cas échéant). La projection sur plusieurs mois, si demandée, suppose un revenu et une pension stables (aucune revalorisation ni changement de régime modélisés). Une réforme du cumul emploi-retraite est prévue au 1er janvier 2027, décrets d'application non publiés à ce jour. Rapprochez-vous de votre caisse de retraite avant toute décision.",
+    disclaimer: "Simulateur indicatif basé sur les règles générales du cumul emploi-retraite du régime général (Art. L161-22 et L161-22-1-9 du Code de la sécurité sociale). Estimation nette simplifiée (coefficients net/brut moyens, prélèvements sociaux sur pension selon le taux indiqué, impôt sur le revenu au taux marginal indiqué le cas échéant). La projection sur plusieurs mois, si demandée, suppose un revenu et une pension stables (aucune revalorisation ni changement de régime modélisés). De nouvelles règles s'appliquent aux premières retraites qui prennent effet à partir du 1er janvier 2027 (seuil fixé par un décret non publié au 30 octobre 2026). Rapprochez-vous de votre caisse de retraite avant toute décision.",
     nomFichier: 'simulation-cumul-emploi-retraite.pdf'
   });
 }

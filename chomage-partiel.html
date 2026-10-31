@@ -97,7 +97,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-30",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-10-31",
   "name": "Simulateur d'indemnité de chômage partiel (activité partielle)",
   "description": "Calculez votre indemnité d'activité partielle (chômage partiel) : 60% du taux horaire brut, plancher SMIC, estimation nette. Gratuit, calcul instantané.",
   "url": "https://messimulateursrh.fr/chomage-partiel",
@@ -213,7 +213,7 @@
       <span class="for-employeur">Estimez l'indemnité minimale légale à verser à un salarié placé en activité partielle.</span>
     </p>
     <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026, SMIC au 1ᵉʳ juin 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 31 octobre 2026, SMIC au 1ᵉʳ juin 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> 60% de votre taux horaire brut habituel (dans la limite de 4,5×SMIC), avec un plancher au SMIC net horaire. Ce simulateur couvre le volet salarié uniquement, pas l'allocation versée à l'employeur.</div>
@@ -260,6 +260,23 @@
       <p>Pour un taux horaire brut habituel de 15 € et 40 heures chômées dans le mois : indemnité horaire brute = 15 € × 60% = 9 €, en dessous du plancher SMIC net horaire (9,74 €) — c'est donc le plancher qui s'applique : indemnité horaire = <strong>9,74 €</strong>. Montant brut total : 9,74 € × 40 h = 389,60 €. Dans ce cas, la CSG/CRDS est neutralisée par la règle d'écrêtement (le brut total est déjà inférieur au SMIC brut correspondant aux heures chômées) : indemnité nette = <strong>389,60 €</strong>, identique au brut.</p>
       <p>Pour un taux horaire brut habituel plus élevé, par exemple 25 € et 40 heures chômées : indemnité horaire = 25 € × 60% = 15 €, au-dessus du plancher. Montant brut total : 600 €. La CSG/CRDS s'applique alors normalement (6,7% sur base abattue de 1,75%) : environ 39,50 €, pour une indemnité nette estimée d'environ <strong>560,50 €</strong>.</p>
     </div>
+
+    <h2 id="cas-particuliers">Plafond, plancher et cas particuliers</h2>
+    <ul>
+      <li><strong>Plafond</strong> : la rémunération retenue est limitée à 4,5 fois le SMIC horaire (art. R5122-18). Avec le SMIC à 12,31 € de l'heure, l'indemnité horaire ne peut donc pas dépasser <strong>33,24 €</strong> brut, quel que soit votre salaire (service-public).</li>
+      <li><strong>Plancher</strong> : l'indemnité horaire ne descend pas sous <strong>9,74 €</strong>, le SMIC net horaire (service-public). C'est ce plancher qui joue dans le premier exemple ci-dessus.</li>
+      <li><strong>Jamais plus que votre salaire net habituel</strong> : l'indemnité nette versée par l'employeur ne peut pas dépasser votre rémunération nette horaire habituelle (art. R5122-18).</li>
+      <li><strong>Apprentis et contrats de professionnalisation payés moins que le SMIC</strong> : l'indemnité horaire correspond au pourcentage du SMIC (ou du minimum conventionnel) qui leur est applicable (service-public), sans dépasser leur rémunération nette habituelle (art. R5122-18). Ce simulateur ne traite pas ce cas : il appliquerait à tort le plancher du SMIC net. Le montant de base se vérifie avec le <a href="salaire-apprenti">simulateur de salaire apprenti</a> ou celui du <a href="salaire-contrat-professionnalisation">contrat de professionnalisation</a>.</li>
+      <li><strong>Formation pendant les heures chômées</strong> : l'indemnité passe à 100 % de la rémunération nette antérieure (art. R5122-18).</li>
+      <li><strong>Accord plus favorable</strong> : une convention, un accord collectif ou une décision de l'employeur peut prévoir une indemnisation complémentaire (service-public).</li>
+    </ul>
+
+    <h2 id="sources">Base légale et sources officielles</h2>
+    <p>Taux, plafond, plancher et cas particuliers vérifiés le 31 octobre 2026 sur deux sources officielles :</p>
+    <ul>
+      <li>Code du travail : <a href="https://code.travail.gouv.fr/code-du-travail/l5122-1" target="_blank" rel="noopener noreferrer">L5122-1</a> (placement en activité partielle), <a href="https://code.travail.gouv.fr/code-du-travail/l5122-2" target="_blank" rel="noopener noreferrer">L5122-2</a> (formation), <a href="https://code.travail.gouv.fr/code-du-travail/r5122-18" target="_blank" rel="noopener noreferrer">R5122-18</a> (indemnité horaire, plafond, apprentis, formation), <a href="https://code.travail.gouv.fr/code-du-travail/r5122-19" target="_blank" rel="noopener noreferrer">R5122-19</a> (heures indemnisables)<span class="source-badge">✓ Source officielle</span></li>
+      <li>Service-public : <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F23503" target="_blank" rel="noopener noreferrer">chômage partiel ou technique</a> (taux de 60 %, plancher 9,74 €, plafond 33,24 €), <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2300" target="_blank" rel="noopener noreferrer">montant du SMIC</a><span class="source-badge">✓ Source officielle</span></li>
+    </ul>
 
     <h2>Questions fréquentes</h2>
     <details class="faq">
