@@ -59,7 +59,7 @@
       "name": "Le délai de carence retarde-t-il le premier versement ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue : la fraction excédentaire est divisée par 111,8 en 2026, dans la limite de 150 jours calendaires, ou 75 jours en cas de licenciement économique). Ce simulateur estime le différé spécifique si vous renseignez ce montant ; il ne calcule ni le différé congés payés ni le délai d'attente."
+        "text": "Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue : la fraction excédentaire est divisée par 111,8 en 2026, dans la limite de 150 jours calendaires, ou 75 jours en cas de licenciement économique). Le simulateur calcule les trois si vous renseignez la date de fin de contrat, l'indemnité compensatrice de congés payés et la part supra-légale."
       }
     },
     {
@@ -133,6 +133,14 @@
         "@type": "Answer",
         "text": "On divise par 111,8 (valeur 2026) la part de l'indemnité de rupture qui dépasse le minimum légal, et on retient le nombre entier obtenu : 5 000 € au-dessus du minimum légal donnent 44 jours calendaires de différé, 10 000 € donnent 89 jours. Le différé spécifique est plafonné à 150 jours (75 jours en cas de licenciement économique). S'y ajoutent le différé congés payés (30 jours maximum) et le délai d'attente de 7 jours."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Quand vais-je toucher mon premier versement de chômage ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le premier jour indemnisé se situe après le différé spécifique (si vous avez reçu plus que le minimum légal), le différé congés payés (30 jours maximum) et le délai d'attente de 7 jours. Exemple : fin de contrat le 31/12/2026, 5 000 € au-dessus du minimum légal et 1 500 € d'indemnité de congés payés pour un salaire journalier de référence de 80 € donnent 44 + 18 + 7 jours, soit un premier jour indemnisé le 11/03/2027. Le paiement suit, chaque mois, après l'actualisation. Si vous vous inscrivez après la fin des différés, le délai d'attente part de votre inscription."
+      }
     }
   ]
 }
@@ -142,7 +150,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-11-01",
   "name": "Simulateur Droits au Chômage (ARE) 2026",
   "description": "2 500 € brut par mois = 46,85 € d'ARE par jour (≈ 1 425 € brut mensuels). Éligibilité, montant, durée et différé après licenciement, RC ou démission légitime.",
   "url": "https://messimulateursrh.fr/droits-chomage",
@@ -336,6 +344,39 @@
         </select>
       </div>
     </div>
+    <div id="groupeDateDebutARE">
+      <p class="hint" style="margin:14px 0 6px;"><strong>Date du premier jour indemnisé (optionnel)</strong> — renseignez au moins la date de fin de contrat.</p>
+      <div class="row2">
+        <div class="field">
+          <label for="dateFinARE">Dernier jour de votre contrat</label>
+          <input type="date" id="dateFinARE" min="2025-01-01" max="2030-12-31">
+        </div>
+        <div class="field">
+          <label for="dateInscriptionARE">Date d'inscription à France Travail (optionnel)</label>
+          <input type="date" id="dateInscriptionARE" min="2025-01-01" max="2031-12-31">
+          <div class="hint">Laissez vide si vous vous inscrivez dans les jours qui suivent la fin du contrat.</div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="iccpARE">Indemnité compensatrice de congés payés reçue (brut, optionnel)</label>
+          <input type="number" id="iccpARE" min="0" step="0.01" placeholder="ex : 1500">
+          <div class="hint">Ligne « indemnité compensatrice de congés payés » du dernier bulletin ou du <a href="solde-tout-compte">solde de tout compte</a>, toutes fins de contrat des 6 derniers mois comprises.</div>
+        </div>
+        <div class="field">
+          <label for="sjrARE">Salaire journalier de référence (optionnel)</label>
+          <input type="number" id="sjrARE" min="0" step="0.01" placeholder="ex : 80">
+          <div class="hint">Indiqué sur votre notification de droits. Sans lui, il est estimé à partir du salaire saisi plus haut.</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="attenteARE">Un délai d'attente de 7 jours vous a-t-il déjà été appliqué dans les 12 derniers mois ?</label>
+        <select id="attenteARE">
+          <option value="non">Non / je ne sais pas</option>
+          <option value="oui">Oui</option>
+        </select>
+      </div>
+    </div>
     <button class="compute" onclick="calculerDroitsChomage()">Calculer</button>
 
     <div class="result" id="resultARE">
@@ -344,6 +385,7 @@
       <div class="breakdown" id="montantARE"></div>
       <div class="breakdown" id="dureeARE"></div>
       <div class="breakdown" id="differeARE" style="display:none;"></div>
+      <div class="breakdown" id="dateDebutARE" style="display:none;"></div>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_ARE()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -472,7 +514,36 @@
     </table>
     </div>
     <p>
-      Le plafond de 150 jours est atteint à partir de 16 770 € au-dessus du minimum légal (8 385 € pour le plafond de 75 jours). Deux autres décalages s'ajoutent, que ce simulateur ne calcule pas : le <strong>différé congés payés</strong> (indemnité compensatrice de congés payés divisée par votre salaire journalier de référence, 30 jours maximum) et le <strong>délai d'attente de 7 jours</strong>, qui ne court qu'une fois inscrit à France Travail et n'est pas appliqué une seconde fois s'il l'a déjà été dans les 12 mois précédents. En cas de licenciement économique avec adhésion au contrat de sécurisation professionnelle (CSP), l'allocation de sécurisation professionnelle est versée sans différé ni délai d'attente, indiquent France Travail et l'Unédic.
+      Le plafond de 150 jours est atteint à partir de 16 770 € au-dessus du minimum légal (8 385 € pour le plafond de 75 jours). Deux autres décalages s'ajoutent : le <strong>différé congés payés</strong> et le <strong>délai d'attente de 7 jours</strong>, détaillés <a href="#date-premier-versement">ci-dessous</a>. En cas de licenciement économique avec adhésion au contrat de sécurisation professionnelle (CSP), l'allocation de sécurisation professionnelle est versée sans différé ni délai d'attente, indiquent France Travail et l'Unédic.
+    </p>
+    <h2 id="date-premier-versement">Date du premier versement : à partir de quand êtes-vous indemnisé ?</h2>
+    <p>
+      Trois décalages s'additionnent entre la fin du contrat et le premier jour indemnisé (<a href="https://www.unedic.org/la-reglementation/fiches-thematiques/differe-conges-payes" target="_blank" rel="noopener noreferrer">fiche Unédic « Différé congés payés », mise à jour le 26 août 2026</a><span class="source-badge">✓ Source officielle</span> ; <a href="https://www.francetravail.fr/faq/candidat/mes-allocations---mes-aides/lallocation-chomage-lessentiel-a/date-debut-indemnisation-france.html" target="_blank" rel="noopener noreferrer">France Travail</a><span class="source-badge">✓ Source officielle</span> ; règlement d'assurance chômage, art. 21 à 23) :
+    </p>
+    <ul>
+      <li><strong>Le différé spécifique</strong>, si vous avez reçu plus que le minimum légal (voir <a href="#differe-specifique">ci-dessus</a>). Il court à partir du lendemain de la fin du contrat.</li>
+      <li><strong>Le différé congés payés</strong>, si une indemnité compensatrice de congés payés vous a été versée : le total de ces indemnités sur les fins de contrat des 182 derniers jours, divisé par votre salaire journalier de référence, donne un nombre de jours, plafonné à 30. Il commence après le différé spécifique, ou dès le lendemain de la fin du contrat s'il n'y en a pas.</li>
+      <li><strong>Le délai d'attente de 7 jours</strong> : il commence juste après les différés si vous êtes déjà inscrit à France Travail, sinon à la date de votre inscription. Il n'est appliqué qu'une fois par période de 12 mois.</li>
+    </ul>
+    <p>
+      Les différés ne réduisent pas la durée de vos droits : ils en décalent le départ, et leur durée reste fixe même si vous tombez malade ou suivez une formation pendant cette période. Le délai d'attente, lui, ne court qu'une fois inscrit : s'inscrire tôt évite de perdre des jours. Le premier jour indemnisé n'est pas la date de virement : l'allocation est payée chaque mois, après l'actualisation.
+    </p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; margin-top:10px; min-width:520px;">
+      <tr style="border-bottom:2px solid var(--border);">
+        <th style="text-align:left; padding:6px;">Fin du contrat le 31/12/2026, inscription rapide</th>
+        <th style="text-align:left; padding:6px;">Différé spécifique</th>
+        <th style="text-align:left; padding:6px;">Différé congés payés</th>
+        <th style="text-align:left; padding:6px;">Premier jour indemnisé</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Licenciement, minimum légal, 900 € de congés payés, SJR 60 €</td><td style="padding:6px;">0</td><td style="padding:6px;">15 jours</td><td style="padding:6px;">23/01/2027 (22 jours)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Rupture conventionnelle, 5 000 € au-dessus du légal, 1 500 € de congés payés, SJR 80 €</td><td style="padding:6px;">44 jours</td><td style="padding:6px;">18 jours</td><td style="padding:6px;">11/03/2027 (69 jours)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Licenciement économique sans CSP, 10 000 € au-dessus du légal, 2 000 € de congés payés, SJR 90 €</td><td style="padding:6px;">75 jours (plafond)</td><td style="padding:6px;">22 jours</td><td style="padding:6px;">15/04/2027 (104 jours)</td></tr>
+      <tr><td style="padding:6px;">Rupture conventionnelle, 20 000 € au-dessus du légal, 3 000 € de congés payés, SJR 100 €</td><td style="padding:6px;">150 jours (plafond)</td><td style="padding:6px;">30 jours (plafond)</td><td style="padding:6px;">07/07/2027 (187 jours)</td></tr>
+    </table>
+    </div>
+    <p>
+      Dates calculées par le simulateur, avec un délai d'attente de 7 jours non encore appliqué dans l'année. Le nombre de jours du différé congés payés est arrondi à l'entier inférieur, comme le différé spécifique ; votre notification de France Travail fait foi. Le maximum théorique est donc de 187 jours (150 + 30 + 7), ou 112 jours en cas de licenciement économique. En contrat de sécurisation professionnelle (CSP), ni différé ni délai d'attente ne s'appliquent.
     </p>
 
     <h2>Questions fréquentes</h2>
@@ -490,7 +561,7 @@
     </details>
     <details class="faq">
       <summary>Le délai de carence retarde-t-il le premier versement ?</summary>
-      <p>Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue : la fraction excédentaire est divisée par 111,8 en 2026, dans la limite de 150 jours calendaires, ou 75 jours en cas de licenciement économique). Ce simulateur estime le différé spécifique si vous renseignez ce montant ; il ne calcule ni le différé congés payés ni le délai d'attente.</p>
+      <p>Oui. Un différé d'indemnisation s'applique avant le premier versement (délai d'attente de 7 jours, différé congés payés plafonné à 30 jours si une indemnité de congés payés a été versée, et différé spécifique si une indemnité de rupture supérieure au minimum légal a été perçue : la fraction excédentaire est divisée par 111,8 en 2026, dans la limite de 150 jours calendaires, ou 75 jours en cas de licenciement économique). Le simulateur calcule les trois si vous renseignez la date de fin de contrat, l'indemnité compensatrice de congés payés et la part supra-légale.</p>
     </details>
     <details class="faq">
       <summary>Après une rupture conventionnelle, combien de mois puis-je être indemnisé ?</summary>
@@ -529,6 +600,10 @@
     <details class="faq">
       <summary>Comment calculer le différé spécifique après une rupture conventionnelle ?</summary>
       <p>On divise par 111,8 (valeur 2026) la part de l'indemnité de rupture qui dépasse le minimum légal, et on retient le nombre entier obtenu : 5 000 € au-dessus du minimum légal donnent 44 jours calendaires de différé, 10 000 € donnent 89 jours. Le différé spécifique est plafonné à 150 jours (75 jours en cas de licenciement économique). S'y ajoutent le différé congés payés (30 jours maximum) et le délai d'attente de 7 jours.</p>
+    </details>
+    <details class="faq">
+      <summary>Quand vais-je toucher mon premier versement de chômage ?</summary>
+      <p>Le premier jour indemnisé se situe après le différé spécifique (si vous avez reçu plus que le minimum légal), le différé congés payés (30 jours maximum) et le délai d'attente de 7 jours. Exemple : fin de contrat le 31/12/2026, 5 000 € au-dessus du minimum légal et 1 500 € d'indemnité de congés payés pour un salaire journalier de référence de 80 € donnent 44 + 18 + 7 jours, soit un premier jour indemnisé le 11/03/2027. Le paiement suit, chaque mois, après l'actualisation. Si vous vous inscrivez après la fin des différés, le délai d'attente part de votre inscription.</p>
     </details>
 
     <div class="related-tools">
@@ -576,7 +651,7 @@
     </nav>
   </div>
   <div class="disclaimer">
-    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité, ni le différé congés payés, ni le délai d'attente de 7 jours, ni les régularisations liées aux jours non travaillés ; le différé spécifique est estimé à partir du seul montant supra-légal que vous saisissez (France Travail retient l'ensemble des sommes liées à la rupture). Les cas de démission légitime affichés reprennent les motifs prévus par le règlement général d'assurance chômage (convention du 15 novembre 2024) ; la reconnaissance effective et les justificatifs exacts dépendent de l'examen de votre dossier par France Travail. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
+    <strong>Avertissement :</strong> ce simulateur donne une estimation grossière et indicative, basée sur une simplification de la formule ARE 2026 (France Travail). Il ne modélise ni la dégressivité ni les régularisations liées aux jours non travaillés ; le différé spécifique est estimé à partir du seul montant supra-légal que vous saisissez (France Travail retient l'ensemble des sommes liées à la rupture), et la date du premier jour indemnisé à partir des montants et dates saisis : la notification de France Travail fait foi. Les cas de démission légitime affichés reprennent les motifs prévus par le règlement général d'assurance chômage (convention du 15 novembre 2024) ; la reconnaissance effective et les justificatifs exacts dépendent de l'examen de votre dossier par France Travail. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail. Ne remplace pas un conseil personnalisé.
     <br><br>
     <a href="a-propos">À propos</a> · <a href="mentions-legales">Mentions légales</a> · <a href="politique-de-confidentialite">Politique de confidentialité</a>
   </div>
@@ -604,6 +679,28 @@ function lireDiffereARE(){
   return d;
 }
 function texteJours(n){ return n + (n > 1 ? ' jours' : ' jour'); }
+function lireDateDebutARE(){
+  // Point 1.95 (01/11/2026) : premier jour indemnisable, à partir des fonctions differeSpecifiqueARE, differeCongesPayesARE et dateDebutIndemnisationARE.
+  var dateFin = document.getElementById('dateFinARE').value;
+  if (!dateFin || !dateLocaleDepuisISO(dateFin)) return null;
+  var differe = lireDiffereARE();
+  var iccp = parseFloat(document.getElementById('iccpARE').value) || 0;
+  var sjrSaisi = parseFloat(document.getElementById('sjrARE').value) || 0;
+  var salaire = parseFloat(document.getElementById('salaireARE').value) || 0;
+  var sjr = sjrSaisi > 0 ? sjrSaisi : (salaire > 0 ? estimerARE(salaire).sjr : 0);
+  var cp = differeCongesPayesARE(iccp, sjr);
+  var inscription = document.getElementById('dateInscriptionARE').value;
+  var d = dateDebutIndemnisationARE({
+    dateFinISO: dateFin,
+    joursSpecifique: differe ? differe.jours : 0,
+    joursCP: cp.jours,
+    dateInscriptionISO: inscription && dateLocaleDepuisISO(inscription) ? inscription : '',
+    attenteDejaAppliquee: document.getElementById('attenteARE').value === 'oui'
+  });
+  if (!d) return null;
+  d.cp = cp; d.sjrEstime = !(sjrSaisi > 0); d.iccp = iccp; d.sansSJR = iccp > 0 && !(sjr > 0);
+  return d;
+}
 function toggleMotifDemission(){
   var motif = document.getElementById('motifRupture').value;
   document.getElementById('groupeMotifDemission').style.display = (motif === 'demission') ? 'block' : 'none';
@@ -754,7 +851,7 @@ function calculerDroitsChomage(){
       '<strong>Différé spécifique estimé : ' + texteJours(differe.jours) + ' calendaires</strong> avant le début de l\'indemnisation.<br>' +
       'Calcul : ' + euros(differe.montant) + ' ÷ ' + String(differe.diviseur).replace('.', ',') + ' = ' + texteJours(differe.joursBruts) + ' (nombre entier)' +
       (differe.plafonne ? ', ramené au plafond de ' + differe.plafond + ' jours' + (differe.eco ? ' applicable au licenciement économique' : '') : '') + '.<br>' +
-      'S\'y ajoutent, non calculés ici : le différé congés payés (indemnité compensatrice de congés payés ÷ salaire journalier de référence, ' + DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS + ' jours maximum) et le délai d\'attente de ' + DIFFERE_ARE_2026.DELAI_ATTENTE_JOURS + ' jours. ' +
+      'S\'y ajoutent le différé congés payés (' + DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS + ' jours maximum) et le délai d\'attente de ' + DIFFERE_ARE_2026.DELAI_ATTENTE_JOURS + ' jours : renseignez la date de fin de contrat pour obtenir la date du premier jour indemnisé. ' +
       'Le différé ne réduit pas la durée de vos droits : il décale leur point de départ.<br>' +
       'Référence : règlement d\'assurance chômage, art. 21 ; diviseur 2026 fixé par la circulaire Unédic n° 2026-01.' +
       (differe.eco ? '<br>Si vous adhérez au contrat de sécurisation professionnelle (CSP), l\'Unédic indique que ces délais ne s\'appliquent pas.' : '');
@@ -762,6 +859,29 @@ function calculerDroitsChomage(){
   } else {
     differeDiv.innerHTML = '';
     differeDiv.style.display = 'none';
+  }
+
+  var dateDiv = document.getElementById('dateDebutARE');
+  var dd = lireDateDebutARE();
+  if (dd && dd.sansSJR){
+    dateDiv.innerHTML = 'Date du premier jour indemnisé : renseignez votre salaire mensuel brut ou le salaire journalier de référence de votre notification pour calculer le différé congés payés.';
+    dateDiv.style.display = 'block';
+  } else if (dd){
+    var lignesDate = [];
+    lignesDate.push('Fin du contrat le ' + dateFRDepuisISO(document.getElementById('dateFinARE').value) + ' : les différés courent à partir du ' + dateFRDepuisISO(dd.debutDifferes) + '.');
+    if (dd.joursSpecifique > 0) lignesDate.push('Différé spécifique : ' + texteJours(dd.joursSpecifique) + '.');
+    if (dd.iccp > 0){
+      lignesDate.push('Différé congés payés : ' + euros(dd.cp.montant) + ' ÷ ' + dd.cp.sjr.toFixed(2).replace('.', ',') + ' € de salaire journalier de référence' + (dd.sjrEstime ? ' (estimé à partir de votre salaire)' : '') + ' = ' + texteJours(dd.cp.joursBruts) + (dd.cp.plafonne ? ', ramené au plafond de ' + dd.cp.plafond + ' jours' : '') + '.');
+    }
+    lignesDate.push(dd.attente > 0
+      ? 'Délai d\'attente : 7 jours, à partir du ' + dateFRDepuisISO(dd.debutAttente) + (dd.inscritApres ? ' (date de votre inscription, postérieure à la fin des différés)' : '') + '.'
+      : 'Délai d\'attente : non appliqué (déjà appliqué dans les 12 derniers mois)' + (dd.inscritApres ? ' ; l\'indemnisation part de votre inscription' : '') + '.');
+    dateDiv.innerHTML = '<strong>Premier jour indemnisé estimé : ' + dateFRDepuisISO(dd.premierJour) + '</strong> (' + texteJours(dd.totalJours) + ' après la fin du contrat).<br>' + lignesDate.join('<br>') +
+      '<br>Le premier paiement arrive ensuite, après votre actualisation mensuelle. La notification de France Travail fait foi. Référence : règlement d\'assurance chômage, art. 21 à 23 ; <a href="#date-premier-versement">explications et exemples</a>.';
+    dateDiv.style.display = 'block';
+  } else {
+    dateDiv.innerHTML = '';
+    dateDiv.style.display = 'none';
   }
 
   resultBox.classList.add('show');
@@ -869,12 +989,18 @@ function telechargerPDF_ARE(){
   if (differePDF){
     lignes.push({ label: 'Différé spécifique estimé (' + euros(differePDF.montant) + ' ÷ ' + String(differePDF.diviseur).replace('.', ',') + (differePDF.plafonne ? ', plafonné' : '') + ')', value: texteJours(differePDF.jours) + ' calendaires' });
   }
+  var datePDF = lireDateDebutARE();
+  if (datePDF && !datePDF.sansSJR){
+    if (datePDF.cp.jours > 0) lignes.push({ label: 'Différé congés payés estimé', value: texteJours(datePDF.cp.jours) + ' calendaires' });
+    lignes.push({ label: 'Délai d\'attente', value: datePDF.attente > 0 ? '7 jours' : 'non appliqué' });
+    lignes.push({ label: 'Premier jour indemnisé estimé', value: dateFRDepuisISO(datePDF.premierJour) });
+  }
 
   genererPDFSimulation({
     titre: 'Simulation de droits au chômage (ARE)',
     sousTitre: 'Éligibilité, montant et durée indicative d\'indemnisation',
     lignes: lignes,
-    disclaimer: "Estimation grossière et indicative basée sur une simplification de la formule ARE 2026 (France Travail). Ne modélise ni la dégressivité, ni le différé congés payés, ni le délai d'attente de 7 jours, ni les régularisations ; le différé spécifique est une estimation à partir du montant supra-légal saisi. Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail.",
+    disclaimer: "Estimation grossière et indicative basée sur une simplification de la formule ARE 2026 (France Travail). Ne modélise ni la dégressivité ni les régularisations ; les différés et la date du premier jour indemnisé sont estimés à partir des montants et dates saisis (la notification de France Travail fait foi). Pour une estimation fiable, utilisez le simulateur officiel sur francetravail.fr ou rapprochez-vous d'un conseiller France Travail.",
     nomFichier: 'simulation-droits-chomage.pdf'
   });
 }

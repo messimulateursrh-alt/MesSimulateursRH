@@ -2350,6 +2350,119 @@ var joursBruts = Math.floor(montant / DIFFERE_ARE_2026.DIVISEUR + 1e-9);
 var jours = Math.min(joursBruts, plafond);
 return {montant:montant, diviseur:DIFFERE_ARE_2026.DIVISEUR, joursBruts:joursBruts, jours:jours, plafond:plafond, plafonne:joursBruts > plafond, montantAuPlafond:plafond * DIFFERE_ARE_2026.DIVISEUR};
 }
+function differeCongesPayesARE(iccp, sjr){
+// Différé congés payés (ajouté le 01/11/2026, point 1.95) : indemnités compensatrices de congés payés des 182 derniers jours ÷ salaire journalier de référence, 30 jours calendaires maximum.
+// Sources : règlement général annexé à la convention du 15/11/2024, art. 21 § 2 (Légifrance) ; fiche Unédic « Différé congés payés » (maj 26/08/2026) ; FAQ France Travail « date de début d'indemnisation ».
+// Arrondi : nombre entier de jours (entier inférieur, comme le différé spécifique) — le règlement parle du « nombre de jours qui résulte du quotient » ; la notification France Travail fait foi.
+var montant = (isFinite(iccp) && iccp > 0) ? iccp : 0;
+var salaireJour = (isFinite(sjr) && sjr > 0) ? sjr : 0;
+if (!montant || !salaireJour) return {montant:montant, sjr:salaireJour, joursBruts:0, jours:0, plafond:DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS, plafonne:false};
+var joursBruts = Math.floor(montant / salaireJour + 1e-9);
+var jours = Math.min(joursBruts, DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS);
+return {montant:montant, sjr:salaireJour, joursBruts:joursBruts, jours:jours, plafond:DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS, plafonne:joursBruts > DIFFERE_ARE_2026.PLAFOND_DIFFERE_CP_JOURS};
+}
+// Période d'essai (ajouté le 01/11/2026, point 1.96) — art. L1221-19 à L1221-26 et L1242-10 du Code du travail (lus sur Légifrance le 01/11/2026) ;
+// décompte calendaire : Cass. soc. 28/04/2011 n° 09-40.464 ; prolongation du temps d'absence (jours non travaillés compris) : Cass. soc. 11/09/2019 n° 17-21.976 ; service-public F1643 (12/08/2026) et F317 (28/04/2026).
+// Depuis le 09/09/2023 (L1221-22, loi n° 2023-171), les durées légales sont impératives sauf durées plus courtes : aucune durée conventionnelle plus longue n'est retenue.
+var PERIODE_ESSAI = {
+CDI_INITIALE_MOIS:{ouvrier_employe:2, maitrise_technicien:3, cadre:4},
+CDI_TOTALE_MOIS:{ouvrier_employe:4, maitrise_technicien:6, cadre:8},
+CDD_PLAFOND_COURT_JOURS:14, CDD_PLAFOND_LONG_MOIS:1, CDD_SEUIL_MOIS:6
+};
+function essaiPlusJours(d, n){ return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+function finDureeEssaiMois(debut, n){
+// Dernier jour d'une durée de n mois commençant le jour « debut » : veille du même quantième (13/03 + 2 mois → 12/05, F1643) ;
+// si ce quantième n'existe pas dans le mois d'arrivée, dernier jour de ce mois (31/01 + 1 mois → 28 ou 29/02).
+var y = debut.getFullYear(), m = debut.getMonth() + n;
+var dernier = new Date(y, m + 1, 0).getDate();
+if (debut.getDate() > dernier) return new Date(y, m, dernier);
+return new Date(y, m, debut.getDate() - 1);
+}
+function finPeriodeEssai(debutISO, duree, unite, joursAbsence){
+// Dernier jour de la période d'essai (à minuit). unite : 'mois' | 'semaines' | 'jours'. joursAbsence : jours calendaires d'absence qui la prolongent.
+var debut = dateLocaleDepuisISO(debutISO);
+if (!debut || !(duree > 0)) return null;
+var n = Math.floor(duree);
+var fin;
+if (unite === 'mois') fin = finDureeEssaiMois(debut, n);
+else if (unite === 'semaines') fin = essaiPlusJours(debut, 7 * n - 1);
+else fin = essaiPlusJours(debut, n - 1);
+var finInitiale = fin;
+var abs = Math.max(0, Math.floor(joursAbsence || 0));
+if (abs) fin = essaiPlusJours(fin, abs);
+return {debut:isoDepuisDateLocale(debut), finInitiale:isoDepuisDateLocale(finInitiale), fin:isoDepuisDateLocale(fin), joursAbsence:abs};
+}
+function dureeMaxEssaiCDD(debutISO, finContratISO){
+// L1242-10 : un jour par semaine de la durée initialement prévue, dans la limite de 2 semaines (contrat de 6 mois au plus) ou d'un mois (au-delà).
+var d = dateLocaleDepuisISO(debutISO), f = dateLocaleDepuisISO(finContratISO);
+if (!d || !f || f < d) return null;
+var joursContrat = Math.round((f - d) / 86400000) + 1;
+var semaines = Math.floor(joursContrat / 7);
+var court = f <= finDureeEssaiMois(d, PERIODE_ESSAI.CDD_SEUIL_MOIS);
+if (court) return {joursContrat:joursContrat, semaines:semaines, court:true, duree:Math.min(semaines, PERIODE_ESSAI.CDD_PLAFOND_COURT_JOURS), unite:'jours', plafonne:semaines > PERIODE_ESSAI.CDD_PLAFOND_COURT_JOURS};
+var finUnMois = finDureeEssaiMois(d, PERIODE_ESSAI.CDD_PLAFOND_LONG_MOIS);
+var joursUnMois = Math.round((finUnMois - d) / 86400000) + 1;
+if (semaines >= joursUnMois) return {joursContrat:joursContrat, semaines:semaines, court:false, duree:1, unite:'mois', plafonne:semaines > joursUnMois};
+return {joursContrat:joursContrat, semaines:semaines, court:false, duree:semaines, unite:'jours', plafonne:false};
+}
+function delaiPrevenanceEssai(partie, debutISO, notifISO, essaiAuMoinsUneSemaine){
+// L1221-25 (employeur, essai d'au moins une semaine) : 24 h avant 8 jours de présence, 48 h de 8 jours à 1 mois, 2 semaines après 1 mois, 1 mois après 3 mois.
+// L1221-26 (salarié) : 48 h, 24 h avant 8 jours de présence. Présence comptée du premier jour de travail au jour de la notification inclus.
+var d = dateLocaleDepuisISO(debutISO), n = dateLocaleDepuisISO(notifISO);
+if (!d || !n || n < d) return null;
+var presenceJours = Math.round((n - d) / 86400000) + 1;
+if (partie === 'employeur' && !essaiAuMoinsUneSemaine) return {libelle:'aucun délai légal (période d\'essai de moins d\'une semaine)', jours:0, mois:0, presenceJours:presenceJours};
+if (presenceJours < 8) return {libelle:'24 heures', jours:1, mois:0, presenceJours:presenceJours};
+if (partie === 'salarie') return {libelle:'48 heures', jours:2, mois:0, presenceJours:presenceJours};
+var unMois = essaiPlusJours(finDureeEssaiMois(d, 1), 1), troisMois = essaiPlusJours(finDureeEssaiMois(d, 3), 1);
+if (n >= troisMois) return {libelle:'1 mois', jours:0, mois:1, presenceJours:presenceJours};
+if (n >= unMois) return {libelle:'2 semaines', jours:14, mois:0, presenceJours:presenceJours};
+return {libelle:'48 heures', jours:2, mois:0, presenceJours:presenceJours};
+}
+function finDelaiPrevenanceEssai(notif, delai){
+return delai.mois ? new Date(notif.getFullYear(), notif.getMonth() + delai.mois, notif.getDate()) : essaiPlusJours(notif, delai.jours);
+}
+function dateLimiteNotificationEssai(partie, debutISO, finEssaiISO, essaiAuMoinsUneSemaine){
+// Dernier jour où la rupture peut être notifiée pour que le délai de prévenance s'achève au plus tard à la fin de l'essai (L1221-25 : l'essai n'est pas prolongé par ce délai).
+var d = dateLocaleDepuisISO(debutISO), fin = dateLocaleDepuisISO(finEssaiISO);
+if (!d || !fin || fin < d) return null;
+for (var n = fin; n >= d; n = essaiPlusJours(n, -1)){
+var delai = delaiPrevenanceEssai(partie, debutISO, isoDepuisDateLocale(n), essaiAuMoinsUneSemaine);
+if (finDelaiPrevenanceEssai(n, delai) <= fin) return {date:isoDepuisDateLocale(n), delai:delai};
+}
+return null;
+}
+function rupturePendantEssai(partie, debutISO, finEssaiISO, notifISO, essaiAuMoinsUneSemaine){
+// Effet d'une notification à une date donnée : délai applicable, fin du délai, et part non exécutable si le délai dépasse la fin de l'essai (indemnité compensatrice due par l'employeur, L1221-25).
+var n = dateLocaleDepuisISO(notifISO), fin = dateLocaleDepuisISO(finEssaiISO);
+if (!n || !fin) return null;
+if (n > fin) return {apresEssai:true};
+var delai = delaiPrevenanceEssai(partie, debutISO, notifISO, essaiAuMoinsUneSemaine);
+if (!delai) return null;
+var finDelai = finDelaiPrevenanceEssai(n, delai);
+var depasse = finDelai > fin;
+return {apresEssai:false, delai:delai, finDelai:isoDepuisDateLocale(finDelai), depasse:depasse, joursNonExecutes:depasse ? Math.round((finDelai - fin) / 86400000) : 0};
+}
+function dateDebutIndemnisationARE(p){
+// Premier jour indemnisable par l'ARE (ajouté le 01/11/2026, point 1.95). p = {dateFinISO (dernier jour du contrat), joursSpecifique, joursCP, dateInscriptionISO (optionnelle), attenteDejaAppliquee}.
+// Règle (Unédic, fiche « Différé congés payés » ; règlement général, art. 21 à 23) : les différés courent à partir du lendemain de la fin du contrat, le différé congés payés après le différé spécifique ;
+// le délai d'attente de 7 jours commence juste après les différés si l'inscription est antérieure à leur expiration, sinon à la date d'inscription ; il ne s'applique qu'une fois par période de 12 mois.
+// Convention de date des exemples Unédic : fin le 30/11, différés de 17 jours → expiration le 18/12, inscrit avant → indemnisé à partir du 25/12 ; inscrit le 20/12 → 27/12.
+var fin = dateLocaleDepuisISO(p.dateFinISO);
+if (!fin) return null;
+var spec = Math.max(0, Math.floor(p.joursSpecifique || 0));
+var cp = Math.max(0, Math.floor(p.joursCP || 0));
+var attente = p.attenteDejaAppliquee ? 0 : DIFFERE_ARE_2026.DELAI_ATTENTE_JOURS;
+var plusJours = function(d, n){ return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); };
+var debutDifferes = plusJours(fin, 1);
+var finDifferes = plusJours(debutDifferes, spec + cp); // premier jour qui n'est plus couvert par un différé
+var inscription = p.dateInscriptionISO ? dateLocaleDepuisISO(p.dateInscriptionISO) : null;
+var inscritApres = !!(inscription && inscription > finDifferes);
+var debutAttente = inscritApres ? inscription : finDifferes;
+var premierJour = plusJours(debutAttente, attente);
+var totalJours = Math.round((premierJour - debutDifferes) / 86400000);
+return {debutDifferes:isoDepuisDateLocale(debutDifferes), finDifferes:isoDepuisDateLocale(finDifferes), debutAttente:isoDepuisDateLocale(debutAttente), premierJour:isoDepuisDateLocale(premierJour), joursSpecifique:spec, joursCP:cp, attente:attente, inscritApres:inscritApres, totalJours:totalJours};
+}
 // Heures supplémentaires et heures complémentaires (ajouté le 24/09/2026) — art. L3121-33, L3121-36, L3121-38, D3121-24 et L3123-29 du Code du travail ;
 // art. L241-17 et L241-18 du Code de la sécurité sociale ; art. 81 quater du CGI. Fonctions dédiées à heures-supplementaires, sans modifier les fonctions partagées.
 var HEURES_SUP_2026 = {
@@ -2530,7 +2643,7 @@ var SEARCH_INDEX = [
 {title:"Indemnité de licenciement", url:"indemnite-licenciement", cat:"Simulateur", kw:"licenciement indemnite legale bareme anciennete temps partiel prorata inaptitude accident du travail maladie professionnelle indemnite speciale"},
 {title:"Rupture conventionnelle fonction publique (ISRC)", url:"rupture-conventionnelle-fonction-publique", cat:"Simulateur", kw:"rupture conventionnelle fonction publique fonctionnaire agent public contractuel ISRC indemnite specifique plancher plafond decret 2026-746 etat territoriale hospitaliere enseignant education nationale professeur policier police municipale pompier sdis infirmier aide-soignant hopital gendarme militaire metier"},
 {title:"Durée de préavis", url:"preavis", cat:"Simulateur", kw:"preavis demission licenciement duree convention collective transport routier HCR syntec batiment btp etam cadre ouvrier IDCC 1486 2420 2609 1596"},
-{title:"Droits au chômage (ARE)", url:"droits-chomage", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale"},
+{title:"Droits au chômage (ARE)", url:"droits-chomage", cat:"Simulateur", kw:"chomage ARE allocation retour a l'emploi france travail eligibilite differe specifique carence delai premier versement indemnite supra legale differe conges payes delai d'attente date premier jour indemnise"},
 {title:"Solde de tout compte", url:"solde-tout-compte", cat:"Simulateur", kw:"solde de tout compte recapitulatif dernier salaire recu documents fin de contrat certificat de travail attestation 13e mois non concurrence"},
 {title:"Salaire net à partir du brut", url:"salaire-net-brut", cat:"Simulateur", kw:"salaire brut net conversion cadre non-cadre"},
 {title:"Augmentation de salaire", url:"augmentation-salaire", cat:"Simulateur", kw:"augmentation salaire gain net pourcentage"},
@@ -2607,6 +2720,7 @@ var SEARCH_INDEX = [
 {title:"Démissionner et toucher le chômage", url:"demissionner-et-toucher-le-chomage", cat:"Guide", kw:"demission chomage demissionner toucher ARE demission legitime reconversion transitions pro 121 jours abandon de poste motifs legitimes"},
 {title:"Glossaire du droit du travail", url:"glossaire-droit-travail", cat:"Glossaire", kw:"glossaire termes definitions PASS SJR TeleRC lexique retraite progressive"},
 {title:"Portabilité de la mutuelle", url:"portabilite-mutuelle", cat:"Simulateur", kw:"portabilite mutuelle prevoyance maintien gratuit L911-8 duree 12 mois rupture loi evin ayants droit faute grave fin de cdd attestation france travail complementaire sante"},
+{title:"Période d'essai", url:"calcul-periode-essai", cat:"Simulateur", kw:"periode d'essai essai fin date calcul renouvellement prolongation absence arret maladie conges delai de prevenance rupture cdi cdd cadre employe L1221-19 L1221-25 L1242-10"},
 {title:"Ressources officielles", url:"ressources-officielles", cat:"Annuaire", kw:"ressources officielles france travail urssaf ameli telerc liens"},
 {title:"À propos", url:"a-propos", cat:"Page", kw:"a propos qui edite methode sources"},
 {title:"Mises à jour et corrections", url:"historique-mises-a-jour", cat:"Page", kw:"historique mises a jour corrections erreurs corrigees date modification pages"},
