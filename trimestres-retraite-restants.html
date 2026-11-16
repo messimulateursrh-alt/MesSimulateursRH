@@ -78,7 +78,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-09",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-11-16",
   "name": "Trimestres de Retraite Restants 2026",
   "description": "Calculez les trimestres qu'il vous reste à valider pour le taux plein et votre âge légal de départ, selon votre génération et le barème 2026. Gratuit.",
   "url": "https://messimulateursrh.fr/trimestres-retraite-restants",
@@ -155,7 +155,6 @@
           <a href="aller-plus-loin">Aller plus loin</a>
         </div>
       </details>
-      <a href="formation">Formation</a>
       <a href="actualites">Actualités</a>
       <a href="ressources-officielles">Ressources officielles</a>
     </nav>
@@ -193,8 +192,8 @@
       <span class="for-salarie">Calculez combien de trimestres il vous reste à valider pour le taux plein, et l'âge légal minimum auquel vous pourrez partir, selon votre génération.</span>
       <span class="for-employeur">Estimez l'horizon de départ à la retraite d'un salarié proche de la fin de carrière, pour anticiper un remplacement ou une transition.</span>
     </p>
-    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
+    <div class="privacy-badge">Vos saisies restent dans votre navigateur, aucun e-mail demandé</div>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>. Page complétée le 16 novembre 2026.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> Le nombre de trimestres requis pour le taux plein (entre 167 et 172 selon votre génération) et l'âge légal minimum (entre 62 et 64 ans) dépendent de votre année de naissance, selon le barème en vigueur depuis la suspension partielle de la réforme des retraites au 1ᵉʳ septembre 2026.</div>
@@ -217,7 +216,6 @@
       <div class="amount" id="montantTR">—</div>
       <div class="detail" id="detailTR"></div>
       <div class="breakdown" id="breakdownTR"></div>
-      <p class="notice" id="noticeTR" style="display:none;"></p>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_TR()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -231,7 +229,7 @@
   <section class="content-section">
     <h2>Comment est calculé le nombre de trimestres restants ?</h2>
     <p>
-      Deux notions gouvernent le départ à la retraite : l'<strong>âge légal</strong>, âge minimum auquel vous pouvez demander votre retraite, et la <strong>durée d'assurance</strong> (nombre de trimestres), qui détermine si vous partez à taux plein ou avec une décote. Les deux dépendent de votre année (et parfois du trimestre) de naissance. Pour replacer ces notions dans la préparation d'un départ (<a href="indemnite-depart-retraite">indemnité</a>, préavis, date), voir le <a href="formation-depart-retraite">module de formation sur le départ à la retraite</a>.
+      Deux notions gouvernent le départ à la retraite : l'<strong>âge légal</strong>, âge minimum auquel vous pouvez demander votre retraite, et la <strong>durée d'assurance</strong> (nombre de trimestres), qui détermine si vous partez à taux plein ou avec une décote. Les deux dépendent de votre année (et parfois du trimestre) de naissance. Pour l'indemnité due par l'employeur au moment du départ, voir le simulateur d'<a href="indemnite-depart-retraite">indemnité de départ à la retraite</a>.
     </p>
     <p>
       La loi de financement de la Sécurité sociale pour 2026 a suspendu, pour les départs à effet du 1ᵉʳ septembre 2026, la progression prévue par la réforme de 2023 pour les générations nées entre 1964 et 1968 : l'âge légal est relevé de 3 mois de moins que prévu (6 mois de moins pour les personnes nées de janvier à mars 1965), et la durée d'assurance requise baisse d'un trimestre (génération 1964 et naissances d'avril à décembre 1965) ou de deux (janvier à mars 1965) ; elle reste à 172 trimestres pour les générations 1966 à 1968. Cette mesure est présentée comme temporaire et provisoire.
@@ -269,6 +267,52 @@
       <p>Génération 1966 → âge légal 63 ans et 3 mois, 172 trimestres requis pour le taux plein. Trimestres restants : 172 − 140 = <strong>32 trimestres</strong>, soit 8 années pleines de cotisation si elle travaille sans interruption.</p>
     </div>
 
+    <h2 id="parents-2026">Parents : ce qui change pour la retraite depuis le 1ᵉʳ septembre 2026</h2>
+    <h3>Ce qui change, en résumé</h3>
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:8px 6px;">Mesure</th>
+        <th style="text-align:left; padding:8px 6px;">Avant</th>
+        <th style="text-align:left; padding:8px 6px;">Depuis le 1ᵉʳ septembre 2026</th>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px;">Années retenues pour le calcul du salaire de référence — parent d'1 enfant</td>
+        <td style="padding:8px 6px;">25 meilleures années</td>
+        <td style="padding:8px 6px;"><strong>24 meilleures années</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px 6px;">Années retenues — parent de 2 enfants ou plus</td>
+        <td style="padding:8px 6px;">25 meilleures années</td>
+        <td style="padding:8px 6px;"><strong>23 meilleures années</strong></td>
+      </tr>
+      <tr>
+        <td style="padding:8px 6px;">Trimestres « enfants » réputés cotisés pour la retraite anticipée (carrière longue)</td>
+        <td style="padding:8px 6px;">Non pris en compte comme cotisés</td>
+        <td style="padding:8px 6px;"><strong>Jusqu'à 2 trimestres</strong> par assuré</td>
+      </tr>
+    </table>
+
+    <h3>Qui est concerné ?</h3>
+    <p>
+      Ces mesures s'adressent à tout parent titulaire de trimestres accordés au titre de ses enfants (majorations de durée d'assurance), qu'il s'agisse du père ou de la mère — la condition est la présence de ces trimestres dans la carrière, pas le sexe du parent. Elles couvrent plusieurs régimes de retraite (régime général, non-salariés agricoles, professions libérales, notamment), avec des modalités qui peuvent varier selon le régime concerné. Les deux décrets ont été signés le 29 juillet 2026 ; leurs dispositions s'appliquent aux pensions qui prennent effet à partir du 1ᵉʳ septembre 2026.
+    </p>
+
+    <h3>Deux décrets, deux mécanismes différents</h3>
+    <p>
+      Le <strong>décret n° 2026-699</strong> réduit le nombre d'années retenues pour calculer le salaire annuel moyen (la base de calcul de la pension) : 24 meilleures années pour un parent d'un enfant, 23 pour un parent de deux enfants ou plus, contre 25 années dans la règle générale. Concrètement, cela permet d'écarter davantage d'années moins bien rémunérées de la carrière (temps partiel, congé parental, interruptions liées aux enfants), ce qui tend à améliorer le montant de la pension.
+    </p>
+    <p>
+      Le <strong>décret n° 2026-700</strong> permet de comptabiliser jusqu'à 2 trimestres de majoration de durée d'assurance liés aux enfants comme des trimestres réputés cotisés, dans la limite de 2 trimestres par assuré (et non par enfant). Cela facilite l'accès à un départ anticipé au titre de la carrière longue, en aidant à atteindre plus tôt le nombre de trimestres cotisés requis.
+    </p>
+
+    <h3 id="application-2027">Application en pratique : un recalcul automatique annoncé pour 2027</h3>
+    <p>
+      Les deux décrets s'appliquent aux pensions qui prennent effet à compter du 1ᵉʳ septembre 2026 (<a href="https://www.service-public.gouv.fr/particuliers/actualites/A19025" target="_blank" rel="noopener noreferrer">service-public.gouv.fr</a><span class="source-badge">✓ Source officielle</span>). Pour le régime général, L'Assurance retraite précise toutefois que le nouveau calcul sur 24 ou 23 années n'est pas encore appliqué aux nouveaux retraités : il le sera courant 2027, une fois ses outils informatiques mis à jour (<a href="https://www.lassuranceretraite.fr/portail-info/sites/pub/hors-menu/actualites-nationales/actif/2026/des-changements-dans-le-calcul.html" target="_blank" rel="noopener noreferrer">lassuranceretraite.fr, page mise à jour le 15 septembre 2026</a><span class="source-badge">✓ Source officielle</span>). Si vous partez à la retraite avant cette mise à jour, votre pension sera recalculée automatiquement et les sommes dues vous seront versées rétroactivement, sans démarche de votre part.
+    </p>
+    <p>
+      Cette précision ne figure, au 2 octobre 2026, que sur le site de L'Assurance retraite : service-public.gouv.fr et info.gouv.fr présentent la mesure comme applicable au 1ᵉʳ septembre 2026 sans évoquer ce délai, et nous n'avons pas trouvé d'information équivalente pour les autres régimes. Si vous relevez d'un autre régime, interrogez votre caisse.
+    </p>
+
     <h2>Questions fréquentes</h2>
     <details class="faq">
       <summary>Où trouver mon nombre de trimestres déjà validés ?</summary>
@@ -297,7 +341,6 @@
         <a href="indemnite-depart-retraite">→ Indemnité de départ à la retraite</a>
         <a href="cumul-emploi-retraite">→ Cumul emploi-retraite</a>
         <a href="calcul-anciennete">→ Calcul d'ancienneté</a>
-        <a href="retraite-parents-trimestres-2026">→ Trimestres retraite des parents (LFSS 2026)</a>
         <a href="portabilite-mutuelle">→ Portabilité de la mutuelle et de la prévoyance</a>
         <a href="ressources-officielles">→ Ressources officielles</a>
       </div>
@@ -318,7 +361,6 @@
       </div>
       <div class="footer-col">
         <h4>Ressources</h4>
-        <a href="formation">Formation gratuite</a>
         <a href="actualites">Actualités</a>
         <a href="ressources-officielles">Ressources officielles</a>
         <a href="glossaire-droit-travail">Glossaire</a>
@@ -419,5 +461,6 @@ function telechargerPDF_TR(){
   });
 }
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75a4e727e7fe4bc58eace192e38570b9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

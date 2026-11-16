@@ -158,7 +158,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-08-20",
-  "dateModified": "2026-10-19",
+  "dateModified": "2026-11-16",
   "name": "Salaire Brut en Net 2026",
   "description": "Convertissez votre rémunération brute en net (ou l'inverse) selon votre statut : non-cadre, cadre, fonction publique, indépendant ou portage salarial.",
   "url": "https://messimulateursrh.fr/salaire-net-brut",
@@ -235,7 +235,6 @@
           <a href="aller-plus-loin">Aller plus loin</a>
         </div>
       </details>
-      <a href="formation">Formation</a>
       <a href="actualites">Actualités</a>
       <a href="ressources-officielles">Ressources officielles</a>
     </nav>
@@ -273,8 +272,8 @@
       <span class="for-salarie">Combien allez-vous réellement toucher sur votre compte pour un salaire brut donné — ou combien demander en brut pour un net souhaité ?</span>
       <span class="for-employeur">Estimez le net perçu par votre salarié pour un brut donné — ou le brut à proposer pour un net donné.</span>
     </p>
-    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
+    <div class="privacy-badge">Vos saisies restent dans votre navigateur, aucun e-mail demandé</div>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 19 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>. Page complétée le 16 novembre 2026.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> Selon le statut, le net représente environ 78 % du brut (non-cadre), 75 % (cadre), 80 % (fonction publique), 60-63 % du bénéfice (indépendant BNC) ou 45-60 % du chiffre d'affaires facturé (portage salarial). Ce simulateur calcule aussi le sens inverse : le montant brut nécessaire pour atteindre un net souhaité.</div>
@@ -328,7 +327,6 @@
       <div class="detail" id="detailNB"></div>
       <div class="breakdown" id="breakdownNB"></div>
       <div class="breakdown" id="annuelNB"></div>
-      <p class="notice" id="avantageNoteNB" style="display:none;"></p>
       <details class="cotisations-detail" id="detailCotisationsBox" hidden>
         <summary>Voir le détail des cotisations salariales, poste par poste</summary>
         <div id="detailCotisationsContent"></div>
@@ -386,6 +384,52 @@
     </table>
     </div>
 
+
+    <h2 id="lire-fiche-de-paie">Lire sa fiche de paie : d'où vient l'écart entre le brut et le net</h2>
+    <h3>Le point de départ : trois brut, trois nets, pas un seul de chaque</h3>
+    <p>
+      Une fiche de paie ne compare pas un brut à un net, mais plusieurs valeurs intermédiaires qu'il est facile de confondre : le <strong>salaire de base</strong> (ce qui a été négocié), le <strong>brut soumis à cotisations</strong> (qui peut être majoré par des avantages en nature ou des heures supplémentaires), le <strong>net à payer avant impôt sur le revenu</strong> (après cotisations sociales uniquement) et le <strong>net payé</strong> (après prélèvement à la source). Ce sont ces écarts entre valeurs, plus que les cotisations elles-mêmes, qui provoquent le plus de questions. À l'inverse, certains avantages n'entrent pas dans le brut soumis à cotisations : c'est le cas des <a href="plafond-cheques-cadeaux-cse">chèques cadeaux et bons d'achat du CSE</a> tant qu'ils respectent le plafond d'exonération.
+    </p>
+
+    <h3>Les lignes qui majorent le brut sans jamais être versées en espèces</h3>
+    <p>
+      Un avantage en nature (véhicule de fonction, logement de fonction, repas fournis par l'employeur) est intégré au salaire brut pour le calcul des cotisations sociales — vous cotisez donc sur un montant plus élevé que votre salaire de base — puis il est retranché du net à payer, car il ne vous est jamais versé en espèces. Il apparaît ainsi <strong>deux fois sur la fiche de paie, en haut et en bas, de façon identique</strong> : votre brut affiché augmente, vos cotisations augmentent avec lui, mais votre net réellement perçu n'augmente pas d'autant. C'est exactement ce mécanisme que nous avons chiffré en détail, avec un exemple concret sur la voiture de fonction, dans notre simulateur de conversion brut/net (voir la FAQ dédiée et le champ optionnel « avantage en nature véhicule »).
+    </p>
+    <p>
+      Ce même principe s'applique, à des montants différents, à un logement de fonction ou à des repas fournis gratuitement : la valeur de l'avantage majore l'assiette de cotisations et le revenu imposable, sans jamais transiter par votre compte en banque.
+    </p>
+
+    <h3>Le titre-restaurant : une ligne qui n'apparaît pas comme le reste</h3>
+    <p>
+      Contrairement à un avantage en nature, la participation de l'employeur au financement du titre-restaurant n'est pas un complément de brut classique : elle est exonérée de cotisations sociales et d'impôt sur le revenu dans la limite de <strong>7,32 € par titre en 2026</strong> (contre 7,26 € en 2025). C'est précisément parce que cette part est exonérée qu'elle n'a pas besoin de transiter par les lignes de cotisations habituelles — elle n'apparaît donc généralement pas, ou seulement à titre informatif, sur le corps de la fiche de paie. Si la participation patronale dépassait ce plafond, seul le dépassement serait réintégré en tant que complément de rémunération soumis à cotisations.
+    </p>
+
+    <h3>Le remboursement de frais professionnels n'est pas un complément de salaire</h3>
+    <p>
+      Un remboursement de frais réellement engagés pour le travail (justificatifs à l'appui) ou versé dans les limites du barème forfaitaire de l'Urssaf (repas, télétravail, grand déplacement, <a href="frais-kilometriques">indemnités kilométriques</a>...) est exclu de l'assiette des cotisations sociales et de la CSG-CRDS. Il ne doit donc pas être confondu avec une prime ou un complément de salaire : c'est un remboursement, pas une rémunération. Attention toutefois au dépassement des plafonds forfaitaires — au-delà, le surplus est réintégré comme un élément de salaire classique, soumis à cotisations comme n'importe quelle prime.
+    </p>
+
+    <h3>Heures supplémentaires : une exonération partielle, pas totale</h3>
+    <p>
+      Les heures supplémentaires et complémentaires bénéficient d'un régime favorable, mais partiel : elles sont exonérées d'impôt sur le revenu dans la limite de <strong>7 500 € par an</strong>, et exonérées de cotisations salariales d'assurance vieillesse et veuvage dans la limite de <strong>11,31 %</strong> de leur montant. Elles restent en revanche soumises à la CSG et à la CRDS comme le reste du salaire. Sur la fiche de paie, elles apparaissent en ligne séparée avec leur taux de majoration (25 % ou 50 % selon le nombre d'heures et les accords applicables), distinctement du taux horaire normal — ce qui permet de vérifier que l'exonération a bien été appliquée, mais aussi que le seuil annuel de 7 500 € n'est pas dépassé sans que vous vous en rendiez compte si vous cumulez plusieurs employeurs. Pour chiffrer le brut majoré, le net et le coût employeur d'une semaine d'heures supplémentaires, utilisez notre <a href="heures-supplementaires">simulateur d'heures supplémentaires</a>.
+    </p>
+
+    <h3>CSG, CRDS : pourquoi le « net imposable » n'est pas le « net payé »</h3>
+    <p>
+      La Contribution Sociale Généralisée (CSG, 9,2 %) et la Contribution au Remboursement de la Dette Sociale (CRDS, 0,5 %) s'appliquent sur une assiette réduite à 98,25 % du salaire brut (jusqu'à 4 plafonds annuels de la Sécurité sociale). Sur les 9,2 points de CSG, seuls <strong>6,80 points sont déductibles</strong> de l'impôt sur le revenu ; les <strong>2,40 points restants</strong>, ainsi que la totalité de la CRDS, ne le sont pas et sont réintégrés dans le revenu imposable. C'est pour cette raison que le <strong>net imposable</strong> affiché sur la fiche de paie — celui qui sert de base au calcul du prélèvement à la source — est systématiquement supérieur au <strong>net payé</strong> réellement versé sur votre compte : l'écart correspond à cette part non déductible de CSG-CRDS, pas à une erreur de calcul.
+    </p>
+
+    <h3>Net à payer avant impôt, net payé : deux lignes depuis 2019</h3>
+    <p>
+      Depuis le prélèvement à la source, entré en vigueur le 1ᵉʳ janvier 2019 (le bulletin de paie clarifié étant obligatoire pour tous les employeurs depuis le 1ᵉʳ janvier 2018), deux totaux de net coexistent en bas de fiche de paie : le <strong>« net à payer avant impôt sur le revenu »</strong> (après déduction des seules cotisations et contributions sociales) et le <strong>« net payé »</strong> (après déduction du prélèvement à la source). La différence entre ces deux lignes correspond exactement au montant du prélèvement à la source retenu ce mois-ci — un écart normal et attendu, pas une cotisation supplémentaire cachée.
+    </p>
+
+    <h3 id="sources-lire-fiche-de-paie">Base légale et sources officielles</h3>
+    <p>Les règles de cette page ont été vérifiées le 31 octobre 2026 sur ces textes et fiches officiels :</p>
+    <ul>
+      <li>Code du travail : <a href="https://code.travail.gouv.fr/code-du-travail/l3243-2" target="_blank" rel="noopener noreferrer">L3243-2</a> (bulletin de paie)<span class="source-badge">✓ Source officielle</span></li>
+      <li>Service-public : <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F559" target="_blank" rel="noopener noreferrer">fiche de paie</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2302" target="_blank" rel="noopener noreferrer">cotisations salariales</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2391" target="_blank" rel="noopener noreferrer">heures supplémentaires</a><span class="source-badge">✓ Source officielle</span></li>
+    </ul>
 
     <h2>Questions fréquentes</h2>
     <details class="faq">
@@ -455,9 +499,7 @@
       <div class="links">
         <a href="indemnite-conges-payes">→ Indemnité de congés payés</a>
         <a href="augmentation-salaire">→ Augmentation de salaire</a>
-        <a href="negocier-son-premier-salaire">→ Négocier son premier salaire</a>
         <a href="cout-salarie-entreprise">→ Coût d&#x27;un salarié pour l&#x27;entreprise</a>
-        <a href="comment-lire-sa-fiche-de-paie">→ Comment lire sa fiche de paie</a>
         <a href="transparence-salariale-directive-2026">→ Transparence salariale : la directive 2026</a>
         <a href="participation-legale">→ Participation légale</a>
       </div>
@@ -478,7 +520,6 @@
       </div>
       <div class="footer-col">
         <h4>Ressources</h4>
-        <a href="formation">Formation gratuite</a>
         <a href="actualites">Actualités</a>
         <a href="ressources-officielles">Ressources officielles</a>
         <a href="glossaire-droit-travail">Glossaire</a>
@@ -807,5 +848,6 @@ function telechargerPDF_NB(){
   });
 }
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75a4e727e7fe4bc58eace192e38570b9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

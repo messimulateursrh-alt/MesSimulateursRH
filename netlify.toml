@@ -66,7 +66,13 @@
 
 [[redirects]]
   from = "/comment-lire-sa-fiche-de-paie.html"
-  to = "/comment-lire-sa-fiche-de-paie"
+  to = "/salaire-net-brut"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/comment-lire-sa-fiche-de-paie"
+  to = "/salaire-net-brut"
   status = 301
   force = true
 
@@ -96,7 +102,13 @@
 
 [[redirects]]
   from = "/conge-naissance-2026.html"
-  to = "/conge-naissance-2026"
+  to = "/conge-naissance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/conge-naissance-2026"
+  to = "/conge-naissance"
   status = 301
   force = true
 
@@ -156,61 +168,121 @@
 
 [[redirects]]
   from = "/faute-lourde.html"
-  to = "/faute-lourde"
+  to = "/faute-grave"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faute-lourde"
+  to = "/faute-grave"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation.html"
-  to = "/formation"
+  to = "/aller-plus-loin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation"
+  to = "/aller-plus-loin"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-anciennete-preavis.html"
-  to = "/formation-anciennete-preavis"
+  to = "/preavis"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-anciennete-preavis"
+  to = "/preavis"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-chomage-are.html"
-  to = "/formation-chomage-are"
+  to = "/droits-chomage"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-chomage-are"
+  to = "/droits-chomage"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-conge-naissance.html"
-  to = "/formation-conge-naissance"
+  to = "/conge-naissance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-conge-naissance"
+  to = "/conge-naissance"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-conges-payes.html"
-  to = "/formation-conges-payes"
+  to = "/indemnite-conges-payes"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-conges-payes"
+  to = "/indemnite-conges-payes"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-depart-retraite.html"
-  to = "/formation-depart-retraite"
+  to = "/indemnite-depart-retraite"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-depart-retraite"
+  to = "/indemnite-depart-retraite"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-indemnite-licenciement.html"
-  to = "/formation-indemnite-licenciement"
+  to = "/indemnite-licenciement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-indemnite-licenciement"
+  to = "/indemnite-licenciement"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-rupture-conventionnelle.html"
-  to = "/formation-rupture-conventionnelle"
+  to = "/rupture-conventionnelle"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-rupture-conventionnelle"
+  to = "/rupture-conventionnelle"
   status = 301
   force = true
 
 [[redirects]]
   from = "/formation-temps-partiel.html"
-  to = "/formation-temps-partiel"
+  to = "/passage-temps-partiel"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/formation-temps-partiel"
+  to = "/passage-temps-partiel"
   status = 301
   force = true
 
@@ -324,7 +396,13 @@
 
 [[redirects]]
   from = "/licenciement-vs-rupture-conventionnelle-vs-demission.html"
-  to = "/licenciement-vs-rupture-conventionnelle-vs-demission"
+  to = "/comment-quitter-son-emploi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/licenciement-vs-rupture-conventionnelle-vs-demission"
+  to = "/comment-quitter-son-emploi"
   status = 301
   force = true
 
@@ -342,7 +420,13 @@
 
 [[redirects]]
   from = "/negocier-son-premier-salaire.html"
-  to = "/negocier-son-premier-salaire"
+  to = "/augmentation-salaire"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/negocier-son-premier-salaire"
+  to = "/augmentation-salaire"
   status = 301
   force = true
 
@@ -366,7 +450,13 @@
 
 [[redirects]]
   from = "/plafonnement-arrets-maladie-2026.html"
-  to = "/plafonnement-arrets-maladie-2026"
+  to = "/indemnite-arret-maladie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/plafonnement-arrets-maladie-2026"
+  to = "/indemnite-arret-maladie"
   status = 301
   force = true
 
@@ -414,7 +504,13 @@
 
 [[redirects]]
   from = "/reforme-rupture-conventionnelle-chomage-2026.html"
-  to = "/reforme-rupture-conventionnelle-chomage-2026"
+  to = "/droits-chomage"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reforme-rupture-conventionnelle-chomage-2026"
+  to = "/droits-chomage"
   status = 301
   force = true
 
@@ -432,7 +528,13 @@
 
 [[redirects]]
   from = "/retraite-parents-trimestres-2026.html"
-  to = "/retraite-parents-trimestres-2026"
+  to = "/trimestres-retraite-restants"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/retraite-parents-trimestres-2026"
+  to = "/trimestres-retraite-restants"
   status = 301
   force = true
 

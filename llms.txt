@@ -1,6 +1,6 @@
 # MesSimulateursRH.fr
 
-> 34 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, des articles sur les réformes 2026 et une formation gratuite. Calcul 100% local dans le navigateur : aucune donnée envoyée, aucun email requis. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
+> 34 simulateurs gratuits de droit du travail français pour salariés et employeurs (licenciement, rupture conventionnelle, chômage, salaire, congés, retraite...), complétés par des guides pratiques, une étude sur 10 conventions collectives et le suivi des réformes. Les saisies restent dans le navigateur, aucun e-mail demandé. Chaque résultat affiche la formule de calcul et la référence légale exacte (Code du travail, Code de la sécurité sociale), avec le barème vérifié et sa date de dernière vérification. Éditeur : Nathan Penin. Usage indicatif : ne remplace pas un conseil juridique personnalisé.
 
 ## Rupture du contrat de travail
 - [Rupture du contrat de travail](https://messimulateursrh.fr/simulateurs-rupture-contrat): 10 simulateurs gratuits pour la rupture du contrat : rupture conventionnelle (privé, fonction publique), licenciement, préavis, période d'essai, chômage.
@@ -14,7 +14,6 @@
 - [Portabilité de la mutuelle](https://messimulateursrh.fr/portabilite-mutuelle): calculez la durée de maintien gratuit de votre mutuelle après un licenciement, une rupture conventionnelle ou une fin de CDD (article L911-8, 12 mois max), avec les motifs ouvrant droit, les démarches et le maintien payant « loi Évin ». Gratuit, calcul local.
 - [Calcul de la période d'essai](https://messimulateursrh.fr/calcul-periode-essai): date de fin de la période d'essai en CDI ou CDD (décompte calendaire, renouvellement, prolongation par les absences) et dernier jour pour notifier une rupture en respectant le délai de prévenance (articles L1221-19 à L1221-26 et L1242-10).
 - [Guide interactif : je veux quitter mon emploi](https://messimulateursrh.fr/comment-quitter-son-emploi): démission, licenciement ou rupture conventionnelle ? Répondez à 2 questions, ce guide interactif gratuit vous oriente vers la bonne solution.
-- [Licenciement, rupture conventionnelle ou démission : quelles différences ?](https://messimulateursrh.fr/licenciement-vs-rupture-conventionnelle-vs-demission): comparatif indemnité / préavis / droit au chômage.
 
 ## Salaire et coût du travail
 - [Salaire et coût du travail](https://messimulateursrh.fr/simulateurs-salaire-cout-travail): 12 simulateurs gratuits sur le salaire et le coût du travail : net/brut, heures supplémentaires, coût employeur, licenciement, apprenti, professionnalisation, kilométriques, participation.
@@ -57,7 +56,6 @@
 - [Qu'est-ce qu'une cause réelle et sérieuse ?](https://messimulateursrh.fr/cause-reelle-et-serieuse): cause réelle et sérieuse : définition légale, les deux critères cumulatifs, motif personnel vs économique, rôle du conseil de prud'hommes.
 - [Licenciement abusif : le barème Macron](https://messimulateursrh.fr/licenciement-abusif-bareme-macron): barème Macron 2026 : indemnités minimales et maximales par année d'ancienneté (art. L1235-3), cas de nullité exclus, entreprises de moins de 11 salariés.
 - [Licenciement pour faute grave](https://messimulateursrh.fr/faute-grave): faute grave au travail : définition, différence avec la faute simple, indemnités perdues et conservées, prescription de 2 mois, abandon de poste (2023).
-- [Licenciement pour faute lourde](https://messimulateursrh.fr/faute-lourde): faute lourde : définition, critère de l'intention de nuire (2015), congés payés dus depuis 2016, différence avec la faute grave, rareté de la qualification.
 - [Licenciement économique](https://messimulateursrh.fr/licenciement-economique): licenciement économique : les 4 motifs légaux, difficultés économiques, obligation de reclassement, PSE, indemnités et contrat de sécurisation professionnelle.
 - [Licenciement pour inaptitude médicale](https://messimulateursrh.fr/licenciement-inaptitude): licenciement pour inaptitude : rôle du médecin du travail, obligation de reclassement, différence pro/non pro, indemnités doublées en cas d'accident du travail.
 - [Licenciement pour insuffisance professionnelle](https://messimulateursrh.fr/insuffisance-professionnelle): insuffisance professionnelle : définition, critères jurisprudentiels, différence avec l'insuffisance de résultats, indemnités dues malgré le licenciement.
@@ -75,8 +73,6 @@
 - [Congés pour événements familiaux](https://messimulateursrh.fr/conges-evenements-familiaux): mariage ou PACS 4 jours, naissance 3, décès d'un parent 3, d'un enfant 12 à 14 + 8 jours de deuil, annonce du handicap d'un enfant 10 jours depuis le 14 juin 2026 ; jours ouvrables, payés, sans ancienneté ; enfant malade : 3 ou 5 jours par an, en principe non payés (L1225-61) ; congé de proche aidant (3 mois renouvelables, 1 an sur la carrière) et de solidarité familiale (3 mois, renouvelable une fois), non payés par l'employeur.
 
 ## Guides : salaire, IA et conventions collectives
-- [Comment lire sa fiche de paie](https://messimulateursrh.fr/comment-lire-sa-fiche-de-paie): avantages en nature, titre-restaurant, heures supplémentaires, CSG/CRDS : les lignes qui expliquent l'écart entre salaire brut et net réellement versé.
-- [Négocier son premier salaire](https://messimulateursrh.fr/negocier-son-premier-salaire): comment négocier son premier salaire à l'embauche : quand en parler, comment se situer, quoi négocier si le fixe est bloqué. Conseils factuels, sans capture d'email.
 - [Identifier sa convention collective](https://messimulateursrh.fr/identifier-convention-collective): retrouver son code IDCC (bulletin de paie, contrat, recherche officielle) ; fiches Syntec, Bâtiment (cadres, ETAM, ouvriers), Transports routiers et HCR : indemnité conventionnelle de licenciement comparée au minimum légal, durées de préavis, articles relus sur Légifrance le 2 octobre 2026.
 - [Étude : indemnité de licenciement dans 10 conventions collectives](https://messimulateursrh.fr/etude-indemnite-licenciement-conventions-collectives): ce que versent 10 grandes conventions (commerce alimentaire, Syntec, HCR, métallurgie, bâtiment, transports, propreté, aide à domicile, automobile, hospitalisation privée) face au Code du travail, à 5, 10 et 20 ans ; données CSV sous Licence Ouverte.
 - [IA et travail : obligations de l'employeur](https://messimulateursrh.fr/ia-et-travail-obligations-employeur): IA au travail : consultation du CSE avant déploiement, formation des salariés, calendrier AI Act 2026-2027, jurisprudence française récente.
@@ -85,30 +81,15 @@
 
 ## Réformes et actualité légale 2026
 - [Actualités](https://messimulateursrh.fr/actualites): suivi des réformes et évolutions légales récentes, avec un calendrier des prochaines échéances datées.
-- [Rupture conventionnelle et chômage : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/reforme-rupture-conventionnelle-chomage-2026): loi n°2026-470 du 11 juin 2026, durée d'indemnisation chômage réduite.
-- [Congé de naissance 2026 : ce qu'il faut savoir](https://messimulateursrh.fr/conge-naissance-2026): dispositif en vigueur depuis juillet 2026, durée, conditions, démarches.
-- [Retraite des parents : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/retraite-parents-trimestres-2026): décrets n° 2026-699 et 2026-700, calcul de la pension et trimestres supplémentaires ; application du nouveau calcul courant 2027 au régime général, avec recalcul automatique.
-- [Arrêts de travail plafonnés : ce qui change depuis le 1er septembre 2026](https://messimulateursrh.fr/plafonnement-arrets-maladie-2026): décrets n° 2026-498, 2026-499 et 2026-501, durées maximales de prescription ; depuis le 15 octobre 2026, indemnités journalières limitées à 1 an pour les ALD non exonérantes (décret n° 2026-866).
 - [Transparence salariale : ce qui va changer pour les salariés](https://messimulateursrh.fr/transparence-salariale-directive-2026): projet de loi présenté le 10 septembre 2026 et déposé au Sénat (n° 944) : fourchette de salaire à l'embauche, 7 indicateurs dès 50 salariés. Ce qui est sûr ou non.
 
-## Formation gratuite
-- [Formation](https://messimulateursrh.fr/formation): modules pédagogiques (cours + quiz) sur les principaux dispositifs.
-- [Indemnité de licenciement](https://messimulateursrh.fr/formation-indemnite-licenciement): apprenez à calculer l'indemnité légale de licenciement, avec un quiz de validation gratuit et une attestation de participation à télécharger.
-- [Rupture conventionnelle](https://messimulateursrh.fr/formation-rupture-conventionnelle): apprenez le fonctionnement de la rupture conventionnelle (procédure, délais, indemnité, réforme 2026), avec quiz de validation et attestation à télécharger.
-- [Ancienneté et préavis](https://messimulateursrh.fr/formation-anciennete-preavis): apprenez les règles d'ancienneté et de préavis en droit du travail, avec un quiz de validation gratuit et une attestation de participation à télécharger.
-- [Droits au chômage (ARE)](https://messimulateursrh.fr/formation-chomage-are): apprenez les conditions d'éligibilité et le calcul de l'allocation chômage (ARE), avec un quiz de validation et une attestation de participation à télécharger.
-- [Congés payés](https://messimulateursrh.fr/formation-conges-payes): apprenez le calcul de l'indemnité de congés payés (règle du dixième, maintien de salaire), avec quiz de validation et attestation à télécharger.
-- [Congé de naissance](https://messimulateursrh.fr/formation-conge-naissance): apprenez le fonctionnement du congé de naissance 2026 (indemnisation, délais, conditions), avec quiz de validation et attestation à télécharger.
-- [Passage à temps partiel](https://messimulateursrh.fr/formation-temps-partiel): apprenez l'impact réel d'un passage à temps partiel (salaire, congés payés, retraite), avec quiz de validation et attestation à télécharger.
-- [Départ et mise à la retraite](https://messimulateursrh.fr/formation-depart-retraite): apprenez la différence entre départ volontaire et mise à la retraite (barèmes, fiscalité), avec quiz de validation et attestation à télécharger.
-
 ## Ressources et site
-- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 34 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Calcul instantané, aucune donnée envoyée.
-- [Aller plus loin](https://messimulateursrh.fr/aller-plus-loin): au-delà des simulateurs : convention collective, formation gratuite, actualités du droit du travail, glossaire, comparatif et ressources officielles.
+- [Simulateurs de droit du travail, gratuits et instantanés](https://messimulateursrh.fr/): 34 simulateurs gratuits de droit du travail : licenciement, rupture conventionnelle, chômage, congé de naissance... Formule et texte de loi à côté de chaque résultat.
+- [Aller plus loin](https://messimulateursrh.fr/aller-plus-loin): au-delà des simulateurs : convention collective, actualités du droit du travail, glossaire, comparatif et ressources officielles.
 - [Glossaire du droit du travail](https://messimulateursrh.fr/glossaire-droit-travail): 41 termes expliqués simplement, reliés aux simulateurs correspondants.
 - [Ressources officielles](https://messimulateursrh.fr/ressources-officielles): annuaire de sites officiels (Code du travail numérique, TéléRC, France Travail, URSSAF, Ameli).
 - [À propos et méthode](https://messimulateursrh.fr/a-propos): méthode de vérification des barèmes, fréquence de mise à jour, code source public.
 - [Mises à jour et corrections](https://messimulateursrh.fr/historique-mises-a-jour): corrections publiées depuis la mise en ligne (date, page, erreur, correction) et date de dernière mise à jour de chaque page.
 - [Contacter MesSimulateursRH.fr](https://messimulateursrh.fr/contact): contacter MesSimulateursRH.fr : signaler une erreur de calcul, suggérer un simulateur, poser une question sur une page ou proposer un partenariat. Réponse sous quelques jours.
 - [Mentions légales](https://messimulateursrh.fr/mentions-legales): mentions légales de MesSimulateursRH.fr : identité de l'éditeur, hébergement du site, propriété intellectuelle et limites de responsabilité du contenu proposé.
-- [Politique de confidentialité](https://messimulateursrh.fr/politique-de-confidentialite): politique de confidentialité de MesSimulateursRH.fr : calculs 100% dans votre navigateur, aucune donnée envoyée à un serveur, aucun cookie à ce jour.
+- [Politique de confidentialité](https://messimulateursrh.fr/politique-de-confidentialite): politique de confidentialité de MesSimulateursRH.fr : calculs 100% dans votre navigateur, vos saisies ne sont pas envoyées, mesure d'audience sans cookie.

@@ -174,7 +174,6 @@
           <a href="aller-plus-loin">Aller plus loin</a>
         </div>
       </details>
-      <a href="formation">Formation</a>
       <a href="actualites">Actualités</a>
       <a href="ressources-officielles">Ressources officielles</a>
     </nav>
@@ -212,7 +211,7 @@
       <span class="for-employeur">Estimez le coût global d'une rupture de contrat pour votre entreprise : indemnité, préavis, congés payés et charges patronales.</span>
       <span class="for-salarie">Cet outil est pensé pour un usage employeur, mais vous permet aussi de comprendre ce que représente votre départ pour l'entreprise.</span>
     </p>
-    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <div class="privacy-badge">Vos saisies restent dans votre navigateur, aucun e-mail demandé</div>
     <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 31 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
@@ -259,7 +258,6 @@
     <div class="result" id="resultCLE">
       <div class="amount" id="montantCLE">—</div>
       <div class="breakdown" id="breakdownCLE"></div>
-      <p class="notice" id="noticeCadreCLE" style="display:none;"></p>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_CLE()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -280,7 +278,7 @@
       Ce simulateur applique un taux moyen de charges patronales de 42 % sur les éléments assimilés à du salaire (préavis, congés payés). Ce taux est une moyenne de marché : le taux réel de votre entreprise dépend de sa taille, de son secteur et des exonérations applicables (réduction générale des cotisations, notamment).
     </p>
     <p>
-      Deux éléments ne sont pas chiffrés ici. D'abord le <strong>risque contentieux</strong> : si le licenciement est jugé sans cause réelle et sérieuse, l'employeur peut être condamné à des dommages et intérêts encadrés par le <a href="licenciement-abusif-bareme-macron">barème Macron</a> ; les délais et les étapes sont détaillés dans notre guide pour <a href="saisir-les-prudhommes">saisir les prud'hommes</a>. Ensuite la <strong>comparaison avec une rupture conventionnelle</strong> : l'employeur y doit une contribution patronale spécifique de 40 % sur la part de l'indemnité exonérée de cotisations sociales, pour les ruptures dont le terme est postérieur au 1ᵉʳ janvier 2026 (<a href="https://boss.gouv.fr/portail/accueil/autres-elements-de-remuneration/indemnites-de-rupture.html" target="_blank" rel="noopener noreferrer">Bulletin officiel de la sécurité sociale</a><span class="source-badge">✓ Source officielle</span>), contribution qui n'existe pas pour l'indemnité de licenciement. Le <a href="rupture-conventionnelle">simulateur de rupture conventionnelle</a> affiche ce coût côté employeur. Pour revoir pas à pas le calcul de l'indemnité légale (salaire de référence, ancienneté, barème), suivez le <a href="formation-indemnite-licenciement">module de formation sur l'indemnité de licenciement</a>.
+      Deux éléments ne sont pas chiffrés ici. D'abord le <strong>risque contentieux</strong> : si le licenciement est jugé sans cause réelle et sérieuse, l'employeur peut être condamné à des dommages et intérêts encadrés par le <a href="licenciement-abusif-bareme-macron">barème Macron</a> ; les délais et les étapes sont détaillés dans notre guide pour <a href="saisir-les-prudhommes">saisir les prud'hommes</a>. Ensuite la <strong>comparaison avec une rupture conventionnelle</strong> : l'employeur y doit une contribution patronale spécifique de 40 % sur la part de l'indemnité exonérée de cotisations sociales, pour les ruptures dont le terme est postérieur au 1ᵉʳ janvier 2026 (<a href="https://boss.gouv.fr/portail/accueil/autres-elements-de-remuneration/indemnites-de-rupture.html" target="_blank" rel="noopener noreferrer">Bulletin officiel de la sécurité sociale</a><span class="source-badge">✓ Source officielle</span>), contribution qui n'existe pas pour l'indemnité de licenciement. Le <a href="rupture-conventionnelle">simulateur de rupture conventionnelle</a> affiche ce coût côté employeur.
     </p>
 
     <div class="example-box">
@@ -371,7 +369,7 @@
         <a href="solde-tout-compte">→ Solde de tout compte</a>
         <a href="cout-salarie-entreprise">→ Coût d'un salarié pour l'entreprise</a>
         <a href="droits-chomage">→ Droits au chômage (ARE)</a>
-        <a href="licenciement-vs-rupture-conventionnelle-vs-demission">→ Licenciement vs rupture conventionnelle vs démission</a>
+        <a href="comment-quitter-son-emploi#comparatif">→ Licenciement vs rupture conventionnelle vs démission</a>
         <a href="ia-et-travail-obligations-employeur">→ IA et travail : obligations de l'employeur</a>
       </div>
     </div>
@@ -391,7 +389,6 @@
       </div>
       <div class="footer-col">
         <h4>Ressources</h4>
-        <a href="formation">Formation gratuite</a>
         <a href="actualites">Actualités</a>
         <a href="ressources-officielles">Ressources officielles</a>
         <a href="glossaire-droit-travail">Glossaire</a>
@@ -528,5 +525,6 @@ function telechargerPDF_CLE(){
   });
 }
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75a4e727e7fe4bc58eace192e38570b9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

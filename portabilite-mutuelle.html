@@ -187,7 +187,6 @@
           <a href="aller-plus-loin">Aller plus loin</a>
         </div>
       </details>
-      <a href="formation">Formation</a>
       <a href="actualites">Actualités</a>
       <a href="ressources-officielles">Ressources officielles</a>
     </nav>
@@ -225,7 +224,7 @@
       <span class="for-salarie">Après un licenciement, une rupture conventionnelle ou une fin de CDD, votre mutuelle et votre prévoyance d'entreprise peuvent rester actives gratuitement. Calculez la durée exacte à laquelle vous avez droit.</span>
       <span class="for-employeur">Vérifiez la durée de maintien des garanties santé et prévoyance à laquelle un salarié qui quitte l'entreprise a droit, pour l'indiquer sur son certificat de travail.</span>
     </p>
-    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun email requis</div>
+    <div class="privacy-badge">Vos saisies restent dans votre navigateur, aucun e-mail demandé</div>
     <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Barème vérifié le 2 octobre 2026 — mis à jour à chaque revalorisation légale. <a href="a-propos">Notre méthode</a>.</p>
   </section>
 
@@ -259,7 +258,6 @@
       <div class="amount" id="montantPM">—</div>
       <div class="detail" id="detailPM"></div>
       <div class="breakdown" id="breakdownPM"></div>
-      <p class="notice" id="noticePM" style="display:none;"></p>
       <div class="pdf-actions">
         <button class="compute pdf" onclick="telechargerPDF_PM()">📄 Télécharger le PDF récapitulatif</button>
         <p class="pdf-privacy-note">Téléchargement immédiat, sans email ni création de compte.</p>
@@ -322,7 +320,7 @@
       </tr>
       <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Licenciement pour motif personnel ou économique</td><td style="padding:6px;">Oui</td><td style="padding:6px;">Rupture ouvrant droit à l'assurance chômage</td></tr>
       <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Licenciement pour <a href="faute-grave">faute grave</a></td><td style="padding:6px;">Oui</td><td style="padding:6px;">Seule la faute lourde est exclue par l'article L911-8</td></tr>
-      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Licenciement pour <a href="faute-lourde">faute lourde</a></td><td style="padding:6px;">Non</td><td style="padding:6px;">Exclusion prévue par l'article L911-8</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Licenciement pour <a href="faute-grave#faute-lourde">faute lourde</a></td><td style="padding:6px;">Non</td><td style="padding:6px;">Exclusion prévue par l'article L911-8</td></tr>
       <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;"><a href="rupture-conventionnelle">Rupture conventionnelle</a> homologuée</td><td style="padding:6px;">Oui</td><td style="padding:6px;">Rupture ouvrant droit à l'assurance chômage</td></tr>
       <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Fin de CDD</td><td style="padding:6px;">Oui</td><td style="padding:6px;">Rupture ouvrant droit à l'assurance chômage</td></tr>
       <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">Démission reconnue légitime</td><td style="padding:6px;">Oui</td><td style="padding:6px;">Elle ouvre droit à l'assurance chômage</td></tr>
@@ -389,7 +387,7 @@
     </details>
     <details class="faq">
       <summary>A-t-on droit à la portabilité de la mutuelle après un licenciement pour faute grave ?</summary>
-      <p>Oui. L'article L911-8 du Code de la sécurité sociale n'exclut que la rupture consécutive à une faute lourde. Un licenciement pour faute grave ouvre droit à l'assurance chômage : la mutuelle et la prévoyance sont donc maintenues dans les conditions habituelles, pour la durée du dernier contrat dans la limite de 12 mois. Voir la différence entre <a href="faute-grave">faute grave</a> et <a href="faute-lourde">faute lourde</a>.</p>
+      <p>Oui. L'article L911-8 du Code de la sécurité sociale n'exclut que la rupture consécutive à une faute lourde. Un licenciement pour faute grave ouvre droit à l'assurance chômage : la mutuelle et la prévoyance sont donc maintenues dans les conditions habituelles, pour la durée du dernier contrat dans la limite de 12 mois. Voir la différence entre <a href="faute-grave">faute grave</a> et <a href="faute-grave#faute-lourde">faute lourde</a>.</p>
     </details>
     <details class="faq">
       <summary>Quand la portabilité de la mutuelle s'arrête-t-elle avant la fin de la durée calculée ?</summary>
@@ -436,7 +434,6 @@
       </div>
       <div class="footer-col">
         <h4>Ressources</h4>
-        <a href="formation">Formation gratuite</a>
         <a href="actualites">Actualités</a>
         <a href="ressources-officielles">Ressources officielles</a>
         <a href="glossaire-droit-travail">Glossaire</a>
@@ -550,5 +547,6 @@ function telechargerPDF_PM(){
   });
 }
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75a4e727e7fe4bc58eace192e38570b9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

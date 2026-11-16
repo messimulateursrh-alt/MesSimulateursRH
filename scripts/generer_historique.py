@@ -20,6 +20,9 @@ DESC = ("Les corrections publiées sur MesSimulateursRH.fr et la date de derniè
         "mise à jour de chaque page : ce qui a été rectifié, quand et où.")
 EXCLUS = {"404.html", SLUG + ".html"}
 
+# Pages fusionnées le 16/11/2026 (301) : une correction passée renvoie vers la page qui a repris le contenu.
+FUSIONNEES = {"formation": "aller-plus-loin", "formation-anciennete-preavis": "preavis", "formation-chomage-are": "droits-chomage", "formation-conge-naissance": "conge-naissance", "formation-conges-payes": "indemnite-conges-payes", "formation-depart-retraite": "indemnite-depart-retraite", "formation-indemnite-licenciement": "indemnite-licenciement", "formation-rupture-conventionnelle": "rupture-conventionnelle", "formation-temps-partiel": "passage-temps-partiel", "conge-naissance-2026": "conge-naissance", "retraite-parents-trimestres-2026": "trimestres-retraite-restants", "plafonnement-arrets-maladie-2026": "indemnite-arret-maladie", "reforme-rupture-conventionnelle-chomage-2026": "droits-chomage", "faute-lourde": "faute-grave", "licenciement-vs-rupture-conventionnelle-vs-demission": "comment-quitter-son-emploi", "negocier-son-premier-salaire": "augmentation-salaire", "comment-lire-sa-fiche-de-paie": "salaire-net-brut"}
+
 # (date ISO, [pages], ce qui était inexact, ce qui a été fait)
 CORRECTIONS = [
     ("2026-10-31", ["conge-naissance-2026"],
@@ -149,6 +152,7 @@ def lien(p):
 def bloc_corrections(pages):
     out = ['    <ul class="corrections">']
     for d, slugs, avant, apres in CORRECTIONS:
+        slugs = list(dict.fromkeys(FUSIONNEES.get(sl, sl) for sl in slugs))
         for sl in slugs:
             if sl not in pages:
                 sys.exit(f"Page inconnue dans CORRECTIONS : {sl}")

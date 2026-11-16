@@ -86,7 +86,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "datePublished": "2026-09-09",
-  "dateModified": "2026-10-31",
+  "dateModified": "2026-11-16",
   "name": "Je Veux Quitter Mon Emploi ? Guide Interactif 2026",
   "description": "Démission, licenciement ou rupture conventionnelle ? Répondez à 2 questions, ce guide interactif gratuit vous oriente vers la bonne solution.",
   "url": "https://messimulateursrh.fr/comment-quitter-son-emploi",
@@ -163,7 +163,6 @@
           <a href="aller-plus-loin">Aller plus loin</a>
         </div>
       </details>
-      <a href="formation">Formation</a>
       <a href="actualites">Actualités</a>
       <a href="ressources-officielles">Ressources officielles</a>
     </nav>
@@ -194,8 +193,8 @@
     <p>
       Démission, licenciement ou rupture conventionnelle n'ouvrent pas les mêmes droits. Répondez à 1 ou 2 questions simples : ce guide identifie votre situation et vous oriente vers les bonnes ressources et les bons simulateurs du site.
     </p>
-    <div class="privacy-badge">🔒 100% local — aucune donnée envoyée, aucun compte, aucun email requis</div>
-    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Contenu vérifié le 31 octobre 2026 — mis à jour à chaque évolution du droit du travail. <a href="a-propos">Notre méthode</a>.</p>
+    <div class="privacy-badge">Vos saisies restent dans votre navigateur, aucun e-mail demandé</div>
+    <p class="update-date">Par <a href="a-propos">Nathan Penin</a>, éditeur du site. Contenu vérifié le 31 octobre 2026 — mis à jour à chaque évolution du droit du travail. <a href="a-propos">Notre méthode</a>. Page complétée le 16 novembre 2026.</p>
   </section>
 
   <div class="quick-answer"><strong>En bref :</strong> démission, licenciement et rupture conventionnelle n'ouvrent pas les mêmes droits (indemnité, préavis, chômage). Ce guide gratuit et sans compte vous aide à identifier votre situation en 2 étapes et vous oriente vers les bonnes pages du site.</div>
@@ -209,8 +208,6 @@
       <div class="wizard-result" id="wizardResult" style="display:none;">
         <span class="wizard-badge">Résultat</span>
         <h2 id="wizardResultTitle"></h2>
-        <p id="wizardResultText"></p>
-        <p class="notice" id="wizardResultNotice" style="display:none;"></p>
         <div class="wizard-result-links" id="wizardResultLinks"></div>
         <button type="button" class="wizard-back" onclick="wizardRestart()">↺ Recommencer le guide</button>
       </div>
@@ -232,7 +229,7 @@
 
     <h2 id="sept-facons">Les 7 façons de quitter un emploi, en un coup d'œil</h2>
     <p>
-      Le questionnaire ci-dessus oriente vers une page précise. Le tableau ci-dessous donne la vue d'ensemble : toutes les voies par lesquelles un salarié peut mettre fin à son contrat, ou se retrouver sans contrat, avec la démarche et le délai que fixe la loi. Le licenciement n'y figure pas : c'est l'employeur qui le décide (voir la <a href="procedure-licenciement">procédure de licenciement</a>). Pour comparer en détail démission, licenciement et rupture conventionnelle (indemnité, préavis, chômage), voyez notre <a href="licenciement-vs-rupture-conventionnelle-vs-demission">comparatif des trois modes de rupture</a>.
+      Le questionnaire ci-dessus oriente vers une page précise. Le tableau ci-dessous donne la vue d'ensemble : toutes les voies par lesquelles un salarié peut mettre fin à son contrat, ou se retrouver sans contrat, avec la démarche et le délai que fixe la loi. Le licenciement n'y figure pas : c'est l'employeur qui le décide (voir la <a href="procedure-licenciement">procédure de licenciement</a>). Pour comparer en détail démission, licenciement et rupture conventionnelle (indemnité, préavis, chômage), voyez le <a href="#comparatif">comparatif des trois modes de rupture</a> plus bas.
     </p>
     <div class="table-wrap">
       <table class="compare-table">
@@ -253,6 +250,69 @@
     <p>
       Côté chômage, les voies ne se valent pas. La <a href="rupture-conventionnelle">rupture conventionnelle</a> ouvre droit à l'allocation (ARE) ; la démission seulement dans les cas décrits dans notre guide <a href="demissionner-et-toucher-le-chomage">démissionner et toucher le chômage</a>, et l'abandon de poste, traité comme une démission, suit les mêmes règles. Une prise d'acte n'ouvre droit à l'ARE que si les prud'hommes la requalifient en licenciement, et l'allocation n'est versée qu'après leur décision ; requalifiée en démission, elle n'ouvre droit ni aux indemnités de licenciement ni à l'ARE (service-public, fiche F24409). Une résiliation judiciaire prononcée par le juge ouvre droit à l'ARE et aux indemnités d'un licenciement (fiche F24410). Pour estimer l'allocation, utilisez le <a href="droits-chomage">simulateur de droits au chômage</a>.
     </p>
+
+    <h2 id="comparatif">Démission, licenciement, rupture conventionnelle : le comparatif</h2>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>Démission</th>
+            <th>Licenciement</th>
+            <th>Rupture conventionnelle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Qui décide ?</td>
+            <td>Le salarié seul</td>
+            <td>L'employeur seul</td>
+            <td>Accord mutuel des deux parties</td>
+          </tr>
+          <tr>
+            <td>Motif à justifier ?</td>
+            <td>Non</td>
+            <td>Oui (motif réel et sérieux)</td>
+            <td>Non</td>
+          </tr>
+          <tr>
+            <td>Indemnité de rupture</td>
+            <td>Aucune (sauf convention collective plus favorable)</td>
+            <td>Indemnité légale minimale selon l'ancienneté (à partir de 8 mois d'ancienneté ininterrompue)</td>
+            <td>Indemnité au moins égale à l'indemnité légale de licenciement</td>
+          </tr>
+          <tr>
+            <td>Préavis</td>
+            <td>Selon contrat/convention collective, pas de minimum légal</td>
+            <td>1 à 2 mois à partir de 6 mois d'ancienneté (Art. L1234-1) ; aucun en cas de faute grave</td>
+            <td>Pas de préavis légal : date de fin fixée librement</td>
+          </tr>
+          <tr>
+            <td>Droit au chômage (ARE)</td>
+            <td>Non, sauf cas de démission légitime</td>
+            <td>Oui, si autres conditions remplies</td>
+            <td>Oui, mais durée maximale réduite depuis le 1ᵉʳ septembre 2026 : 15 mois avant 55 ans, 20,5 mois à partir de 55 ans (contre 18 à 27 mois après un licenciement)</td>
+          </tr>
+          <tr>
+            <td>Procédure</td>
+            <td>Notification simple (écrit recommandé)</td>
+            <td>Entretien préalable + notification écrite</td>
+            <td>Entretien(s) + signature + rétractation 15 jours + homologation DREETS</td>
+          </tr>
+          <tr>
+            <td>Délai total estimé</td>
+            <td>Durée du préavis uniquement</td>
+            <td>Durée du préavis + délai de procédure</td>
+            <td>Environ 4 à 6 semaines (rétractation + homologation)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.85rem;color:var(--ink-soft);">Tableau simplifié à titre indicatif ; votre convention collective peut prévoir des règles différentes ou plus favorables.</p>
+  </div>
+
+
+  <div class="card">
 
     <h2 id="cas-concrets">Quatre cas concrets</h2>
     <div class="example-box">
@@ -310,7 +370,6 @@
     <div class="related-tools">
       <h3>Autres ressources utiles</h3>
       <div class="links">
-        <a href="licenciement-vs-rupture-conventionnelle-vs-demission">→ Comparatif détaillé : licenciement vs rupture conventionnelle vs démission</a>
         <a href="rupture-conventionnelle">→ Simulateur : indemnité de rupture conventionnelle</a>
         <a href="negocier-rupture-conventionnelle">→ Comment négocier sa rupture conventionnelle</a>
         <a href="droits-chomage">→ Simulateur : droits au chômage (ARE)</a>
@@ -334,7 +393,6 @@
       </div>
       <div class="footer-col">
         <h4>Ressources</h4>
-        <a href="formation">Formation gratuite</a>
         <a href="actualites">Actualités</a>
         <a href="ressources-officielles">Ressources officielles</a>
         <a href="glossaire-droit-travail">Glossaire</a>
@@ -615,5 +673,6 @@ document.addEventListener('DOMContentLoaded', function(){
   wizardRenderStep('start');
 });
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75a4e727e7fe4bc58eace192e38570b9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
