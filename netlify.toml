@@ -59,6 +59,12 @@
   force = true
 
 [[redirects]]
+  from = "/ce-qui-change-1er-janvier.html"
+  to = "/ce-qui-change-1er-janvier"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/chomage-partiel.html"
   to = "/chomage-partiel"
   status = 301
